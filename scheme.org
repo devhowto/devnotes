@@ -1,0 +1,21 @@
+#+TITLE: Scheme
+#+CATEGORY: scheme
+#+STARTUP: content
+
+* Partial Application                :scheme:fp:partial_application:currying:
+
+A Chicken scheme REPL session:
+
+#+begin_example
+1 (user) => (define (partial-application fn . args)
+              (lambda more-args
+                (apply fn (append args more-args))))
+
+;Value: partial-application
+
+1 (user) => ((partial-application + 2) 42)
+
+;Value: 44
+
+1 (user) =>
+#+end_example

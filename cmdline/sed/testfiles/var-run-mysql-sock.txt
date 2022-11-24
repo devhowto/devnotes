@@ -1,0 +1,5 @@
+This is a config related to mysql/mariadb.
+
+#socket=/var/run/mysql/mysql.sock
+
+End of the file.

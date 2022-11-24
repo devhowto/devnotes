@@ -1,0 +1,45 @@
+= Array Tips
+:page-tags: array algorithm
+
+[data-date="2022-10-29",data-tags="array swap"]
+== Swap array element
+
+.stood the test of time
+----
+tmp = xs[idx1];
+xs[idx1] = xs[idx2];
+xs[idx2] = tmp;
+----
+
+Not all langauges allow something like this:
+
+.smart approach
+----
+[xs[idx1], xs[idx2] = [xs[idx2], idx[1]]
+----
+
+.ES6 example:
+----
+$ deno repl (or node --interactive):
+
+> var chars = ['a', 'c', 'b'];
+
+> [chars[1], chars[2] = chars[2], chars[1]]
+[ "c", "b", "c" ]
+
+> chars
+[ "a", "c", "b" ]
+----
+
+[source,javascript,lineos]
+----
+function swap(
+  xs: number[],
+  idx1: number,
+  idx2: number,
+): void {
+  [xs[idx1], xs[idx2]] = [xs[idx2], xs[idx1]];
+}
+----
+
+* https://stackoverflow.com/questions/872310/javascript-swap-array-elements#comment131093228_872317[Javascript swap array elements (StackOverflow)^]
