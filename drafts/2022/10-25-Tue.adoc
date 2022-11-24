@@ -1,0 +1,83 @@
+image::10-25-Tue.assets/shouldwork.png[copied]
+
+[data-tags="git status"]
+== git status
+
+Sometimes there is a lot of untracked or non staged files and which forces one to scroll back to see staged files, and `git status`, by default, shows:
+
+* staged files
+* changed files
+* untracked files
+
+One solution is:
+
+[source,shell-session]
+----
+$ git diff --staged --name-only
+----
+
+Or:
+
+[source,shell-session]
+----
+$ git diff --staged --stat
+----
+
+[data-tags="search binary-search mistake out-of-bounds of-by-one-error"]
+== algorithm basic, beginner mistake
+
+Find the mistake:
+
+[source,typescript,linenums]
+----
+/**
+ * Searches for the index of `n` in `xs`. Return the index found or -1
+ * otherwise.
+ *
+ * This implementation uses the binary search algorithm for arrays.
+ *
+ * ASSUME: The input array is sorted. Binary search requires the input
+ * array to be sorted.
+ *
+ * - T.C: Log₁₀(n).
+ * - S.C: O(1).
+ *
+ * @sig [Number] Number -> Number
+ */
+export function indexOf(xs: number[], n: number): number {
+  let l: number = 0;
+  let r: number = length(xs);
+
+  while (l < r) {
+    const m: number = floor((r - l) / 2);
+    if (xs[m] === n) return m;
+    if (xs[m] > n) ++l;
+    if (xs[m] < n) --r;
+  }
+
+  return -1;
+}
+----
+
+Yes, `r = length(xs)` will actually index something *after* the last element of the array.
+It should be `r = length(xs) - 1`.
+It worked on my algorithm because of ECMAScript quirks.
+
+.deno repl session
+----
+$ deno repl
+Deno 1.26.2
+
+> 6 > undefined
+false
+> 6 < undefined
+false
+
+> 0 > undefined
+false
+> 0 < undefined
+false
+
+> Number(undefined)
+NaN
+----
