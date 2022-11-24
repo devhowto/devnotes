@@ -1,4 +1,5 @@
 = Sed — Stream Editor
+:page-tags: sed cmdline
 
 * https://catonmat.net/sed-one-liners-explained-part-one
 

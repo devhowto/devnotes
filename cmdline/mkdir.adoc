@@ -16,8 +16,8 @@ mkdir: created directory 'bar/docs'
 $ tree -CF .
 ./
 ├── bar/
-│   ├── docs/
-│   └── src/
+│   ├── docs/
+│   └── src/
 └── foo/
     ├── docs/
     └── src/
@@ -25,4 +25,4 @@ $ tree -CF .
 6 directories, 0 files
 ----
 
-image::cmdline/mkdir.assets/mkdir-pv.png[mkdir -pv example]
+image::./mkdir.assets/mkdir-pv.png[mkdir -pv example]
