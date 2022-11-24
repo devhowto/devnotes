@@ -2,9 +2,118 @@
 :page-tags: algorithm sort radix-sort
 :toc: left
 
+== Intro to Radix Sort
+
+Radix sort is a sorting algorithm that does not perform comparisons (“is this element greater or smaller than the other element?”).
+Instead, it exploits the fact that information about the size of a number is encoded in the number of digits.
+
+For example, a 5-digit number is greater than a 4-digit number, no matter what the digits themselves are.
+11111 is certainly greater than 2222.
+Note that the former has 5 digits; the later, 4.
+
+Because it relies on properties of integers, it only works with integers.
+
+We create 10 slots (or buckets) to account for the digits from 0 to 9 (in base 10).
+Then, get the first digit (from right to left) and see in which bucket it would fall, and add the number to that bucket.
+
+The numbers are not sorted in the buckets.
+They are thrown there at the order they are found.
+
+.radix sort example
+----
+[57, 421, 752, 8510, 4176, 422, 9]
+  ▪    ▪    ▪     ▪     ▪    ▪  ▪
+
+Start with the ones place.
+
+[0] → 8510
+[1] → 421
+[2] → 752, 422
+[3]
+[4]
+[5]
+[6]
+[7] → 57
+[8]
+[9] → 9
+
+Now, rewrite the list in the order the show up in the buckets.
+
+[8510, 421, 752, 422, 57, 09]
+   ▪    ▪    ▪    ▪   ▪   ▪
+
+Loop again with the 10's place this time.
+Numbers without a 10's place mean their 10's place
+is zero and thus fall into the zero bucket.
+
+[0] → 8510, 9
+[1] → 421
+[2] → 752, 422
+[3]
+[4]
+[5]
+[6]
+[7] → 57
+[8]
+[9]
+
+Again, rewrite the list in the order the show up in the buckets.
+
+[8510, 009, 521, 752, 522, 057]
+  ▪    ▪    ▪    ▪    ▪    ▪
+
+Loop again with the 100's place this time.
+Numbers without a 100's place mean their 100's place
+is zero and thus fall into the zero bucket.
+
+[0] → 8510, 9, 57
+[1]
+[2]
+[3]
+[4]
+[5] → 521, 522
+[6]
+[7] → 752
+[8]
+[9]
+
+Again, rewrite the list in the order the show up in the buckets.
+Note how it starts to get in shape for an ascending order sort!
+
+[8510, 0009, 0057, 0521, 0522, 0752]
+ ▪     ▪     ▪     ▪     ▪     ▪
+
+Loop again with the 1000's place this time.
+Numbers without a 1000's place mean their 1000's place
+is zero and thus fall into the zero bucket.
+
+[0] → 9, 57, 521, 522, 752
+[1]
+[2]
+[3]
+[4]
+[5]
+[6]
+[7]
+[8] → 8510
+[9]
+
+Again rewrite the list in the order the show up in the buckets.
+
+[9, 57, 521, 522, 752, 8510]
+
+Sorted!
+
+----
+
 == Helper Functions
 
-=== takeDigits() helper
+Writing Radix Sort is easier if we make use of a two helper functions:
+
+* `takeDigit()`: Takes the nth digit (starting from the right).
+* `mostDigits()`: Finds the number with most digits.
+
+=== takeDigit() helper
 
 [source,javascript,linenums]
 ----
@@ -69,3 +178,7 @@ function mostDigits(xs) {
 
 export { mostDigits };
 ----
+
+== References and Resources
+
+* link:https://en.wikipedia.org/wiki/Radix_sort[Radix Sort on Wikipedia^]
