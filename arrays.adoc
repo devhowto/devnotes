@@ -1,0 +1,107 @@
+= Array Tips
+:page-tags: array algorithm
+:toc: right
+:stem:
+
+[data-date="2022-10-29",data-tags="array swap"]
+== Swap array element
+
+.stood the test of time
+----
+tmp = xs[idx1];
+xs[idx1] = xs[idx2];
+xs[idx2] = tmp;
+----
+
+Not all langauges allow something like this:
+
+.smart approach
+----
+[xs[idx1], xs[idx2] = [xs[idx2], idx[1]]
+----
+
+.ES6 example:
+----
+$ deno repl (or node --interactive):
+
+> var chars = ['a', 'c', 'b'];
+
+> [chars[1], chars[2] = chars[2], chars[1]]
+[ "c", "b", "c" ]
+
+> chars
+[ "a", "c", "b" ]
+----
+
+[source,javascript,lineos]
+----
+function swap(
+  xs: number[],
+  idx1: number,
+  idx2: number,
+): void {
+  [xs[idx1], xs[idx2]] = [xs[idx2], xs[idx1]];
+}
+----
+
+* https://stackoverflow.com/questions/872310/javascript-swap-array-elements#comment131093228_872317[Javascript swap array elements (StackOverflow)^]
+
+## Debugging Arrays 1
+
+.node repl session example
+[source,text]
+----
+$ node --interactive
+
+> var buckets = Array(10).fill([]);
+
+> buckets
+[
+  [], [], [], [], [],
+  [], [], [], [], []
+]
+
+> buckets[5].push(35);
+1
+> buckets
+[
+  [ 35 ], [ 35 ],
+  [ 35 ], [ 35 ],
+  [ 35 ], [ 35 ],
+  [ 35 ], [ 35 ],
+  [ 35 ], [ 35 ]
+]
+----
+
+Want to push 35 to the 5th bucket, but all of the buckets get filled 😭.
+
+The problem seems to be `Array(10).fill()`, because this works:
+
+[source,text]
+----
+> var buckets = [[], [], [], [], [], [], [], [], [], []];
+
+> buckets.length
+10
+> buckets[5].push(35);
+1
+> buckets
+[
+  [], [], [],
+  [], [], [ 35 ],
+  [], [], [],
+  []
+]
+----
+
+Note only sub-array at index 5 got pushed the value 35.
+
+See link:https://tc39.es/ecma262/multipage/indexed-collections.html#sec-array.prototype.fill[the spec] and link:https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/fill[MDN docs].
+
+image:./arrays.assets/ecmascript-array-fill.png[]
+
+[quote, MDN Docs on Array.prototype.fill()]
+pass:[[...]]changes all elements in an array to a *static* value[...]
+
+It all means when we fill with `[]` (which is a reference type and not a primitive), all positions are filled with the same object in memory, and not 10 different empty arrays.
+It is the same array in memory, used 10 times.
