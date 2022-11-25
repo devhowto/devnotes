@@ -1,4 +1,6 @@
 = Bash Parameter Expansion
+:page-tags: bash cmdline
+:toc: right
 
 == Use contents of file as part of string
 

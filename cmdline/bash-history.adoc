@@ -1,6 +1,6 @@
 = Bash History
 :page-tags: bash cmdline shell
-:toc: left
+:toc: right
 
 == Last Two Arguments of Previous Command
 
@@ -27,7 +27,7 @@ Note:
      /    |     \       \       \
     /     |      \       \       \
    v      v       v       v       v
- cmd    1º arg  2ª arg  3º arg  4º arg
+ cmd    1º arg  2º arg  3º arg  4º arg
 ----
 
 In shell jargon, those arguments are _words_.
