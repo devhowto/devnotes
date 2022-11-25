@@ -1,6 +1,7 @@
 = Radix Sort
 :page-tags: algorithm sort radix-sort
-:toc: left
+:toc: right
+:stem:
 
 == Intro to Radix Sort
 
@@ -19,7 +20,7 @@ Then, get the first digit (from right to left) and see in which bucket it would 
 The numbers are not sorted in the buckets.
 They are thrown there at the order they are found.
 
-.radix sort example
+.radix sort in ascending order example
 ----
 [57, 421, 752, 8510, 4176, 422, 9]
   ▪    ▪    ▪     ▪     ▪    ▪  ▪
@@ -178,6 +179,19 @@ function mostDigits(xs) {
 
 export { mostDigits };
 ----
+
+== Radix Sort
+
+Let's see an outline for sorting an array of integers in ascending order:
+
+* Create a function that takes an array of integers.
+* Get the length of digits of the largest number.
+* Loop from `k = 0` up to that length.
+** Create a bucket for each digit (empty array of 10 buckets (0 to 9) will do here, an array of 10 sub-arrays).
+** Based on the number's stem:[k_{2}] digit, add it to its bucket.
+** Replace the values in the original array with the values in the buckets, from 0 to 9.
+   This is where we reorder them each time.
+* Return the sorted array.
 
 == References and Resources
 
