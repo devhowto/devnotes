@@ -105,7 +105,6 @@ Again rewrite the list in the order the show up in the buckets.
 [9, 57, 521, 522, 752, 8510]
 
 Sorted!
-
 ----
 
 == Helper Functions
@@ -212,15 +211,6 @@ If a number is really really big, and has a lot of digits, than the constant `k`
 ====
 Theoretically, radix sort can be faster than any of the comparison sorts (when working with integers), but in practice, because of the way integers and numbers in general are handled by computers, there are some counter arguments to consider (check Wikipedia article on Radix Sort).
 ====
-
-latexmath:[C = \alpha + \beta Y^{\gamma} + \epsilon]
-
-[stem]
-++++
-sqrt(4) = 2
-++++
-
-A matrix can be written as stem:[[[a,b\],[c,d\]\]((n),(k))].
 
 == References and Resources
 
