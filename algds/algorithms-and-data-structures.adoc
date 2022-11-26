@@ -1,2 +1,44 @@
 = Algorithms and Data Structures
+:icon: font
+:toc: right
+:stem: latexmath
 
+My notes accumulated over time regarding algorithms and data structures.
+
+== Data Structures
+
+Data structures are collections of values, the relationship between those values, and operations that can be applied to the data (values of the collections).
+
+An array, for example, contains values, each on its own index.
+Arrays are sorted, so, that is one type of relation between the values of the array.
+One can append or remove a value from the array, or reverse the values, which are examples of operations.
+
+Different data structures are good for different, particular problems, and their time complexity varies.
+
+Need sorted stuff? Use an array.
+
+Need stem:[O(1)] time access to each one element?
+Use an array or an object/hash table?
+
+Need performant way to add an element somewhere in the “middle” of a data structure?
+Use a linked list.
+
+Need fast ordered list with insert/removal from beginning and end?
+Don't use an array (adding to the beginning is expensive).
+Use a linked list.
+
+Working with a map/location/GPS data?
+Use a graph (find shortest paths between points in a graph.)
+
+Web-scraping nested HTML?
+Use a tree.
+
+A scheduler (task priority)?
+Use a binary heap.
+
+Etc., etc...
+
+Some data structures are more generic (like arrays or objects/hash maps), whilst some are more specialized.
+
+In short, *different data structure excel in different aspects*.
+There is no better or worse.
