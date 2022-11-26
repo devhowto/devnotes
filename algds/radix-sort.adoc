@@ -1,7 +1,8 @@
 = Radix Sort
 :page-tags: algorithm sort radix-sort
 :toc: right
-:stem:
+:stem: latexmath
+:icons: font
 
 == Intro to Radix Sort
 
@@ -193,6 +194,34 @@ Let's see an outline for sorting an array of integers in ascending order:
    This is where we reorder them each time.
 * Return the sorted array.
 
+== Big O or Radix Sort
+
+Complexity of Radix Sort is not universally agreed upon (check Wikipedia link below), but the following table gives some general idea.
+
+[cols="^1,^1,^1,^1"]
+|===
+|T.C (best) |T.C (avg) |T.C (worst) | S.C
+
+|stem:[O(nk)] | stem:[O(nk)] |stem:[O(nk)] |stem:[O(n + k)]
+|===
+
+`n` is the number of elements we are sorting and `k` is is the number of digits of the largest number.
+If a number is really really big, and has a lot of digits, than the constant `k` is not to be ignored.
+
+[WARNING]
+====
+Theoretically, radix sort can be faster than any of the comparison sorts (when working with integers), but in practice, because of the way integers and numbers in general are handled by computers, there are some counter arguments to consider (check Wikipedia article on Radix Sort).
+====
+
+latexmath:[C = \alpha + \beta Y^{\gamma} + \epsilon]
+
+[stem]
+++++
+sqrt(4) = 2
+++++
+
+A matrix can be written as stem:[[[a,b\],[c,d\]\]((n),(k))].
+
 == References and Resources
 
-* link:https://en.wikipedia.org/wiki/Radix_sort[Radix Sort on Wikipedia^]
+* link:https://en.wikipedia.org/wiki/Radix_sort[Radix Sort on Wikipedia^].
