@@ -209,3 +209,98 @@ Another solution is this:
 ----
 
 This works because `...xs` will expand to each individual sub-array, which are each concat'ed correctly and we end up with a flattened array.
+
+== Generate an array of random numbers
+
+[source,javascript]
+----
+Array.apply(null, { length: 1e5 })
+  .map(Function.call, Math.random);
+----
+
+On the repl:
+
+----
+$ deno repl
+
+> Array.apply(null, { length: 4 })
+  .map(Function.call, Math.random);
+[
+  0.013555371023429963,
+  0.4090884169905944,
+  0.05656425921292585,
+  0.29989721347892306
+]
+----
+
+We can create some helper functions.
+
+.librand.js
+[source,javascript]
+----
+var random = Math.random.bind(Math);
+
+/**
+ * Generates a random integer between `min` (inclusive)
+ * and `max` (exclusive).
+ *
+ * A `rand(1, 5)` may return 1, 2, 3 or 4 but never 5.
+ *
+ * @sig Number Number -> Number
+ */
+function rand(min, max) {
+  return (random() * (max - min) | 0) + min;
+}
+
+// var i = 0;
+// while (i++ < 1e1) log(rand(1, 5));
+
+/**
+ * Generates an array of `len` random integers between
+ * `min` (inclusive) and `max` (exclusive).
+ *
+ * @sig Number -> [Number]
+ */
+function randIntArr(len, min = 1, max = 100) {
+  return Array.apply(null, { length: len })
+    .map(Function.call, () => rand(min, max));
+}
+
+export {
+  random,
+  rand,
+  randIntArr,
+};
+----
+
+And then we can try it:
+
+.node repl random ints
+----
+$ node --interactive
+var mod = await import('./librand.js');
+
+var { rand, randIntArr } = mod;
+
+> rand(-5, 0);
+-3
+> rand(10, 15);
+11
+> rand(10, 15);
+13
+
+> randIntArr(12, 5, 10);
+[
+  8, 7, 6, 6, 5,
+  7, 9, 9, 5, 6,
+  7, 6
+]
+
+> randIntArr(25, -10, 10);
+[
+   0, -5,  1,  5, 0, -7, -5,  8,
+   2,  9, -9, -6, 7,  3, -5, -3,
+  -8,  9,  2, -3, 7, -4, -8,  4,
+  -9
+]
+----
