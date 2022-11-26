@@ -14,7 +14,7 @@ xs[idx1] = xs[idx2];
 xs[idx2] = tmp;
 ----
 
-Not all langauges allow something like this:
+Not all languages allow something like this:
 
 .smart approach
 ----
@@ -101,8 +101,8 @@ See link:https://tc39.es/ecma262/multipage/indexed-collections.html#sec-array.pr
 
 image:./arrays.assets/ecmascript-array-fill.png[]
 
-[quote, MDN Docs on Array.prototype.fill()]
-pass:[[...]]changes all elements in an array to a *static* value[...]
+> pass:[[...]]changes all elements in an array to a *static* value[...]
+> -- MDN Docs on Array.prototype.fill()
 
 It all means when we fill with `[]` (which is a reference type and not a primitive), all positions are filled with the same object in memory, and not 10 different empty arrays.
 It is the same array in memory, used 10 times.
