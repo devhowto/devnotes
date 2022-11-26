@@ -2,6 +2,7 @@
 :page-tags: array algorithm
 :toc: right
 :stem:
+:icons: font
 
 [data-date="2022-10-29",data-tags="array swap"]
 == Swap array element
@@ -46,7 +47,7 @@ function swap(
 
 * https://stackoverflow.com/questions/872310/javascript-swap-array-elements#comment131093228_872317[Javascript swap array elements (StackOverflow)^]
 
-## Debugging Arrays 1
+## Array.prototype.fill() problem‽
 
 .node repl session example
 [source,text]
@@ -105,3 +106,38 @@ pass:[[...]]changes all elements in an array to a *static* value[...]
 
 It all means when we fill with `[]` (which is a reference type and not a primitive), all positions are filled with the same object in memory, and not 10 different empty arrays.
 It is the same array in memory, used 10 times.
+
+=== Clever approach
+
+OK, we can manually do this:
+
+----
+[[], [], [], [], [] (many more []s here...)]
+----
+
+But what if we need 100 or 500 (ore more) sub-arrays?
+
+----
+$ deno repl
+Deno 1.28.2
+
+> var xs = Array.from({ length: 1e5 }, () => []);
+
+> xs.length
+100000
+
+> Array.from({ length: 10 }, () => []);
+[
+  [], [], [], [], [],
+  [], [], [], [], []
+]
+----
+
+This works because the anonymous arrow function is invoked each for each one of the stem:[1 \times 10 ^ 5] (100_000) elements we want to create so we end up with 100000 different empty array references in memory.
+
+And note it creates an array containing `length` arrays.
+
+[TIP]
+====
+Did you know we can write 100_000_000 instead of 100000000 in ECMAScript to make large numbers more readable‽
+====
