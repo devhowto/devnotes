@@ -141,3 +141,71 @@ And note it creates an array containing `length` arrays.
 ====
 Did you know we can write 100_000_000 instead of 100000000 in ECMAScript to make large numbers more readable‽
 ====
+
+== Concatenate (flatten) arrays
+
+First, let's see the basics of how `Array.prototype.concat()` works:
+
+.deno repl simple concat()
+----
+$ deno repl
+
+> var a1 = [10, 20];
+> var a2 = [30, 40];
+
+> var all = a1.concat(a2);
+
+> all
+[ 10, 20, 30, 40 ]
+----
+
+Note the result is *not* something like:
+
+----
+[[10, 20], [30, 40]]
+----
+
+No, it is instead a flat result of the `a1` and `a2`.
+Of course, both `a1` and `a2` are flat themselves, so, concat'ing them produces a flat result.
+
+.deno repl flatten (NOK)
+----
+> var xs = [[10, 20], [30, 40], [50, 60]];
+
+> var flat = [].concat(xs);
+
+> flat
+[ [ 10, 20 ], [ 30, 40 ], [ 50, 60 ] ]
+----
+
+We still got an array with nested arrays instead of a flattened array with all elements of the original sub-arrays...
+
+One solution:
+
+.deno repl flatten loop (OK)
+----
+var xs = [[10, 20], [30, 40], [50, 60]];
+
+> var flat = [];
+> for (var i = 0; i < xs.length; ++i)
+    flat = flat.concat(xs[i]);
+
+> flat
+[ 10, 20, 30, 40, 50, 60 ]
+----
+
+But note how we have to reassign `flat` (`concat()` does not modify the receiver).
+
+Another solution is this:
+
+.deno repl flatten spread (OK)
+----
+> var xs = [[10, 20], [30, 40], [50, 60]];
+
+> var flat = [].concat(...xs);
+
+> flat
+[ 10, 20, 30, 40, 50, 60 ]
+----
+
+This works because `...xs` will expand to each individual sub-array, which are each concat'ed correctly and we end up with a flattened array.
