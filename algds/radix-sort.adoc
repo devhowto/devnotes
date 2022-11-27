@@ -13,7 +13,7 @@ For example, a 5-digit number is greater than a 4-digit number, no matter what t
 11111 is certainly greater than 2222.
 Note that the former has 5 digits; the later, 4.
 
-Because it relies on properties of integers, it only works with integers.
+Because it relies on properties of integers, it only works with integers, and only on positive integers (aka whole numbers).
 
 We create 10 slots (or buckets) to account for the digits from 0 to 9 (in base 10).
 Then, get the first digit (from right to left) and see in which bucket it would fall, and add the number to that bucket.
@@ -211,6 +211,42 @@ If a number is really really big, and has a lot of digits, than the constant `k`
 ====
 Theoretically, radix sort can be faster than any of the comparison sorts (when working with integers), but in practice, because of the way integers and numbers in general are handled by computers, there are some counter arguments to consider (check Wikipedia article on Radix Sort).
 ====
+
+== Radix Sort Ascending
+
+[source,javascript]
+----
+import { getDigit } from '../jslib/index.js';
+import { mostDigits } from './mostDigits.js';
+
+/**
+ * Radix-sort an array of whole numbers (positive integers).
+ *
+ * - T.C: O(kn).
+ * - S.C: O(n + k).
+ *
+ * @sig [Int] -> [Int]
+ */
+function rsAsc(xs) {
+  var len = xs.length;
+  var maxDigCnt = mostDigits(xs);
+
+  for (var k = 0; k < maxDigCnt; ++k) {
+    var buckets = Array.from({ length: 10 }, () => []);
+
+    for (var i = 0; i < len; ++i) {
+      var digit = getDigit(xs[i], k);
+      buckets[digit].push(xs[i]);
+    }
+
+    xs = [].concat(...buckets);
+  }
+
+  return xs;
+}
+
+export { rsAsc };
+----
 
 == References and Resources
 
