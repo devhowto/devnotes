@@ -5,6 +5,11 @@
 
 My notes accumulated over time regarding algorithms and data structures.
 
+== Source Code Repository
+
+The notes inside this directory mostly describe conceptual details and shows at least one implementation of an algorithm or data structure.
+The source code, *including tests*, can be found on the link:https://gitlab.com/devhowto/algorithms-and-data-structures[Algorithms and Data Structures Gitlab repository^].
+
 == Data Structures
 
 Data structures are collections of values, the relationship between those values, and operations that can be applied to the data (values of the collections).
