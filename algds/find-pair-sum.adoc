@@ -1,0 +1,55 @@
+= Find Pair Sum
+:page-tags: algorithm collection array
+:toc: right
+:stem: latexmath
+:icons: font
+
+Imagine person A and person B.
+
+A: Given a collection of numbers, find a pair whose sum is equal to a given number. Example:
+
+----
+[1, 2, 3, 9]   sum = 8
+[1, 2, 4, 4]   sum = 8
+----
+
+B: OK, so in there first example there is no pair that add up to 8, but in the second case, 4 and 4 do add up to 8.
+
+A: Correct.
+
+B: How are this numbers given?
+Can I assume they are in an array in memory?
+Are they ordered?
+
+A: Yes, it is an array in RAM and they are ordered.
+
+B: Ordered! Interesting!!
+What about repeating elements?
+Can I use the same element on the same index twice to get the sum I want?
+
+----
+      No repeating 4.
+             ^
+            /
+           /
+[1, 2, 4, ø]
+        \
+         \
+          v
+Can I use the same 4 twice to get 8?
+----
+
+A: You can't repeat the same element at the same index twice, but certainly the same number can appear twice.
+
+B: Are the numbers integers, floating point?
+Could there be negative numbers?
+
+A: You can assume they are all integers.
+Yeah, negatives could happen.
+
+B: The first idea that comes to mind is just compare every possible pair, using two loops with `i = 0` and `j = i + 1` so we don't repeat the same value and compare to find the sum.
+
+Question not asked yet:
+Do I return the pair indexes or the pair values?
+Or something else?
+“Find a pair” but then return what?
