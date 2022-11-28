@@ -1,0 +1,78 @@
+= Git :: Undoing Stuff
+:toc: right
+:icons: font
+:stem: latexmath
+
+== Discard changes in unstaged files
+
+[NOTE]
+====
+My git setup disables some hints to make commands like `git status` less verbose, for example:
+
+----
+$ git config --local advice.statusHints false
+----
+====
+
+[WARNING]
+====
+The commands below will cause you to irreversibly and irrevocably lose your changes.
+Read carefully before proceeding!
+====
+
+We have this changed file in our repo:
+
+----
+$ git status .
+Untracked files:
+	Makefile
+----
+
+We want to undo the changes — make it so as we never changed the file in the first place.
+We can do:
+
+----
+$ git restore -- ./Makefile
+----
+
+In older version where `restore` is not available, we can use `checkout`:
+
+----
+$ git checkout -- ./Makefile
+----
+
+== Unstage files
+
+[NOTE]
+====
+This will remove the files from stage (a.k.a. the index), but your changes will still be present in the files.
+====
+
+If the file is staged:
+
+----
+$ git status .
+Changes to be committed:
+	modified:   Makefile
+----
+
+Then run:
+----
+$ git restore --staged -- ./Makefile
+----
+
+Or, if `restore` is not available on your version of git:
+
+----
+$ git reset -- ./Makefile
+Unstaged changes after reset:
+M	Makefile
+----
+
+Running `git status` should show `Makefile` as untracked, but still retaining all the changes:
+
+----
+$ git status .
+Changes to be committed:
+	modified:   Makefile
+----
