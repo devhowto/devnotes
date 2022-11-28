@@ -1,0 +1,35 @@
+= Fizz Buzz
+:toc: right
+:icons: font
+:stem: latexmath
+
+== Intro
+
+Write a program that takes a whole number and loops from 1 to that number.
+Then apply these conditions (not necessary in the order described here):
+
+* If the number is a multiple of 3, print "Fizz".
+* If the number is a multiple of 5, print "Buzz".
+* If the number is a multiple of both 3 and 5, print "FizzBuzz".
+* Else print the number itself.
+
+From 1 to 15, this would be the output:
+
+.fizzbuzz 1 to 15 output
+----
+1
+2
+Fizz
+4
+Buzz
+Fizz
+7
+8
+Fizz
+Buzz
+11
+Fizz
+13
+14
+FizzBuzz
+----
