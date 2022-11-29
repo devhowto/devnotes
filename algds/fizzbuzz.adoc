@@ -33,3 +33,83 @@ Fizz
 14
 FizzBuzz
 ----
+
+== v1
+
+[source,c]
+----
+void fizzbuzz_1(const int N) {
+  for (int i = 1; i < N; ++i) {
+    if (i % 3 == 0 && i % 5 == 0)
+      fprintf(stdout, "FizzBuzz");
+    else if (i % 3 == 0)
+      fprintf(stdout, "Fizz");
+    else if (i % 5 == 0)
+      fprintf(stdout, "Buzz");
+    else
+      printf("%d", i);
+
+    printf("\n");
+  }
+}
+----
+
+Works, but we check if the int is a multiple of 3 _and_ 5 in the initial condition, then check again if it is a multiple of 3 and 5 on subsequent `else if` conditions.
+
+Maybe we can avoid checking twice for each multiple?
+
+== v2 multiple of 5
+
+If an int is divisible by both 3 and 5, it means it has to always also be divisible by 15.
+So, an “improvement” is change the first condition from this:
+
+----
+if (i % 3 == 0 && i % 5 == 0)
+----
+
+to this:
+
+----
+if (i % 15)
+----
+
+So, it becomes like this:
+
+[source,c]
+----
+void fizzbuzz(const int N) {
+  for (int i = 1; i < N; ++i) {
+    if (i % 15 == 0) fprintf(stdout, "FizzBuzz");
+    else if (i % 3 == 0) fprintf(stdout, "Fizz");
+    else if (i % 5 == 0) fprintf(stdout, "Buzz");
+    else fprintf(stdout, "%d", i);
+
+    printf("\n");
+  }
+}
+----
+
+Less CPU cycles we cause we check each multiple only once.
+
+== v3 with 3 prints only
+
+Note we print the strings without the newline and instead print a newline at the end of each loop.
+
+Also note if we `printf("foo");` then `printf("bar")`, the result is `foobar` (no space, no newline).
+
+And that might lead to a solution like this:
+
+[source,c]
+----
+void fizzbuzz(const int N) {
+  for (int i = 1; i < N; ++i) {
+    if (i % 3 == 0) fprintf(stdout, "Fizz!");
+    if (i % 5 == 0) fprintf(stdout, "Buzz!");
+    if (i % 3 != 0 && i % 5 != 0) fprintf(stdout, "%d", i);
+
+    printf("\n");
+  }
+}
+----
+
+We use `fprintf` only two times but are checking for the same multiple twice.
