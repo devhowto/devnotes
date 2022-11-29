@@ -1,0 +1,24 @@
+= Vim and CoC (Conquer of Completion)
+
+== clangd
+
+By default, `inlayHints` are enabled.
+
+In vim:
+
+----
+:CocLocalConfig
+
+{
+  "suggest.autoTrigger": "none",
+  "clangd.disableDiagnostics": false,
+  "inlayHint.enable": false
+}
+----
+
+There is a setting like his in VSCode too.
+And and it has an option to enable it only when holding `ctrl+alt`, which is awesome.
+
+* link:https://github.com/clangd/coc-clangd[coc-clangd extension repository].
+* link:https://github.com/clangd/coc-clangd/issues/514[No longer respecting inlayHints config options :: CoC clangd issue].
+* link:https://clangd.llvm.org/config#inlayhints[clangd docs on inlayHints].
