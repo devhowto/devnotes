@@ -16,7 +16,7 @@ In vim:
 }
 ----
 
-There is a setting like his in VSCode too.
+There is a setting for this in VSCode too.
 And and it has an option to enable it only when holding `ctrl+alt`, which is awesome.
 
 * link:https://github.com/clangd/coc-clangd[coc-clangd extension repository].

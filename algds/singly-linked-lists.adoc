@@ -59,5 +59,70 @@ So, to pop an item from the list, we have to find the node just before the tail,
 2. Loop from `head` to `tail` making sure you always have a reference to the previous node (when the loop reaches the end, this reference will be the penultimate element of the list).
 3. Set `next` on the penultimate node to `null` (thus deleting the current tail).
 4. Set the tail to be that reference to the penultimate element of the list.
-6 Decrement `length` by 1.
-5. Return the penultimate (the element before the original tail).
+6. Decrement `length` by 1.
+5. Return the original tail element.
+
+== push() and pop() initial implementation
+
+[source,javascript]
+----
+class Node {
+  constructor(val) {
+    this.val = val;
+    this.next = null;
+  }
+}
+
+class SinglyLinkedList {
+  constructor() {
+    this.head = null;
+    this.tail = null;
+    this.length = 0;
+  }
+
+  push(val) {
+    var node = new Node(val);
+
+    if (this.length === 0) {
+      this.head = node;
+      this.tail = node;
+    } else {
+      //
+      // !!! ORDER OF THESE STATEMENTS MATER !!!
+      //
+      this.tail.next = node;
+      this.tail = node;
+    }
+
+    ++this.length;
+
+    return this;
+  }
+
+  pop() {
+    if (this.length === 0) return undefined;
+
+    var cur = this.head;
+    var tail = cur;
+
+    while (cur.next) {
+      tail = cur;
+      cur = cur.next;
+    }
+
+    this.tail = tail;
+    this.tail.next = null;
+
+    --this.length;
+
+    if (this.length === 0) {
+      this.head = null;
+      this.tail = null;
+    }
+
+    return cur;
+  }
+}
+
+export { Node, SinglyLinkedList };
+----
