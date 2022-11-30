@@ -23,3 +23,13 @@ $ sed -n '1,$ p' file.txt # <3>
 3. Or using `-n` to avoid auto-printing of the pattern space and explicitly using `p` command to print, which prints all the lines if no address is used.
 
 4. Doing everything explicitly.
+
+== GNU sed -i option
+
+----
+$ sed -i 's/^  /\t/' < Makefile
+sed: no input files
+----
+
+Of course, the `-i` option takes a file, not STDIN.
+We got STDIN instead of the `Makefile` because we used redirection.

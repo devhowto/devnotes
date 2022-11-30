@@ -35,7 +35,7 @@ We can do:
 $ git restore -- ./Makefile
 ----
 
-In older version where `restore` is not available, we can use `checkout`:
+In older version where `restore` is not available we can use `checkout`:
 
 ----
 $ git checkout -- ./Makefile
@@ -57,6 +57,7 @@ Changes to be committed:
 ----
 
 Then run:
+
 ----
 $ git restore --staged -- ./Makefile
 ----
