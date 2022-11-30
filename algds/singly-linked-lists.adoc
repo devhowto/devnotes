@@ -44,6 +44,11 @@ a. Add the new node as both the `head` and the `tail` of the list.
 a. Add the new node both as the `next` pointer and head's next pointer.
 4. Return .
 
+=== push(val) time complexity
+
+No traversal is needed to push a node to a singly linked list.
+Head and tail are accessed and manipulated in constant time so the time complexity of `push()` is stem:[O(1)].
+
 == pop()
 
 Popping means to remove and return the last item of a list.
@@ -61,6 +66,10 @@ So, to pop an item from the list, we have to find the node just before the tail,
 4. Set the tail to be that reference to the penultimate element of the list.
 6. Decrement `length` by 1.
 5. Return the original tail element.
+
+=== pop() time complexity
+
+Because we have to traverse the list from beginning to end, the time complexity of `pop()` is stem:[O(n)].
 
 == push() and pop() initial implementation
 
@@ -126,3 +135,11 @@ class SinglyLinkedList {
 
 export { Node, SinglyLinkedList };
 ----
+
+== shift(val)
+
+
+=== shift(val) time complexity
+
+Shifting takes constant time, as the necessary nodes can be accessed directly (no traversal required).
+Therefore, time complexity for `shift(val)` is stem:[O(1)].
