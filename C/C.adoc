@@ -1,0 +1,16 @@
+= The C Programming Language
+:toc: right
+:icons: fonts
+:stem: latexmath
+
+== Return status vs exit status
+
+The ANSI C standard has no value for true and false.
+C programs treat the value 0 as false, and any other value as true.
+The C99 standard does allow you to use the words true and false in your programs—but the compiler treats them as the values 1 and 0 anyway.
+
+If your function returns 0, it means success.
+Any other values signals some sort of failure or malfunction.
+
+0 is success for a return value (or exit status on shell scripts for example), even though it also means “false”.
+1 is some kind of error (again, even on shell script exit status), even though it also means “true”.
