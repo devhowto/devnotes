@@ -138,8 +138,15 @@ export { Node, SinglyLinkedList };
 
 == shift(val)
 
+Shifting means removing and returning the first element.
+
+1. Return `undefined` if the list is empty.
+2. Hold on to a reference to the current head in a variable.
+3. Make the head next property to be the new head.
+4. Decrement length by 1.
+5. Return the original head stored in a variable.
 
 === shift(val) time complexity
 
-Shifting takes constant time, as the necessary nodes can be accessed directly (no traversal required).
+It takes constant time as the necessary nodes can be accessed directly (no traversal required).
 Therefore, time complexity for `shift(val)` is stem:[O(1)].
