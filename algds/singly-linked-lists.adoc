@@ -33,6 +33,20 @@ Arrays:
 
 If what is really important in a given situation is fast insertion and deletion of elements (and random fast access is not important), then a linked list is a good choice.
 
+=== Operations
+
+* Construct an empty list.
+* `push(val)`: add a node at the end.
+  T.C. stem:[O(1)].
+* `pop()`: remove a node from the end.
+  T.C. stem:[O(n)].
+* `shift()`: remove a node from the beginning.
+  T.C. stem:[O(1)].
+* `unshift(val)`: add a node to the beginning.
+  T.C. stem:[O(1)].
+* `get(idx)`: Return the node at a given index.
+  T.C. stem:[O(n)].
+
 == push(val)
 
 To push a value to the singly linked list:
