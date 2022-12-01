@@ -178,3 +178,52 @@ Unshifting means adding an element to the beginning of the list.
 
 It takes constant time as the necessary nodes can be accessed directly (no traversal required).
 Therefore, time complexity for `unshift(val)` is stem:[O(1)].
+
+== get(idx)
+
+Returns the node at the given index.
+
+1. If the index is less than zero or >= the length of the list, return `null`.
+2. Loop until the specified index is found and return that node at that index.
+
+=== Time complexity of get(idx).
+
+Unlike arrays, lists don't have indexes.
+It necessary to traverse the list, counting the nodes visited to reach the desired index.
+Because of this, the time complexity of `get(idx)` is stem:[O(n)].
+
+One possible implementation for `get(idx)` is:
+
+[source,javascript]
+----
+get(idx) {
+  if (idx < 0 || idx >= this.length) return null;
+
+  var cnt = 0;
+  var cur = this.head;
+
+  while (cur.next) {
+    if (cnt === idx) return cur;
+    cur = cur.next;
+    ++cnt;
+  }
+}
+----
+
+Also, a more C-ish style (the while loop is different):
+
+[source,javascript]
+----
+var cnt = 0;
+var cur = this.head;
+
+while (cnt++ !== idx) cur = cur.next;
+
+return cur;
+----
+
+[NOTE]
+====
+It is possible that `idx` is precisely the same as the length of the list.
+We could do a check to see if the `idx` is the same as the list's length and return the tail directly.
+====
