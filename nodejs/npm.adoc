@@ -34,6 +34,20 @@ $ (cd ./my/sub/proj && npm install && npm run build)
 
 After the above command finishes, the shell is back at the original directory, but inside the sub-shell, all the commands are run from  `./my/sub/proj` directory/context/prefix.
 
+=== current prefix?
+
+For local project the prefix will be the closest parent directory containing a `package.json`.
+For global, it is the place where the active node version is installed (and where packages installed with `--global` will end up).
+
+[source,shell-session]
+----
+$ npm --local prefix
+/home/myuser/work/src/studies/devhowto/algds
+
+$ npm --global prefix
+/home/myuser/.nvm/versions/node/v16.17.0
+----
+
 === References
 
 * link:https://docs.npmjs.com/cli/v9/configuring-npm/folders[folders :: npm docs].
