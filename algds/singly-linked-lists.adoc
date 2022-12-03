@@ -46,6 +46,7 @@ If what is really important in a given situation is fast insertion and deletion 
   T.C. stem:[O(1)].
 * `get(idx)`: Return the node at a given index.
   T.C. stem:[O(n)].
+* `set(idx, val)`: Set a new value at given index and return `true`. Return `false` if node at given index doesn't exist. T.C. stem:[O(n)].
 
 == push(val)
 
@@ -227,3 +228,131 @@ return cur;
 It is possible that `idx` is precisely the same as the length of the list.
 We could do a check to see if the `idx` is the same as the list's length and return the tail directly.
 ====
+
+== set(idx, val)
+
+1. Takes a value and an index as parameters.
+2. Use already implemented `get(idx)` to find the node.
+3. If the node is not found, return `false`.
+4. If the node is found, update its value and return `true`.
+
+It sets a new value for an existing node.
+If the list is empty, and we try to set a value at index 0, it does not set any value because it is not updating an existing node.
+There is no node to update.
+
+=== Time complexity of get(val, idx)
+
+Because we have to find the element at the given index, we have to traverse the list, meaning its time complexity is stem:[O(n)].
+
+== JavaScript Implementation
+
+[source,javascript]
+----
+class Node {
+  /**
+   * Creates a node.
+   *
+   * @param {unknown} val
+   */
+  constructor(val) {
+    this.val = val;
+    this.next = null;
+  }
+}
+
+class SinglyLinkedList {
+  constructor() {
+    this.head = null;
+    this.tail = null;
+    this.length = 0;
+  }
+
+  push(val) {
+    var node = new Node(val);
+
+    if (this.length === 0) {
+      this.head = node;
+      this.tail = node;
+    } else {
+      //
+      // !!! ORDER OF THESE STATEMENTS MATER !!!
+      //
+      this.tail.next = node;
+      this.tail = node;
+    }
+
+    ++this.length;
+
+    return this;
+  }
+
+  pop() {
+    if (this.length === 0) return undefined;
+
+    var cur = this.head;
+    var tail = cur;
+
+    while (cur.next) {
+      tail = cur;
+      cur = cur.next;
+    }
+
+    this.tail = tail;
+    this.tail.next = null;
+
+    --this.length;
+
+    if (this.length === 0) {
+      this.head = null;
+      this.tail = null;
+    }
+
+    return cur;
+  }
+
+  shift() {
+    if (this.length === 0) return undefined;
+
+    var shifted = this.head;
+    this.head = this.head.next;
+
+    --this.length;
+
+    if (this.length === 0) this.tail = null;
+
+    return shifted;
+  }
+
+  unshift(val) {
+    var node = new Node(val);
+
+    if (this.length === 0) this.tail = node;
+    else node.next = this.head;
+
+    this.head = node;
+
+    ++this.length;
+  }
+
+  get(idx) {
+    if (idx < 0 || idx >= this.length) return null;
+
+    var cnt = 0;
+    var cur = this.head;
+
+    while (cnt++ !== idx) cur = cur.next;
+
+    return cur;
+  }
+
+  set(idx, val) {
+    var node = this.get(idx);
+    if (node === null) return false;
+
+    node.val = val;
+    return true;
+  }
+}
+
+export { Node, SinglyLinkedList };
+----
