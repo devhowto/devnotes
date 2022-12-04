@@ -47,6 +47,7 @@ If what is really important in a given situation is fast insertion and deletion 
 * `get(idx)`: Return the node at a given index.
   T.C. stem:[O(n)].
 * `set(idx, val)`: Set a new value at given index and return `true`. Return `false` if node at given index doesn't exist. T.C. stem:[O(n)].
+* `insert(idx, val)`: Insert a value at the given index. T.C. stem:[O(n)].
 
 == push(val)
 
@@ -244,6 +245,17 @@ There is no node to update.
 
 Because we have to find the element at the given index, we have to traverse the list, meaning its time complexity is stem:[O(n)].
 
+== insert(idx, val)
+
+1. If index is out of the range of the list, that is, stem:[0 \gt index \gt length], return `false`.
+2. If index is same as length, it means we add to the end, just like `push(val)`.
+3. If index is 0, it is the same as `unshift(val)`.
+4. If none of the above, find the node by using `get(idx - 1)`.
+  a. Set the node's `next` property to be the new node.
+  b. Set the new node `next` property to be the old `next`.
+5. Increment the length.
+6. Return true.
+
 == JavaScript Implementation
 
 [source,javascript]
@@ -350,6 +362,25 @@ class SinglyLinkedList {
     if (node === null) return false;
 
     node.val = val;
+    return true;
+  }
+
+  insert(idx, val) {
+    if (idx < 0 || idx > this.length) return false;
+
+    else if (idx === this.length) this.push(val);
+    else if (idx === 0) this.unshift(val);
+
+    else {
+      var node = new Node(val);
+      var prev = this.get(idx - 1);
+
+      node.next = prev.next;
+      prev.next = node;
+
+      ++this.length;
+    }
+
     return true;
   }
 }
