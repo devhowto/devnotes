@@ -46,8 +46,9 @@ If what is really important in a given situation is fast insertion and deletion 
   T.C. stem:[O(1)].
 * `get(idx)`: Return the node at a given index.
   T.C. stem:[O(n)].
-* `set(idx, val)`: Set a new value at given index and return `true`. Return `false` if node at given index doesn't exist. T.C. stem:[O(n)].
-* `insert(idx, val)`: Insert a value at the given index. T.C. stem:[O(n)].
+* `set(idx, val)`: Set a new node at given index and return `true`. Return `false` if node at given index doesn't exist. T.C. stem:[O(n)].
+* `insert(idx, val)`: Insert a node at the given index. T.C. stem:[O(n)].
+* `remove(idx)`: Remove node at the given index. T.C. stem:[O(n)].
 
 == push(val)
 
@@ -256,6 +257,21 @@ Because we have to find the element at the given index, we have to traverse the 
 5. Increment the length.
 6. Return true.
 
+== remove(idx)
+
+1. If index is out of the range of the list, that is, stem:[0 \gt index \gt length], return `undefined`.
+2. If index stem:[length - 1], `pop()`.
+3. If index is 0, `shift()`.
+4. Otherwise:
+a. Let `prev` be `get(idx - 1)`.
+b. Let `prev.next` to be be `next` of the next node.
+c. Decrement length.
+d. Return the value of the node removed.
+
+=== Time complexity
+
+Because we potentially have to traverse the list, the time complexity of `remove(idx)` is stem:[O(n)].
+
 == JavaScript Implementation
 
 [source,javascript]
@@ -382,6 +398,21 @@ class SinglyLinkedList {
     }
 
     return true;
+  }
+
+  remove(idx) {
+    if (idx < 0 || idx >= this.length) return undefined;
+
+    if (idx === 0) return this.shift();
+    if (idx === this.length - 1) return this.pop();
+
+    var prev = this.get(idx - 1);
+    var removed = prev.next;
+
+    prev.next = removed.next
+    --this.length;
+
+    return removed;
   }
 }
 
