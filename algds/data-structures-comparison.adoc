@@ -1,0 +1,11 @@
+= Data Structures Comparison
+:page-tags: data-structure list singly-linked-list
+:toc: right
+:stem: latexmath
+:icons: font
+
+== Singly Linked Lists vs Arrays
+
+Singly linked lists are a good alternative to arrays when insertion and deletion at the beginning are frequently required (inserting at the end of an array is T.C. stem:[O(1)]), but at the beginning causes all the remaining elements to shift/re-index).
+
+Arrays contain built-in index; linked lists do not.

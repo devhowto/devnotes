@@ -6,28 +6,27 @@
 
 == Intro to Singly Linked Lists
 
-A Singly Linked List is a data structure which contains the properties *head*, *tail* and *length*.
+A Singly Linked List is a data structure which contains the properties *head*, *tail* and *length* (or other names that carry more or less the same meaning, like “first”, “root”, “last”).
 
-It contains *nodes* (not indexes, like arrays), an each node has a *value* and a *pointer to another node*.
+It contains *nodes* (not indexes, like arrays), an each node has a *value*, or *data* and a *pointer to another node*.
 The pointer can be `null` if does not point to another node.
 
 image::./singly-linked-lists.assets/singly-linked-lists-1.png[Singly Listed Lists ]
 
 The name _singly linked_ comes from the fact that each node is connected unidirectionally to a single other node.
 
-If you want the 19th element of a singly linked list, you have to traverse from beginning to the wanted node.
-Unlike arrays, we cannot say “give me the 19th” element (which is stem:[O(1)] access time complexity).
+If we want the 1984th element of a singly linked list, we have to traverse from beginning to the node at that index, which has time complexity stem:[O(n)] (unlike arrays in which we have stem:[O(1)]) time complexity for accessing elements).
 
 Singly Liked Lists:
 
 * No indexes.
-* Nodes are connected through a `next` _pointer_.
+* Nodes are unidirectionally connected through a `next` _pointer_.
 * No random access (have to “walk the list”).
 * Inexpensive insertion and deletion.
 
 Arrays:
 
-* Indexed in order.
+* Indexed in order (the indexes are in order, not the values).
 * Potentially expensive insertion and deletion.
 * Quick, stem:[O(1)] access time.
 
@@ -48,7 +47,10 @@ If what is really important in a given situation is fast insertion and deletion 
   T.C. stem:[O(n)].
 * `set(idx, val)`: Set a new node at given index and return `true`. Return `false` if node at given index doesn't exist. T.C. stem:[O(n)].
 * `insert(idx, val)`: Insert a node at the given index. T.C. stem:[O(n)].
-* `remove(idx)`: Remove node at the given index. T.C. stem:[O(n)].
+* `remove(idx)`: Remove node at the given index.
+  T.C. stem:[O(n)].
+* `reverse()`: Reverse the list.
+  T.C. stem:[O(n)].
 
 == push(val)
 
@@ -271,6 +273,19 @@ d. Return the value of the node removed.
 === Time complexity
 
 Because we potentially have to traverse the list, the time complexity of `remove(idx)` is stem:[O(n)].
+
+== reverse()
+
+We need to have the prev, curr and next nodes!
+
+1. Swap head and tail.
+2. Let `prev` be `null`, `node` be the original head, `next` be `undefined`.
+3. Loop:
+a. Set `next` to be `node.next`.
+b. Set `node.next` to be `prev` (this is the node connection that actually reverses the list).
+c. Set `prev` to be `node`.
+d. Set `node` to be `next`.
+4. Return the list (`this` if doing OO).
 
 == JavaScript Implementation
 
