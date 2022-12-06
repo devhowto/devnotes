@@ -1,0 +1,59 @@
+= C Pointers
+:toc: right
+:icons: fonts
+:stem: latexmath
+
+== Print pointer address with %p
+
+.invalid type for %p
+[source,c]
+----
+#include <stdio.h>
+
+int main () {
+  int *p;
+  int x = 3;
+  p = &x;
+
+  printf("p addr: %p\n", p);
+  printf("*p val: %i\n", *p);
+}
+----
+
+.compiling
+----
+$ make ./outdir/ex01ptr
+gcc -std=c99 -Wall -pedantic ex01ptr.c -o outdir/ex01ptr
+ex01ptr.c: In function ‘main’:
+ex01ptr.c:8:20: warning: format ‘%p’ expects argument of type ‘void *’, but argument 2 has type ‘int *’ [-Wformat=]
+    8 |   printf("p addr: %p\n", p);
+      |                   ~^     ~
+      |                    |     |
+      |                    |     int *
+      |                    void *
+      |                   %ls
+----
+
+image::./pointers.assets/C-print-pointer-void-error.png[Print pointer address %p invalid (void *)]
+
+Replace:
+
+[source,c]
+----
+printf("%p", p);
+----
+
+with:
+
+[source,c]
+----
+printf("%p", (void *)p);
+----
+
+On Arch Linux:
+
+.man 3 printf on Arch Linux as of 2022
+----
+p   The void * pointer argument is printed in
+    hexadecimal (as if by %#x or %#lx).
+----
