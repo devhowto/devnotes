@@ -1,0 +1,28 @@
+= C Strings and Char Arrays
+:toc: right
+:icons: fonts
+:stem: latexmath
+
+This is a char 'z' and the NUL terminator `\0`:
+
+[source,c]
+----
+char s[] = "z"
+----
+
+And this:
+
+[source,c]
+----
+char a[] = "z";
+printf("%ld\n", sizeof(a));
+
+char b[1] = "z";
+printf("%ld\n", sizeof(b));
+----
+
+`a` has the size 2: `'z'` and `'\0'`.
+The preprocessor counts the chars plus the space for the NUL terminator and allocates the necessary space.
+
+`b`, on the other hand, has the size 1: the storage for the array was explicitly said to be 1.
+So `b` is allocated memory for one byte, the char 'z' is stored and the NUL byte has nowhere to go, and is not part of `b`.

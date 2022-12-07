@@ -3,6 +3,15 @@
 :icons: fonts
 :stem: latexmath
 
+== Warnings, Pedantic
+
+Unless otherwise noted, assume the the compiler flags include:
+
+* `-std=c99`
+* `-Wall`
+* `-pedantic`
+* `-g`
+
 == Return status vs exit status
 
 The ANSI C standard has no value for true and false.
