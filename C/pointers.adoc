@@ -1,6 +1,6 @@
 = C Pointers
 :toc: right
-:icons: fonts
+:icons: font
 :stem: latexmath
 
 == Intro
@@ -75,3 +75,38 @@ On Arch Linux:
 p   The void * pointer argument is printed in
     hexadecimal (as if by %#x or %#lx).
 ----
+
+== sizeof pointers and function parameters
+
+[source,c]
+----
+#include <stdio.h>
+
+void f(char s[])
+{
+  printf("f: %ld\n", sizeof(s));
+  //=> 8 <2>
+}
+
+int main()
+{
+  char cs[] = "tux";
+
+  printf("main: %ld\n", sizeof(cs));
+  //=> 4 <1>
+
+  f(cs);
+
+  return 0;
+}
+----
+
+1. Size of pointer to char on my machine at the time of this writing.
+"tux" is `{ 't', 'u', 'x', '\0' }`.
+Three bytes for each char plus one byte for the NUL terminator.
+
+2. In the function, `s` becomes a pointer (to the address of the first char n the original array in main).
+On “this machine”, a pointer to char takes 8 bytes.
+
+In `main`, `cs` is a *char array*.
+When passed to the `f`, it becomes a (constant) pointer.
