@@ -3,6 +3,12 @@
 :icons: fonts
 :stem: latexmath
 
+== Char Arrays
+
+TODO
+
+== Strings
+
 This is a char 'z' and the NUL terminator `\0`:
 
 [source,c]
