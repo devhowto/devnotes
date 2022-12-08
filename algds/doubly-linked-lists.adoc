@@ -6,6 +6,8 @@
 
 == Intro to Doubly Linked Lists
 
+image::./doubly-linked-lists.assets/doubly-linked-lists-intro.png[Doubly Linked Lists]
+
 Structurally similar to singly linked lists, except every node also has a pointer to the *previous* node.
 Doesn't change much in the structures, but allows a more performant implementation of some of its operations.
 
