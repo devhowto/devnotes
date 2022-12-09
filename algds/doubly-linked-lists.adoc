@@ -47,7 +47,7 @@ qux.prev = bar;
 
 == push(val)
 
-T.C: stem:[O(1)].
+T.C. stem:[O(1)].
 
 * Create a new node with the value.
 * If list is empty:
@@ -58,3 +58,16 @@ T.C: stem:[O(1)].
 ** Set the tail to be the new node.
 * Increment the length.
 * Return the list (return `this` if doing OO).
+
+== pop()
+
+T.C. stem:[O(1)].
+
+* If the list is empty:
+** Return `null`.
+* Store current tail (to be returned later).
+* If list has one element, set both the head and the tail to `null`.
+* If the list has two or more elements:
+** Make the node before the current tail to be the new tail.
+* Decrement length.
+* Return the original tail saved earlier.
