@@ -1,11 +1,45 @@
 = C Strings and Char Arrays
 :toc: right
-:icons: fonts
+:icons: font
 :stem: latexmath
 
 == Char Arrays
 
-TODO
+* Signed char (negative and positive).
+  1 byte.
+  stem:[\frac{2^8}{2} = \frac{256}{2}], from -128 to 127.
+* Unsigned char (only positive).
+  1 byte.
+  stem:[2^8 = 256], from 0 to 255.
+
+[TIP]
+====
+Why unsigned chars range from -128 to 127 (and not to 128)?
+
+Because 0 is part of the positives in this context.
+stem:[0 + 127] totals 128 individual integers.
+
+Same with stem:[2^8 = 256] but then the range goes from 0 to 255 (not 0 to 256).
+Again that is because stem:[0 + 255] totals 256 individual integers.
+====
+
+'''
+Question: Why the type `char` limits representation in integers?
+
+Answer: Because charsets like ASCII assigned a constant integer value to represent symbols, letters, punctuation, etc.
+All charsets use integers to represent these symbols.
+
+.tip
+[source,shell-session]
+----
+$ man ascii
+----
+
+Question: How can a symbol be stored in a 1-byte memory?
+
+Because 8 bits is one byte. 2 (bits 0 and 1) to the 8th power (number of bits in a byte) is 256 (0 to 255).
+At the time this was enough to represent american English letters, symbols and punctuation.
+
 
 == Strings
 
