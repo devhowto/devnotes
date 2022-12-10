@@ -74,3 +74,20 @@ T.C. stem:[O(1)].
 
 It is important to sever the connection of the popped node with the previous node as we don't want the popped node to be still connected with the list.
 We don't want lingering connections on the popped node.
+
+== shift()
+
+T.C. stem:[O(1)].
+
+Shifting in the context of lists means _removing a node from the beginning of the list_.
+
+ * If length is 0, return `null`.
+ * Let `oldHead` be a reference to the head.
+ * If length is 1:
+ ** Set both head and tail to `null`.
+ * If length is greater than 1:
+ ** Set the `next` property of the `oldHead` be the new head.
+ ** Set this new head's `prev` property to `null`.
+ ** Set ``oldHead``'s `next` property to `null`.
+ * Decrement the length.
+ * Return `oldHead`.
