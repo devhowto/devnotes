@@ -71,3 +71,6 @@ T.C. stem:[O(1)].
 ** Make the node before the current tail to be the new tail.
 * Decrement length.
 * Return the original tail saved earlier.
+
+It is important to sever the connection of the popped node with the previous node as we don't want the popped node to be still connected with the list.
+We don't want lingering connections on the popped node.
