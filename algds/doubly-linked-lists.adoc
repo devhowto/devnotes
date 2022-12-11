@@ -106,3 +106,33 @@ In the context of lists, _unshift_ means adding a node to the beginning of the l
 ** Make the new node to be the head.
 * Increment the length.
 * Return the list.
+
+== get(idx)
+
+T.C. stem:[O(1)].
+
+Gets a node at the given index.
+
+* Let stem:[len] be the length of the list.
+* If the index is equal to, less than, or greater than the length, return `null`.
+  That is, stem:[
+  \begin{cases}
+    null & \text{if } x = len \\
+    null & \text{if } x < len \\
+    null & \text{if } x > len
+  \end{cases}
+  ].
+* If stem:[idx \leq \lceil\frac{len}{2}\rceil]:
+** Loop from the head towards the middle of the list:
+*** Return the node if found.
+* If stem:[idx > \lceil\frac{len}{2}\rceil]:
+** Loop from the tail towards the middle of the list:
+*** Return the node if found.
+* Return `null`.
+
+[TIP]
+====
+* stem:[\lceil x \rceil] means stem:[x] is rounded up to the nearest integer.
+
+* stem:[\lfloor x \rfloor] means stem:[x] is rounded down to the nearest integer].
+====
