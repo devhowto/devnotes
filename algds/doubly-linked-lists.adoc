@@ -79,7 +79,7 @@ We don't want lingering connections on the popped node.
 
 T.C. stem:[O(1)].
 
-Shifting in the context of lists means _removing a node from the beginning of the list_.
+In the context of lists _shift_ means removing a node from the beginning of the list.
 
  * If length is 0, return `null`.
  * Let `oldHead` be a reference to the head.
@@ -91,3 +91,18 @@ Shifting in the context of lists means _removing a node from the beginning of th
  ** Set ``oldHead``'s `next` property to `null`.
  * Decrement the length.
  * Return `oldHead`.
+
+== unshift()
+
+T.C. stem:[O(1)].
+
+In the context of lists, _unshift_ means adding a node to the beginning of the list (add a new head).
+
+* If the length is 0:
+** Add the new node as both the head and the tail.
+* If the length is 1 or more:
+** Set the `prev` property on the head to the new node.
+** Set the `next` property on the new node to the head.
+** Make the new node to be the head.
+* Increment the length.
+* Return the list.
