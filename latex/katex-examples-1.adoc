@@ -1,0 +1,20 @@
+= LaTex / KaTex Examples
+:toc: right
+:icons: font
+:stem: latexmath
+
+== Piecewise functions
+
+Let stem:[len] be the length of the list.
+
+[stem]
+++++
+\begin{equation}
+f(x) =
+  \begin{cases}
+    null & \text{if } x = len \\
+    null & \text{if } x < len \\
+    null & \text{if } x > len
+  \end{cases}
+\end{equation}
+++++
