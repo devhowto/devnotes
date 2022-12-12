@@ -130,6 +130,8 @@ Gets a node at the given index.
 *** Return the node if found.
 * Return `null`.
 
+This `get(idx)` approach is optimized as it starts either from the head _or_ from the tail depending on which one the index is closer to.
+
 [TIP]
 ====
 * stem:[\lceil x \rceil] means stem:[x] is rounded up to the nearest integer.
@@ -147,3 +149,41 @@ T.C. stem:[O(n)].
 * If the returned value is a valid node (not `null`):
 ** Set the new value for the node.
 ** Return `true`.
+
+== insert(idx, val)
+
+T.C. stem:[O(n)].
+
+* If index is out of bounds:
+** Return `false`.
+* If index is zero:
+** Use `unshift(val)`.
+* If index is same as the length:
+** Use `push(val)`.
+* Otherwise:
+** Let `newNode` be a new node.
+** Let `foundNode` be the result of `get(idx - 1)`.
+** Set `newNode.next` to be `foundNode.next`
+** Set `foundNode.next.prev` to be `newNode`.
+** Set `foundNode.next` to `newNode`.
+** Set `newNode.prev` to `foundNode`.
+* Increment the length.
+* Return the list.
+
+== remove(idx)
+
+T.C. stem:[O(n)].
+
+* If index is out of bounds:
+** Return `undefined`.
+* If index is 0:
+** Use `shift()`.
+* If index is length - 1:
+** Use `pop()`.
+* Otherwise:
+** Let `foundNode` be the result of `get(idx)`.
+** Update the node before next to point to the node after.
+** Update the node after prev to point to the node before.
+** Set next and prev properties on `foundNode` to `null` (we don't want lingering connections on the removed node).
+* Decrement the length.
+* Return the removed node.
