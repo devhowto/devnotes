@@ -136,3 +136,14 @@ Gets a node at the given index.
 
 * stem:[\lfloor x \rfloor] means stem:[x] is rounded down to the nearest integer].
 ====
+
+== set(idx, val)
+
+T.C. stem:[O(n)].
+
+* Use `get(idx)` to find the node based on `idx`.
+* If the returned value is `null` (`get(idx)` returns `null` if index is out of bounds):
+** Return `false`.
+* If the returned value is a valid node (not `null`):
+** Set the new value for the node.
+** Return `true`.
