@@ -125,3 +125,25 @@ void fn(char *s) {
   printf("%ld\n", sizeof s);
 }
 ----
+
+== Arrays are CONSTANT pointers
+
+People say “an array name is a pointer to its first element”.
+This is only partially true:
+
+[source,c]
+----
+int main() {
+  char str[4] = { 'T', 'u', 'x', '\0' };
+  char *p = str;
+
+  printf("%c\n", *(str + 1));
+  printf("%c\n", *(++p));
+  printf("%c\n", *(++str)); // <1>
+}
+----
+
+1. error: lvalue required as increment operand
+
+An array name is a *constant* pointer.
+We can do `*(arr + 1)`, but not `*arr++` or `*(++arr)`.
