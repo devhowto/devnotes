@@ -1,4 +1,7 @@
 = Bash Arrays
+:icons: font
+:math: latexmath
+:toc: left
 
 == Serialize and Store Bash Array to a File
 
@@ -10,18 +13,15 @@ $ nums=(1 2 3 4)
 $ printf '%s\0' > nums.dat
 ----
 
-If you `less nums-arr.dat` or open it in vim or emacs, it'll show like
-this:
+If you `less nums-arr.dat` or open it in vim or emacs, it'll show like this:
 
 [source,text]
 ----
 1^@2^@3^@4^@
 ----
 
-The numbers are the numbers we stored 🤣, and the "^@" is not a caret
-followed by an at sign, but a visual representation of the NUL. Just
-that when some tools wants to display them, they have to use something
-visible and the convention is to use "^@", which many tools do.
+The numbers are the numbers we stored (duh 🤣), and the "^@" is not a caret followed by an at sign, but a visual representation of the NUL byte.
+When some tools want to display them, they (the tools) have to use something visible and the convention is to use "^@", which many tools do.
 
 We can also inspect the file with `od`:
 
@@ -42,12 +42,11 @@ code‽ By using `mapfile`.
 
 === Using mapfile
 
-To deserialize the data and turn it back into code -- an array -- we use
-`mapfile`:
+To deserialize the data and turn it back into code -- an array -- we use `mapfile`:
 
 [source,shell-session]
 ----
-$ IFS= readarray -d '' them < nums-arr.dat
+$ IFS= mapfile -d '' them < nums.dat
 $ printf '%d\n' "${them[@]}"
 1
 2
@@ -72,11 +71,9 @@ $ printf '%d\n' "${nums[@]}"
 1234
 ----
 
-It seems even using `IFS=\\0` or `IFS='\0'` don't work. Let's use this
-to learn more about both `read` and `mapfile`, shall we‽
+It seems even using `IFS=\\0` or `IFS='\0'` doesn't work. Let's use this to learn more about both `read` and `mapfile`, shall we‽
 
 [NOTE]
-.Note
 ====
 `readarray` is an alias to `mapfile`
 ====
@@ -89,6 +86,7 @@ First let's see what `read` and `mapfile` are supposed to do.
 
 `help read` says:
 
+.help read
 ____
 "Read a line from the standard input and split it into fields."
 
@@ -98,12 +96,11 @@ splitting, and the first word is assigned to the first NAME, the second
 word to the second NAME, and so on, with any leftover words assigned to
 the last NAME. Only the characters found in $IFS are recognized as word
 delimiters."
-
--- help read
 ____
 
 And `help mapfile` says:
 
+.help mapfile
 ____
 "Read lines from the standard input into an indexed array variable.
 
@@ -115,28 +112,27 @@ variable MAPFILE is the default ARRAY."
 ____
 
 The important bits for our case is that `read` *reads a single line*,
-and `mapfile` reads *reads lines*. Note the plural on “lines” is a very
-important detail here.
+and `mapfile` reads *reads lines*.
+Note the plural on “lines”.
+A very important detail here.
 
 Now let's scrutinize the `-d` option of both commands.
 
-`help read` says:
-
+.help read
 [source,text]
 ----
--d delim  continue until the first character of SELIM is
+-d delim  continue until the first character of DELIM is
 read, rather than newline
 ----
 
-`help mapfile` says:
-
+.help mapfile
 [source,text]
 ----
 -d delim  Use DELIM to terminate lines, instead of newline
 ----
 
-OK, so `-d` does the same thing for both commands. They use the
-delimiter in `-d DELIM` to indicate what character should be used to
+OK, so `-d` does the same thing for both commands.
+They use the delimiter in `-d DELIM` to indicate what character should be used to
 indicate line termination, rather than `\n`.
 
 That means `read -d ''` will read the first value of our NUL-separated
@@ -145,7 +141,7 @@ input and consider it _a line_ of input, and be done with it (after all,
 
 `mapfile` will also read the first value of our NUL-separated input and
 consider it _a line_ of input, but rather than be done with it at this
-point, it will continue reading more likes (after all, `mapfile` “reads
+point, it will continue reading more lines (after all, `mapfile` “reads
 multiple lines of input”).
 
 === IFS= and \0
@@ -174,40 +170,31 @@ says: “Variables shall be initialized from the environment”.
 And we can't have NUL in the environment.
 
 [NOTE]
-.Note
 ====
 This topic is hard and has tormented me for a long time 😅.
 ====
 
-Fernando-Basso About "variables cannot hold NUL", 2.5 Paramater and
-Variables states that "A parameter is set if it has an assigned value
-(null is a valid value)." And "a variable is a parameter denoted by
-name". The more I try to understand, the more I do not understand.
+About "variables cannot hold NUL", 2.5 Paramater and
+Variables states that
 
-Soliton they mean empty string with null there.
+> A parameter is set if it has an assigned value (null is a valid value)."
 
-phogg Fernando-Basso: a variable set to an empty string is
-indistinguishable from a variable set to null.
+And "a variable is a parameter denoted by name".
+The more I try to understand, the more I do not understand.
 
-Soliton i think they should just write empty string but...
+They mean empty string with null there.
+Think they should just write “empty string” but...
 
-phogg probably should, but if you write a lot of C it can be hard to
-notice mistakes like that I assume that in the implementation there is a
-struct for the variable and it can be allocated (var defined) or not
-(var undefined), even if the allocated struct has a NUL where the value
-would go. From that POV it makes sense. none of it means that the user
-can put a NUL into a variable
+Anyway, variable set to an empty string is indistinguishable from a variable set to null.
 
 === field separator vs terminator
 
 We also have to be clear on the fact that *field separator* is different
 than *terminator*. A _terminator_ could indicate the end of input, end
-of a line, etc. An input could be separated into multiple fields, and
-each field could be an entire line, so multiple lines would mean
-multiple fields.
+of a line, etc.
+An input could be separated into multiple fields, and each field could be an entire line, so multiple lines would mean multiple fields.
 
-Some people say that it makes more sense to use `\n` as field separator
-and `\0` (NUL) as terminators rather than the other way around.
+Some people claim that it makes more sense to use `\n` as field separator and `\0` (NUL) as terminators rather than the other way around.
 
 == Serialize a NUL-separated list of files to a variable
 
