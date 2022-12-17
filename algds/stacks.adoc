@@ -1,0 +1,29 @@
+= Doubly Linked Lists
+:page-tags: data-structure list singly-linked-list
+:toc: right
+:stem: latexmath
+:icons: font
+:source-highlighter: highlight.js
+
+== Intro
+
+Stack is a concept.
+Last in, first out (LIFO).
+
+Can be implemented with array `push()` and `pop()`.
+
+Yet, as we need only order but not indexes for stacks, we are probably better of by making use a a singly or doubly linked list.
+
+== push()
+
+T.C. stem:[O(1)].
+
+* let `newNode` to be a new node.
+* If the stack is empty:
+** Set `first` and `last` to be the new node.
+* If the stack is not empty:
+** Save a reference `oldFirst` to the current `first`.
+** Set the new node as `first`.
+** Set `newNode.next` to `oldFirst`.
+* Increment `size` by 1.
+* Return `size`.

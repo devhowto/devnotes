@@ -2,11 +2,17 @@
 :toc: right
 :icons: font
 :stem: latexmath
+:source-highlighter: highlight.js
 
 == Intro
 
 Write a program that takes a whole number and loops from 1 to that number.
 Then apply these conditions (not necessary in the order described here):
+
+[NOTE]
+====
+BEWARE: this is awesome!
+====
 
 * If the number is a multiple of 3, print "Fizz".
 * If the number is a multiple of 5, print "Buzz".

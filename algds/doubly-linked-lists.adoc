@@ -3,6 +3,7 @@
 :toc: right
 :stem: latexmath
 :icons: font
+:source-highlighter: highlight.js
 
 == Intro to Doubly Linked Lists
 
