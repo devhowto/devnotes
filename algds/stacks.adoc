@@ -1,5 +1,5 @@
 = Doubly Linked Lists
-:page-tags: data-structure list singly-linked-list
+:page-tags: data-structure stack
 :toc: right
 :stem: latexmath
 :icons: font
@@ -14,7 +14,11 @@ Can be implemented with array `push()` and `pop()`.
 
 Yet, as we need only order but not indexes for stacks, we are probably better of by making use a a singly or doubly linked list.
 
-== push()
+Insertion `push(val)` and removal `pop()` in a stack should have stem:[O(1)] time complexity.
+
+Search and access is `O(n)` but if searching and getting values from a stack is what is needed, then consider some other data structure.
+
+== push(val)
 
 T.C. stem:[O(1)].
 
@@ -27,3 +31,85 @@ T.C. stem:[O(1)].
 ** Set `newNode.next` to `oldFirst`.
 * Increment `size` by 1.
 * Return `size`.
+
+[NOTE]
+====
+`push(val)` returns the new size, while `pop()` returns the node.
+====
+
+== pop()
+
+T.C. stem:[O(1)].
+
+* If the stack is empty, return `null`.
+* Let `oldTop` be a reference to the current top.
+* If there is one node:
+** Set `top` to `null`.
+* If there are two or more nodes:
+** Set `top` to be `oldTop.prev`.
+** Set `oldTop.prev` to `null`.
+* Decrement size.
+* Return `oldTop`.
+
+
+[NOTE]
+====
+`pop()` returns the node, while `push(val)` returns the new size.
+====
+
+== Stack JavaScript implementation
+
+[source,javascript]
+----
+class Node {
+  constructor(val) {
+    this.val = val;
+
+    //
+    // I'll call it prev because “the top points to the previous node”
+    // (except for the empty or single- element stack).
+    //
+    this.prev = null;
+  }
+}
+
+class Stack {
+  constructor() {
+    this.top = null;
+    this.size = 0;
+  }
+
+  push(val) {
+    var newNode = new Node(val);
+
+    if (this.size === 0) {
+      this.top = newNode;
+    } else {
+      var oldTop = this.top;
+      this.top = newNode;
+      newNode.prev = oldTop;
+    }
+
+    return ++this.size;
+  }
+
+  pop() {
+    if (this.size === 0) return null;
+
+    var oldTop = this.top;
+
+    if (this.size === 1)
+      this.top = null;
+    else
+      this.top = oldTop.prev;
+
+    --this.size;
+
+    oldTop.prev = null;
+
+    return oldTop;
+  }
+}
+
+export { Stack };
+----
