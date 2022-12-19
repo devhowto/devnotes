@@ -214,3 +214,35 @@ Because the format string IS NOT AN OPTION! _End of options_ *works with options
 People in bash IRC say that we would use _end of options_ when the format string starts with `--`, which is not the case for this example.
 
 In this example, it doesn't hurt but doesn't change anything either.
+
+=== Example 3
+
+[source,shell-session]
+----
+$ printf -- '-->' foo
+-->
+----
+
+It prints "+-->+".
+What about "foo"?
+
+It is ignored because no format string was provided.
+
+Compare:
+
+[source,shell-session]
+----
+printf -- a b c
+a
+----
+
+Note that "b" and "c" are simply ignored (again, no format string was provided).
+If it is provided, it is reused as necessary to consume all arguments.
+
+[source,shell-session]
+----
+printf -- '%s\n' a b c
+a
+b
+c
+----
