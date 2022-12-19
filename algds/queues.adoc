@@ -1,0 +1,96 @@
+= Queues
+:page-tags: data-structure queue
+:toc: right
+:stem: latexmath
+:icons: font
+:source-highlighter: highlight.js
+
+== Intro
+
+Queues are a First In, First Out (FIFO) data structure.
+
+Why do we use queues for:
+
+* Background tasks.
+* Upload resources (not necessarily, though).
+* A print queue (one page at a time).
+* Used as helpers / parts of other data structures.
+
+== enqueue(val)
+
+T.C. stem:[O(1)].
+
+* Let `newNode` be a new node.
+* If queue is empty:
+** Set both `first` and `last` to be `newNode`.
+* If queue is not empty:
+** Set `last.next` to `newNode`.
+** Set `last` to `newNode`.
+* Increment `size`.
+* Return `size`.
+
+== dequeue()
+
+T.C. stem:[O(1)].
+
+* If stack is empty, return `null`.
+* Let `oldFirst` to be `first`.
+* If `first` and `last` are the same:
+** Set both `first` and `last` to `null`.
+* If `first` and `last` are not the same:
+** Set `first.next` to `null`.
+* Decrement `size`.
+* Return `oldFirst`.
+
+== Stack implementation in JavaScript
+
+[source,javascript]
+----
+class Node {
+  constructor(val) {
+    this.val = val;
+    this.next = null;
+  }
+}
+
+class Queue {
+  constructor() {
+    this.first = null;
+    this.last = null;
+    this.size = 0;
+  }
+
+  enqueue(val) {
+    var newNode = new Node(val);
+
+    if (this.size === 0) {
+      this.first = this.last = newNode;
+    } else {
+      this.last.next = newNode;
+      this.last = newNode;
+    }
+
+    return ++this.size;
+  }
+
+  dequeue() {
+    if (this.size === 0) return null;
+
+    var oldFirst = this.first;
+
+    // first === last
+    if (this.size === 1)
+      this.first = this.last = null;
+    else
+      this.first = oldFirst.next;
+
+    --this.size;
+
+    oldFirst.next = null;
+
+    return oldFirst;
+  }
+}
+
+export { Queue };
+----
