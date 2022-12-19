@@ -179,4 +179,18 @@ $ tree -CF .
 0 directories, 0 files
 ----
 
-(TO BE CONTINUED)
+== printf and pass:[--] end of options
+
+We want to print "--> foo" verbatim:
+
+[source,shell-session]
+----
+$ printf -- --> foo
+(no output 😲)
+----
+
+What the poop‽
+
+It so happens that the first `--` is treated as end of options, then the next `--` is a parameter to `printf`.
+But `>` is treated as redirection.
+We ended up adding the text "--" to the `foo` file.
