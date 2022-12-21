@@ -183,7 +183,7 @@ $ tree -CF .
 
 === Example 1
 
-We want to print "--> foo" verbatim:
+We want to print "pass:[-->] foo" verbatim:
 
 [source,shell-session]
 ----
