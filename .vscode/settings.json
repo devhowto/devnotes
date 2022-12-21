@@ -1,4 +1,9 @@
 {
+  "[asciidoc]": {
+    "editor.wordWrap": "on",
+    "vim.textwidth": 68,
+  },
+  "editor.rulers": [72, 80],
   "cSpell.words": [
     "curr",
     "jslib",
