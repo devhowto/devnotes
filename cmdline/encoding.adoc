@@ -22,5 +22,5 @@ Can substitute those for normal tabs (or whatever other char) with:
 ----
 
 Note the character class.
-If `s/\x88/` it will look for each individual char `\`, `x`, `8` and `8`, and not the code point they represent.
+If we simply do `s/\x88/` it will look for each individual char `\`, `x`, `8` and `8`, and not the code point they represent when combined together.
 
