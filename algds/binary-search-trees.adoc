@@ -69,3 +69,23 @@ class BST {
   }
 }
 ----
+
+== Tip on optimization
+
+One could keep a dictionary of the values to keep track of wheter a value exists on the tree or not.
+For example, if we have added the value 170 to the list, our dictionary would be:
+
+[source,javascript]
+----
+var seen = {
+  170: 1
+};
+----
+
+Then, to search for 170, we could simply return early and not even walk the tree:
+
+[source,javascript]
+----
+if (seen[170] === undefined) return null;
+else // walk the list and return the node containing that value
+----
