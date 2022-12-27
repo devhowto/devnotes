@@ -1,0 +1,71 @@
+= Binary Search Tree
+:icons: font
+:stem: latexmath
+:source-highlighter: highlight.js
+:toc: right
+
+== find(val)
+
+Either return the node found or `null`.
+
+=== v1, while
+
+.excerpt BST class
+[source,javascript]
+----
+class BST {
+  // ...constructor(), insert(), etc...
+
+  find(val) {
+    if (this.root === null) return null;
+
+    var curNode = this.root;
+
+    while (1) {
+      if (curNode.val === val) return curNode;
+
+      if (val < curNode.val) {
+        if (curNode.left !== null) {
+          curNode = curNode.left;
+          continue;
+        }
+
+        return null;
+      } else {
+        if (curNode.right !== null) {
+          curNode = curNode.right;
+          continue;
+        }
+
+        return null;
+      }
+    }
+  }
+}
+----
+
+=== v2, while better
+
+[source,javascript]
+----
+class BST {
+  // ... constructor(), insert(), etc...
+
+  find(val) {
+    if (this.root === null) return null;
+
+    var curNode = this.root,
+        found = false;
+
+    while (!found && curNode) {
+      if (curNode.val === val) return curNode;
+
+      curNode = val < curNode.val
+        ? curNode.left
+        : curNode.right;
+    }
+
+    return found ? curNode : null;
+  }
+}
+----
