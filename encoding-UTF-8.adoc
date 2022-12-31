@@ -29,7 +29,7 @@ Then one can search for those page breaks with something like kbd:[/CTRL-V CTRL-
 If kbd:[CTRL-V] is mapped to some other thing (e.g. paste text), kbd:[CTRL-Q] can also be used.
 ====
 
-One example where I used this is for my The Little Schemer solutions, where code for each chapter is preceeded by a page break character so I can easily navigate between “pages”.
+One example where I used this is for my The Little Schemer solutions, where code for each chapter is preceded by a page break character so I can easily navigate between the chapters.
 
 See:
 
