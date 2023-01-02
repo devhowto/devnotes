@@ -1,0 +1,47 @@
+= sed insert line(s)
+:icons: font
+
+== insert into empty file
+
+sed operates on lines.
+If a file contains no lines, sed cannot insert a line into the file.
+
+That means if we create a really empty file and try to insert some content into like 1, it won't work and no lines are inserted:
+
+.sed insert into no-lines file
+[source,shell-session]
+----
+$ : > ./file.txt
+
+$ du ./file.txt
+0    ./file.txt
+
+$ sed -f - ./file.txt <<EOF > ./new.txt
+1 i\\
+foo\\
+bar\\
+EOF
+
+$ du  ./new.txt
+0	    ./new.txt
+----
+
+As we see, `new.txt` is empty.
+
+One approach would be to create a one-empty-line file instead:
+
+.single empty line file
+[source,shell-session]
+----
+$ printf '\n' > ./file.txt
+
+$ sed -f - ./file.txt <<EOF > ./new.txt
+1 i\\
+foo\\
+bar\\
+EOF
+
+$ cat ./new.txt
+foo
+bar
+----
