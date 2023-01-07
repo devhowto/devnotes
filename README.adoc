@@ -8,7 +8,7 @@ My dev, study, and research notes.
 [NOTE]
 ====
 The official repo is the link:https://gitlab.com/devhowto/devnotes[devnotes repo on Gitlab].
-The link:https://github.com/devhowto/devnotes[devnotes repo on Github] is just a mirror.
+The link:https://github.com/devhowto/the-little-schemer[repo on Github] is just a mirror.
 ====
 
 [NOTE]
