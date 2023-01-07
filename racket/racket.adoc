@@ -4,4 +4,5 @@
 
 == Random Links
 
-* link:https://users.cs.northwestern.edu/~robby/logos/[The Many Faces of DrRacket (logos)]
+* link:https://users.cs.northwestern.edu/~robby/logos/[The Many Faces of DrRacket (logos)].
+* link:https://blog.racket-lang.org/2009/03/the-drscheme-repl-isnt-the-one-in-emacs.html[the DrScheme repl isn’t the one in Emacs :: Racket Block :: Matthias Felleisen].
