@@ -1,0 +1,82 @@
+= Conditionals
+:icons: font
+:toc: left
+
+== nested if vs a && b
+
+.heapify priority queue in JavaScript
+[source,javascript]
+class PriorityQueue {
+  //
+  // Other methdos...
+  //
+
+  #heapify(pIdx) {
+    var idx,
+        len = this.vals.length,
+        lIdx = 2 * pIdx + 1,
+        rIdx = 2 * pIdx + 2,
+        parent = this.vals[pIdx],
+        lChild = this.vals[lIdx],
+        rChild = this.vals[rIdx];
+
+    if (
+      (lIdx < len) &&
+      (lChild.priority < parent.priority)
+    )
+      idx = lIdx;
+
+    if (
+      (rIdx < len) &&
+      (isNil(idx) && rChild.priority < parent.priority) ||
+      (!isNil(idx) && rChild.priority < lChild.priority)
+    )
+      idx = rIdx;
+
+    if (isNil(idx)) return;
+
+    swap(this.vals, idx, pIdx);
+
+    // idx becomes the new pIdx 😀
+    this.#heapify(idx);
+  }
+}
+----
+
+Let's focus on this:
+
+[source,javascript]
+----
+if (
+  (lIdx < len) &&
+  (lChild.priority < parent.priority)
+)
+  idx = lIdx;
+
+if (
+  (rIdx < len) &&
+  (isNil(idx) && rChild.priority < parent.priority) ||
+  (!isNil(idx) && rChild.priority < lChild.priority)
+)
+----
+
+This was erroring out with “cannot ready property `priority` of `undefined`.
+
+Sure enough, the `&&` operator evaluates both sides, and if `rChild` is `undefined`, we cannot read properties from it.
+
+.using nested ifs
+[source,javascript]
+----
+if (lIdx < len)
+  if (lChild.priority < parent.priority)
+  idx = lIdx;
+
+if (rIdx < len)
+  if (
+    (isNil(idx) && rChild.priority < parent.priority) ||
+    (!isNil(idx) && rChild.priority < lChild.priority)
+  )
+    idx = rIdx;
+----
+
+Yeah, nested ifs, but handles the case correctly!

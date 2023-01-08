@@ -6,6 +6,8 @@
   "editor.rulers": [72, 80],
   "cSpell.words": [
     "curr",
+    "heapifies",
+    "heapify",
     "jslib",
     "myuser",
     "qux",
