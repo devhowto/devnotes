@@ -1,0 +1,119 @@
+= Priority Queue
+:icons: font
+:toc: left
+
+== JavaScript Solution 1
+
+[source,javascript]
+----
+import {
+  swap,
+  isNil,
+} from '../jslib/index.js';
+
+class Node {
+  constructor(val, priority) {
+    this.val = val;
+    this.priority = priority;
+  }
+}
+
+/**
+ * A priority queue based on Min Binary Heap (lower
+ * values have higher priority).
+ */
+class PriorityQueue {
+  constructor() {
+    this.vals = [];
+  }
+
+  /**
+   * Enqueues a task to the priority queue.
+   *
+   * - T.C: O(log n).
+   *
+   * @param {unknown} val
+   * @param {number} priority
+   * @returns {void}
+   */
+  enqueue(val, priority) {
+    var newNode = new Node(val, priority);
+    this.vals.push(newNode);
+
+    this.#bubble(this.vals.length - 1);
+  }
+
+  /**
+   * Helper method for `enqueue()`.
+   *
+   * @param {number} newNodeIdx
+   * @returns {void}
+   */
+  #bubble(newNodeIdx) {
+    if (newNodeIdx < 1) return;
+
+    var parentIdx = (newNodeIdx - 1) / 2 | 0;
+
+    if (this.vals[newNodeIdx].priority > this.vals[parentIdx].priority)
+      return;
+
+    swap(this.vals, newNodeIdx, parentIdx);
+
+    this.#bubble(parentIdx);
+  }
+
+  /**
+   * Dequeues the highest priority task from the priority queue.
+   *
+   * T.C: O(log n).
+   *
+   * @returns {Node}
+   */
+  dequeue() {
+    if (this.vals.length === 0) return null;
+
+    var min = this.vals[0],
+        last = this.vals.pop();
+
+    if (this.vals.length > 0) {
+      this.vals[0] = last;
+      this.#sink(0);
+    }
+
+    return min;
+  }
+
+  /**
+   * Helper method for `dequeue()`.
+   *
+   * @param {number} pIdx
+   * @returns {void}
+   */
+  #sink(pIdx) {
+    var len = this.vals.length,
+        lIdx = pIdx * 2 + 1,
+        rIdx = pIdx * 2 + 2,
+        parent = this.vals[pIdx],
+        lChild = this.vals[lIdx],
+        rChild = this.vals[rIdx],
+        swpIdx;
+
+    if (lIdx < len)
+      if (lChild.priority < parent.priority)
+        swpIdx = lIdx;
+
+    if (rIdx < len)
+      if (
+        (isNil(swpIdx) && rChild.priority < parent.priority) ||
+        (!isNil(swpIdx) && rChild.priority < lChild.priority)
+      )
+        swpIdx = rIdx;
+
+    if (isNil(swpIdx)) return;
+
+    swap(this.vals, swpIdx, pIdx);
+
+    this.#sink(swpIdx);
+  }
+}
+----
