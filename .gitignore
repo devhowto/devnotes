@@ -2,4 +2,14 @@
 # .gitignore
 #
 
+##
+# macOS stuff.
+#
 .DS_Store
+
+##
+# Emacs backup and temp files.
+#
+.#*
+\#*#
+
