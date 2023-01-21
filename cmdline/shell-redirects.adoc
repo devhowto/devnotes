@@ -1,4 +1,5 @@
-= Shell Redirection
+= Shell Redirects
+:page-tags: shell bash redirect stdin stdout stderr
 :icons: font
 :toc: left
 
@@ -7,7 +8,7 @@
 Sometimes we just want the terminal to be silent and not pollute the output with noise that may not matter for a given situation and ends up taking our attention away from whatever we are doing.
 See here one example:
 
-image::./shell-redirections.assets/emacs-stdout-stderr-1.png[bash emacs stdout sterr]
+image::./shell-redirects.assets/emacs-stdout-stderr-1.png[bash emacs stdout sterr]
 
 [NOTE]
 ====
