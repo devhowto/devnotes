@@ -1,0 +1,60 @@
+= Hash Tables
+:icons: font
+:toc: left
+
+== hash function
+
+.very simple hash function
+[source,javascript]
+----
+/**
+ * A very barebones hash function that works for simple, lowercase,
+ * ascii-only strings.
+ */
+function hash(str, len) {
+  return [...str].reduce((acc, chr) => {
+    var sub = chr.charCodeAt(0) - 96;
+    return (acc * 31 + sub) % len;
+  }, 0);
+}
+----
+
+.node repl
+----
+> var strs = ['pink', 'blue', 'orange', 'email'];
+> strs.map(s => hash(s, 10))
+[ 0, 0, 0, 0 ]
+----
+
+
+
+
+[source,javascript]
+----
+/**
+ * Prime numbers help to reduce the number of collisions.
+ */
+const OPTIMUS_PRIME = 31;
+
+function hash(str, len) {
+  return [...str].reduce((acc, chr) => {
+    var sub = chr.charCodeAt(0) - 96;
+    return (acc * OPTIMUS_PRIME + sub) % len;
+  }, 0);
+}
+----
+
+Note, though, what happens if we use a prime number as the length:
+
+.node repl
+----
+> var strs = ['pink', 'blue', 'orange', 'email'];
+> strs.map(s => hash(s, 10))
+[ 0, 0, 0, 0 ]
+> strs.map(s => hash(s, 11))
+[ 1, 6, 1, 7 ]
+> strs.map(s => hash(s, 13))
+[ 5, 10, 10, 9 ]
+> strs.map(s => hash(s, 31))
+[ 11, 5, 5, 12 ]
+----
