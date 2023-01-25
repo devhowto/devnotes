@@ -3,6 +3,15 @@
 :icons: font
 :stem: latexmath
 
+[CAUTION]
+====
+Carefully read and impress upon yourself the importance of what is mentioned at the first admonition of link:./git-intro.adoc[git intro].
+
+Very ominous, yes, but please follow the advice given there.
+Better a little caution than a great regret.
+You have been warned.
+====
+
 == Discard changes in unstaged files
 
 [NOTE]
@@ -77,3 +86,11 @@ $ git status .
 Changes to be committed:
 	modified:   Makefile
 ----
+
+[TIP]
+====
+`git reset` *does not* discard changes to files.
+
+* Running `git reset` on a staged file will unstage it.
+* Running `git reset` on a non-staged file will simply do nothing.
+  The contents of the file will remain intact.
