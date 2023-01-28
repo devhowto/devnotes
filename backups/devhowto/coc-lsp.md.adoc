@@ -3,7 +3,9 @@
 
 == Copy contents of popup window
 
-https://github.com/neoclide/coc.nvim/wiki/F.A.Q#how-to-open-link-in-float-window[F.A.Q · neoclide/coc.nvim Wiki]
+* https://github.com/neoclide/coc.nvim/wiki/F.A.Q#how-to-open-link-in-float-window[F.A.Q · neoclide/coc.nvim Wiki]
+
+In vim, see `:help coc-floating`.
 
 ----
 C-w w :% yank +
