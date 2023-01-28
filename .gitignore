@@ -13,3 +13,7 @@
 .#*
 \#*#
 
+##
+# Drawio backups and temporary files.
+#
+.$*.drawio.bkp
