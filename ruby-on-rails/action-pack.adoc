@@ -72,7 +72,7 @@ edit_photo_path => /photos/:id/edit
 new_photo_path  => /photos/new
 ----
 
-Combined with the HTTP verbs, those four helper methods, all controller actions can be handled:
+Those four helper methods combined with the HTTP verbs, all controller actions can be handled:
 
 .Photos named route helper methods, (source: link:https://guides.rubyonrails.org/routing.html#crud-verbs-and-actions[Ruby on Rails Guides]).
 image::./action-pack.assets/photos-named-routes-helper-methods.png[Named route helper methods]
@@ -95,11 +95,14 @@ Usage:
   rails routes [options]
 
 Options:
+
   -c, [--controller=CONTROLLER]
     Filter by a specific controller, e.g. PostsController
     or Admin::PostsController.
+
   -g, [--grep=GREP]
     Grep routes by a specific pattern.
+
   -E, [--expanded], [--no-expanded]
     Print routes expanded vertically with parts explained.
 ----
