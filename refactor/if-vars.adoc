@@ -1,0 +1,56 @@
+= Check if variables are set
+:toc: left
+:icons: font
+
+[source,javascript]
+----
+var { ENV, BRD, MKT, BRK} = process.env;
+
+log(ENV, BRD, MKT, BRK);
+
+if (!ENV || !BRD  || !MKT || !BRK) {
+  log('Env vars not defined...')
+  process.exit(1);
+}
+
+log('EOT');
+----
+
+[source,shell-session]
+----
+$ node src/js/if-set.js
+undefined undefined undefined undefined
+Env vars not defined...
+
+$ ENV=1 BRD=2 MKT=3 BRK=4 node src/js/if-set.js
+1 2 3 4
+EOT
+----
+
+Using `some()` with
+
+[source,javascript]
+----
+function isEmpty(v) {
+  return v === '' || v === undefined || v === null;
+}
+
+if ([ENV, BRD, MKT, BRK].some(isEmpty)) {
+  err('Env vars not defined...')
+  process.exit(1);
+}
+----
+
+Using `some()` (defined above) and `any()`:
+
+[source,javascript]
+----
+function any(f, ...vars) {
+  return vars.some(f);
+}
+
+if (any(isEmpty, ENV, BRD, MKT, BRK)) {
+  err('Env vars not defined...')
+  process.exit(1);
+}
+----
