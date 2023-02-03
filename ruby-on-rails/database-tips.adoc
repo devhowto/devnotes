@@ -33,11 +33,11 @@ $ rails db:drop db:setup
 - link:https://edgeguides.rubyonrails.org/active_record_migrations.html#resetting-the-database[Resetting the Database :: Ruby on Rails Docs].
 - link:https://edgeguides.rubyonrails.org/active_record_migrations.html#schema-dumping-and-you[Schema Dumping and You :: Ruby on Rails Docs].
 
-=== drop, create, migrate
+=== drop, create, migrate, seed
 
 Alternatively, we may want to start fresh but running the migrations (instead of loading from `schema.rb`):
 
 [source,shell-session]
 ----
-$ rails db:drop db:crete db:migrate db:seed
+$ rails db:drop db:create db:migrate db:seed
 ----
