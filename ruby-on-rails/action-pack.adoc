@@ -140,3 +140,9 @@ edit_article GET    /articles/:id/edit(.:format) articles#edit
 
 We can use `article`, 'articles', 'ArticlesController'.
 All filter by the articles controller.
+
+== Root route
+
+----
+root to: 'photos#index'
+----
