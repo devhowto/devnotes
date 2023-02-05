@@ -4,9 +4,9 @@
 
 == Intro
 
-=== Block 1 (surprise)
+=== Block 1
 
-.block1.rb
+.block_1.rb
 [source,ruby]
 ----
 (1..5).inject(0) do |acc, n|
@@ -14,21 +14,21 @@
 end
 ----
 
-.running block1.rb
+.running block_1.rb
 [source,shell-session]
 ----
-$ ruby -w ./block1.rb
+$ ruby -w ./block_1.rb
 ----
 
 What is the output?
 
 Nothing!
-
-Nothing caused the code to actually run!
+The code runs, but no instruction to output anything is given.
+Note that if the snippet in question is run in `irb`, then it implicitly prints the result of the expression.
 
 === Block 2 (error)
 
-.block2.rb
+.block_2.rb
 [source,ruby]
 ----
 p (1..5).inject(0) do |acc, n|
@@ -38,12 +38,12 @@ end
 
 Note the `p`.
 
-.running block2.rb
+.running block_2.rb
 [source,ruby]
 ----
-$ ruby -w ./block2.rb
-./block1.rb:2:in ‘inject’: 0 is not a symbol nor a string (TypeError)
-  from ./block2.rb:1:in ‘<main>’
+$ ruby -w ./block_2.rb
+./block_1.rb:2:in ‘inject’: 0 is not a symbol nor a string (TypeError)
+  from ./block_2.rb:1:in ‘<main>’
 ----
 
 The problem is precedence!
@@ -68,7 +68,7 @@ $ irb --simple-prompt
 
 By simply parenthesizing the argument to `p`, the problem is solved:
 
-.block3.rb
+.block_3.rb
 [source,ruby]
 ----
 p ((1..5).inject(0) do |acc, n|
@@ -76,10 +76,10 @@ p ((1..5).inject(0) do |acc, n|
 end)
 ----
 
-.running block3.rb
+.running block_3.rb
 [source,ruby]
 ----
-$ ruby -w ./block3.rb
+$ ruby -w ./block_3.rb
 15
 ----
 
@@ -88,7 +88,7 @@ $ ruby -w ./block3.rb
 Or use `{ }` syntax, which has higher precedence and also fixes the precedence problem:
 
 
-.block4.rb
+.block_4.rb
 [source,ruby]
 ----
 p (1..5).inject(0) { |acc, n|
@@ -96,10 +96,10 @@ p (1..5).inject(0) { |acc, n|
 }
 ----
 
-.running block4.rb
+.running block_4.rb
 [source,ruby]
 ----
-$ ruby -w ./block4.rb
+$ ruby -w ./block_4.rb
 15
 ----
 
@@ -110,7 +110,7 @@ However, depending on the project and on the style guide rules used, the parenth
 
 So, another solution would be to simply assign the result to a variable before printing it.
 
-.block5.rb
+.block_5.rb
 [source,ruby]
 ----
 total = (1..5).inject(0) do |acc, n|
@@ -120,10 +120,10 @@ end
 p total
 ----
 
-.running block5.rb
+.running block_5.rb
 [source,text]
 ----
-$ ruby -w ./block5.rb
+$ ruby -w ./block_5.rb
 15
 ----
 
