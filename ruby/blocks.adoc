@@ -39,7 +39,7 @@ end
 Note the `p`.
 
 .running block_2.rb
-[source,ruby]
+[source,shell-session]
 ----
 $ ruby -w ./block_2.rb
 ./block_1.rb:2:in ‘inject’: 0 is not a symbol nor a string (TypeError)
@@ -105,7 +105,7 @@ $ ruby -w ./block_4.rb
 
 === Block 5 (solution 3)
 
-Both solution 1 and 2 are OK.
+Both solutions 1 and 2 are OK.
 However, depending on the project and on the style guide rules used, the parenthesizing the `inject` expression and using `{ }` for multiline blocks may be considered a violation.
 
 So, another solution would be to simply assign the result to a variable before printing it.
