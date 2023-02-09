@@ -6,6 +6,7 @@ var { ENV, BRD, MKT, BRK} = process.env;
 log(ENV, BRD, MKT, BRK);
 
 function any(f, ...vars) {
+  log(vars);
   return vars.some(f);
 }
 
