@@ -50,10 +50,9 @@ The problem is precedence!
 
 `do end` has lower precedence than `{ }`, and it maters.
 
-What happens is that `p` will try to print `(1..5).inject(0)`, but in this case, the syntax of `inject` expects a block.
+What happens is that `p` will try to print `(1..5).inject(0)`, instead of the whole result of the `inject` expression and its accompanying block.
 
-But because the `do end` block has less precedence than the `p <expression>`, `p` is effectively trying to print the incomplete `inject` expression.
-Look:
+Look how this results in the exact same error:
 
 [source,text]
 ----
