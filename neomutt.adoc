@@ -1,0 +1,16 @@
+= NeoMutt
+:icons: font
+:toc: left
+
+== ctrl+o (sidebar-open) not working
+
+See link:https://github.com/neomutt/neomutt/issues/1195[this issue].
+
+Try one of the following:
+
+[source,shell-session]
+----
+$ stty discard undef && neomutt
+
+$ stty flush undef && neomutt
+----
