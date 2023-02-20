@@ -1,0 +1,21 @@
+= Date and Time
+:icons: font
+:toc: left
+
+== Intro
+
+link:https://discord.com/channels/518658712081268738/650031651845308419/1077198754270171176[I asked on Ruby Discord about how to properly learn/practice date and time stuff^].
+
+In short, we should use the `Time` class about 90% of the time (no pun intended).
+
+`DateTime` is deprecated (https://ruby-doc.com/stdlib-3.1.0/libdoc/date/rdoc/DateTime.html[DateTime docs]).
+
+[quote, DateTime class, DateTime]
+____
+So when should you use `DateTime` in Ruby and when should you use Time?
+
+Almost certainly you'll want to use `Time` since your app is probably dealing with current dates and times.
+However, if you need to deal with dates and times in a historical context you'll want to use `DateTime` to avoid making the same mistakes as UNESCO.
+
+If you also have to deal with timezones then best of luck - just bear in mind that you'll probably be dealing with local solar times, since it wasn't until the 19th century that the introduction of the railways necessitated the need for Standard Time and eventually timezones.
+____
