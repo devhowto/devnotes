@@ -9,6 +9,7 @@ link:https://discord.com/channels/518658712081268738/650031651845308419/10771987
 In short, we should use the `Time` class about 90% of the time (no pun intended).
 
 `DateTime` is deprecated (https://ruby-doc.com/stdlib-3.1.0/libdoc/date/rdoc/DateTime.html[DateTime docs]).
+`Date` and `Time` are not deprecated.
 
 [quote, DateTime class, DateTime]
 ____
@@ -19,3 +20,34 @@ However, if you need to deal with dates and times in a historical context you'll
 
 If you also have to deal with timezones then best of luck - just bear in mind that you'll probably be dealing with local solar times, since it wasn't until the 19th century that the introduction of the railways necessitated the need for Standard Time and eventually timezones.
 ____
+
+== Simple Examples
+
+Creating a date for the first day of any given month is easy:
+
+[source,ruby]
+----
+Date.new(2023, 7, 1)
+#         /    |   \
+#        /     |    \
+#       v      v     v
+#     year   month   day
+----
+
+A date for the *last* day of a given month is harder.
+Some months have 30 days, others 31.
+February has 28 days, except on leap years when it has 29 days.
+
+Thankfully, we can use negative values:
+
+[source,irb]
+----
+>> Date.new(2023, 2, -1)
+=> #<Date: 2023-02-28 ((2460004j,0s,0n),+0s,2299161j)>
+
+>> Date.new(2024, 2, -1)
+=> #<Date: 2024-02-29 ((2460370j,0s,0n),+0s,2299161j)>
+----
+
+Note that in 2024 is a leap year, and therefore Februar in 2024 has 29 days.
+The negative day index allows one to easy compute the last day of any given month.
