@@ -1,0 +1,41 @@
+= Recursion
+:toc: left
+:icons: font
+
+
+When the call is added to the stack, the current execution address is saved, so when unwinding, execution continues to that exact place.
+
+[source,javascript]
+----
+const l = console.log.bind(console);
+
+function zero(v) {
+  return v === 0;
+}
+
+/**
+ * Generates all possible combinations of `n` balanced parenthesis.
+ *
+ * @param {number} n The number of balanced parenthesis.
+ * @return {String}
+ */
+function parens(n) {
+  var res = [];
+
+  (function f(s, l, r) {
+    if (l > r) return;
+
+    if (zero(l) && zero(r)) return res.push(s);
+
+    if (l > 0) f(`${s}(`, l - 1, r);
+
+    if (r > 0) f(`${s})`, l, r - 1);
+  })('', n, n);
+
+  return res;
+}
+
+l(parens(2));
+----
+
+- link:https://gitlab.com/devhowto/algorithms-and-data-structures/-/tree/codewars/codewars/4kyu/all-balanced-parenthesis/js[Gitlab repo with the code and unit tests].
