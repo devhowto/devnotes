@@ -1,0 +1,8 @@
+# frozen_string_literal: true
+
+source 'https://rubygems.org'
+
+gem 'awesome_print'
+gem 'minitest'
+gem 'rspec'
+gem 'solargraph'
