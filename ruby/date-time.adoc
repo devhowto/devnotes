@@ -103,6 +103,7 @@ The first week has the full seven days.
 ----
 dates = []
 date = Date.new(2023, 1, 1)
+
 7.times do
   dates << date
   break if date.wday == 6
@@ -129,6 +130,7 @@ First week goes from Wed to Sat.
 ----
 dates = []
 date = Date.new(2023, 2, 1)
+
 7.times do
   dates << date
   break if date.wday == 6
