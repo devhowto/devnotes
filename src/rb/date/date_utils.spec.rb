@@ -3,7 +3,7 @@ require_relative 'date_utils'
 
 describe DateUtils do
   context 'first week' do
-    it 'last week of January 2023' do
+    it 'first week of January 2023' do
       #
       # $ cal 1 2023
       #     January 2023
@@ -28,7 +28,7 @@ describe DateUtils do
       expect(DateUtils.new(2023, 1, 1).week(:first)).to eq(expected)
     end
 
-    it 'last week of April 2023' do
+    it 'first week of April 2023' do
       #
       # $ cal 4 2023
       #      April 2023
@@ -48,7 +48,7 @@ describe DateUtils do
       expect(DateUtils.new(2023, 4, 1).week(:first)).to eq(expected)
     end
 
-    it 'last week of November 1984' do
+    it 'first week of November 1984' do
       #
       # $ cal 11 1984
       #     November 1984
