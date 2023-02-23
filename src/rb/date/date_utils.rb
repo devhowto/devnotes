@@ -39,6 +39,7 @@ class DateUtils
   #
   def week(which)
     return first_week if which == :first
+    return last_week if which == :last
   end
 
   private
@@ -55,6 +56,33 @@ class DateUtils
       break if dates.last.wday == 6
 
       dates << date
+    end
+
+    dates
+  end
+
+  def last_week
+    dates = []
+
+    #
+    # -1 makes it the last day of the month.
+    #
+    date = Date.new(year, month, -1)
+
+    #
+    # `date` could potentially be `wday == 6`.
+    #
+    dates.prepend(date)
+
+    #
+    # -2 is the last but one (penultimate) day of the month.
+    #
+    6.times do
+      date = date.prev_day
+
+      break if date.wday == 6
+
+      dates.prepend(date)
     end
 
     dates
