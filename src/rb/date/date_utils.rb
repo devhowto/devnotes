@@ -1,28 +1,17 @@
-#
-# Gets the dates of the first week of the given month in the given year.
-#
-
-#
-# Parameters:
-#
-# • month, e.g: 1, 12
-# • year, e.g.: 2023, 1984
-#
-
 require 'date'
 
-# unless [*'1'..'12'].include?(ARGV.first)
-#   fail 'Month must be an integer between 1 and 12.'
-# end
+##
+# A utility class for dates.
 #
-# unless ARGV[1]
-#   fail "Provided year ‘#{ARGV[2]}’ is not valid."
-# end
-
 class DateUtils
   attr_reader :year, :month, :day, :date
 
-  def initialize(year, month, day)
+  ##
+  # @param year [Integer]
+  # @param month [Integer] A month number between 1 and 12 (inclusive).
+  # @param day [Integer] A day of month. Optional. Defaults to 1.
+  #
+  def initialize(year, month, day = 1)
     @year = year
     @month = month
     @day = day
@@ -33,8 +22,7 @@ class DateUtils
   ##
   # Returns the dates for the given week.
   #
-  # @param which [Symbol] A week identifier like `:first`, `:second`,
-  #   `:third`, `:fourth`, and `:last`.
+  # @param which {:first | :last }
   # @return [Array<Date>] All dates for that week.
   #
   def week(which)
