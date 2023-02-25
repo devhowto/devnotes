@@ -27,6 +27,7 @@ class DateUtils
   #
   def week(which)
     return first_week if which == :first
+    return second_week if which == :second
     return last_week if which == :last
   end
 
@@ -44,6 +45,39 @@ class DateUtils
       break if dates.last.wday == 6
 
       dates << date
+    end
+
+    dates
+  end
+
+  ##
+  # Returns an array of the dates on the second week of the month.
+  #
+  # @return [Array<Date>]
+  #
+  def second_week
+    dates = []
+
+    date = Date.new(year, month, day)
+
+    in_second_week = false
+
+    ##
+    # Walk the dates until we reach the second week.
+    #
+    until in_second_week
+      in_second_week = true if date.wday == 6
+      date = date.next_day
+    end
+
+    ##
+    # Every week that is not the first or the last week of the month is
+    # guaranteed to contain seven days. Let's fill `dates` with the next
+    # seven dates.
+    #
+    while dates.size < 7
+      dates << date
+      date = date.next_day
     end
 
     dates
