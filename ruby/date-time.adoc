@@ -175,3 +175,54 @@ dates.each do |d|
 end
 #=> "Saturday"
 ----
+
+== Number of days in a month
+
+The link:https://ruby-doc.com/stdlib-2.5.2/libdoc/date/rdoc/Date.html#method-i-3C-3C[Date class^] provides the `#<<` method:
+
+[quote, attribution, cite title]
+____
+quote
+____
+
+
+[quote, Ruby Docs, Date class #<< method]
+____
+Returns a date object pointing `n` months before `self`. When the same day doesn't exist for the corresponding month, the last day is used instead.
+____
+
+For example, 2024 is a leap year.
+If we have a date of March 31, 2024, the previous month is February, which on a leap year has 29 days (not 28).
+
+Because February cannot possibly contain the day 31 (or 30), as the docs mention, it will use the last day of the month, which in this case is 29.
+
+[source,irb]
+----
+>> d = Date.new(2024, 3, 31)
+=> #<Date: 2024-03-31 ((2460401j,0s,0n),+0s,2299161j)>
+
+>> feb29 = d << 1
+=> #<Date: 2024-02-29 ((2460370j,0s,0n),+0s,2299161j)>
+----
+
+And we can therefore use this code snippet to get the number of days of any month:
+
+.get number of days in given month
+[source,ruby]
+----
+##
+# Returns the number of days in a given month.
+#
+# @param year [Integer]
+# @param month [Integer] A month number between 1 and 12 (inclusive).
+# @return [Integer]
+#
+def num_days_in_month(year, month)
+  dec31 = Date.new(year, 12, 31)
+  (dec31 << (12 - month)).day
+end
+----
+
+Most days will have a corresponding day in any given month, but a few will not.
+For example, a month may have 31 days, while a month before that may have only 30 days, in this (and similar cases), there is no corresponding day 31.
+The same can happen to day 30 and 29.
