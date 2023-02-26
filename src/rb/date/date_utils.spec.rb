@@ -97,6 +97,33 @@ describe DateUtils do
     end
   end
 
+  context 'third week' do
+    it 'third week of February 2024' do
+      #
+      # $ cal 2 2024
+      #     February 2024
+      # Su Mo Tu We Th Fr Sa
+      #              1  2  3
+      #  4  5  6  7  8  9 10
+      # 11 12 13 14 15 16 17
+      # 18 19 20 21 22 23 24
+      # 25 26 27 28 29
+      #
+
+      expected = [
+        Date.new(2024, 2, 11), # Sun
+        Date.new(2024, 2, 12), # Mon
+        Date.new(2024, 2, 13), # Tue
+        Date.new(2024, 2, 14), # Wed
+        Date.new(2024, 2, 15), # Thu
+        Date.new(2024, 2, 16), # Fri
+        Date.new(2024, 2, 17), # Sat
+      ]
+
+      expect(DateUtils.new(2024, 2).week(:third)).to eq(expected)
+    end
+  end
+
   context 'last week' do
     it 'last week of January 2023' do
       #

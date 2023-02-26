@@ -49,6 +49,7 @@ require 'date'
 #   In more rare cases, if February is not a leap year (therefore it has
 #   28 days), and the first day of the month falls on Sunday, then the
 #   month will span for four weeks. 28 = 7 * 4.
+# • The fourth week may sometimes be the last week.
 #
 #     $ cal 2 2015
 #         February 2015
@@ -84,12 +85,13 @@ class DateUtils
   ##
   # Returns the dates for the given week.
   #
-  # @param which {:first | :last }
+  # @param which {:first | :second | :third | :last }
   # @return [Array<Date>] All dates for that week.
   #
   def week(which)
     return first_week if which == :first
     return second_week if which == :second
+    return third_week if which == :third
     return last_week if which == :last
   end
 
@@ -119,9 +121,7 @@ class DateUtils
   #
   def second_week
     dates = []
-
     date = Date.new(year, month, day)
-
     in_second_week = false
 
     ##
@@ -137,6 +137,27 @@ class DateUtils
     # guaranteed to contain seven days. Let's fill `dates` with the next
     # seven dates.
     #
+    while dates.size < 7
+      dates << date
+      date = date.next_day
+    end
+
+    dates
+  end
+
+  def third_week
+    dates = []
+    date = Date.new(year, month, day)
+    week_num = 1
+
+    ##
+    # Walk the dates until we reach the third week.
+    #
+    until week_num == 3
+      week_num += 1 if date.wday == 6
+      date = date.next_day
+    end
+
     while dates.size < 7
       dates << date
       date = date.next_day
