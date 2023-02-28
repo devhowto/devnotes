@@ -59,3 +59,10 @@ If we define `to_proc` we can use this _trick_ for any object.
 >> {one: 1, two: 2}.transform_values(&:next)
 => {:one=>2, :two=>3}
 ----
+
+## Note on Style
+
+- link:https://discord.com/channels/518658712081268738/650031651845308419/1080189900311236719[My question on unnecessary readers on Discord].
+
+No need to write readers for every instance variable if they don't need to be exposed publicly.
+Just use the instance variables themselves.
