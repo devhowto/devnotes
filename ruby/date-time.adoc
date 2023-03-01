@@ -226,3 +226,20 @@ end
 Most days will have a corresponding day in any given month, but a few will not.
 For example, a month may have 31 days, while a month before that may have only 30 days, in this (and similar cases), there is no corresponding day 31.
 The same can happen to day 30 and 29.
+
+Another approach is this:
+
+[source,irb]
+----
+>> (Date.new(2024, 2).next_month - 1).day
+=> 29
+----
+
+In this case, we want to know the number of days in February of 2024 (a leap year), which should contain 29 days.
+
+`Date.new(year, month)` without the day parameter causes the date to be constructed with day 1.
+Then `next_month` goes to the next month, on the same day, which means we are now in March 1st, 2024.
+Then we subtract 1, which means “subtract one day” from the date, effectively making it the last day of the previous month.
+The resulting date is 2024-02-29.
+The `day` method returns the current day, which is 29.
+Since 29 is the last day of 2024-02, 29 is the number of days for that month.
