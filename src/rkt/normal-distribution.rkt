@@ -40,8 +40,8 @@
 ;;
 (define (normal-distribution mean standard-deviation)
   (append (left mean standard-deviation)
-          (list mean)
+          (list (string-append "<" (fmt mean) ">"))
           (right mean standard-deviation)))
 
 
-(normal-distribution 10.4 1.9)
+(format "~A" (normal-distribution 12.5 2.4))

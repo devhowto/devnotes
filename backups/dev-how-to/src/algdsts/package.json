@@ -6,6 +6,7 @@
   "main": "index.js",
   "scripts": {
     "test": "NODE_OPTIONS=--experimental-vm-modules NODE_PATH=. npx jest",
+    "file": "NODE_OPTIONS=--experimental-vm-modules node",
     "docs": "jsdoc -c jsdoc-config.json --recurse"
   },
   "engines": {

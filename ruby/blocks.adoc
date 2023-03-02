@@ -131,3 +131,26 @@ This works fine because assignment has lower precedence as it is common for thin
 == References
 
 * link:https://ruby-doc.com/3.2.0/syntax/calling_methods_rdoc.html#label-Block+Argument[Ruby Docs on block syntax].
+
+== Block Parameters
+
+We can replace the first parameter `|p1|` with `_1`, the second parameter `|p2` with `_2` and so on and so forth:
+
+[source,irb]
+----
+>> [*1..5].map { |x| x.to_s }
+=> ["1", "2", "3", "4", "5"]
+
+>> [*1..5].map { _1.to_s }
+=> ["1", "2", "3", "4", "5"]
+
+>> [10, 20, 30].each_with_index { |num, idx| p "#{idx}: #{num}" }
+"0: 10"
+"1: 20"
+"2: 30"
+
+>> [10, 20, 30].each_with_index { p "#{_2}: #{_1}" }
+"0: 10"
+"1: 20"
+"2: 30"
+----
