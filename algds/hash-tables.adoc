@@ -8,7 +8,7 @@
 [source,javascript]
 ----
 /**
- * A very barebones hash function that works for simple, lowercase,
+ * A very bare-bones hash function that works for simple, lowercase,
  * ascii-only strings.
  */
 function hash(str, len) {
@@ -25,9 +25,6 @@ function hash(str, len) {
 > strs.map(s => hash(s, 10))
 [ 0, 0, 0, 0 ]
 ----
-
-
-
 
 [source,javascript]
 ----
@@ -49,12 +46,51 @@ Note, though, what happens if we use a prime number as the length:
 .node repl
 ----
 > var strs = ['pink', 'blue', 'orange', 'email'];
-> strs.map(s => hash(s, 10))
+> strs.map(s => hash(s, 10));
 [ 0, 0, 0, 0 ]
-> strs.map(s => hash(s, 11))
+
+> strs.map(s => hash(s, 11));
 [ 1, 6, 1, 7 ]
-> strs.map(s => hash(s, 13))
+
+> strs.map(s => hash(s, 13));
 [ 5, 10, 10, 9 ]
-> strs.map(s => hash(s, 31))
+
+> strs.map(s => hash(s, 31));
 [ 11, 5, 5, 12 ]
+
+> strs.map(s => hash(s, 51));
+[ 26, 13, 21, 31 ]
 ----
+
+Yes, using a prime number as the length helps to reduce collisions.
+See “link:https://www.quora.com/Does-making-array-size-a-prime-number-help-in-hash-table-implementation-Why[Does making array size a prime number help in hash table implementation? Why? on Quora^]”.
+
+== set(key, val)
+
+* Accepts a key and a value.
+* Stores the key/val pair in the hash table using the _Separate Chaining_ method of handling collisions.
+* Always store using a nested structure because other values can potentially have to be stored in that same index.
+* Return the index where the value was added.
+
+== get(key)
+
+* Accepts a key.
+* Search for the key in the index for that key.
+* Return `undefined` if the key is not found.
+
+== keys
+
+Returns an array of all keys in the hash table.
+
+Keys can never be duplicate in hash tables, so, nothing to worry about the returned keys.
+
+== values
+
+Returns an array with all values in the hash table.
+
+Values can have duplicates.
+Multiple distinct keys can have the same values.
+For example, multiple product SKUs can have the same price, or color, etc.
+Multiple student IDs can have the same grade, etc...
+
+Should we return duplicate values or only a single instance of each value?
