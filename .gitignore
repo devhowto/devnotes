@@ -17,3 +17,8 @@
 # Drawio backups and temporary files.
 #
 .$*.drawio.bkp
+
+##
+# Racket stuff.
+#
+*.rkt~
