@@ -1,8 +1,20 @@
 = Hash Tables
+:page-tags: algds, hash-table
+:stem: latexmath
 :icons: font
 :toc: left
 
 == hash function
+
+[NOTE]
+====
+“Hash functions” for hashing hash tables/dictionary keys are not cryptographically secure hash functions.
+
+The following hash function runs in constant time.
+A cryptographically secure hash function does not run in constant time as the purpose and requirements are different.
+====
+
+A good hash (function) should be fast (stem:[O(1)]), distribute the keys uniformly and be deterministic (same key always produce the same result).
 
 .very simple hash function
 [source,javascript]
@@ -78,13 +90,13 @@ See “link:https://www.quora.com/Does-making-array-size-a-prime-number-help-in-
 * Search for the key in the index for that key.
 * Return `undefined` if the key is not found.
 
-== keys
+== keys()
 
 Returns an array of all keys in the hash table.
 
 Keys can never be duplicate in hash tables, so, nothing to worry about the returned keys.
 
-== values
+== values()
 
 Returns an array with all values in the hash table.
 
@@ -94,3 +106,12 @@ For example, multiple product SKUs can have the same price, or color, etc.
 Multiple student IDs can have the same grade, etc...
 
 Should we return duplicate values or only a single instance of each value?
+
+== Time Complexity of Hash Tables
+
+Average case:
+
+* Insert: stem:[O(1)].
+* Delete: stem:[O(1)].
+* Access: stem:[O(1)].
+* Search for a value: stem:[O(n)] as it would traverse potentially all the data.
