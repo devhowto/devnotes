@@ -1,10 +1,5 @@
 import fs from 'node:fs';
 
-//
-// $ npm run file ./node/stream1.js <<<$(curl --silent -X GET
-// https://jsonplaceholder.typicode.com/todos/1)
-//
-
 var log = console.log.bind(console);
 
 var input = '';
@@ -20,11 +15,13 @@ process.stdin.on('data', function onData(data) {
   ws.write(data);
 });
 
+//
+// Ctrl+c or Ctrl+d to signal the END OF INPUT/TRANSMISSION.
+//
 process.stdin.on('end', function onEnd() {
   log('END');
   ws.write('END');
   ws.end();
-  // log(input.split('\n'));
 });
 
 
