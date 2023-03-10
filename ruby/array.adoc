@@ -1,0 +1,52 @@
+= Arrays Tips and Tricks :: Ruby
+:icons: font
+:toc: left
+
+
+Created by: Fernando Basso
+Created time: March 9, 2023 4:50 PM
+Last edited by: Fernando Basso
+Last edited time: March 9, 2023 5:06 PM
+Tags: array, ruby
+
+== Ruby Array Initialization
+
+=== Times Table
+
+The `Array` constructor takes a block. It gets passed each index:
+
+----
+>> Array.new(10) { _1 }
+=> [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
+----
+
+Which we can use to create the times table for 9 or 13:
+
+----
+>> Array.new(10) { 9 * _1.succ }
+=> [9, 18, 27, 36, 45, 54, 63, 72, 81, 90]
+
+>> Array.new(10) { 13 * _1.succ }
+=> [13, 26, 39, 52, 65, 78, 91, 104, 117, 130]
+----
+
+[source,ruby]
+----
+module TimesTableUtils
+  module_function
+
+  def multiples(size, num)
+    Array.new(size) { num * _1.succ }
+  end
+
+  def times_table(size)
+    Array.new size do |idx|
+      Array.new(10) { idx.succ * _1.succ }
+    end
+  end
+end
+----
+
+Then we can get the first 15 multiples of 7, and the times tables from 1 to 13:
+
+![Untitled](Ruby%20Array%20Tips%20and%20Tricks%20e38948fc68454d668318bc40a4b69bda/Untitled.png)

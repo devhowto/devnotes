@@ -66,3 +66,26 @@ If we define `to_proc` we can use this _trick_ for any object.
 
 No need to write readers for every instance variable if they don't need to be exposed publicly.
 Just use the instance variables themselves.
+
+## Methods
+
+`1 + 1` is just syntax sugar for `1.+(1)`, that is, a normal method call.
+
+Ruby doesn't have the post and pre increment operators `x--` or `++x` (TODO: mention `succ` and `pred`?).
+
+If `1 + 1` is actually `1.+(1)`, one could ask what `n += 1` is syntax sugar for.
+We know from other languages that `n += 1` is the same as `n = n + 1` (which works in Ruby too).
+
+`+=` is not sugar, but just language syntax, not a method.
+According to link:https://en.wikibooks.org/wiki/Ruby_Programming/Syntax/Operators#Assignment^], these are called *self assignment*:
+
+[source,text]
+----
+x = 1        #=> 1 (this is the only non-self assignment in this list)
+x += x       #=> 2
+x -= x       #=> 0
+x += 4       #=> x was 0 so x= + 4 x is positive 4
+x *= x       #=> 16
+x **= x      #=> 18446744073709551616. Raise to the power
+x /= x       #=> 1
+----
