@@ -1,12 +1,14 @@
 = sed insert line(s)
+:page-tags: cmdline sed
 :icons: font
+:toc: left
 
 == insert into empty file
 
 sed operates on lines.
 If a file contains no lines, sed cannot insert a line into the file.
 
-That means if we create a really empty file and try to insert some content into like 1, it won't work and no lines are inserted:
+That means if we create a really empty file and try to insert some content into line 1, it won't work and no lines are inserted:
 
 .sed insert into no-lines file
 [source,shell-session]
@@ -27,6 +29,7 @@ $ du  ./new.txt
 ----
 
 As we see, `new.txt` is empty.
+It happens because there is no line 1 (the file has no lines at all), so the “line 1 address” cannot possibly match line 1.
 
 One approach would be to create a one-empty-line file instead:
 
