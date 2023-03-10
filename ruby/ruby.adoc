@@ -1,5 +1,7 @@
 = Ruby
+:page-tags: ruby docs tutorial
 :icons: font
+:toc: left
 
 Ruby is a delightful programming language designed for programmer happiness 💖.
 
@@ -17,11 +19,11 @@ Nice tools:
 * https://github.com/awesome-print/awesome_print[Awesome Print].
 * https://github.com/pry/pry[pry (irb alternative with powerful
 introspection capabilities)].
-* https://solargraph.org/guides[Solargraph Ruby Langauge Server].
+* https://solargraph.org/guides[Solargraph Ruby Language Server].
 
 == Ruby Concepts and Ideas
 
-* The name of the language is spelled _Ruby_ (not RUBY or ruby) because it is a proper noun (therefore, the first letter is capitalized). `ruby` is the name of the program we use to run Ruby programs, like`ruby -w fib.rb`.
+* The name of the language is spelled _Ruby_ (not RUBY or ruby) because it is a proper noun (therefore, the first letter is capitalized). `ruby` is the name of the program we use to run Ruby programs, like `ruby -w fib.rb`.
 * A _mix-in_ (also spelled _mix in_) is the including of a module inside a class. We say things like “The Enumerable mix-in module provides…”.
 See https://ruby-doc.com/core/doc/syntax/modules_and_classes_rdoc.html[Ruby doc on modules].
 
@@ -77,7 +79,7 @@ If `1 + 1` is actually `1.+(1)`, one could ask what `n += 1` is syntax sugar for
 We know from other languages that `n += 1` is the same as `n = n + 1` (which works in Ruby too).
 
 `+=` is not sugar, but just language syntax, not a method.
-According to link:https://en.wikibooks.org/wiki/Ruby_Programming/Syntax/Operators#Assignment^], these are called *self assignment*:
+According to link:https://en.wikibooks.org/wiki/Ruby_Programming/Syntax/Operators#Assignment[Ruby Operators :: Wikibooks^], these are called *self assignment*:
 
 [source,text]
 ----
