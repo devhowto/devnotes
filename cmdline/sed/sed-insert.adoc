@@ -33,6 +33,42 @@ It happens because there is no line 1 (the file has no lines at all), so the “
 
 One approach would be to create a one-empty-line file instead:
 
+=== Empty Files
+
+Here are some ways to create empty files (really zero bytes and zero lines).
+Note that the first `echo` example creates a file with one empty line (and that is not really an empty file):
+
+[source,text]
+----
+$ echo > ./1line-echo.txt
+
+$ echo -n > ./0line-echo.txt
+$ : > ./0line-null.txt
+$ touch ./0line-touch.txt
+
+$ ls -1 ./*line*.txt
+./0line-echo.txt
+./0line-null.txt
+./0line-touch.txt
+./1line-echo.txt
+
+$ du -h ./*line*.txt
+0	./0line-echo.txt
+0	./0line-null.txt
+0	./0line-touch.txt
+4.0K	./1line-echo.txt
+
+$ wc -l ./*line*.txt
+0 ./0line-echo.txt
+0 ./0line-null.txt
+0 ./0line-touch.txt
+1 ./1line-echo.txt
+1 total
+----
+
+`echo` appends a newline to the output.
+Use `-n` to prevent that.
+
 .single empty line file
 [source,shell-session]
 ----
