@@ -38,7 +38,7 @@ We can get all the values of a hash by doing this:
 => [1, 2]
 ----
 
-Which is similar to doing `hash.values`
+Which is similar to doing `hash.values`.
 
 === Map and Hash to Proc to Get Values
 
@@ -49,7 +49,8 @@ Which is similar to doing `hash.values`
 => [1, 2]
 ----
 
-With an array of keys, we map over those keys, and _turn the hash into a proc_😲!
+With an array of keys, we map over those keys, and _turn the hash into a proc_ 😲!
+That proc will map the values based on the keys and return an array of the hash values.
 
 Saw this first in a solution for https://exercism.org/tracks/ruby/exercises/resistor-color-duo[resistor color duo exercism challenge].
 
@@ -73,7 +74,7 @@ Just use the instance variables themselves.
 
 `1 + 1` is just syntax sugar for `1.+(1)`, that is, a normal method call.
 
-Ruby doesn't have the post and pre increment operators `x--` or `++x` (TODO: mention `succ` and `pred`?).
+Ruby doesn't have the post and pre increment operators `x--` or `++x`, although it has `#succ` and `#pred` which perform post increment and decrement for numbers and strings, but not something for pre increment and decrement.
 
 If `1 + 1` is actually `1.+(1)`, one could ask what `n += 1` is syntax sugar for.
 We know from other languages that `n += 1` is the same as `n = n + 1` (which works in Ruby too).
