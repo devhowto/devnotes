@@ -3,7 +3,7 @@
 :toc: right
 :icons: font
 
-There are a few, but *extremely important* concepts that we must keep in mind to make reasonable use of the command line and write shell scripts in general.
+There are a few, but *extremely important* concepts that we must keep in mind to make reasonable use of the command line and write shell scripts in general, and even to read the documentation.
 
 == Whitespace and Quoting
 
@@ -12,13 +12,13 @@ Whitespace is of the utmost importance in the shell.
 
 [TIP]
 ====
-In shell terminology, we say each thing separated by spaces is a _word_.
-====
-
-See:
+In shell terminology, we say each thing separated by a _field separator_ is a _word_.
+*DO NOT* think “word” literally, like in human spoken language words.
+Peruse the following documents to get a better idea:
 
 * link:https://pubs.opengroup.org/onlinepubs/9699919799/utilities/V3_chap02.html#tag_18_03[The Spec].
 * link:https://www.gnu.org/savannah-checkouts/gnu/bash/manual/bash.html#Shell-Syntax[Bash shell syntax documentation].
+====
 
 For the shell, the first _word_ (a.k.a _token_) is the command, or the name of the program to run, and the remaining _words_ are parameters to be passed to the program.
 
@@ -30,7 +30,7 @@ $ printf '%d\n' {1..3}
 3
 ----
 
-Here, `printf` is the first token (the name of the program to be run), `%d\n` is the second token (quotes are removed — unless escaped — before the argument is passed to the program), and `{1..3}` is the third token, except the shell (Bash in my case) performs brace expansion before passing the results as individual tokens to the `printf` program.
+Here, `printf` is the first token (the name of the program to be run), `%d\n` is the second token (quotes are removed — unless escaped — before the argument is passed to the program), and `{1..3}` is the third token, except the shell (Bash) performs brace expansion before passing the results as individual tokens to the `printf` program.
 
 When the shell finds the newline, it then executes the command line.
 
@@ -86,14 +86,13 @@ message.txt
 secret.txt
 ----
 
-Now we removed `secret message.txt` and not incidents took place.
+Now we removed `secret message.txt` and no incidents took place.
 
 == End Of Options ‘--’
 
 The _end of options_ `--` is used to indicate the end of options 🤣.
 It is documented under
-link:https://pubs.opengroup.org/onlinepubs/9699919799/basedefs/V1_chap12.html#tag_12_02[Utility
-Syntax Guidelines] of the Open Group specification.
+link:https://pubs.opengroup.org/onlinepubs/9699919799/basedefs/V1_chap12.html#tag_12_02[Utility Syntax Guidelines] of the Open Group specification.
 
 Guideline 10 says:
 
@@ -102,7 +101,7 @@ ____
 Any following arguments should be treated as operands, even if they begin with the '-' character."
 ____
 
-It is useful when we want to tell a program something like “Look, from now on, these arguments are real files, directories, whatever.
+It is useful when we want to tell a program something like “Look, from now on, these arguments are real file names, directories, data, whatever.
 They *are not* options (command line flags) to the program.”
 
 [NOTE]
@@ -115,8 +114,8 @@ Let's see some use cases.
 
 === remove files starting with ‘-’
 
-Sometimes, by accident or some other reason, we end up with files whose name start with one or more `-` (U+002D HYPHEN-MINUS character).
-If we try to remove or rename without proper care, it doesn't work.
+Sometimes, by accident or some other reason (like sabotage), we end up with files whose name start with one or more `-` (U+002D HYPHEN-MINUS character).
+If we try to remove or rename them without proper care, it doesn't work.
 
 [source,shell-session]
 ----
@@ -128,22 +127,21 @@ $ tree -CF .
 
 0 directories, 2 files
 
-shell
 $ rm -v -w00t.txt
 rm: invalid option -- 'w'
 Try 'rm ./-w00t.txt' to remove the file '-w00t.txt'.
 Try 'rm --help' for more information.
 
-shell
 $ rm -v --oops.txt
 rm: unrecognized option '--oops.txt'
 Try 'rm ./--oops.txt' to remove the file '--oops.txt'.
 Try 'rm --help' for more information.
 ----
 
-
 [quote, Master Yoda]
+____
 How embarrassing!
+____
 
 But because we can use the _end of options_ shell thing (`--`), we have a way out!
 
@@ -156,7 +154,7 @@ rm: remove regular empty file '-w00t.txt'? yes
 removed '-w00t.txt'
 ----
 
-Another option is to use `./<name of the file>` to “force” the shell tread the _word_ as a file and not as an option to the command.
+Another option is to use `./<name of the file>` to “force” the shell treat the _word_ as a file and not as an option to the command.
 
 [source,shell-session]
 ----
@@ -211,9 +209,7 @@ Why isn't `printf` printing '%s\n' literally/verbatim?
 
 Because the format string IS NOT AN OPTION! _End of options_ *works with options*.
 
-People in bash IRC say that we would use _end of options_ when the format string starts with `--`, which is not the case for this example.
-
-In this example, it doesn't hurt but doesn't change anything either.
+People in bash IRC say that we would use _end of options_ when the format string starts with `--`, which is not the case for this example. In this example, it doesn't hurt but doesn't change anything either.
 
 === Example 3
 
@@ -227,6 +223,7 @@ It prints "+-->+".
 What about "foo"?
 
 It is ignored because no format string was provided.
+Without it, `printf` only prints handles the first argument.
 
 Compare:
 
