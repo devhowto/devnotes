@@ -3,6 +3,7 @@
 :icons: font
 :toc: left
 
+[data-tags="du bash shell cmdline hard-link expansion"]
 == Hard Links and Shell Expansion
 
 [source,shell-session]

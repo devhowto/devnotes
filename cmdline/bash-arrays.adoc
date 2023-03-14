@@ -13,7 +13,7 @@ $ nums=(1 2 3 4)
 $ printf '%s\0' "${nums[@]}" 1> nums.dat
 ----
 
-If you `less nums-arr.dat` or open it in vim or emacs, it'll show like this:
+If you `less nums-arr.dat` or open it in vim or emacs, it'll show up something like this:
 
 [source,text]
 ----
@@ -57,7 +57,7 @@ $ printf '%d\n' "${xs[@]}"
 
 === Why can't we use read‽
 
-If we try `read` instead of `mapfile`, we see it doesn't work:
+Try `read` instead of `mapfile` and it doesn't work:
 
 [source,shell-session]
 ----
@@ -91,12 +91,9 @@ First let's see what `read` and `mapfile` are supposed to do.
 ____
 "Read a line from the standard input and split it into fields."
 
-Reads a single line from the standard input, or from file descriptor FD
-if the -u option is supplied. The line is split into fields as with word
-splitting, and the first word is assigned to the first NAME, the second
-word to the second NAME, and so on, with any leftover words assigned to
-the last NAME. Only the characters found in $IFS are recognized as word
-delimiters."
+Reads a single line from the standard input, or from file descriptor FD if the -u option is supplied.
+The line is split into fields as with word splitting, and the first word is assigned to the first NAME, the second word to the second NAME, and so on, with any leftover words assigned to the last NAME.
+Only the characters found in $IFS are recognized as word delimiters."
 ____
 
 And `help mapfile` says:
@@ -105,17 +102,13 @@ And `help mapfile` says:
 ____
 "Read lines from the standard input into an indexed array variable.
 
-Read lines from the standard input into the indexed array variable
-ARRAY, or from file descriptor FD if the -u option is supplied. The
-variable MAPFILE is the default ARRAY."
+Read lines from the standard input into the indexed array variable ARRAY, or from file descriptor FD if the -u option is supplied.
+The variable MAPFILE is the default ARRAY."
 
 -- help mapfile
 ____
 
-The important bits for our case is that `read` *reads a single line*,
-and `mapfile` reads *reads lines*.
-Note the plural on “lines”.
-A very important detail here.
+The important bits for our case is that `read` *reads a single line*, and `mapfile` reads *reads lines*. Note the plural on “lines”. A very important detail here.
 
 Now let's scrutinize the `-d` option of both commands.
 
@@ -136,20 +129,13 @@ OK, so `-d` does the same thing for both commands.
 They use the delimiter in `-d DELIM` to indicate what character should be used to
 indicate line termination, rather than `\n`.
 
-That means `read -d ''` will read the first value of our NUL-separated
-input and consider it _a line_ of input, and be done with it (after all,
-`read` “reads a single line of input”).
+That means `read -d ''` will read the first value of our NUL-separated input and consider it _a line_ of input, and be done with it (after all, `read` “reads a single line of input”).
 
-`mapfile` will also read the first value of our NUL-separated input and
-consider it _a line_ of input, but rather than be done with it at this
-point, it will continue reading more lines (after all, `mapfile` “reads
-multiple lines of input”).
+`mapfile` will also read the first value of our NUL-separated input and consider it _a line_ of input, but rather than be done with it at this point, it will continue reading more lines (after all, `mapfile` “reads multiple lines of input”).
 
-=== IFS= and \0
+=== IFS= and \0 (NUL)
 
-One thing to consider is that variables cannot hold `NUL` Also, in
-
-But:
+One thing to consider is that variables cannot hold `NUL`.
 
 [source,shell-session]
 ----
@@ -158,15 +144,11 @@ a nul   b
 a  \0   b
 ----
 
-It wouldn't be particularly useful if variables could store `NUL` since
-the point of a variable is usually to be used in the environment or as
-an argument to a command, where NULs are not accepted either.
+It wouldn't be particularly useful if variables could store `NUL` since the point of a variable is usually to be used in the environment or as an argument to a command, where NULs are not accepted either.
 
 `printf` interprets `\0` but `IFS=\\0` is something different.
 
-The
-https://pubs.opengroup.org/onlinepubs/009604499/utilities/xcu_chap02.html#tag_02_05_03[spec]
-says: “Variables shall be initialized from the environment”.
+The link:https://pubs.opengroup.org/onlinepubs/009604499/utilities/xcu_chap02.html#tag_02_05_03[spec] says: “Variables shall be initialized from the environment”.
 
 And we can't have NUL in the environment.
 
@@ -175,27 +157,52 @@ And we can't have NUL in the environment.
 This topic is hard and has tormented me for a long time 😅.
 ====
 
-About "variables cannot hold NUL", 2.5 Paramater and
-Variables states that
+About "variables cannot hold NUL", section 2.5 Parameter and Variables (link:https://pubs.opengroup.org/onlinepubs/009604499/utilities/xcu_chap02.html#tag_02_05_03[spec]) states that:
 
 > A parameter is set if it has an assigned value (null is a valid value)."
 
-And "a variable is a parameter denoted by name".
-The more I try to understand, the more I do not understand.
+And
 
-They mean empty string with null there.
-Think they should just write “empty string” but...
+> A variable is a parameter denoted by name.
 
-Anyway, variable set to an empty string is indistinguishable from a variable set to null.
+They mean empty string to be null there.
+Some people and docs also use null string.
+
+[NOTE]
+====
+It seems empty string, null string, and null are sometimes used interchangeably to mean the same idea of absence of a value.
+====
+
+Some on #bash IRC think “they should just write “empty string” but...”
+
+Some also say that “a variable set to an empty string is indistinguishable from a variable set to null.”
+
+That may not be 100% correct:
+
+[source,shell-session]
+----
+$ unset x y; declare x= y; set -u; echo $x $y
+bash: y: unbound variable
+
+$ [ -z $x ] && echo 'x is NUL'
+x is NUL
+
+$ [ -z $y ] && echo 'y is NUL'
+bash: y: unbound variable
+
+$ set +u; [ -z $y ] && echo 'y is NUL'
+y is NUL
+----
+
+Perhaps it is more precise to say _almost indistinguishable_ because some special circumstances and shell settings are also into play.
 
 === field separator vs terminator
 
-We also have to be clear on the fact that *field separator* is different
-than *terminator*. A _terminator_ could indicate the end of input, end
-of a line, etc.
+We also have to be clear on the fact that *field separator* is different than *terminator*.
+A _terminator_ could indicate the end of input, end of a line, etc.
 An input could be separated into multiple fields, and each field could be an entire line, so multiple lines would mean multiple fields.
 
-Some people claim that it makes more sense to use `\n` as field separator and `\0` (NUL) as terminators rather than the other way around.
+Some people on #bash IRC claim that it makes more sense to use `\n` as field separator and `\0` (NUL) as terminators rather than the other way around.
 
 == Serialize a NUL-separated list of files to a variable
 
