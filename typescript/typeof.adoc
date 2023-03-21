@@ -1,0 +1,66 @@
+= typeof :: TypeScript
+:page-tags: typescript typeof
+:toc: left
+:icons: font
+
+== Intro
+
+In TypeScript, `typeof` can be used at both *value/expression context* and in *type context*.
+
+In value context, we are back in JS land.
+It can produce the usual JS value of identifiers (names of variables and functions), properties *and* expressions.
+In type context, it cannot take expressions (since expressions can only be evaluated at runtime and TS types are not present at runtime as they are erased during transpilation).
+
+.node repl
+----
+> typeof 1
+'number'
+> typeof 'z'
+'string'
+> typeof {}
+'object'
+> typeof []
+'object'
+----
+
+In type context, `typeof` can work with identifiers (variables, names of functions) or properties, but not with expressions.
+These are errors:
+
+----
+type T = typeof 1;
+                ~
+      ~ Identifier expected.
+
+type U = typeof (1 + '1');
+                ~
+      ~ Identifier expected.
+----
+
+`1` is an expression.
+So is `1 + '1'`.
+
+These work:
+
+[source,typescript]
+----
+const x = 1;
+type X = typeof x;
+
+let y = 1;
+type Y = typeof y;
+
+var z = 1;
+type Z = typeof z;
+
+const v = 1 + '1';
+type V = typeof v;
+
+const o = { id: 1, name: 'Ahsoka Tano' };
+type ID = typeof o.id;
+type NAME = typeof o.name;
+----
+
+**NOTE**: Because we cannot reassign `x` (`const` was used with a literal assignment), the type is the literal 1, not “number”.
+
+**NOTE**: Even though we did `const o`, the object properties can be changed so the inferred types are “number” and “string”.
+If we do an `as const` type assertion at the end of the declaration, the types would be the literal number “1” and the string “Ahsoka Tano”.
