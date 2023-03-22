@@ -1,39 +1,49 @@
-== TypeScript
+= TypeScript
+:toc: left
+:icons: font
+
+== Intro
 
 Why do we need types in JavaScript anyway?
 
-First of all, JavaScript already has types. Since its inception in
-Netscape. Just that it is a dynamically-, weakly-typed (not statically-
-and strongly-typed). What it doesn’t have is type annotations.
+First of all, JavaScript already has types.
+Since its inception in Netscape.
+Just that it is a dynamically-, weakly-typed (not statically- and strongly-typed).
+What it doesn’t have is type annotations.
 
-The fact that it has types and people ignore them is the single most
-cause of bugs in JavaScript programs and applications.
+The fact that it has types and people ignore them is the single most common cause of bugs in JavaScript programs and applications.
 
-Types help us make sure we use our code in the way it is intended to be,
-define a contract, and also immensely help us to convey intent, which
-means they also serve as documentation, making the code more
-self-documenting.
+Types help us make sure we use our code in the way it is intended to be.
+Types help define a contract, and also immensely help us to convey intent, which means they also serve as documentation, making the code more self-documenting.
 
-=== Tips For Learning TypeScript
+== Tips For Learning TypeScript
 
 *TIP 1*: Always try to figure out the types without hovering or
-inspecting. At all times, quiz yourself about types, concepts and ideas
-applied; about every minutiae you can think of. Only then proceed to tip
-2.
+inspecting first.
+At all times, quiz yourself about types, concepts and ideas
+applied; about every minutiae you can think of.
+Only then proceed to tip 2.
 
-*TIP 2*: After following tip 1, always inspect the types or try the
-intellisense to get a better understanding of the them! If you got
-something wrong while applying tip 1 in comparison to the results you
-get while inspecting the types, ask yourself what lead you astray, what
-misunderstanding you had, or what pieces of knowledge you still didn’t
-have.
+*TIP 2*: After following tip 1, always inspect the types or try the intellisense to get a better understanding of the them!
+If you got something wrong while applying tip 1 in comparison to the results you get while inspecting the types, ask yourself what lead you astray, what misunderstanding you had, or what pieces of knowledge you still didn’t have in mind.
 
-*TIP 3*: Always try to say aloud (or at least think about) the name of
-the concept being applied at each situation. For example, ``We are using
-an indexed access type here, and here we make use of mapped types.''
+*TIP 3*: Always try to say aloud (or at least think about) the name of the concept being applied at each situation.
+For example, “We are using an indexed access type here, and here we make use of mapped types”.
 
-=== ```\{toctree}
+== Type-checking vs Transpilation
 
-maxdepth: 6 caption: TypeScript —
+`tsc` (the TypeScript compiler) does two main things:
 
-union-types.md keyof.md functions.md infer.md ```
+* Type-checks the code.
+* Transpiles the code.
+
+TypeScript types are erased during transpilation (generation of vanilla, runnable JavaScript code).
+After the code is transpiled, no more TS stuff is present in the runnable JS code.
+TS types **cannot possibly influence JS runtime**.
+They help during development, statically checking stuff.
+TS has nothing to do with runtime, though.
+
+Those two steps, type-checking and transpiling are done in separate steps and are not related.
+Code could be failing type-checking correctly, but `tsc` will still emit JS.
+
+People sometimes incorrectly say “My TypeScript code doesn’t compile.”, when they should really be saying “My TypeScript code does not type-check.”, as TypeScript code with type errors still compiles.
