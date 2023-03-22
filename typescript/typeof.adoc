@@ -8,7 +8,12 @@
 In TypeScript, `typeof` can be used at both *value/expression context* and in *type context*.
 
 In value context, we are back in JS land.
-It produces a string identifying the type of identifiers (names of variables and functions), properties *and* expressions.
+It produces a string identifying the type of value of an identifier (names of variables and functions), properties *and* expressions.
+
+[TIP]
+====
+Some text and people also say _value level_ and _type level_, using the word “level” instead of “context”.
+====
 
 === typeof in value context
 
@@ -16,6 +21,8 @@ It produces a string identifying the type of identifiers (names of variables and
 
 .node repl
 ----
+> typeof (1 + '1');
+'string'
 > typeof 1
 'number'
 > typeof 'z'
@@ -45,9 +52,19 @@ undefined
 
 The above are all *runtime* type checks, vanilla JS type stuff.
 
+[WARNING]
+====
+Be careful with precedence:
+
+----
+> typeof 1 + '1';
+'string1'
+----
+====
+
 === typeof in type context
 
-In type context, `typeof` can work with identifiers (variables, names of functions) or properties, but not with expressions.
+In type context, `typeof` can work with identifiers (variables, names of functions) or properties, but not with expressions since TS types are erased during transpilation and expressions can only be evaluated at runtime.
 These are errors:
 
 ----
@@ -84,7 +101,7 @@ type ID = typeof o.id;
 type NAME = typeof o.name;
 ----
 
-**NOTE**: Because we cannot reassign `x` (`const` was used with a literal assignment), the type is the literal 1, not “number”.
+**NOTE**: Because we cannot reassign `x` (`const` was used and a literal value was assigned), the type is the literal `1`, not “number”.
 
 **NOTE**: Even though we did `const o`, the object properties can be changed so the inferred types are “number” and “string”.
 If we do an `as const` type assertion at the end of the declaration, the types would be the literal number “1” and the string “Ahsoka Tano”.
