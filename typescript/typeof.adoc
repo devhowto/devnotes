@@ -8,8 +8,11 @@
 In TypeScript, `typeof` can be used at both *value/expression context* and in *type context*.
 
 In value context, we are back in JS land.
-It can produce the usual JS value of identifiers (names of variables and functions), properties *and* expressions.
-In type context, it cannot take expressions (since expressions can only be evaluated at runtime and TS types are not present at runtime as they are erased during transpilation).
+It produces a string identifying the type of identifiers (names of variables and functions), properties *and* expressions.
+
+=== typeof in value context
+
+*In type context, `typeof` cannot take expressions* (since expressions can only be evaluated at runtime and TS types are not present at runtime as they are erased during transpilation).
 
 .node repl
 ----
@@ -21,7 +24,28 @@ In type context, it cannot take expressions (since expressions can only be evalu
 'object'
 > typeof []
 'object'
+> typeof Symbol('foo')
+'symbol'
+
+> var o = { id: 1, name: 'Ahsoka Tano' }
+> typeof o.id
+'number'
+> typeof o.name
+'string'
+
+> var xs = [1, 'two', { three: 3 }];
+undefined
+> typeof xs[0]
+'number'
+> typeof xs[1]
+'string'
+> typeof xs[2]
+'object'
 ----
+
+The above are all *runtime* type checks, vanilla JS type stuff.
+
+=== typeof in type context
 
 In type context, `typeof` can work with identifiers (variables, names of functions) or properties, but not with expressions.
 These are errors:
