@@ -12,7 +12,7 @@ It produces a string identifying the type of value of an identifier (names of va
 
 [TIP]
 ====
-Some text and people also say _value level_ and _type level_, using the word “level” instead of “context”.
+Some texts and people also say _value level_ and _type level_, using the word “level” instead of “context”.
 ====
 
 === typeof in value context
