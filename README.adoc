@@ -7,13 +7,13 @@ My dev, study, and research notes.
 
 [NOTE]
 ====
-The official repo is the link:https://gitlab.com/devhowto/devnotes[devnotes repo on Gitlab].
-The link:https://github.com/devhowto/the-little-schemer[repo on Github] is just a mirror.
+The official repository is the link:https://gitlab.com/devhowto/devnotes[devnotes repository on Gitlab].
+The link:https://github.com/devhowto/devnotes[Github one] is just a mirror.
 ====
 
 [NOTE]
 ====
-Gitlab has much superior support for Asciidoc (through the Asciidoctor implementation), including Science, Technology, Engineering and Mathematical (STEM) notation (see link:https://docs.gitlab.com/ee/user/asciidoc.html#equations-and-formulas-stem[Gitlab Docs on Asciidoc]).
+Gitlab has much superior support for Asciidoc (through the Asciidoctor implementation), including Science, Technology, Engineering and Mathematical (STEM) notation (see link:https://docs.gitlab.com/ee/user/asciidoc.html#equations-and-formulas-stem[Gitlab Docs on Asciidoc STEM]).
 
 It also supports PlantUML, which is a truly amazing _Diagrams as Code_ tool).
 ====
