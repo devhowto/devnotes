@@ -1,0 +1,5 @@
+= Composable Functional JavaScript
+:toc: left
+:icons: font
+
+My notes and code from the the amazing link:https://egghead.io/courses/professor-frisby-introduces-composable-functional-javascript[Professor Frisby Introduces Composable Functional JavaScript^] FREE course on Egghead by Brian Londsdorf!

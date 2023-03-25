@@ -1,0 +1,24 @@
+{
+  "name": "compfpjs",
+  "version": "0.0.1",
+  "type": "module",
+  "description": "Notes and code from Composable FP JS course'",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://gitlab.com/devhowto/devnotes.git"
+  },
+  "keywords": [
+    "javascript",
+    "functional-programming"
+  ],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://gitlab.com/devhowto/devnotes/issues"
+  },
+  "homepage": "https://gitlab.com/devhowto/devnotes#readme"
+}
