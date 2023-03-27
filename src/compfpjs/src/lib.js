@@ -15,6 +15,21 @@ function idty(v) {
 }
 
 /**
+ * @sig a -> Boolean
+ */
+function isNil(v) {
+  return v === undefined || v === null;
+}
+
+/**
+ * @sig a -> Either a
+ */
+function fromNullable(v) {
+  return isNil(v) ? Left(null) : Right(v);
+}
+
+
+/**
  * @sig String -> String
  */
 function toUpper(s) {
@@ -70,12 +85,14 @@ function toInt(str, radix = 10) {
 }
 
 export {
-  idty,
-  log,
-  toUpper,
-  toLower,
-  trim,
   add1,
   chr,
+  fromNullable,
+  idty,
+  isNil,
+  log,
   toInt,
+  toLower,
+  toUpper,
+  trim,
 };
