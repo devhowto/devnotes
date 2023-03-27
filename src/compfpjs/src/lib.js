@@ -8,6 +8,27 @@
 const log = console.log.bind(console);
 
 /**
+ * @sig a -> a
+ */
+function idty(v) {
+  return v;
+}
+
+/**
+ * @sig String -> String
+ */
+function toUpper(s) {
+  return s.toUpperCase();
+}
+
+/**
+ * @sig String -> String
+ */
+function toLower(s) {
+  return s.toLowerCase();
+}
+
+/**
  * Trims `s`.
  *
  * @param {string} s
@@ -49,7 +70,10 @@ function toInt(str, radix = 10) {
 }
 
 export {
+  idty,
   log,
+  toUpper,
+  toLower,
   trim,
   add1,
   chr,
