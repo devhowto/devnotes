@@ -36,3 +36,20 @@ FROM city
 WHERE population > 120000
 AND countrycode LIKE 'USA';
 ----
+
+== Select All
+
+* https://www.hackerrank.com/challenges/select-all-sql[Select All :: HackerRank SQL Challenge].
+
+[source,sql]
+----
+SELECT
+    id
+  , name
+  , countrycode
+  , district
+  , population
+FROM city;
+----
+
+Again, writting the column names explicitly makes it more self-documenting than simply using `*`.
