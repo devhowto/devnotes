@@ -53,3 +53,19 @@ FROM city;
 ----
 
 Again, writting the column names explicitly makes it more self-documenting than simply using `*`.
+
+== Select By ID
+
+* https://www.hackerrank.com/challenges/select-by-id[Select By ID :: HackerRank SQL Challenge].
+
+[source,sql]
+----
+SELECT
+    id
+  , name
+  , countrycode
+  , district
+  , population
+FROM city
+WHERE id = 1661;
+----
