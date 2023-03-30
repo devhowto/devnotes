@@ -1,0 +1,26 @@
+= HackerRank SQL Challenges
+:toc: left
+:icons: font
+:source-highlighter: highlight.js
+
+
+== Revising The Select Query I
+
+* https://www.hackerrank.com/challenges/revising-the-select-query[Revising the Select Query I :: HackerRank SQL Challenge].
+
+[source,sql]
+----
+SELECT
+    id
+  , name
+  , countrycode
+  , district
+  , population
+FROM city
+WHERE population >= 100000
+AND countrycode = 'USA';
+----
+
+We can replace all column names with the start `*`, but this is more readable as all column names are explicitly stated in the query.
+
+Also, we could use `LIKE` in place of `=` for this case: `... AND countrycode LIKE 'USA'`.
