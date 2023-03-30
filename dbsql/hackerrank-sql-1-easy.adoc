@@ -76,12 +76,20 @@ WHERE id = 1661;
 
 [source,sql]
 ----
-SELECT
-    id
-  , name
-  , countrycode
-  , district
-  , population
+SELECT name
 FROM city
 WHERE countrycode = 'JPN';
 ----
+
+== Weather Observation Station 1
+
+* https://www.hackerrank.com/challenges/weather-observation-station-1[Weather Observation Station 1 :: HackerRank SQL Challenge].
+
+[source,sql]
+----
+SELECT
+    city
+  , state
+FROM station;
+----
+
