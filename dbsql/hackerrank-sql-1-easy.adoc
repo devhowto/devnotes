@@ -24,3 +24,15 @@ AND countrycode = 'USA';
 We can replace all column names with the start `*`, but this is more readable as all column names are explicitly stated in the query.
 
 Also, we could use `LIKE` in place of `=` for this case: `... AND countrycode LIKE 'USA'`.
+
+== Revising the Select Query II
+
+* https://www.hackerrank.com/challenges/revising-the-select-query-2[Revising the Select Query II :: HackerRank SQL Challenge].
+
+[source,sql]
+----
+SELECT name
+FROM city
+WHERE population > 120000
+AND countrycode LIKE 'USA';
+----
