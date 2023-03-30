@@ -69,3 +69,19 @@ SELECT
 FROM city
 WHERE id = 1661;
 ----
+
+== Japanese Cities' Attributes
+
+* https://www.hackerrank.com/challenges/japanese-cities-attributes[Japanese Cities' Attributes :: HackerRank SQL Challenge].
+
+[source,sql]
+----
+SELECT
+    id
+  , name
+  , countrycode
+  , district
+  , population
+FROM city
+WHERE countrycode = 'JPN';
+----
