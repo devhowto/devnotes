@@ -93,3 +93,35 @@ SELECT
 FROM station;
 ----
 
+== Weather Observation Station 2
+
+* https://www.hackerrank.com/challenges/weather-observation-station-2[Weather Observation Station 2 :: HackerRank SQL Challenge].
+
+
+[source,sql]
+----
+SELECT
+    ROUND(SUM(lat_n), 2) AS lat
+  , ROUND(SUM(long_w), 2) AS lon
+FROM station;
+----
+
+We can `SUM` any numeric column, e.g.:
+
+[source,sql]
+----
+SELECT SUM(id) FROM users;
+----
+
+And also `ROUND(value, num_decimal_places)`, e.g.:
+
+.psql session
+[source,text]
+----
+mydb=# SELECT ROUND(3.141592653589793, 5);
+  round
+---------
+ 3.14159
+----
+
+So we basically round the result of the sum and rename the output columns as `lat` and `lon`.
