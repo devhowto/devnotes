@@ -1,0 +1,150 @@
+= Examples Compared
+:icons: font
+:toc: left
+
+Some examples of imperative vs composable style compared.
+
+== openSite()
+
+.imperative
+[source,javascript]
+----
+function openSite() {
+  if (user) return renderPage(user);
+  return showLogin();
+}
+----
+
+.composable
+[source,javascript]
+----
+function openSite() {
+  fromNullable(user)
+    .fold(showLogin, renderPage);
+}
+----
+
+== getPrefs()
+
+.imperative
+[source,javascript]
+----
+function getPrefs(user) {
+  if (user.premium) return loadPrefs(user.prefs);
+  return loadPrefs(defaultPrefs);
+}
+----
+
+.composable
+[source,javascript]
+----
+function getPrefs(user) {
+  return (user.premium ? Right(user) : Left('not premium'))
+    .map(u => u.prefs)
+    .fold(() => defaultPrefs, loadPrefs(user.prefs));
+}
+----
+
+== streetName()
+
+.imperative
+[source,javascript]
+----
+function streetName(user) {
+  const { addr } = user;
+  return addr?.street?.name || 'no street';
+}
+----
+
+.composable
+[source,javascript]
+----
+function streetName(user) {
+  return fromNullable(user.addr)
+    .chain(a => fromNullable(a.street))
+    .map(s => s.name)
+    .fold(_ => 'no street', n => n);
+}
+----
+
+== concatUniq()
+
+.imperative
+[source,javascript]
+----
+function concatUniq(x, ys) {
+  const found = ys.filter(y => y === x)[0];
+  return found ? ys : ys.concat(x);
+}
+----
+
+.composable
+[source,javascript]
+----
+function concatUniq(x, ys) {
+  return fromNullable(ys.filter(y => y === x)[0])
+    .fold(() => ys.concat(x), _ => ys);
+}
+----
+
+== wrapExample()
+
+.imperative
+[source,javascript]
+----
+function wrapExample(example) => {
+  if (example.previewPath) {
+    try {
+      example.preview = fs.readFileSync(example.previewPath);
+    } catch (_e) {}
+  }
+
+  return example;
+}
+----
+
+.composable
+[source,javascript]
+----
+function readFile(path) {
+  return tryCatch(() => readFileSync(path));
+}
+
+function wrapExample(example) {
+  return fromNullable(example.previewPath)
+    .chain(readFile)
+    .fold(
+      () => example,
+      preview => Object.assign({ preview }, example),
+    );
+}
+----
+
+== parseDbUrl()
+
+.imperative
+[source,javascript]
+----
+const rePg = /postgres:\/\/([^:]+):([^@]+)@([^:]+):(\d+)\/(.+)/;
+
+function parseDbUrl(cfg) {
+  try {
+    const { url } = JSON.parse(cfg);
+    if (url) return url.match(rePg);
+  } catch (_) {
+    return null;
+  }
+}
+----
+
+.composable
+[source,javascript]
+----
+const rePg = /postgres:\/\/([^:]+):([^@]+)@([^:]+):(\d+)\/(.+)/;
+
+function parseDbUrl(cfg) {
+  return tryCatch(() => JSON.parse(cfg))
+    .chain(c => fromNullable(c.url))
+    .fold(_ => null, u => u.match(rePg));
+}
+----
