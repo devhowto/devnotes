@@ -1,0 +1,4 @@
+{
+  // Invalid JSON.
+  "port: 8888
+}

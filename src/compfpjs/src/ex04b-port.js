@@ -39,7 +39,7 @@ function tryCatch(f) {
 
 function getPort() {
   return tryCatch(() => readFileSync('./src/ex04b.cfgjson'))
-    .map(c => JSON.parse)
+    .map(c => JSON.parse) // <1>
     .fold(e => 3000, c => c.port);
 }
 
@@ -53,5 +53,6 @@ not run map at all. If readFileSync() fails to read the file, tryCatch()
 returns a Left, which does not run map(), thus not trying to parse JSON
 which is not there.
 
-What happens is that then fold
+1. If the JSON file is invalid, it will still blow up.
+
 */
