@@ -4,7 +4,7 @@ An introduction to concatting items via the formal Semi-group interface.
 Semi-groups are simply a type with a concat method that are associative.
 We define three semigroup instances and see them in action.
 
-Semigroup is a type with a concat method.
+Semigroup is a type with a concat method which is associative.
 
 Semigroup comes from abstract algebra. Since we are encoding the idea
 in programming code, we keep the original name. We understand the name,
@@ -53,5 +53,8 @@ log(xs);
 //
 // So, addition is a semigroup, except we can't call concat on a number:
 //
-//   1.concat(1) is wrong.
+//   1.concat(1)
+//
+// Wouldn't work, but well handle things like this next.
+//
 //
