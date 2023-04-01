@@ -84,7 +84,7 @@ function toInt(str, radix = 10) {
   return Number.parseInt(str, radix);
 }
 
-export {
+module.exports = {
   add1,
   chr,
   fromNullable,

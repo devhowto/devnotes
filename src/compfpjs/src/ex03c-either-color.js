@@ -1,9 +1,4 @@
-import {
-  log,
-  idty,
-  toUpper,
-} from './lib.js';
-
+const { log, toUpper } = require('./lib');
 
 function Right(v) {
   return {

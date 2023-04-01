@@ -1,7 +1,7 @@
 {
   "name": "compfpjs",
   "version": "0.0.1",
-  "type": "module",
+  "type": "commonjs",
   "description": "Notes and code from Composable FP JS course'",
   "main": "index.js",
   "scripts": {
@@ -20,5 +20,8 @@
   "bugs": {
     "url": "https://gitlab.com/devhowto/devnotes/issues"
   },
-  "homepage": "https://gitlab.com/devhowto/devnotes#readme"
+  "homepage": "https://gitlab.com/devhowto/devnotes#readme",
+  "dependencies": {
+    "immutable-ext": "^1.1.5"
+  }
 }

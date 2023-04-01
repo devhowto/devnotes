@@ -1,6 +1,4 @@
-import {
-  log,
-} from "./lib.js";
+const { log } = require('./lib');
 
 /**
  * A value wrapper that allows a composable style.

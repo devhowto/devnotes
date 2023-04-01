@@ -1,7 +1,4 @@
-import {
-  log,
-  idty,
-} from './lib.js';
+const { log, idty } = require('./lib');
 
 
 function Right(v) {

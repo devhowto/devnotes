@@ -1,4 +1,4 @@
-import { log } from "./lib.js";
+const { log } = require('./lib');
 
 /**
  * Takes a digit-like string and returns the next char based on

@@ -3,3 +3,8 @@
 :icons: font
 
 My notes and code from the the amazing link:https://egghead.io/courses/professor-frisby-introduces-composable-functional-javascript[Professor Frisby Introduces Composable Functional JavaScript^] FREE course on Egghead by Brian Londsdorf!
+
+== CommonJS
+
+Because the course was created when ES Modules were not a thing (or at least not well supported supported), and it uses the an https://github.com/DrBoolean/immutable-ext[immutable.js extension (immutable-ext)] that was not (as of 2023) updated to also support ES modules, we'll stick to commonjs module system.
+It won't make any difference for the concepts and ideas and we are just fine with this.

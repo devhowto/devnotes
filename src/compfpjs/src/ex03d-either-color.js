@@ -1,9 +1,8 @@
-import {
-  idty,
+const {
   isNil,
   log,
   toUpper,
-} from './lib.js';
+} = require('./lib');
 
 
 function Right(v) {

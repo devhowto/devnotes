@@ -1,10 +1,10 @@
-import {
+const {
   add1,
   chr,
   log,
   toInt,
   trim,
-} from "./lib.js";
+} = require('./lib');
 
 /**
  * Takes a digit-like string and returns the next char based on

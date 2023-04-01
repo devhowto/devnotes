@@ -1,10 +1,10 @@
-import {
+const {
   add1,
   chr,
   log,
   toInt,
   trim,
-} from "./lib.js";
+} = require('./lib');
 
 /**
  * A value wrapper that allows applying functions to a value in a

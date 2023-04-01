@@ -4,11 +4,8 @@
 //   $ node ./src/ex04b-port.js
 //
 
-import {
-  log,
-} from './lib.js';
-
-import { readFileSync } from 'node:fs';
+const { readFileSync } = require('node:fs');
+const { log } = require('./lib');
 
 function Right(v) {
   return {

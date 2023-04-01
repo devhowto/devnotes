@@ -1,6 +1,4 @@
-import {
-  log,
-} from "./lib.js";
+const { log } = require('./lib');
 
 /**
  * Converts a dollar money string to a float.
