@@ -1,10 +1,15 @@
 //
-// These functions are simple, simplified helpers. They follow a garbage
+// NOTE:
+//
+// These functions are simple, barebone helpers. They follow a garbage
 // in, garbage out approach. If you give them crap, they give you back
 // crap. Make sure to provide them with the data types specified in
 // their JSDoc. YOU HAVE BEEN WARNED.
 //
 
+/**
+ * @sig a -> Void
+ */
 const log = console.log.bind(console);
 
 /**
@@ -19,6 +24,22 @@ function idty(v) {
  */
 function isNil(v) {
   return v === undefined || v === null;
+}
+
+function Right(v) {
+  return {
+    map: f => Right(f(v)),
+    fold: (f, g) => g(v),
+    inspect: () => `Right(${v})`,
+  };
+}
+
+function Left(v) {
+  return {
+    map: f => Left(v),
+    fold: (f, g) => f(v),
+    inspect: () => `Left(${v})`,
+  };
 }
 
 /**
