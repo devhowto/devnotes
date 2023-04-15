@@ -3,6 +3,12 @@
 #
 
 ##
+# Damn node_modules! Why didn't nodejs do like python or ruby
+# which install files somewhere global and reusable‽
+#
+node_modules
+
+##
 # macOS stuff.
 #
 .DS_Store
