@@ -1,4 +1,6 @@
 = Shell Built-In Commands
+:toc: left
+:icons: font
 
 == Intro
 

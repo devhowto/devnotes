@@ -1,4 +1,7 @@
 == keyof
+:toc: left
+:icons: font
+:source-highlighter: highlight.js
 
 `keyof` is the _Index Type Query_. From the docs:
 
@@ -51,7 +54,7 @@ Suppose this type is in context:
 [source,typescript]
 ----
 type D3 = {
-  kind: "3D"; 
+  kind: "3D";
   x: number;
   y: number;
   z: number;
@@ -270,7 +273,7 @@ function getProp<
 
 /**
  * Displays the value of a property.
- * 
+ *
  * **NOTE**: This is a dummy, convoluted and simple example so
  * we can focus on the types.
  */

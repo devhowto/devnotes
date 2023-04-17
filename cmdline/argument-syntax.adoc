@@ -1,6 +1,6 @@
 = Shell Argument Syntax
 :page-tags: bash cmdline
-:toc: right
+:toc: left
 :icons: font
 
 There are a few, but *extremely important* concepts that we must keep in mind to make reasonable use of the command line and write shell scripts in general, and even to read the documentation.
