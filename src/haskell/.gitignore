@@ -1,0 +1,9 @@
+#
+# .gitignore
+#
+
+##
+# Stack directory.
+#
+.stack-work
+
