@@ -1,0 +1,9 @@
+#
+# .gitignore
+#
+
+##
+# Not committing package-lock.json as this is not a real project, but
+# rather just a collection of one-off files as individual examples.
+#
+package-lock.json
