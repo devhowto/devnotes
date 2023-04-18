@@ -9,7 +9,7 @@
 // style tryCatch(), fromNullable(), etc.
 //
 
-const { Left, Right } = require('./libt/Either');
+const { Left, Right, Either } = require('./libt/Either');
 const { All } = require('./libt/All');
 const { Box } = require('./libt/Box');
 const { First } = require('./libt/First');
@@ -25,9 +25,10 @@ module.exports = {
   Box,
   First,
   Left,
+  Right,
+  Either,
   Max,
   Min,
   Product,
-  Right,
   Sum,
 };
