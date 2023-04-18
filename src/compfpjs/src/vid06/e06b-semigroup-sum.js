@@ -1,21 +1,15 @@
 const { log } = require('../lib');
 
 /**
+ * Sum Semigroup type that knows how concat (add) numbers.
+ *
  * @sig Number -> Sum
  */
-function Sum(val) {
-  return {
-    val,
-
-    concat: function concat({ val: otherVal }) {
-      return Sum(val + otherVal);
-    },
-
-    str: function str() {
-      return `Sum(${val})`;
-    }
-  };
-}
+const Sum = x => ({
+  x,
+  concat: ({ x: y }) => Sum(x + y),
+  str: () => `Sum(${x})`,
+});
 
 const res = Sum(1).concat(Sum(2));
 
@@ -24,3 +18,12 @@ log(res);
 
 log(res.str());
 //=> Sum(3)
+
+log(
+  Sum(-1)
+  .concat(Sum(-2))
+  .concat(Sum(-3))
+  .concat(Sum(-100))
+  .str()
+);
+//=> Sum(-106)

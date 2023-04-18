@@ -14,22 +14,15 @@ into one.
 /**
  * All must be true.
  *
+ * A Semigroup All type that knows how to concat (AND) booleans.
+ *
  * @sig Bool -> All
  */
-function All(val) {
-  return {
-    val,
-
-    concat: function concat({ val: otherVal }) {
-      // Note the use && instead of +.
-      return All(val && otherVal);
-    },
-
-    str: function str() {
-      return `All(${val})`;
-    }
-  };
-}
+const All = x => ({
+  x,
+  concat: ({ x: y }) => All(x && y),
+  str: () => `All(${x})`,
+});
 
 log(All(true).concat(All(false)).str());
 //=> All(false)

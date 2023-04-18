@@ -1,6 +1,6 @@
 /*
 
-An introduction to concatting items via the formal Semigroup interface.
+An introduction to concating items via the formal Semigroup interface.
 Semi-groups are simply a type with a concat method that are associative.
 We define three semigroup instances and see them in action.
 
@@ -16,9 +16,9 @@ than making something up on our own.
 const { log } = require('../lib');
 
 ////
-// String is a semigroup because it has a concat method. If you concat a
-// string with a string, you get a string, to which you can keep
-// concatting.
+// String is a semigroup because it has a concat method. If you concat
+// a string with a string, you get a string, to which you can keep
+// concating.
 //
 const str = 'a'.concat('b').concat('c');
 log(str);
@@ -26,8 +26,8 @@ log(str);
 
 ////
 // Here the array is a semigroup since it has a concat method and
-// concatting an array with an array, gives an array, which is a
-// semigroup and therefore we can keep concatting.
+// concating an array with an array, gives an array, which is a
+// semigroup and therefore we can keep concating.
 //
 const nums = [1, 2].concat([3, 4]).concat([5, 6]);
 log(nums);
@@ -36,12 +36,12 @@ log(nums);
 ////
 // Because algebra associativity, we can concatenate the right side
 // first, and the result is the same:
-
+//
 const xs = [1, 2].concat([3, 4].concat([5, 6]))
 //                      ^---------------------^
 //                                 /
 //                                /
-//                       concatting these first!
+//                       concating these first!
 //
 log(xs);
 //=> [ 1, 2, 3, 4, 5, 6 ]
