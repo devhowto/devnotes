@@ -11,8 +11,9 @@ sub minuend subtrahend = (-) minuend subtrahend
 subFrom5 :: Integer -> Integer
 subFrom5 = sub 5
 
-sub1 :: Integer -> Integer
-sub1 = (subtract 1)
+overTwo :: Fractional a => a -> a
+overTwo = (/ 2)
 
-sub10 :: Integer -> Integer
-sub10 = ((-) 10)
+twoOver :: Fractional a => a -> a
+twoOver = (2 /)
+
