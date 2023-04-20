@@ -33,3 +33,4 @@ const countLines = str => str.split('\n').length - 1;
 // log(countLines(buf.toString()));
 
 log(countLines(str));
+
