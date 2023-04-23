@@ -1,6 +1,7 @@
 const { fromNullable } = require('../lib');
 
 const Right = x => ({
+  x,
   chain: f => f(x),
   ap: other => other.map(x),
   traverse: (of, f) => f(x).map(Right),
@@ -10,6 +11,7 @@ const Right = x => ({
 });
 
 const Left = x => ({
+  x,
   chain: f => Left(x),
   ap: other => Left(x),
   traverse: (of, f) => of(Left(x)),
