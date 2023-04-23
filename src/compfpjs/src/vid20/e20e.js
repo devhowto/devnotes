@@ -8,4 +8,11 @@ const res =
     .ap(List(['blouse', 'sweater']));
 
 log(res.toJS());
-
+//=> [
+//=>   'pink small blouse',
+//=>   'pink small sweater',
+//=>   'pink medium blouse',
+//=>   'pink medium sweater',
+//=>   'pink large blouse',
+//=>   'pink large sweater'
+//=> ]

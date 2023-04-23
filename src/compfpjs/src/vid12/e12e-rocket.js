@@ -21,4 +21,4 @@ ctrl
     onRejected: e => log('err', e),
     onResolved: v => log('ok', v),
   });
-    
+
