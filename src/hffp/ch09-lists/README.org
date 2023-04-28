@@ -1,70 +1,81 @@
-# Lists - Chapter 09
+* Lists - Chapter 09
+:PROPERTIES:
+:CUSTOM_ID: lists---chapter-09
+:END:
 
-<!-- vim-markdown-toc GitLab -->
+#+begin_html
+  <!-- vim-markdown-toc GitLab -->
+#+end_html
 
-* [Exercise: EnumFromTo](#exercise-enumfromto)
-* [Exercises: Thy fearful symmetry](#exercises-thy-fearful-symmetry)
-  * [01](#01)
-  * [02](#02)
-  * [03](#03)
-* [Exercises: Comprehend thy lists](#exercises-comprehend-thy-lists)
-* [Exercises: Square Cube](#exercises-square-cube)
-* [Exercises: Bottom madness](#exercises-bottom-madness)
-  * [01](#01-1)
-  * [02](#02-1)
-  * [03](#03-1)
-  * [04](#04)
-  * [05](#05)
-  * [06](#06)
-  * [07](#07)
-  * [08](#08)
-  * [09](#09)
-  * [10](#10)
-* [Intermission: Is it in normal form?](#intermission-is-it-in-normal-form)
-  * [01](#01-2)
-  * [02](#02-2)
-  * [03](#03-2)
-  * [04](#04-1)
-  * [05](#05-1)
-  * [06](#06-1)
-  * [07](#07-1)
-* [Exercises: More bottoms](#exercises-more-bottoms)
-  * [01](#01-3)
-  * [02](#02-3)
-  * [03](#03-3)
-  * [04](#04-2)
-  * [05](#05-2)
-    * [a](#a)
-    * [b](#b)
-    * [c](#c)
-  * [06](#06-2)
-* [Exercises: Filtering](#exercises-filtering)
-  * [01](#01-4)
-  * [02](#02-4)
-  * [03](#03-4)
-* [Zipping exercises](#zipping-exercises)
-  * [01, 02, 03](#01-02-03)
-* [Chapter Exercises](#chapter-exercises)
-  * [Data.Char](#datachar)
-    * [01](#01-5)
-    * [02](#02-5)
-    * [03](#03-5)
-    * [04](#04-3)
-    * [05, 06](#05-06)
-  * [Ciphers](#ciphers)
-    * [Caesar Solution 1](#caesar-solution-1)
-    * [Caesar Solution 2](#caesar-solution-2)
-    * [Caesar Solution 3](#caesar-solution-3)
-  * [Writing your own standard functions](#writing-your-own-standard-functions)
-* [The End](#the-end)
+- [[#exercise-enumfromto][Exercise: EnumFromTo]]
+- [[#exercises-thy-fearful-symmetry][Exercises: Thy fearful symmetry]]
+  - [[#01][01]]
+  - [[#02][02]]
+  - [[#03][03]]
+- [[#exercises-comprehend-thy-lists][Exercises: Comprehend thy lists]]
+- [[#exercises-square-cube][Exercises: Square Cube]]
+- [[#exercises-bottom-madness][Exercises: Bottom madness]]
+  - [[#01-1][01]]
+  - [[#02-1][02]]
+  - [[#03-1][03]]
+  - [[#04][04]]
+  - [[#05][05]]
+  - [[#06][06]]
+  - [[#07][07]]
+  - [[#08][08]]
+  - [[#09][09]]
+  - [[#10][10]]
+- [[#intermission-is-it-in-normal-form][Intermission: Is it in normal
+  form?]]
+  - [[#01-2][01]]
+  - [[#02-2][02]]
+  - [[#03-2][03]]
+  - [[#04-1][04]]
+  - [[#05-1][05]]
+  - [[#06-1][06]]
+  - [[#07-1][07]]
+- [[#exercises-more-bottoms][Exercises: More bottoms]]
+  - [[#01-3][01]]
+  - [[#02-3][02]]
+  - [[#03-3][03]]
+  - [[#04-2][04]]
+  - [[#05-2][05]]
+    - [[#a][a]]
+    - [[#b][b]]
+    - [[#c][c]]
+  - [[#06-2][06]]
+- [[#exercises-filtering][Exercises: Filtering]]
+  - [[#01-4][01]]
+  - [[#02-4][02]]
+  - [[#03-4][03]]
+- [[#zipping-exercises][Zipping exercises]]
+  - [[#01-02-03][01, 02, 03]]
+- [[#chapter-exercises][Chapter Exercises]]
+  - [[#datachar][Data.Char]]
+    - [[#01-5][01]]
+    - [[#02-5][02]]
+    - [[#03-5][03]]
+    - [[#04-3][04]]
+    - [[#05-06][05, 06]]
+  - [[#ciphers][Ciphers]]
+    - [[#caesar-solution-1][Caesar Solution 1]]
+    - [[#caesar-solution-2][Caesar Solution 2]]
+    - [[#caesar-solution-3][Caesar Solution 3]]
+  - [[#writing-your-own-standard-functions][Writing your own standard
+    functions]]
+- [[#the-end][The End]]
 
-<!-- vim-markdown-toc -->
+#+begin_html
+  <!-- vim-markdown-toc -->
+#+end_html
 
-## Exercise: EnumFromTo
-
+** Exercise: EnumFromTo
+:PROPERTIES:
+:CUSTOM_ID: exercise-enumfromto
+:END:
 Page 306.
 
-```haskell
+#+begin_src haskell
 --
 -- The "enum from to" functions return empty list if the starting point is
 -- less than the ending point. Remember that sum (or) data constructors behave
@@ -130,15 +141,19 @@ eftChar ini end = go (succ ini) [ini]
           | end < current = []
           | current == end = acc ++ [current]
           | otherwise = go (succ current) (acc ++ [current])
-```
+#+end_src
 
-## Exercises: Thy fearful symmetry
-
+** Exercises: Thy fearful symmetry
+:PROPERTIES:
+:CUSTOM_ID: exercises-thy-fearful-symmetry
+:END:
 Page 310.
 
-### 01
-
-```haskell
+*** 01
+:PROPERTIES:
+:CUSTOM_ID: section
+:END:
+#+begin_src haskell
 myWords :: [Char] -> [[Char]]
 myWords str = go str []
   where go s acc
@@ -151,11 +166,11 @@ myWords str = go str []
 -- [λ> myWords "Tomb Raider - The Angel Of Darkness"
 -- ["Tomb","Raider","-","The","Angel","Of","Darkness"]
 --
-```
+#+end_src
 
 Another version:
 
-```haskell
+#+begin_src haskell
 {-# LANGUAGE NoMonomorphismRestriction #-}
 
 dropWhileSpc :: [Char] -> [Char]
@@ -196,11 +211,13 @@ myWords s = go s []
 -- Tomb
 -- 💖
 --
-```
+#+end_src
 
-### 02
-
-```haskell
+*** 02
+:PROPERTIES:
+:CUSTOM_ID: section-1
+:END:
+#+begin_src haskell
 firstSen = "Tyger Tyger, burning bright\n"
 secondSen = "In the forests of the night\n"
 thirdSen = "What immortal hand or eye\n"
@@ -235,11 +252,13 @@ main = do
   print $
     "Are they equal? "
     ++ show (myLines sentences == shouldEqual)
-```
+#+end_src
 
-### 03
-
-```haskell
+*** 03
+:PROPERTIES:
+:CUSTOM_ID: section-2
+:END:
+#+begin_src haskell
 firstSen = "Tyger Tyger, burning bright\n"
 secondSen = "In the forests of the night\n"
 thirdSen = "What immortal hand or eye\n"
@@ -301,30 +320,32 @@ main = do
 -- Tomb Raider --: True
 -- Sentences ----: True
 --
-```
+#+end_src
 
-## Exercises: Comprehend thy lists
-
+** Exercises: Comprehend thy lists
+:PROPERTIES:
+:CUSTOM_ID: exercises-comprehend-thy-lists
+:END:
 Page 314.
 
 Required for the two exercises.
 
-```
+#+begin_example
 λ> mySqr = [x ^ 2 | x <- [1..10]]
 λ> mySqr
 [1,4,9,16,25,36,49,64,81,100]
-```
+#+end_example
 
 First exercise:
 
-```
+#+begin_example
 λ> [x | x <- mySqr, rem x 2 == 0]
 [4,16,36,64,100]
-```
+#+end_example
 
 Second exercise:
 
-```
+#+begin_example
 λ> [(x, y) | x <- mySqr,
             y <- mySqr,
             x < 50,
@@ -332,15 +353,18 @@ Second exercise:
 
 λ> res
 [(1,64),(1,81),(1,100),(4,64),(4,81),(4,100),(9,64),(9,81),(9,100),(16,64),(16,81),(16,100),(25,64),(25,81),(25,100),(36,64),(36,81),(36,100),(49,64),(49,81),(49,100)]
-```
+#+end_example
 
-Combine each `x` with all `y`s. The `take 5` exercises just returns the first 5 elements of the result above.
+Combine each =x= with all =y=s. The =take 5= exercises just returns the
+first 5 elements of the result above.
 
-## Exercises: Square Cube
-
+** Exercises: Square Cube
+:PROPERTIES:
+:CUSTOM_ID: exercises-square-cube
+:END:
 Page 316.
 
-```haskell
+#+begin_src haskell
 mySqr :: (Num a, Enum a) => [a]
 mySqr = [x ^ 2 | x <- [1..5]]
 
@@ -358,171 +382,249 @@ tup2 = [(x, y) | x <- mySqr,
 
 qty :: Int
 qty = length tup2
-```
+#+end_src
 
-## Exercises: Bottom madness
-
+** Exercises: Bottom madness
+:PROPERTIES:
+:CUSTOM_ID: exercises-bottom-madness
+:END:
 Page 325.
 
-### 01
+*** 01
+:PROPERTIES:
+:CUSTOM_ID: section-3
+:END:
+Bottom because each element of the first generator will be applied to
+each element of the second generator.
 
-Bottom because each element of the first generator will be applied to each element of the second generator.
+*** 02
+:PROPERTIES:
+:CUSTOM_ID: section-4
+:END:
+Produces =[1]= instead of bottom because of laziness and the fact that
+=take 1= does not require the list to be evaluated up to =undefined=.
 
-### 02
+*** 03
+:PROPERTIES:
+:CUSTOM_ID: section-5
+:END:
+Bottom because =sum= is strict on the values.
 
-Produces `[1]` instead of bottom because of laziness and the fact that `take 1` does not require the list to be evaluated up to `undefined`.
+*** 04
+:PROPERTIES:
+:CUSTOM_ID: section-6
+:END:
+Works fine because =length= only cares about the spine.
 
-### 03
+*** 05
+:PROPERTIES:
+:CUSTOM_ID: section-7
+:END:
+Because we concatenate the list with =undefined=, it makes part of the
+spine, crashing =length=.
 
-Bottom because `sum` is strict on the values.
+*** 06
+:PROPERTIES:
+:CUSTOM_ID: section-8
+:END:
+Produces =[2]=. Does not reach =undefined= because of =take 1=.
 
-### 04
+*** 07
+:PROPERTIES:
+:CUSTOM_ID: section-9
+:END:
+We reach =undefined= before finding and even number, causing a crash
+(bottom).
 
-Works fine because `length` only cares about the spine.
-
-### 05
-
-Because we concatenate the list with `undefined`, it makes part of the spine, crashing `length`.
-
-### 06
-
-Produces `[2]`. Does not reach `undefined` because of `take 1`.
-
-### 07
-
-We reach `undefined` before finding and even number, causing a crash (bottom).
-
-### 08
-
+*** 08
+:PROPERTIES:
+:CUSTOM_ID: section-10
+:END:
 We are able to produce one value before reaching undefined.
 
-### 09
-
+*** 09
+:PROPERTIES:
+:CUSTOM_ID: section-11
+:END:
 We are able to produce two values before hitting undefined.
 
-### 10
-
+*** 10
+:PROPERTIES:
+:CUSTOM_ID: section-12
+:END:
 Bottom. Reach undefined before being able to produce three valid values.
 
-## Intermission: Is it in normal form?
-
-### 01
-
+** Intermission: Is it in normal form?
+:PROPERTIES:
+:CUSTOM_ID: intermission-is-it-in-normal-form
+:END:
+*** 01
+:PROPERTIES:
+:CUSTOM_ID: section-13
+:END:
 NF, WHNF.
 
 The list is fully evaluated and all its values are known.
 
-### 02
-
+*** 02
+:PROPERTIES:
+:CUSTOM_ID: section-14
+:END:
 WHNF.
 
-The list is not fully known because it has the `_` hole.
+The list is not fully known because it has the =_= hole.
 
-### 03
+*** 03
+:PROPERTIES:
+:CUSTOM_ID: section-15
+:END:
+Neither. The expression is a function fully applied which has not yet
+been evaluated.
 
-Neither. The expression is a function fully applied which has not yet been evaluated.
-
-### 04
-
+*** 04
+:PROPERTIES:
+:CUSTOM_ID: section-16
+:END:
 Idem
 
-### 05
-
+*** 05
+:PROPERTIES:
+:CUSTOM_ID: section-17
+:END:
 Idem
 
-### 06
+*** 06
+:PROPERTIES:
+:CUSTOM_ID: section-18
+:END:
+Idem. =++= is a fully applied function but its operands have not bee
+fully evaluated yet.
 
-Idem. `++` is a fully applied function but its operands have not bee fully evaluated yet.
-
-### 07
-
+*** 07
+:PROPERTIES:
+:CUSTOM_ID: section-19
+:END:
 WHNF.
 
-It is a data constructor and one of its arguments is still unknown (the `_`).
+It is a data constructor and one of its arguments is still unknown (the
+=_=).
 
-## Exercises: More bottoms
-
+** Exercises: More bottoms
+:PROPERTIES:
+:CUSTOM_ID: exercises-more-bottoms
+:END:
 Page 332.
 
-### 01
+*** 01
+:PROPERTIES:
+:CUSTOM_ID: section-20
+:END:
+Bottom. We take 1, but the first evaluated element of the list is
+'undefined'.
 
-Bottom. We take 1, but the first evaluated element of the list is ‘undefined’.
+*** 02
+:PROPERTIES:
+:CUSTOM_ID: section-21
+:END:
+Produces the value 2. This time, we still take 1, but 'undefined' is the
+second element of the list.
 
-### 02
+*** 03
+:PROPERTIES:
+:CUSTOM_ID: section-22
+:END:
+Bottom. We take 2, and 'undefined' appears as the second element of the
+list.
 
-Produces the value 2. This time, we still take 1, but ‘undefined’ is the second element of the list.
-
-### 03
-
-Bottom. We take 2, and ‘undefined’ appears as the second element of the list.
-
-### 04
-
+*** 04
+:PROPERTIES:
+:CUSTOM_ID: section-23
+:END:
 The type signatures means it maps a list of Char to a list of Bool.
 
-It produces a new list of `Bool` . Lowercase vowels are `True`, other chars, `False`
+It produces a new list of =Bool= . Lowercase vowels are =True=, other
+chars, =False=
 
-```haskell
+#+begin_src haskell
 f :: [Char] -> [Bool]
 f xs = map (\x -> elem x "aeiou") xs
-```
+#+end_src
 
-### 05
+*** 05
+:PROPERTIES:
+:CUSTOM_ID: section-24
+:END:
+**** a
+:PROPERTIES:
+:CUSTOM_ID: a
+:END:
+Use sectioning for the =^= function so each element of the list is to
+the left of the =^=. Takes each element of the list to the power of 2.
 
-#### a
-
-Use sectioning for the `^` function so each element of the list is to the left of the `^`. Takes each element of the list to the power of 2.
-
-```ghci
+#+begin_src ghci
 λ> map (^ 2) [1..10]
 [1,4,9,16,25,36,49,64,81,100]
-```
+#+end_src
 
-#### b
+**** b
+:PROPERTIES:
+:CUSTOM_ID: b
+:END:
+Produces a new list containing the minimum (lowest) value of each inner
+list.
 
-Produces a new list containing the minimum (lowest) value of each inner list.
-
-```ghci
+#+begin_src ghci
 λ> map minimum [[1..10], [10..20], [20..30]]
 [1,10,20]
-```
+#+end_src
 
-#### c
-
+**** c
+:PROPERTIES:
+:CUSTOM_ID: c
+:END:
 Produces a list with the sums of each inner list.
 
-```ghci
+#+begin_src ghci
 λ> map sum [[1..5], [1..5], [1..5]]
 [15,15,15]
-```
+#+end_src
 
-### 06
+*** 06
+:PROPERTIES:
+:CUSTOM_ID: section-25
+:END:
+With =bool=, if the third argument is =False=, return the first
+argument, otherwise, return the second argument.
 
-With `bool`, if the third argument is `False`, return the first argument, otherwise, return the second argument.
-
-```ghci
+#+begin_src ghci
 λ> import Data.Bool (bool)
 λ> map (\x -> bool (x + 100) (- x) (x == 3)) [1 .. 5]
 [101,102,-3,104,105]
-```
+#+end_src
 
-## Exercises: Filtering
-
+** Exercises: Filtering
+:PROPERTIES:
+:CUSTOM_ID: exercises-filtering
+:END:
 Page 335.
 
-### 01
-
-```ghci
+*** 01
+:PROPERTIES:
+:CUSTOM_ID: section-26
+:END:
+#+begin_src ghci
 λ> filter (\n -> rem n 3 == 0) [1..30]
 [3,6,9,12,15,18,21,24,27,30]
 
 λ> [n | n <- [1..30], rem n 3 == 0]
 [3,6,9,12,15,18,21,24,27,30]
-```
+#+end_src
 
-### 02
-
-```haskell
+*** 02
+:PROPERTIES:
+:CUSTOM_ID: section-27
+:END:
+#+begin_src haskell
 multOf :: Int -> [Int] -> [Int]
 multOf n genList =
   filter (\x -> rem x n == 0) genList
@@ -538,13 +640,19 @@ r2 = (length . multOf 3) [1..30]
 
 -- Oops.
 r3 = (length . multOf) 3 [1..30]
-```
+#+end_src
 
-Looks like function composition in Haskell does not syntax sugar “one argument per function” to appear it takes multiple arguments. A composed chain of functions takes only one argument (unlike Ramda.js, for example, in which the first function in the chain can take as many arguments as necessary.)
+Looks like function composition in Haskell does not syntax sugar "one
+argument per function" to appear it takes multiple arguments. A composed
+chain of functions takes only one argument (unlike Ramda.js, for
+example, in which the first function in the chain can take as many
+arguments as necessary.)
 
-### 03
-
-```haskell
+*** 03
+:PROPERTIES:
+:CUSTOM_ID: section-28
+:END:
+#+begin_src haskell
 s1 = "the brown dog was a goof"
 s2 = "there is an old jedi here"
 
@@ -557,15 +665,19 @@ dropArticles s = filter isNotArticle $ words s
 -- λ> dropArticles s2
 -- ["there","is","old","jedi","here"]
 --
-```
+#+end_src
 
-## Zipping exercises
-
+** Zipping exercises
+:PROPERTIES:
+:CUSTOM_ID: zipping-exercises
+:END:
 Page 337.
 
-### 01, 02, 03
-
-```haskell
+*** 01, 02, 03
+:PROPERTIES:
+:CUSTOM_ID: section-29
+:END:
+#+begin_src haskell
 myZip :: [a] -> [b] -> [(a, b)]
 myZip [] _          = []
 myZip _  []         = []
@@ -593,55 +705,66 @@ myZip''' :: [a] -> [b] -> [(a, b)]
 myZip''' [] _  = []
 myZip''' _  [] = []
 myZip''' xs ys = myZipWith (,) xs ys
-```
+#+end_src
 
 TODO: Why can't I simply do:
 
-```
+#+begin_example
 myZip' :: [a] -> [b] -> [(a, b)]
 myZip' [] _  = []
 myZip' _  [] = []
 myZip' = myZipWith (,)
-```
+#+end_example
 
-Shouldn't it work since partially applying `myZipWith (,)` returns a function that expect the two remaining lists?
+Shouldn't it work since partially applying =myZipWith (,)= returns a
+function that expect the two remaining lists?
 
-## Chapter Exercises
-
-### Data.Char
-
+** Chapter Exercises
+:PROPERTIES:
+:CUSTOM_ID: chapter-exercises
+:END:
+*** Data.Char
+:PROPERTIES:
+:CUSTOM_ID: data.char
+:END:
 Page 338.
 
 Assume this for all the solutions:
 
-```haskell
+#+begin_src haskell
 import Data.Char (isUpper, toUpper)
-```
+#+end_src
 
-#### 01
-
-```GHCi
+**** 01
+:PROPERTIES:
+:CUSTOM_ID: section-30
+:END:
+#+begin_src ghci
 λ> :t toUpper
 toUpper :: Char -> Char
 λ> :t isUpper
 isUpper :: Char -> Bool
-```
+#+end_src
 
-#### 02
-
+**** 02
+:PROPERTIES:
+:CUSTOM_ID: section-31
+:END:
 Using function composition:
 
-```haskell
+#+begin_src haskell
 dropUppers :: [Char] -> [Char]
 dropUppers = filter $ not . isUpper
 
 onlyUppers :: [Char] -> [Char]
 onlyUppers = filter isUpper
-```
+#+end_src
 
-#### 03
-
-```haskell
+**** 03
+:PROPERTIES:
+:CUSTOM_ID: section-32
+:END:
+#+begin_src haskell
 capitFst :: [Char] -> [Char]
 capitFst str = [toUpper . head $ str] ++ tail str
 
@@ -649,35 +772,39 @@ capitFst str = [toUpper . head $ str] ++ tail str
 -- simplifies the body.
 capitFst' :: [Char] -> [Char]
 capitFst' (x:xs) = [toUpper x] ++ xs
-```
+#+end_src
 
 Or using cons syntax:
 
-```haskell
+#+begin_src haskell
 capitalizeFirst :: [Char] -> [Char]
 capitalizeFirst []     = []
 capitalizeFirst (c:cs) = toUpper c : cs
-```
+#+end_src
 
-#### 04
-
-```haskell
+**** 04
+:PROPERTIES:
+:CUSTOM_ID: section-33
+:END:
+#+begin_src haskell
 capit :: [Char] -> [Char]
 capit [] = []
 capit (x:xs) = [toUpper x] ++ capit xs
-```
+#+end_src
 
 Or using cons syntax:
 
-```hs
+#+begin_src hs
 capitalizeAll :: [Char] -> [Char]
 capitalizeAll []     = []
 capitalizeAll (c:cs) = toUpper c : capitalizeAll cs
-```
+#+end_src
 
-#### 05, 06
-
-```haskell
+**** 05, 06
+:PROPERTIES:
+:CUSTOM_ID: section-34
+:END:
+#+begin_src haskell
 -- The exercise wants us to use ‘head’ instead of
 -- pattern-matching on the first cons cell of the spine.
 
@@ -691,17 +818,21 @@ upFst' s = toUpper $ head s
 upFst'' s = toUpper . head $ s
 
 upFst''' = toUpper . head
-```
+#+end_src
 
-### Ciphers
-
+*** Ciphers
+:PROPERTIES:
+:CUSTOM_ID: ciphers
+:END:
 Page 339.
 
-##### Caesar Solution 1
-
+***** Caesar Solution 1
+:PROPERTIES:
+:CUSTOM_ID: caesar-solution-1
+:END:
 Solution from my first study of the book
 
-```haskell
+#+begin_src haskell
 {-# LANGUAGE NoMonomorphismRestriction #-}
 
 module Chipher where
@@ -747,11 +878,13 @@ main :: IO ()
 main = do
   print $ caesar 3 orig == caesared
   print $ unCaesar 3 caesared == orig
-```
+#+end_src
 
-##### Caesar Solution 2
-
-```haskell
+***** Caesar Solution 2
+:PROPERTIES:
+:CUSTOM_ID: caesar-solution-2
+:END:
+#+begin_src haskell
 {-# LANGUAGE NoMonomorphismRestriction #-}
 
 module Cipher where
@@ -791,11 +924,13 @@ unCaesar n = caesar (- n)
 -- λ> unCaesar 3 it
 -- "xyz"
 --
-```
+#+end_src
 
-##### Caesar Solution 3
-
-```haskell
+***** Caesar Solution 3
+:PROPERTIES:
+:CUSTOM_ID: caesar-solution-3
+:END:
+#+begin_src haskell
 {-# LANGUAGE NoMonomorphismRestriction #-}
 
 module Cipher where
@@ -840,13 +975,15 @@ unCaesar n = caesar (- n)
 -- λ> unCaesar 3 it
 -- "xyz"
 --
-```
+#+end_src
 
-### Writing your own standard functions
-
+*** Writing your own standard functions
+:PROPERTIES:
+:CUSTOM_ID: writing-your-own-standard-functions
+:END:
 Page 341.
 
-```haskell
+#+begin_src haskell
 myAnd :: [Bool] -> Bool
 myAnd []     = True
 myAnd (x:xs) = x && myAnd xs
@@ -951,6 +1088,9 @@ myMaximum = myMaximumBy compare
 
 myMinimum :: Ord a => [a] -> a
 myMinimum = myMinimumBy compare
-```
+#+end_src
 
-## The End
+** The End
+:PROPERTIES:
+:CUSTOM_ID: the-end
+:END:

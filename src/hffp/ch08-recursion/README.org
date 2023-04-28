@@ -1,43 +1,52 @@
-# Recursion - Chapter 08
+* Recursion - Chapter 08
+:PROPERTIES:
+:CUSTOM_ID: recursion---chapter-08
+:END:
 
-<!-- vim-markdown-toc GitLab -->
+#+begin_html
+  <!-- vim-markdown-toc GitLab -->
+#+end_html
 
-* [Intermission: Exercise](#intermission-exercise)
-* [Chapter Exercises](#chapter-exercises)
-  * [Review of types](#review-of-types)
-    * [01](#01)
-    * [02](#02)
-    * [03](#03)
-    * [04](#04)
-  * [Reviewing currying](#reviewing-currying)
-    * [01](#01-1)
-    * [02](#02-1)
-    * [03](#03-1)
-    * [04](#04-1)
-    * [05](#05)
-    * [06](#06)
-  * [Recursion](#recursion)
-    * [01](#01-2)
-    * [02](#02-2)
-    * [03](#03-2)
-  * [Fixing divBy](#fixing-divby)
-  * [wordNumber](#wordnumber)
+- [[#intermission-exercise][Intermission: Exercise]]
+- [[#chapter-exercises][Chapter Exercises]]
+  - [[#review-of-types][Review of types]]
+    - [[#01][01]]
+    - [[#02][02]]
+    - [[#03][03]]
+    - [[#04][04]]
+  - [[#reviewing-currying][Reviewing currying]]
+    - [[#01-1][01]]
+    - [[#02-1][02]]
+    - [[#03-1][03]]
+    - [[#04-1][04]]
+    - [[#05][05]]
+    - [[#06][06]]
+  - [[#recursion][Recursion]]
+    - [[#01-2][01]]
+    - [[#02-2][02]]
+    - [[#03-2][03]]
+  - [[#fixing-divby][Fixing divBy]]
+  - [[#wordnumber][wordNumber]]
 
-<!-- vim-markdown-toc -->
+#+begin_html
+  <!-- vim-markdown-toc -->
+#+end_html
 
-## Intermission: Exercise
-
+** Intermission: Exercise
+:PROPERTIES:
+:CUSTOM_ID: intermission-exercise
+:END:
 Page 282.
 
-```haskell
+#+begin_src haskell
 applyTimes :: (Eq a, Num a) => a -> (b -> b) -> b -> b
 applyTimes t f acc = f . applyTimes (t - 1) f $ acc
 applyTimes 5 (+1) 5
-```
+#+end_src
 
 Evaluation:
 
-```
+#+begin_example
 applyTimes 5    (+ 1)     5
         (5 - 1)        (5 + 1)
            4              6
@@ -60,126 +69,172 @@ applyTimes 1    (+ 1)     9
 
 applyTimes 0 (+ 1) 10
                    10
-```
+#+end_example
 
-mvaldesdeleon has a [different solution](https://github.com/mvaldesdeleon/haskell-book/blob/master/ch08/exercises.md).
+mvaldesdeleon has a
+[[https://github.com/mvaldesdeleon/haskell-book/blob/master/ch08/exercises.md][different
+solution]].
 
-⊥, or *bottom*, is a term used in Haskell to refer to computations that do not successfully result in a value.
+⊥, or /bottom/, is a term used in Haskell to refer to computations that
+do not successfully result in a value.
 
 Examples of bottom:
 
-* error
-* infinite loops
-* partial function
+- error
+- infinite loops
+- partial function
 
-## Chapter Exercises
-
+** Chapter Exercises
+:PROPERTIES:
+:CUSTOM_ID: chapter-exercises
+:END:
 Page 293.
 
-### Review of types
+*** Review of types
+:PROPERTIES:
+:CUSTOM_ID: review-of-types
+:END:
+**** 01
+:PROPERTIES:
+:CUSTOM_ID: section
+:END:
+D is correct. =[[True, False], [True, True], [False, True]]=is a list of
+lists of =Bool=, so, the type is =[[Bool]]=.
 
-#### 01
+**** 02
+:PROPERTIES:
+:CUSTOM_ID: section-1
+:END:
+B is correct. =[[True, False], [True, True], [False, True]]=is a list of
+lists of =Bool=, so, the type is =[[Bool]]=, and
+=[[3 == 3], [6 > 5], [3 < 4]]= expands to =[[True], [False], [True]]=,
+which is a list of lists of =Bool=. Remember that the number of elements
+in lists is not part of the type (contraty to tuples).
 
-D is correct. `[[True, False], [True, True], [False, True]]`is a list of lists of `Bool`, so, the type is `[[Bool]]`.
+**** 03
+:PROPERTIES:
+:CUSTOM_ID: section-2
+:END:
+D is correct. =(++)= concatentates lists, and lists must have its
+constituents be of the same type.
 
-#### 02
+**** 04
+:PROPERTIES:
+:CUSTOM_ID: section-3
+:END:
+B is correct. Yet, A is also valid. It partially applies the function to
+a single argument, which returns a function awaiting the remaining
+argument. Same with D. C is not correct though because both lists must
+have constituents of the same type.
 
-B is correct. `[[True, False], [True, True], [False, True]]`is a list of lists of `Bool`, so, the type is `[[Bool]]`, and `[[3 == 3], [6 > 5], [3 < 4]]` expands to `[[True], [False], [True]]`, which is a list of lists of `Bool`. Remember that the number of elements in lists is not part of the type (contraty to tuples).
-
-#### 03
-
-D is correct. `(++)` concatentates lists, and lists must have its constituents be of the same type.
-
-#### 04
-
-B is correct. Yet, A is also valid. It partially applies the function to a single argument, which returns a function awaiting the remaining argument. Same with D. C is not correct though because both lists must have constituents of the same type.
-
-### Reviewing currying
-
-#### 01
-
-```
+*** Reviewing currying
+:PROPERTIES:
+:CUSTOM_ID: reviewing-currying
+:END:
+**** 01
+:PROPERTIES:
+:CUSTOM_ID: section-4
+:END:
+#+begin_example
 λ> appedCatty "woohoo!"
 "woops mrow woohoo!"
-```
+#+end_example
 
-#### 02
-
-```
+**** 02
+:PROPERTIES:
+:CUSTOM_ID: section-5
+:END:
+#+begin_example
 λ> frappe "1"
 "1 mrow haha"
-```
+#+end_example
 
-#### 03
-
-```
+**** 03
+:PROPERTIES:
+:CUSTOM_ID: section-6
+:END:
+#+begin_example
 λ> frappe (appedCatty "2") -- woops mrow 2 haha
 "woops mrow 2 mrow haha"
-```
+#+end_example
 
-#### 04
-
-```
+**** 04
+:PROPERTIES:
+:CUSTOM_ID: section-7
+:END:
+#+begin_example
 λ> appedCatty (frappe "blue")
 "woops mrow blue mrow haha"
-```
+#+end_example
 
-#### 05
-
-```
+**** 05
+:PROPERTIES:
+:CUSTOM_ID: section-8
+:END:
+#+begin_example
 λ> :{
 *Main| cattyConny (frappe "pink")
 *Main|                 (cattyConny "green"
 *Main|                   (appedCatty "blue"))
 *Main| :}
 "pink mrow haha mrow green mrow woops mrow blue"
-```
+#+end_example
 
-#### 06
-
-```
+**** 06
+:PROPERTIES:
+:CUSTOM_ID: section-9
+:END:
+#+begin_example
 λ> cattyConny (flippy "Pugs" "are") "awesome"
 "are mrow Pugs mrow awesome"
-```
+#+end_example
 
-### Recursion
+*** Recursion
+:PROPERTIES:
+:CUSTOM_ID: recursion
+:END:
+**** 01
+:PROPERTIES:
+:CUSTOM_ID: section-10
+:END:
+Will do =divby 7 2= instead. 15 is just too much trouble :|
 
-#### 01
-
-Will do `divby 7 2` instead. 15 is just too much trouble :|
-
-```
+#+begin_example
 divby   7     2
 go      7     2     0
 go      5     2     1
 go      3     2     2
 go      1     2     3
 go      (3, 1)
-```
+#+end_example
 
-#### 02
+**** 02
+:PROPERTIES:
+:CUSTOM_ID: section-11
+:END:
+Using the "go" idiom. =go= is recursive.
 
-Using the “go” idiom. `go` is recursive.
-
-```haskell
+#+begin_src haskell
 sumUpTo :: (Eq a, Num a) => a -> a
 sumUpTo n = go n 0
    where go n acc
            | n == 0 = acc
            | otherwise = go (n - 1) (acc + n)
-```
+#+end_src
 
 Using pattern matching. Also recursive.
 
-```
+#+begin_example
 sumUpTo :: Word -> Word
 sumUpTo 0 = 0
 sumUpTo n = (+) n $ sumUpTo (n - 1)
-```
+#+end_example
 
-#### 03
-
-```
+**** 03
+:PROPERTIES:
+:CUSTOM_ID: section-12
+:END:
+#+begin_example
 --
 -- Working with natural numbers because handling negative multiplier is
 -- trickier than I am willing to deal with at this point in the book. 😅
@@ -190,13 +245,16 @@ mult multiplicand multiplier = go multiplier 0
     go multiplier' acc
       | multiplier' == 0 = acc
       | otherwise = go (multiplier' - 1) (acc + multiplicand)
-```
+#+end_example
 
-### Fixing divBy
+*** Fixing divBy
+:PROPERTIES:
+:CUSTOM_ID: fixing-divby
+:END:
+This solution I found on some repo on the web. Don't remember where from
+exactly...
 
-This solution I found on some repo on the web. Don't remember where from exactly...
-
-```hs
+#+begin_src hs
 data Div =
     Res Integer
   | ByZero
@@ -224,11 +282,11 @@ divBy num denom
   where go n d acc
           | n < d = (Res acc, Res n)
           | otherwise = go (n - d) d (acc + 1)
-```
+#+end_src
 
 My solution 1, not handling division by zero yet.
 
-```hs
+#+begin_src hs
 --
 -- `divBy` is my implementation of `quotRem` in terms of subtraction.
 --
@@ -257,11 +315,13 @@ divBy num denom = signify $ go (abs num) (abs denom) 0
 -- program correctness, reducing the likelihood of human error while manually
 -- testing.
 --
-```
+#+end_src
 
-Using some (hopefully) better types and handling of problems, including returning a specific data constructor when the denominator is zero (division by zero).
+Using some (hopefully) better types and handling of problems, including
+returning a specific data constructor when the denominator is zero
+(division by zero).
 
-```hs
+#+begin_src hs
 {-# LANGUAGE NoMonomorphismRestriction #-}
 
 type Numerator = Integer
@@ -314,13 +374,15 @@ divBy num denom = signify $ go (abs num) (abs denom) 0
 -- program correctness, reducing the likelihood of human error while manually
 -- testing.
 --
-```
+#+end_src
 
-### wordNumber
-
+*** wordNumber
+:PROPERTIES:
+:CUSTOM_ID: wordnumber
+:END:
 A solution from my previous study of the book:
 
-```haskell
+#+begin_src haskell
 module WordNumber where
 
 import Data.List (intersperse)
@@ -376,11 +438,11 @@ wordNumber n =
 -- λ> wordNumber 1984
 -- "one-nine-eight-four"
 --
-```
+#+end_src
 
 My new solution (not better). I just did not research the web this time.
 
-```hs
+#+begin_src hs
 {-# LANGUAGE NoMonomorphismRestriction #-}
 
 module WordNumber where
@@ -425,4 +487,4 @@ wordNumber n = concat . intersperse "-" . map digitToWord $ digits n
 -- λ> wordNumber 1984
 -- "one-nine-eight-four"
 --
-```
+#+end_src

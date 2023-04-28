@@ -28,10 +28,10 @@ instance Numberish Year where
 
 sumNumberish :: Numberish a => a -> a -> a
 sumNumberish a a' = fromNumber summed
-  where integerOfA        = toNumber  a
-        integerOfAPrime   = toNumber  a'
+  where integerOfA        = toNumber a
+        integerOfAPrime   = toNumber a'
         summed = (+) integerOfA integerOfAPrime
---  λ> sumNumberish  (Age 10) (Age 1)
---  Age 11
---  λ> sumNumberish  (Year 10) (Year 1)
---  Year 11
+-- λ> sumNumberish  (Age 10) (Age 1)
+-- Age 11
+-- λ> sumNumberish  (Year 10) (Year 1)
+-- Year 11

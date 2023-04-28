@@ -1,0 +1,427 @@
+* Hello Haskell, chapter 02
+:PROPERTIES:
+:CUSTOM_ID: hello-haskell-chapter-02
+:END:
+
+#+begin_html
+  <!-- vim-markdown-toc GitLab -->
+#+end_html
+
+- [[#exercises-comprehension-check][Exercises: Comprehension Check]]
+  - [[#01-playing-with-exprs][01, playing with exprs]]
+  - [[#02-writing-a-function][02 writing a function]]
+  - [[#03-function-using-pi][03 function using `pi']]
+- [[#exercises-parentheses-and-association][Exercises: Parentheses and
+  Association]]
+  - [[#01-add-multiply][01 add, multiply]]
+  - [[#02-perimeter-multiply-and-add][02 perimeter, multiply and add]]
+  - [[#03-divide-and-add][03 divide and add]]
+- [[#exercises-heal-the-sick][Exercises: Heal the Sick]]
+  - [[#01-area-space-after-dot][01 area space after dot]]
+  - [[#02-unbound-variable-unused-variable][02 unbound variable, unused
+    variable]]
+  - [[#03-indentation-mishap][03 indentation mishap]]
+- [[#exercises-a-head-code][Exercises: A Head Code]]
+  - [[#let-expressions][let expressions]]
+    - [[#01-let][01 let]]
+    - [[#02-let][02 let]]
+    - [[#03-let][03 let]]
+    - [[#04-let][04 let]]
+  - [[#rewrite-to-where][Rewrite to where]]
+    - [[#01-where][01 where]]
+    - [[#02-where][02 where]]
+    - [[#03-where][03 where]]
+- [[#chapter-exercises][Chapter Exercises]]
+  - [[#parenthesization][Parenthesization]]
+    - [[#01][01]]
+    - [[#02][02]]
+    - [[#04][04]]
+  - [[#equivalent-expressions][Equivalent expressions]]
+    - [[#01-1][01]]
+    - [[#02-1][02]]
+    - [[#03][03]]
+    - [[#04-1][04]]
+    - [[#05][05]]
+  - [[#more-fun-with-functions][More fun with functions]]
+    - [[#01-waxon][01 waxOn]]
+    - [[#02-03][02, 03]]
+    - [[#04-let-waxon][04 let waxOn]]
+    - [[#05-waxon-and-triple][05 waxOn and triple]]
+    - [[#waxoff][waxOff]]
+- [[#the-end][The End]]
+
+#+begin_html
+  <!-- vim-markdown-toc -->
+#+end_html
+
+** Exercises: Comprehension Check
+:PROPERTIES:
+:CUSTOM_ID: exercises-comprehension-check
+:END:
+Page 35.
+
+*** 01, playing with exprs
+:PROPERTIES:
+:CUSTOM_ID: playing-with-exprs
+:END:
+#+begin_src ghci
+λ> half x = (/) x 2
+λ> square x = (*) x x
+
+λ> square (half 3)
+2.25
+#+end_src
+
+*** 02 writing a function
+:PROPERTIES:
+:CUSTOM_ID: writing-a-function
+:END:
+#+begin_src ghci
+λ> f n = 3.14 * (n * n)
+λ> f 5
+78.5
+λ> f 10
+314.0
+λ> f 2
+12.56
+λ> f 4
+50.24
+#+end_src
+
+3.14 does not change. That value is hardcoded inside the function body.
+The value that is multiplied inside parentheses do change, so, we make
+it a parameter.
+
+*** 03 function using `pi'
+:PROPERTIES:
+:CUSTOM_ID: function-using-pi
+:END:
+#+begin_src ghci
+λ> f n = pi * (n * n)
+λ> f 2
+12.566370614359172
+λ> f 4
+50.26548245743669
+#+end_src
+
+** Exercises: Parentheses and Association
+:PROPERTIES:
+:CUSTOM_ID: exercises-parentheses-and-association
+:END:
+Page 39.
+
+*** 01 add, multiply
+:PROPERTIES:
+:CUSTOM_ID: add-multiply
+:END:
+a and b produce different results. Parentheses here does make a
+difference.
+
+*** 02 perimeter, multiply and add
+:PROPERTIES:
+:CUSTOM_ID: perimeter-multiply-and-add
+:END:
+No change. Parenthesizing multiplication around an addition does not
+change anything. The multiplication would have been performed first
+anyway.
+
+*** 03 divide and add
+:PROPERTIES:
+:CUSTOM_ID: divide-and-add
+:END:
+Here, doing 2 + 9 before the division does change the result.
+
+** Exercises: Heal the Sick
+:PROPERTIES:
+:CUSTOM_ID: exercises-heal-the-sick
+:END:
+Page 45.
+
+*** 01 area space after dot
+:PROPERTIES:
+:CUSTOM_ID: area-space-after-dot
+:END:
+There is a space after the dot in "3.".
+
+#+begin_src haskell
+area x = 3.14 * (x * x)
+#+end_src
+
+*** 02 unbound variable, unused variable
+:PROPERTIES:
+:CUSTOM_ID: unbound-variable-unused-variable
+:END:
+The function bounds =x= but attempts to use =b=, which is not in scope.
+Fix: use =x= inside the body of the function:
+
+#+begin_src haskell
+double x = x * 2
+#+end_src
+
+*** 03 indentation mishap
+:PROPERTIES:
+:CUSTOM_ID: indentation-mishap
+:END:
+There is a horrible, monstrous whitespace before =y= causing GHCi to
+throw a fit.
+
+#+begin_src haskell
+x = 7
+y = 10
+f = x + y
+#+end_src
+
+https://www.quora.com/How-do-I-use-the-dollar-sign-separator-in-Haskell
+
+https://stackoverflow.com/questions/940382/what-is-the-difference-between-dot-and-dollar-sign
+
+** Exercises: A Head Code
+:PROPERTIES:
+:CUSTOM_ID: exercises-a-head-code
+:END:
+Page 59.
+
+*** let expressions
+:PROPERTIES:
+:CUSTOM_ID: let-expressions
+:END:
+**** 01 let
+:PROPERTIES:
+:CUSTOM_ID: let
+:END:
+=let x = 5 in x= produces 5. The =in x= is like a return statement in
+this case. We bind 5 to =x= and "return" x.
+
+**** 02 let
+:PROPERTIES:
+:CUSTOM_ID: let-1
+:END:
+Similar to the previous one. Produce =x * x=, which is 25.
+
+**** 03 let
+:PROPERTIES:
+:CUSTOM_ID: let-2
+:END:
+Produces 30. We use =let= to bind two values for =x= and =y=, and both
+are in scope for the =in= clause.
+
+**** 04 let
+:PROPERTIES:
+:CUSTOM_ID: let-3
+:END:
+Similar to the previous one. Just that the =in= clause ignores =y=, and
+the result is 6.
+
+*** Rewrite to where
+:PROPERTIES:
+:CUSTOM_ID: rewrite-to-where
+:END:
+**** 01 where
+:PROPERTIES:
+:CUSTOM_ID: where
+:END:
+#+begin_src haskell
+ex1 = result
+  where x       = 3
+        y       = 1000
+        result  = x * 3 + y
+#+end_src
+
+**** 02 where
+:PROPERTIES:
+:CUSTOM_ID: where-1
+:END:
+#+begin_src haskell
+ex2 = result
+  where
+    y       = 10
+    x       = 10 * 5 + y
+    result  = x * 5
+#+end_src
+
+**** 03 where
+:PROPERTIES:
+:CUSTOM_ID: where-2
+:END:
+#+begin_src haskell
+ex3 = result
+  where
+    x       = 7
+    y       = negate x
+    z       = y * 10
+    result  = z / x + y
+#+end_src
+
+** Chapter Exercises
+:PROPERTIES:
+:CUSTOM_ID: chapter-exercises
+:END:
+Page 60.
+
+*** Parenthesization
+:PROPERTIES:
+:CUSTOM_ID: parenthesization
+:END:
+Page 61.
+
+**** 01
+:PROPERTIES:
+:CUSTOM_ID: section
+:END:
+#+begin_src ghci
+λ> 2 + 2 * 3 - 1
+7
+λ> 2 + (2 * 3) - 1
+7
+λ> (2 + (2 * 3)) - 1
+7
+#+end_src
+
+**** 02
+:PROPERTIES:
+:CUSTOM_ID: section-1
+:END:
+#+begin_src ghci
+λ> (^) 10 $ 1 + 1
+100
+λ> ((^) 10) $ (1 + 1)
+100
+#+end_src
+
+**** 04
+:PROPERTIES:
+:CUSTOM_ID: section-2
+:END:
+#+begin_src ghci
+λ> 2 ^ 2 * 4 ^ 5 + 1
+4097
+λ> (2 ^ 2) * (4 ^ 5) + 1
+4097
+λ> ((2 ^ 2) * (4 ^ 5)) + 1
+4097
+#+end_src
+
+*** Equivalent expressions
+:PROPERTIES:
+:CUSTOM_ID: equivalent-expressions
+:END:
+Page 61.
+
+**** 01
+:PROPERTIES:
+:CUSTOM_ID: section-3
+:END:
+The expression =1 + 1= is the same as the expression 2.
+
+**** 02
+:PROPERTIES:
+:CUSTOM_ID: section-4
+:END:
+The expression =10 ^ 2= is the same as the expression =10 + 9 * 10=,
+because =9 * 10= is reduced first, which is 90, which is then added
+to 10. Both expressions produce the value 100.
+
+**** 03
+:PROPERTIES:
+:CUSTOM_ID: section-5
+:END:
+These are different. =400 - 37= means “subtract 37 from 400, which
+is 363. =(-) 37 400= means “from 37, subtract 400, which results in
+-363.
+
+**** 04
+:PROPERTIES:
+:CUSTOM_ID: section-6
+:END:
+=div= does integral division, while =/= does fractional division.
+Therefore, =100 `div` 3= results in 33 (discarding the fractional part),
+and =100 / 3= results in =33.333333333333336=.
+
+**** 05
+:PROPERTIES:
+:CUSTOM_ID: section-7
+:END:
+The results will be different because of the order of evaluation.
+
+*** More fun with functions
+:PROPERTIES:
+:CUSTOM_ID: more-fun-with-functions
+:END:
+**** 01 waxOn
+:PROPERTIES:
+:CUSTOM_ID: waxon
+:END:
+#+begin_src ghci
+λ> z = 7
+λ> y = z + 8
+λ> x = y ^ 2
+λ> waxOn = x * 5
+λ> 10 + waxOn
+1135
+λ> (+10) waxOn
+1135
+λ> (-) 15 waxOn
+-1110
+λ> (-) waxOn 15
+1110
+#+end_src
+
+**** 02, 03
+:PROPERTIES:
+:CUSTOM_ID: section-8
+:END:
+#+begin_src ghci
+λ> triple x = x * 3
+λ> triple waxOn
+3375
+#+end_src
+
+**** 04 let waxOn
+:PROPERTIES:
+:CUSTOM_ID: let-waxon
+:END:
+#+begin_src haskell
+waxOn =
+  let
+    z = 7
+    y = z + 8
+    x = y ^ 2
+  in x * 5
+#+end_src
+
+**** 05 waxOn and triple
+:PROPERTIES:
+:CUSTOM_ID: waxon-and-triple
+:END:
+#+begin_src haskell
+waxOn =
+  let
+    z = 7
+    y = z + 8
+    x = y ^ 2
+  in x * 5
+
+triple n = n * 3
+#+end_src
+
+**** waxOff
+:PROPERTIES:
+:CUSTOM_ID: waxoff
+:END:
+#+begin_src haskell
+waxOn =
+  let
+    z = 7
+    y = z + 8
+    x = y ^ 2
+  in x * 5
+
+triple n = n * 3
+
+waxOf n = triple n
+#+end_src
+
+** The End
+:PROPERTIES:
+:CUSTOM_ID: the-end
+:END:
