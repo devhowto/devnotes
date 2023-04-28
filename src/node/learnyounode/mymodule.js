@@ -13,7 +13,7 @@ function filteredReadDir(dir, ext, callback) {
   const re = new RegExp(`\\.${ext}$`);
 
   fs.readdir(dir, function (err, files) {
-    if (err) { return callback(err); }
+    if (err) return callback(err);
 
     const filteredFiles = files.filter(file => re.test(file));
 
