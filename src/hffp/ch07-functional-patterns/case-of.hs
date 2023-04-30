@@ -1,10 +1,10 @@
 {-# LANGUAGE NoMonomorphismRestriction #-}
-import GHC.Int (Int8)
+import           GHC.Int (Int8)
 
 funcZ :: (Eq a, Num a) => a -> [Char]
 funcZ x =
   case (+) x 1 == 1 of
-    True  -> "AWESOME"
+    True  -> "AWESOME!!!"
     False -> "wut‽"
 
 pal :: [Char] -> [Char]

@@ -16,6 +16,10 @@ isSouthAfrica :: Location -> Bool
 isSouthAfrica SouthAfrica = True
 isSouthAfrica _           = False
 
+isSouth :: Location -> Bool
+isSouth SouthAfrica  = True
+isSouth SouthAmerica = True
+isSouth _            = False
 
 gimmeLocation :: Penguin -> Location
 gimmeLocation (Peng location) = location
@@ -26,14 +30,13 @@ macaroni = Peng Antarctica
 little = Peng Australia
 galapagos = Peng Galapagos
 
-
 galapagosPenguin :: Penguin -> Bool
 galapagosPenguin (Peng Galapagos) = True
 galapagosPenguin _                = False
 
 antarcticPenguin :: Penguin -> Bool
 antarcticPenguin (Peng Antarctica) = True
-antarcticPenguin _                = False
+antarcticPenguin _                 = False
 
 antarcticOrGapapagos :: Penguin -> Bool
 antarcticOrGapapagos p =

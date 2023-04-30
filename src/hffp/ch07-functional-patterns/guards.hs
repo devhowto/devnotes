@@ -1,5 +1,5 @@
 {-# LANGUAGE NoMonomorphismRestriction #-}
-import GHC.Int (Int8)
+import           GHC.Int (Int8)
 
 myAbs :: Integer -> Integer
 myAbs x

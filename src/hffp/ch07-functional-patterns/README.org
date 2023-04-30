@@ -1,75 +1,25 @@
-* More Functional Patterns - Chapter 07
-:PROPERTIES:
-:CUSTOM_ID: more-functional-patterns---chapter-07
-:END:
-- [[#exercises:-grab-bag][Exercises: Grab bag]]
-  - [[#01-mth][01 mTh]]
-  - [[#02-mth-type][02 mTh type]]
-  - [[#03][03]]
-    - [[#a][a]]
-    - [[#b][b]]
-    - [[#c][c]]
-- [[#exercise:-variety-pack][Exercise: Variety Pack]]
-  - [[#01][01]]
-  - [[#02][02]]
-- [[#exercises:-case-practice][Exercises: Case practice]]
-  - [[#01][01]]
-  - [[#02][02]]
-  - [[#03][03]]
-- [[#exercises:-artful-dodgy][Exercises: Artful dodgy]]
-- [[#exercises:-guard-duty][Exercises: Guard duty]]
-  - [[#01][01]]
-  - [[#02][02]]
-  - [[#03][03]]
-  - [[#04][04]]
-  - [[#05][05]]
-  - [[#06][06]]
-  - [[#07][07]]
-    - [[#08][08]]
-- [[#chapter-exercises][Chapter exercises]]
-  - [[#multiple-choice][Multiple Choice]]
-    - [[#01][01]]
-    - [[#02][02]]
-    - [[#03][03]]
-    - [[#04][04]]
-    - [[#05][05]]
-  - [[#let’s-write-code][Let's write code]]
-    - [[#01][01]]
-      - [[#a][a]]
-      - [[#b][b]]
-      - [[#c][c]]
-    - [[#02][02]]
-    - [[#03][03]]
-    - [[#04,-05][04, 05]]
-    - [[#06][06]]
+# -*- mode: Org; org-download-image-dir: "../assets"; -*-
+#+TITLE: More Functional Patterns :: Chapter 07
+#+STARTUP: content
 
-** Exercises: Grab bag
-:PROPERTIES:
-:CUSTOM_ID: exercises-grab-bag
-:END:
-*** 01 mTh
-:PROPERTIES:
-:CUSTOM_ID: mth
-:END:
+* Exercises: Grab bag
+
+** 01 mTh
+
 All the four versions are equivalent.
 
-*** 02 mTh type
-:PROPERTIES:
-:CUSTOM_ID: mth-type
-:END:
+** 02 mTh type
+
 Letter D is correct. Nothing is forcing the compiler to give a concrete
 type to the parameters. =Num a= is still the most polymorphic possible.
 
-*** 03
-:PROPERTIES:
-:CUSTOM_ID: section
-:END:
-**** a
-:PROPERTIES:
-:CUSTOM_ID: a
-:END:
+** 03
+
+*** a
 #+begin_src haskell
+--
 -- ‘odd’ handles ‘Integral’, not ‘Num’.
+--
 add1IfOdd :: Integral a => a -> a
 add1IfOdd n =
   case odd n of
@@ -78,59 +28,40 @@ add1IfOdd n =
     where f = \x -> x + 1
 #+end_src
 
-**** b
-:PROPERTIES:
-:CUSTOM_ID: b
-:END:
+*** b
 #+begin_src haskell
 add5 :: (Num a, Ord a) => a -> a -> a
 add5 = \x -> \y -> (+) 5 (if x > y then y else x)
 #+end_src
 
-**** c
-:PROPERTIES:
-:CUSTOM_ID: c
-:END:
+*** c
 #+begin_src haskell
 mflip :: (Num a, Num b, Num c) => (a -> b -> c) -> b -> a -> c
 mflip f x y = f y x
 #+end_src
 
-** Exercise: Variety Pack
-:PROPERTIES:
-:CUSTOM_ID: exercise-variety-pack
-:END:
+* Exercise: Variety Pack
 Page 237.
 
 *** 01
-:PROPERTIES:
-:CUSTOM_ID: section-1
-:END:
-1. =k :: (a, b) -> a=
 
-2. =k2 :: [Char]=
+1. ~k :: (a, b) -> a~
 
-3. =k1= and =k3= will.
+2. ~k2 :: [Char]~
+
+3. ~k1~ and ~k3~ will.
 
 *** 02
-:PROPERTIES:
-:CUSTOM_ID: section-2
-:END:
+
 #+begin_src haskell
 f :: (a, b, c) -> (d, e, f) -> ((a, d), (c, f))
 f (a, _, c) (d, _, f) = ((a, d), (c, f))
 #+end_src
 
-** Exercises: Case practice
-:PROPERTIES:
-:CUSTOM_ID: exercises-case-practice
-:END:
+* Exercises: Case practice
 Page 240.
 
-*** 01
-:PROPERTIES:
-:CUSTOM_ID: section-3
-:END:
+** 01
 #+begin_src haskell
 fnC :: Ord a => a -> a -> a
 fnC x y =
@@ -139,10 +70,8 @@ fnC x y =
     False -> y
 #+end_src
 
-*** 02
-:PROPERTIES:
-:CUSTOM_ID: section-4
-:END:
+** 02
+
 #+begin_src haskell
 ifEvenAdd2 :: Integral a => a -> a
 ifEvenAdd2 n =
@@ -151,7 +80,7 @@ ifEvenAdd2 n =
     False -> n
 #+end_src
 
-*** 03
+** 03
 :PROPERTIES:
 :CUSTOM_ID: section-5
 :END:
@@ -166,10 +95,8 @@ nums x =
     EQ -> 0
 #+end_src
 
-** Parenthesization and Associativity of (->)
-:PROPERTIES:
-:CUSTOM_ID: parenthesization-and-associativity-of--
-:END:
+* Parenthesization and Associativity of (->)
+
 #+begin_example
 returnLast :: a -> b -> c -> d -> d
 returnLast _ _ _ d = d
@@ -216,10 +143,8 @@ ch07-functional-patterns/HOFs.hs:16:1: error:
 Failed, no modules loaded.
 #+end_example
 
-** Exercises: Artful dodgy
-:PROPERTIES:
-:CUSTOM_ID: exercises-artful-dodgy
-:END:
+* Exercises: Artful dodgy
+
 Page 248.
 
 #+begin_src ghci
@@ -257,84 +182,69 @@ Page 248.
 2
 #+end_src
 
-** Exercises: Guard duty
-:PROPERTIES:
-:CUSTOM_ID: exercises-guard-duty
-:END:
-*** 01
-:PROPERTIES:
-:CUSTOM_ID: section-6
-:END:
+* Exercises: Guard duty
+
+** 01
+
 All inputs would produce 'A'.
 
-*** 02
-:PROPERTIES:
-:CUSTOM_ID: section-7
-:END:
+** 02
+
 No, it would make a mess. The comparisons are relying on the order of
 the values and it returns on the first that matches.
 
-*** 03
-:PROPERTIES:
-:CUSTOM_ID: section-8
-:END:
+** 03
+
 B is correct.
 
-*** 04
-:PROPERTIES:
-:CUSTOM_ID: section-9
-:END:
-Something that can be ordered and compared for equality, =Ord= implies
-=Eq=.
+** 04
 
-*** 05
-:PROPERTIES:
-:CUSTOM_ID: section-10
-:END:
+Something that can be ordered and compared for equality. ~Ord~ implies ~Eq~.
+
+** 05
+
 #+begin_src haskell
-pal :: Ord a => [a] -> Bool
+pal :: Eq a => [a] -> Bool
 #+end_src
 
-*** 06
-:PROPERTIES:
-:CUSTOM_ID: section-11
-:END:
+** 06
+
 C is correct.
 
-*** 07
-:PROPERTIES:
-:CUSTOM_ID: section-12
-:END:
+** 07
+
 Any type of numbers that can be compared.
 
-**** 08
-:PROPERTIES:
-:CUSTOM_ID: section-13
-:END:
+** 08
+
+Haskell infers this:
+
 #+begin_src haskell
 numbers :: (Ord a, Num a, Num p) => a -> p
 #+end_src
 
-** Chapter exercises
-:PROPERTIES:
-:CUSTOM_ID: chapter-exercises
-:END:
+But we could make it something like:
+
+#+begin_src haskell
+import GHC.Int (Int8)
+
+numbers :: (Ord a, Num a) => a -> Int8
+#+end_src
+
+Because we are returning -1, 0 or 1, we can return a small int type.
+
+* Chapter exercises
+
 Page 264.
 
-*** Multiple Choice
-:PROPERTIES:
-:CUSTOM_ID: multiple-choice
-:END:
-**** 01
-:PROPERTIES:
-:CUSTOM_ID: section-14
-:END:
+** Multiple Choice
+
+*** 01
+
 D is correct.
 
-**** 02
-:PROPERTIES:
-:CUSTOM_ID: section-15
-:END:
+*** 02
+
 B is correct.
 
 #+begin_src haskell
@@ -351,10 +261,8 @@ h = g . f
 -- ["k"]
 #+end_src
 
-**** 03
-:PROPERTIES:
-:CUSTOM_ID: section-16
-:END:
+*** 03
+
 D is correct.
 
 #+begin_src haskell
@@ -366,48 +274,41 @@ g :: (Ord a, Num a) => a -> Bool
 g = f 1
 #+end_src
 
-**** 04
-:PROPERTIES:
-:CUSTOM_ID: section-17
-:END:
+*** 04
+
 B is correct.
 
-**** 05
-:PROPERTIES:
-:CUSTOM_ID: section-18
-:END:
+*** 05
+
 A is correct.
 
-*** Let's write code
-:PROPERTIES:
-:CUSTOM_ID: lets-write-code
-:END:
-**** 01
-:PROPERTIES:
-:CUSTOM_ID: section-19
-:END:
-***** a
-:PROPERTIES:
-:CUSTOM_ID: a-1
-:END:
+** Let's write code
+
+*** 01
+
+*** a
+
 #+begin_src haskell
 tensDigit :: Integral a => a -> a
 tens x = d
   where
     xLast = fst . divMod x $ 10
     d     = snd . divMod xLast $ 10
+
+-- Or something like this:
+
+f :: Integral a => a -> a
+f i = snd d
+  where tup = divMod i 10
+          d = divMod (fst tup) 10
 #+end_src
 
-***** b
-:PROPERTIES:
-:CUSTOM_ID: b-1
-:END:
+*** b
+
 Yes, the same type signature.
 
-***** c
-:PROPERTIES:
-:CUSTOM_ID: c-1
-:END:
+*** c
+
 #+begin_src haskell
 hunsD :: Integral a => a -> a
 hunsD x = d
@@ -416,10 +317,23 @@ hunsD x = d
     d     = snd . divMod xLast $ 10
 #+end_src
 
-**** 02
-:PROPERTIES:
-:CUSTOM_ID: section-20
-:END:
+Also this:
+
+#+begin_src haskell
+huns :: Integral a => a -> a
+huns n = h
+  where d = div n 10
+        h = div d 10
+
+thous :: Integral a => a -> a
+thous n = t
+  where d = div n 10
+        h = div d 10
+        t = div h 10
+#+end_src
+
+*** 02
+
 #+begin_src haskell
 foldBool :: a -> a -> Bool -> a
 foldBool x _ False = x
@@ -432,19 +346,15 @@ fb x y b =
     True  -> y
 #+end_src
 
-**** 03
-:PROPERTIES:
-:CUSTOM_ID: section-21
-:END:
+*** 03
+
 #+begin_src haskell
 g :: (a -> b) -> (a, c) -> (b, c)
 g aToB (a, c) = (aToB a, c)
 #+end_src
 
-**** 04, 05
-:PROPERTIES:
-:CUSTOM_ID: section-22
-:END:
+*** 04, 05
+
 #+begin_src haskell
 roundTrip :: (Show a, Read a) => a -> a
 roundTrip a = read (show a)
@@ -461,10 +371,8 @@ main = do
   print $ rt 4
 #+end_src
 
-**** 06
-:PROPERTIES:
-:CUSTOM_ID: section-23
-:END:
+*** 06
+
 #+begin_src haskell
 roundTrip :: (Show a, Read b) => a -> b
 roundTrip = read . show

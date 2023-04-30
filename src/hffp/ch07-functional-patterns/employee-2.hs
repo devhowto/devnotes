@@ -1,8 +1,9 @@
 {-# LANGUAGE NoMonomorphismRestriction #-}
 
 --
--- **IMPORTANT**: Remember that when ordering things, the data constructors on
--- the left are considered “less than” the data constructors on the right.
+-- IMPORTANT: Remember that when ordering things, the data constructors
+-- on the left are considered “less than” the data constructors on the
+-- right.
 --
 data Employee =
   Coder | Manager | Veep | CEO
@@ -15,6 +16,9 @@ reportBoss e e' =
     ++ " is the boss of "
     ++ show e'
 
+--
+-- We want to provide our own comparison function.
+--
 employeeRank :: (Employee -> Employee -> Ordering)
              -> Employee -> Employee -> IO ()
 employeeRank f e e' =

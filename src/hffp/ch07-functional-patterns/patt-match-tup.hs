@@ -1,7 +1,10 @@
-{-# LANGUAGE NoMonomorphismRestriction #-}
+-- {-# LANGUAGE NoMonomorphismRestriction #-}
 
 module TupleFns where
 
+-- (+) is a -> a -> a, so x and y must be of the same type.
+-- We are requiring a tuple, but it cannot be of (a, b), it
+-- has to be (a, a) because of (+).
 addEmUp2 :: Num a => (a, a) -> a
 addEmUp2 (x, y) = (+) x y
 
@@ -11,9 +14,9 @@ fst3 (x, _, _) = x
 third3 :: (a, b, c) -> c
 third3 (_, _, z) = z
 
-k (x, y) = x
+k (x, _) = x
 
-k1 = k ((4-1), 10)
+k1 = k ((4 - 1), 10)
 
 k2 = k ("three", (1 + 2))
 
