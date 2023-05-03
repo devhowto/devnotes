@@ -6,7 +6,6 @@ divBy num denom = go num denom 0
           | n < d = (count, n)
           | otherwise = go (n - d) d (count + 1)
 
-
 mysum :: Integer -> Integer
 msum x = go x 0
   where go n acc

@@ -23,6 +23,7 @@ incTimes times n =
 --
 -- Book implementation. The recursion invocation seems
 -- less intuitive. We do not increment `n` directly.
+--
 incTimes' :: (Eq a, Num a) => a -> a -> a
 incTimes' 0 n = n
 incTimes' times n =

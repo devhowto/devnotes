@@ -1,41 +1,8 @@
-* Recursion - Chapter 08
-:PROPERTIES:
-:CUSTOM_ID: recursion---chapter-08
-:END:
+# -*- mode: Org; org-download-image-dir: "../assets"; -*-
+#+TITLE: Recursion :: Chapter 08
+#+STARTUP: content
 
-#+begin_html
-  <!-- vim-markdown-toc GitLab -->
-#+end_html
-
-- [[#intermission-exercise][Intermission: Exercise]]
-- [[#chapter-exercises][Chapter Exercises]]
-  - [[#review-of-types][Review of types]]
-    - [[#01][01]]
-    - [[#02][02]]
-    - [[#03][03]]
-    - [[#04][04]]
-  - [[#reviewing-currying][Reviewing currying]]
-    - [[#01-1][01]]
-    - [[#02-1][02]]
-    - [[#03-1][03]]
-    - [[#04-1][04]]
-    - [[#05][05]]
-    - [[#06][06]]
-  - [[#recursion][Recursion]]
-    - [[#01-2][01]]
-    - [[#02-2][02]]
-    - [[#03-2][03]]
-  - [[#fixing-divby][Fixing divBy]]
-  - [[#wordnumber][wordNumber]]
-
-#+begin_html
-  <!-- vim-markdown-toc -->
-#+end_html
-
-** Intermission: Exercise
-:PROPERTIES:
-:CUSTOM_ID: intermission-exercise
-:END:
+* Intermission: Exercise
 Page 282.
 
 #+begin_src haskell
@@ -71,12 +38,26 @@ applyTimes 0 (+ 1) 10
                    10
 #+end_example
 
-mvaldesdeleon has a
-[[https://github.com/mvaldesdeleon/haskell-book/blob/master/ch08/exercises.md][different
-solution]].
+- mvaldesdeleon has a [[https://github.com/mvaldesdeleon/haskell-book/blob/master/ch08/exercises.md][different solution]], something like this:
 
-⊥, or /bottom/, is a term used in Haskell to refer to computations that
-do not successfully result in a value.
+#+begin_example
+apt :: Int -> (a -> a) -> a -> a
+apt 0 _ x = x
+apt t f x = f (apft (t - 1) f x)
+
+λ> apt 3 (+1) 5
+8
+λ> (+1) (apt 2 (+1) 5)
+8
+λ> (+1) ((+1) (apt 1 (+1) 5))
+8
+λ> (+1) ((+1) ((+1) (apt 0 (+1) 5)))
+8
+#+end_example
+
+
+⊥, or /bottom/, is a term used in Haskell to refer to computations that do
+not successfully result in a value.
 
 Examples of bottom:
 
@@ -84,90 +65,65 @@ Examples of bottom:
 - infinite loops
 - partial function
 
-** Chapter Exercises
-:PROPERTIES:
-:CUSTOM_ID: chapter-exercises
-:END:
+* Chapter Exercises
 Page 293.
 
-*** Review of types
-:PROPERTIES:
-:CUSTOM_ID: review-of-types
-:END:
-**** 01
-:PROPERTIES:
-:CUSTOM_ID: section
-:END:
-D is correct. =[[True, False], [True, True], [False, True]]=is a list of
-lists of =Bool=, so, the type is =[[Bool]]=.
+** Review of types
+*** 01
 
-**** 02
-:PROPERTIES:
-:CUSTOM_ID: section-1
-:END:
-B is correct. =[[True, False], [True, True], [False, True]]=is a list of
-lists of =Bool=, so, the type is =[[Bool]]=, and
-=[[3 == 3], [6 > 5], [3 < 4]]= expands to =[[True], [False], [True]]=,
-which is a list of lists of =Bool=. Remember that the number of elements
-in lists is not part of the type (contraty to tuples).
+D is correct. ~[[True, False], [True, True], [False, True]]~ is a list of
+lists of ~Bool~, so, the type is ~[[Bool]]~.
 
-**** 03
-:PROPERTIES:
-:CUSTOM_ID: section-2
-:END:
+*** 02
+
+B is correct. ~[[True, False], [True, True], [False, True]]~ is a list of
+lists of ~Bool~, so, the type is ~Bool~, and ~[[3 =​=​ 3], [6 > 5], [3 < 4]]~
+expands to ~[[True], [False], [True]]~, which is a list of lists of
+~Bool~. Remember that the number of elements in lists is not part of the
+type (contraty to tuples).
+
+*** 03
+
 D is correct. =(++)= concatentates lists, and lists must have its
-constituents be of the same type.
+constituents be of the same type. All options are true.
 
-**** 04
-:PROPERTIES:
-:CUSTOM_ID: section-3
-:END:
+*** 04
+
 B is correct. Yet, A is also valid. It partially applies the function to
 a single argument, which returns a function awaiting the remaining
 argument. Same with D. C is not correct though because both lists must
 have constituents of the same type.
 
-*** Reviewing currying
-:PROPERTIES:
-:CUSTOM_ID: reviewing-currying
-:END:
-**** 01
-:PROPERTIES:
-:CUSTOM_ID: section-4
-:END:
+** Reviewing currying
+*** 01
+
 #+begin_example
 λ> appedCatty "woohoo!"
 "woops mrow woohoo!"
 #+end_example
 
-**** 02
-:PROPERTIES:
-:CUSTOM_ID: section-5
-:END:
+*** 02
+
 #+begin_example
 λ> frappe "1"
 "1 mrow haha"
 #+end_example
 
-**** 03
-:PROPERTIES:
-:CUSTOM_ID: section-6
-:END:
+*** 03
+
 #+begin_example
-λ> frappe (appedCatty "2") -- woops mrow 2 haha
+λ> frappe (appedCatty "2")
 "woops mrow 2 mrow haha"
 #+end_example
 
-**** 04
-:PROPERTIES:
-:CUSTOM_ID: section-7
-:END:
+*** 04
+
 #+begin_example
 λ> appedCatty (frappe "blue")
 "woops mrow blue mrow haha"
 #+end_example
 
-**** 05
+*** 05
 :PROPERTIES:
 :CUSTOM_ID: section-8
 :END:
@@ -180,7 +136,7 @@ have constituents of the same type.
 "pink mrow haha mrow green mrow woops mrow blue"
 #+end_example
 
-**** 06
+*** 06
 :PROPERTIES:
 :CUSTOM_ID: section-9
 :END:
@@ -189,10 +145,8 @@ have constituents of the same type.
 "are mrow Pugs mrow awesome"
 #+end_example
 
-*** Recursion
-:PROPERTIES:
-:CUSTOM_ID: recursion
-:END:
+** Recursion
+
 **** 01
 :PROPERTIES:
 :CUSTOM_ID: section-10
@@ -247,7 +201,7 @@ mult multiplicand multiplier = go multiplier 0
       | otherwise = go (multiplier' - 1) (acc + multiplicand)
 #+end_example
 
-*** Fixing divBy
+** Fixing divBy
 :PROPERTIES:
 :CUSTOM_ID: fixing-divby
 :END:
@@ -376,7 +330,7 @@ divBy num denom = signify $ go (abs num) (abs denom) 0
 --
 #+end_src
 
-*** wordNumber
+** wordNumber
 :PROPERTIES:
 :CUSTOM_ID: wordnumber
 :END:

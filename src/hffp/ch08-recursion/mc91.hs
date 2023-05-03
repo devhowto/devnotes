@@ -9,7 +9,6 @@ mc91 n =
     True  -> (-) n 10
     False -> mc91 (mc91 ((+) n 11))
 
-
 --
 -- Using guards.
 --

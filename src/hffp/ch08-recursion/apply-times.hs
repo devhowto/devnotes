@@ -7,20 +7,18 @@
 -- reaching the base case when times is zero.
 --
 
-
 applyTimes :: (Eq a, Num a) => a -> (b -> b) -> b -> b
-applyTimes 0 _ val = val
+applyTimes 0 _ val     = val
 applyTimes times f val = f (applyTimes (times - 1) f val)
 --
 -- λ> applyTimes 3 (+1) 0
 -- 3
---
 
 --
 -- Using explicit composition.
 --
 applyTimes' :: (Eq a, Num a) => a -> (b -> b) -> b -> b
-applyTimes' 0 _ val = val
+applyTimes' 0 _ val     = val
 applyTimes' times f val = f . applyTimes (times - 1) f $ val
 
 --
