@@ -2,7 +2,7 @@
 
 module WordNumber where
 
-import Data.List (intersperse)
+import           Data.List (intersperse)
 
 digitToWord :: Int -> String
 digitToWord 0 = "zero"
@@ -24,11 +24,11 @@ dropOnesPlace :: Int -> Int
 dropOnesPlace x = div x 10
 
 --
--- `dropOnesPlace x` causes the next iteration of the recursion to run in a
--- smaller input, tending toward something that is less than 10.
+-- `dropOnesPlace x` causes the next iteration of the recursion to run
+-- in a smaller input, tending toward something that is less than 10.
 --
--- `(:) (getOnesPlace x) acc` cons the right-most digit in the number into the
--- accumulator.
+-- `(:) (getOnesPlace x) acc` cons the right-most digit in the number
+-- into the accumulator.
 --
 digits :: Int -> [Int]
 digits n = go n []

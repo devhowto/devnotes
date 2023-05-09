@@ -1,78 +1,7 @@
-* Lists - Chapter 09
-:PROPERTIES:
-:CUSTOM_ID: lists---chapter-09
-:END:
+#+TITLE: Lists :: Chapter 09
+#+STARTUP: content
 
-#+begin_html
-  <!-- vim-markdown-toc GitLab -->
-#+end_html
-
-- [[#exercise-enumfromto][Exercise: EnumFromTo]]
-- [[#exercises-thy-fearful-symmetry][Exercises: Thy fearful symmetry]]
-  - [[#01][01]]
-  - [[#02][02]]
-  - [[#03][03]]
-- [[#exercises-comprehend-thy-lists][Exercises: Comprehend thy lists]]
-- [[#exercises-square-cube][Exercises: Square Cube]]
-- [[#exercises-bottom-madness][Exercises: Bottom madness]]
-  - [[#01-1][01]]
-  - [[#02-1][02]]
-  - [[#03-1][03]]
-  - [[#04][04]]
-  - [[#05][05]]
-  - [[#06][06]]
-  - [[#07][07]]
-  - [[#08][08]]
-  - [[#09][09]]
-  - [[#10][10]]
-- [[#intermission-is-it-in-normal-form][Intermission: Is it in normal
-  form?]]
-  - [[#01-2][01]]
-  - [[#02-2][02]]
-  - [[#03-2][03]]
-  - [[#04-1][04]]
-  - [[#05-1][05]]
-  - [[#06-1][06]]
-  - [[#07-1][07]]
-- [[#exercises-more-bottoms][Exercises: More bottoms]]
-  - [[#01-3][01]]
-  - [[#02-3][02]]
-  - [[#03-3][03]]
-  - [[#04-2][04]]
-  - [[#05-2][05]]
-    - [[#a][a]]
-    - [[#b][b]]
-    - [[#c][c]]
-  - [[#06-2][06]]
-- [[#exercises-filtering][Exercises: Filtering]]
-  - [[#01-4][01]]
-  - [[#02-4][02]]
-  - [[#03-4][03]]
-- [[#zipping-exercises][Zipping exercises]]
-  - [[#01-02-03][01, 02, 03]]
-- [[#chapter-exercises][Chapter Exercises]]
-  - [[#datachar][Data.Char]]
-    - [[#01-5][01]]
-    - [[#02-5][02]]
-    - [[#03-5][03]]
-    - [[#04-3][04]]
-    - [[#05-06][05, 06]]
-  - [[#ciphers][Ciphers]]
-    - [[#caesar-solution-1][Caesar Solution 1]]
-    - [[#caesar-solution-2][Caesar Solution 2]]
-    - [[#caesar-solution-3][Caesar Solution 3]]
-  - [[#writing-your-own-standard-functions][Writing your own standard
-    functions]]
-- [[#the-end][The End]]
-
-#+begin_html
-  <!-- vim-markdown-toc -->
-#+end_html
-
-** Exercise: EnumFromTo
-:PROPERTIES:
-:CUSTOM_ID: exercise-enumfromto
-:END:
+* Exercise: EnumFromTo
 Page 306.
 
 #+begin_src haskell
@@ -143,7 +72,7 @@ eftChar ini end = go (succ ini) [ini]
           | otherwise = go (succ current) (acc ++ [current])
 #+end_src
 
-** Exercises: Thy fearful symmetry
+* Exercises: Thy fearful symmetry
 :PROPERTIES:
 :CUSTOM_ID: exercises-thy-fearful-symmetry
 :END:
@@ -322,7 +251,7 @@ main = do
 --
 #+end_src
 
-** Exercises: Comprehend thy lists
+* Exercises: Comprehend thy lists
 :PROPERTIES:
 :CUSTOM_ID: exercises-comprehend-thy-lists
 :END:
@@ -358,7 +287,7 @@ Second exercise:
 Combine each =x= with all =y=s. The =take 5= exercises just returns the
 first 5 elements of the result above.
 
-** Exercises: Square Cube
+* Exercises: Square Cube
 :PROPERTIES:
 :CUSTOM_ID: exercises-square-cube
 :END:
@@ -384,7 +313,7 @@ qty :: Int
 qty = length tup2
 #+end_src
 
-** Exercises: Bottom madness
+* Exercises: Bottom madness
 :PROPERTIES:
 :CUSTOM_ID: exercises-bottom-madness
 :END:
@@ -454,7 +383,7 @@ We are able to produce two values before hitting undefined.
 :END:
 Bottom. Reach undefined before being able to produce three valid values.
 
-** Intermission: Is it in normal form?
+* Intermission: Is it in normal form?
 :PROPERTIES:
 :CUSTOM_ID: intermission-is-it-in-normal-form
 :END:
@@ -509,7 +438,7 @@ WHNF.
 It is a data constructor and one of its arguments is still unknown (the
 =_=).
 
-** Exercises: More bottoms
+* Exercises: More bottoms
 :PROPERTIES:
 :CUSTOM_ID: exercises-more-bottoms
 :END:
@@ -602,7 +531,7 @@ argument, otherwise, return the second argument.
 [101,102,-3,104,105]
 #+end_src
 
-** Exercises: Filtering
+* Exercises: Filtering
 :PROPERTIES:
 :CUSTOM_ID: exercises-filtering
 :END:
@@ -667,7 +596,7 @@ dropArticles s = filter isNotArticle $ words s
 --
 #+end_src
 
-** Zipping exercises
+* Zipping exercises
 :PROPERTIES:
 :CUSTOM_ID: zipping-exercises
 :END:
@@ -719,7 +648,7 @@ myZip' = myZipWith (,)
 Shouldn't it work since partially applying =myZipWith (,)= returns a
 function that expect the two remaining lists?
 
-** Chapter Exercises
+* Chapter Exercises
 :PROPERTIES:
 :CUSTOM_ID: chapter-exercises
 :END:
@@ -1090,7 +1019,7 @@ myMinimum :: Ord a => [a] -> a
 myMinimum = myMinimumBy compare
 #+end_src
 
-** The End
+* The End
 :PROPERTIES:
 :CUSTOM_ID: the-end
 :END:
