@@ -6,10 +6,10 @@ Page 306.
 
 #+begin_src haskell
 --
--- The "enum from to" functions return empty list if the starting point is
--- less than the ending point. Remember that sum (or) data constructors behave
--- like a number line. So, things to the left are “less than” things on the
--- right.
+-- The "enum from to" functions return empty list if the starting
+-- point is less than the ending point. Remember that sum (or) data
+-- constructors behave like a number line. So, things to the left are
+-- “less than” things on the right.
 --
 -- λ> :info Bool
 -- data Bool = False | True
@@ -26,8 +26,8 @@ eftBool True False = [True, False]
 eftBool _ _        = []
 
 --
--- A very explicit and manual way of ranging over the tree possible data
--- constructors of `Ordering`.
+-- A very explicit and manual way of ranging over the tree possible
+-- data constructors of `Ordering`.
 --
 eftOrd :: Ordering -> Ordering -> [Ordering]
 eftOrd LT EQ = [LT, EQ]
@@ -73,12 +73,9 @@ eftChar ini end = go (succ ini) [ini]
 #+end_src
 
 * Exercises: Thy fearful symmetry
-:PROPERTIES:
-:CUSTOM_ID: exercises-thy-fearful-symmetry
-:END:
 Page 310.
 
-*** 01
+** 01
 :PROPERTIES:
 :CUSTOM_ID: section
 :END:
@@ -142,10 +139,8 @@ myWords s = go s []
 --
 #+end_src
 
-*** 02
-:PROPERTIES:
-:CUSTOM_ID: section-1
-:END:
+** 02
+
 #+begin_src haskell
 firstSen = "Tyger Tyger, burning bright\n"
 secondSen = "In the forests of the night\n"
@@ -183,10 +178,8 @@ main = do
     ++ show (myLines sentences == shouldEqual)
 #+end_src
 
-*** 03
-:PROPERTIES:
-:CUSTOM_ID: section-2
-:END:
+** 03
+
 #+begin_src haskell
 firstSen = "Tyger Tyger, burning bright\n"
 secondSen = "In the forests of the night\n"

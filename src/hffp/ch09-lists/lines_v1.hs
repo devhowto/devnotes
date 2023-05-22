@@ -1,13 +1,12 @@
 {-# LANGUAGE NoMonomorphismRestriction #-}
 
-firstSen = "Tyger Tyger, burning bright\n"
-secondSen = "In the forests of the night\n"
-thirdSen = "What immortal hand or eye\n"
-fourthSen = "Could frame thy fearful\
+line1 = "Tyger Tyger, burning bright\n"
+line2 = "In the forests of the night\n"
+line3 = "What immortal hand or eye\n"
+line4 = "Could frame thy fearful\
 \ symmetry?"
 
-sentences = firstSen ++ secondSen
-            ++ thirdSen ++ fourthSen
+sentences = line1 ++ line2 ++ line3 ++ line4
 
 shouldEqual =
   [ "Tyger Tyger, burning bright"
