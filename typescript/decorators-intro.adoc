@@ -1,0 +1,53 @@
+= ECMAScript Decorators :: TypeScript
+:toc: left
+:icons: font
+:source-highlighter: highlight.js
+
+== Resources
+
+* link:https://github.com/tc39/proposal-decorators[TC39 Proposal Decorators]
+
+== Higher-order function decorators
+
+The decorators proposal is about decorating class-based code (methods, properties, constructors, etc.).
+Still, we don't necessarily need any special syntax to decorate functions.
+ECMAScript, supporting higher-order functions, allows functions to be decorated (enhanced, endowed with more features or super cow powers) using ECMAScript features that exist since its inception.
+
+=== Log high-order function decorator
+
+Here's a _log_ utility:
+
+[source,javascript]
+----
+const log = console.log.bind(console);
+----
+
+We can use it like this:
+
+[source,javascript]
+----
+log(1);
+//=> 1
+----
+
+And here's an “old school” (but not worse or wrong, just a battle-tested approach that works well) way to decorate our `log` and endow it with the ability of prepending date information date to the logged message:
+
+[source,javascript]
+----
+function withDate(logFn) {
+  return function logWithDate(msg) {
+    logFn.call(null, new Date().toString());
+    logFn.call(null, msg);
+  };
+}
+----
+
+And we decorate (enhance, endow with extra powers) our `log` function and use it like this:
+
+[source,javascript]
+----
+const logger = withDate(log);
+
+logger('IT FUCKING WORKS!');
+//=> 5/25/2023, 8:57:53 AM: IT FUCKING WORKS!
+----
