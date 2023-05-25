@@ -18,10 +18,8 @@ Types help define a contract, and also immensely help us to convey intent, which
 
 == Tips For Learning TypeScript
 
-*TIP 1*: Always try to figure out the types without hovering or
-inspecting first.
-At all times, quiz yourself about types, concepts and ideas
-applied; about every minutiae you can think of.
+*TIP 1*: Always try to figure out the types without hovering over in your editor or inspecting first.
+At all times, quiz yourself about types, concepts and ideas applied; about every minutiae you can think of.
 Only then proceed to tip 2.
 
 *TIP 2*: After following tip 1, always inspect the types or try the intellisense to get a better understanding of the them!
@@ -44,6 +42,6 @@ They help during development, statically checking stuff.
 TS has nothing to do with runtime, though.
 
 Those two steps, type-checking and transpiling are done in separate steps and are not related.
-Code could be failing type-checking correctly, but `tsc` will still emit JS.
+Code could be failing to type-check correctly, but `tsc` will still emit JS.
 
 People sometimes incorrectly say “My TypeScript code doesn’t compile.”, when they should really be saying “My TypeScript code does not type-check.”, as TypeScript code with type errors still compiles.
