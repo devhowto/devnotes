@@ -223,7 +223,7 @@ It prints "+-->+".
 What about "foo"?
 
 It is ignored because no format string was provided.
-Without it, `printf` only prints handles the first argument.
+Without it, `printf` only handles the first argument.
 
 Compare:
 
@@ -243,3 +243,14 @@ a
 b
 c
 ----
+
+[NOTE]
+====
+`echo` _does_ print all its arguments, and maybe the first impression is that `printf` would do the same by default, which is not the case.
+
+[source,shell-session]
+----
+$ echo a b c
+a b c
+----
+====
