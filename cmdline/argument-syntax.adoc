@@ -67,7 +67,7 @@ secret.txt
 
 Oh shoot! Because we did not prevent the shell from breaking `secret message.txt` into individual tokens, what was passed to `rm` was not a single parameter, but two: `secret` and `message.txt`.
 
-`rm` was unable to remove a file named `secret` because no such file exists (we have `secret.txt`) but *was able to* remove `message.txt` because that was a file that really existed (but no longer).
+`rm` was unable to remove a file named `secret` because no such file exists (we have `secret.txt`, but not `secret`) but *was able to* remove `message.txt` because that was a file that really existed (but alas, no longer 😭).
 
 Unfortunately, we did not remove `secret message.txt` which is what we wanted, *but accidentally removed* `secret.txt` *which we didn't want to*.
 
