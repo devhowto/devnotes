@@ -2,6 +2,7 @@
 :page-tags: haskell list
 :toc: left
 :icons: font
+:stem: latexmath
 
 = Intro
 
@@ -45,6 +46,33 @@ The spec calls these predicates _boolean guards_.
 
 > ...boolean guards, which are arbitrary expressions of type `Bool`.
 ====
+
+When multiple generators are provided, the rightmost ones are exhausted (consumed) first.
+Consider:
+
+[source,ghci]
+----
+λ> [b ^ e | b <- [3, 4, 5], e <- [2, 3]]
+[9,27,16,64,25,125]
+----
+
+Instead of evaluating all values from the leftmost generator (3, 4, 5) to the first element of the rightmost generator, that is, stem:[3 ^ 2], stem:[4 ^ 2], then stem:[5 ^ 2], what happens instead is that the 3 from the leftmost generator is raised to all exponents of the rightmost generator first, e.g. stem:[3 ^ 2] then stem:[3 ^ 3], and only then the evaluation proceeds to the second element of the first generator.
+
+image::assets/haskell-list-comprehension-order.png[Haskell list comprehension generator exhaustion order]
+
+And a predicate could be used to limit the resulting list to include only certain values, like even, odd, less than some value, more than some value, etc:
+
+[source,ghci]
+----
+λ> [b ^ e | b <- [3, 4, 5], e <- [2, 3], odd (b ^ e)]
+[9,27,25,125]
+λ> [b ^ e | b <- [3, 4, 5], e <- [2, 3], even (b ^ e)]
+[16,64]
+λ> [b ^ e | b <- [3, 4, 5], e <- [2, 3], (b ^ e) < 100]
+[9,27,16,64,25]
+λ> [b ^ e | b <- [3, 4, 5], e <- [2, 3], (b ^ e) > 100]
+[125]
+----
 
 == Resources
 
