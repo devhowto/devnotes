@@ -1,0 +1,51 @@
+= List Comprehensions :: Haskell
+:page-tags: haskell list
+:toc: left
+:icons: font
+
+= Intro
+
+List comprehensions are a means of generating a new list from one or more lists.
+The concept comes from set comprehensions in math, including the syntax.
+
+From the generator list `[1 .. 5]`, add one to each number.
+
+[source,haskell]
+----
+allNums :: [Int]
+allNums = [x + 1 | x <- [1 .. 5]]
+--           |             /
+--           v            /
+--     resulting list    /
+--                      v
+--                generator list
+----
+
+The pipe “|” character is syntax to separate what is ouput (left) and input (right).
+The `x` variable on the right is bound to each element, one at a time, from the generator list that satisfies the predicate(s), if any.
+
+From the generator list `[1 .. 5]`, return a list containing only the odd numbers.
+Not the comma after the generator and then the predicate.
+
+[source,haskell]
+----
+oddNums :: [Int]
+oddNums = [x | x <- [1 .. 5], odd x]
+--                              /
+--                             /
+--                            v
+--                        predicate
+----
+
+Predicates must evaluate to `Bool` values.
+
+[NOTE]
+====
+The spec calls these predicates _boolean guards_.
+
+> ...boolean guards, which are arbitrary expressions of type `Bool`.
+====
+
+== Resources
+
+* link:https://www.haskell.org/onlinereport/haskell2010/haskellch3.html#x8-420003.11[List Comprehensions :: Haskell 2010 Report^]
