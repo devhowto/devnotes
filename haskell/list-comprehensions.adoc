@@ -15,6 +15,7 @@ From the generator list `[1 .. 5]`, add one to each number.
 ----
 allNums :: [Int]
 allNums = [x + 1 | x <- [1 .. 5]]
+--         -----         ------
 --           |             /
 --           v            /
 --     resulting list    /
@@ -22,10 +23,10 @@ allNums = [x + 1 | x <- [1 .. 5]]
 --                generator list
 ----
 
-The pipe “|” character is syntax to separate what is ouput (left) and input (right).
+The pipe “|” character is syntax to separate what is output (left) and input (right).
 The `x` variable on the right is bound to each element, one at a time, from the generator list that satisfies the predicate(s), if any.
 
-From the generator list `[1 .. 5]`, return a list containing only the odd numbers.
+Another example: from the generator list `[1 .. 5]`, return a list containing only the odd numbers.
 Not the comma after the generator and then the predicate.
 
 [source,haskell]
@@ -42,7 +43,7 @@ Predicates must evaluate to `Bool` values.
 
 [NOTE]
 ====
-The spec calls these predicates _boolean guards_.
+The link:https://www.haskell.org/onlinereport/haskell2010/haskellch3.html#x8-420003.11[spec^] calls these predicates _boolean guards_.
 
 > ...boolean guards, which are arbitrary expressions of type `Bool`.
 ====
@@ -72,6 +73,24 @@ And a predicate could be used to limit the resulting list to include only certai
 [9,27,16,64,25]
 λ> [b ^ e | b <- [3, 4, 5], e <- [2, 3], (b ^ e) > 100]
 [125]
+----
+
+Generate a list of tuples from two generators:
+
+[source,haskell]
+----
+tups :: [] (Int, Int)
+tups = [(x, y) | x <- [10, 20], y <- [-1, -2, -3]]
+-- [(10,-1),(10,-2),(10,-3),(20,-1),(20,-2),(20,-3)]
+----
+
+The generator lists don't have to be of the same length, and, because tuples can contain elements of different types, the generator lists themselves can each be of a different type.
+
+[source,haskell]
+----
+them :: [] (Int, Char)
+them = [(n, c) | n <- [1, 2], c <- ['a', 'b', 'c']]
+-- [(1,'a'),(1,'b'),(1,'c'),(2,'a'),(2,'b'),(2,'c')]
 ----
 
 == Resources

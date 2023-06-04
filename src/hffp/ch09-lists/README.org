@@ -252,9 +252,6 @@ main = do
 #+end_src
 
 * Exercises: Comprehend thy lists
-:PROPERTIES:
-:CUSTOM_ID: exercises-comprehend-thy-lists
-:END:
 Page 314.
 
 Required for the two exercises.

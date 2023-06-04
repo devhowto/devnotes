@@ -252,7 +252,7 @@ main = do
 
 Page 314.
 
-Required for the two exercises.
+Required for the two exercises:
 
 [source,example]
 ----
@@ -278,11 +278,31 @@ Second exercise:
             x < 50,
             y > 50]
 
-λ> res
-[(1,64),(1,81),(1,100),(4,64),(4,81),(4,100),(9,64),(9,81),(9,100),(16,64),(16,81),(16,100),(25,64),(25,81),(25,100),(36,64),(36,81),(36,100),(49,64),(49,81),(49,100)]
+[ (1, 64)
+, (1, 81)
+, (1, 100)
+, (4, 64)
+, (4, 81)
+, (4, 100)
+, (9, 64)
+, (9, 81)
+, (9, 100)
+, (16, 64)
+, (16, 81)
+, (16, 100)
+, (25, 64)
+, (25, 81)
+, (25, 100)
+, (36, 64)
+, (36, 81)
+, (36, 100)
+, (49, 64)
+, (49, 81)
+, (49, 100)
+]
 ----
 
-Combine each `x` with all `y=s. The =take 5` exercises just returns the
+Combine each `x` with all `y`s. The =take 5=` exercise just returns the
 first 5 elements of the result above.
 
 == Exercises: Square Cube
