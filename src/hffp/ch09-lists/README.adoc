@@ -1,4 +1,7 @@
 = Lists :: ch09 :: Haskell Programming From First Principles
+:icons: font
+:toc: left
+:source-highlighter: highlight.js
 
 == Exercise: EnumFromTo
 
