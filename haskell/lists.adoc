@@ -62,13 +62,15 @@ Also remember that something like `Num a => a` means `a` is not a concrete type 
 The output “_” means *unevaluated*.
 
 [source,ghci]
-λ> xs = [1 .. 5]
+----
+λ> xs = [1 .. 5] :: [Int]
 λ> :sprint xs
 xs = _
 [source,ghci]
+----
 
 In this case, the `xs = _` means `xs` is completely unevaluated.
-But if we take one value from `xs`, then one element has been evaluated, but not the rest.
+But if we take one value from `xs`, then one element has been evaluated, but not the rest:
 
 [source,ghci]
 ----
@@ -82,10 +84,40 @@ take 2 xs
 xs = 1 : 2 : _
 ----
 
-BEWARE: The example above no longer behave like that since 2022 or 2023 versions if GHCi. See link:https://discord.com/channels/280033776820813825/505367988166197268/1115246246093922334[this Discord question].
+BEWARE: We need a concrete type for `:sprint` to show how much has been evaluated.
+See link:https://discord.com/channels/280033776820813825/505367988166197268/1115246246093922334[this Discord question].
 
 The `length` function is only strict on the spine (it doesn't need to evaluate the values).
 It seems at some versions of GHC would force evaluation of the values too, though.
+
+[source,ghci]
+----
+λ xs = [1 .. 5] :: [Int]
+λ :sprint xs
+xs = _
+λ take 2 xs
+[1,2]
+λ :sprint xs
+xs = 1 : 2 : _
+λ length xs
+5
+λ :sprint xs
+xs = [1,2,3,4,5]
+----
+
+`xs` is not a list in memory in which we can see the evaluation proceed until you specify a type.
+For instance, we can say:
+
+[source,ghci]
+----
+λ> xs = [1 .. 5]
+λ> take 2 (xs :: [Int])
+[1,2]
+λ> take 3 (xs :: [Double])
+[1.0,2.0,3.0]
+----
+
+`xs` can't be a list of both these types at once.
 
 == Evaluations of Spines and Values
 
