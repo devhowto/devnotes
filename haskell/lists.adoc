@@ -1,0 +1,104 @@
+= Lists :: Haskell
+:page-tags: haskell list evaluation bottom strictness
+:icons: font
+:toc: left
+
+== Intro
+
+Lists are a recursive series or *cons cells* `a : [a]` terminated by the empty list `[]`.
+
+# Spine and Non-Strict Evaluation
+
+* https://www.fpcomplete.com/haskell/tutorial/all-about-strictness/
+
+We talk about a list’s _spine_ when talking about lists and their evaluation.
+The spine is the (conceptual) connective structure that holds the elements of the collection together.
+
+The list `[1, 2, 3]` is actually `1 : (2 : (3 : []))`, which we can visualize like this:
+
+**IMPORTANT**: The `1 : 2 : [3]` representation makes it look like 1 exists before the cons cell that contains it, but it is the cons cell that contains values (not values coming before, and containing, the cons cells).
+
+Because of non-strict evaluation, it is possible to evaluate the cons cells without having to evaluate the values the cons cells contain.
+
+TODO: Is the cons cell the same as the spine?
+
+It is also possible to evaluate only part of a list.
+
+- Evaluation of the list proceeds *down* the spine.
+- Constructing the list proceeds *up* the spine.
+
+For `1 : (2 : [])`, start with the infix `:` and evaluate 1 on the left and the cons cell on the right.
+Then evaluate the next `:` for the 2 and the empty list.
+
+Construct the list `[1, 2]`:
+
+* `1 : (2 : [])`
+* First, cons 2 to the empty list (put 2 in front of the empty list).
+* Then cons 1 to the existing, already existing list `2 : []` (put 1 in front of 2).
+
+Haskell is non-strict.
+When we “have a list”, we have a *blueprint for a list*, not the list itself.
+It will be constructed only when something needs its values, and it will only construct the needed values.
+
+```
+ghci> take 3 [1 ..]
+[1,2,3]
+```
+
+Even though `[1 ..]` can potentially build an infinite list, because of `take 3`, only three elements are actually constructed.
+
+![Untitled](https://s3-us-west-2.amazonaws.com/secure.notion-static.com/9d561e64-18e8-46db-b878-872de408977a/Untitled.png)
+
+With lists, the spine is a linear succession of a cons cell wrapping another cons cell.
+With trees and some other data structures, the spines can be nodes containing other nodes.
+
+== Checking Evaluation with :sprint
+
+Docs for link:https://downloads.haskell.org/ghc/latest/docs/users_guide/ghci.html#ghci-cmd-:print[GHCi :print^] and link:https://downloads.haskell.org/ghc/latest/docs/users_guide/ghci.html#ghci-cmd-:sprint[GHCi :sprint^].
+
+GHC introduces some opportunistic optimizations to make code faster when it knows it won’t change how it (the code) evaluates.
+Also remember that something like `Num a => a` means `a` is not a concrete type yet (it is waiting for a concrete type to be fully realized.)
+
+The output “_” means *unevaluated*.
+
+[source,ghci]
+λ> xs = [1 .. 5]
+λ> :sprint xs
+xs = _
+[source,ghci]
+
+In this case, the `xs = _` means `xs` is completely unevaluated.
+But if we take one value from `xs`, then one element has been evaluated, but not the rest.
+
+[source,ghci]
+----
+λ> take 1 xs
+1
+:sprint xs
+xs = 1 : _
+take 2 xs
+[1, 2]
+:sprint xs
+xs = 1 : 2 : _
+----
+
+BEWARE: The example above no longer behave like that since 2022 or 2023 versions if GHCi. See link:https://discord.com/channels/280033776820813825/505367988166197268/1115246246093922334[this Discord question].
+
+The `length` function is only strict on the spine (it doesn't need to evaluate the values).
+It seems at some versions of GHC would force evaluation of the values too, though.
+
+== Evaluations of Spines and Values
+
+“Normal Form” (NF) means an expression is fully evaluated.
+By default, all expressions are in WKNF (_Weak Head Normal Form_), which means expressions are only evaluated as far as necessary.
+
+If an expression is WHNF, it means it could be fully evaluated, or it was evaluated up to the point of reaching a data constructor or a lambda awaiting an argument.
+
+Some expression in WHNF can be further evaluated if another argument is provided.
+If no further arguments are possible, we say it is in WHNF but also NF.
+
+By definition, anything in NF is also in WHNF.
+
+WH is an expression evaluated at least up to the first data constructor.
+
+

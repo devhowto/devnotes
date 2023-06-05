@@ -305,8 +305,7 @@ Second exercise:
 ]
 ----
 
-Combine each `x` with all `y`s. The =take 5=` exercise just returns the
-first 5 elements of the result above.
+Third exercise: combine each `x` with all `y`s. The =take 5=` exercise just returns the first 5 elements of the result above.
 
 == Exercises: Square Cube
 
