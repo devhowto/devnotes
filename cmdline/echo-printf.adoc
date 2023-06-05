@@ -1,4 +1,7 @@
-= echo and printf
+= echo and printf :: Bash
+:page-tags: bash cmdline
+:toc: left
+:icons: font
 
 == Intro
 

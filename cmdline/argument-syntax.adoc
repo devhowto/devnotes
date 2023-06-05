@@ -1,4 +1,4 @@
-= Shell Argument Syntax
+= Shell Argument Syntax :: Bash
 :page-tags: bash cmdline
 :toc: left
 :icons: font
