@@ -28,3 +28,8 @@ node_modules
 # Racket stuff.
 #
 *.rkt~
+
+##
+# Asciidoctor converted html files.
+#
+build

@@ -133,4 +133,27 @@ By definition, anything in NF is also in WHNF.
 
 WH is an expression evaluated at least up to the first data constructor.
 
+The expression `(8, 9)` is in WHNF and NF.
+The expression is indeed evaluated to _at least_ the first data constructor.
+It is also NF because it is fully evaluated.
 
+The expression `(8, 8 + 1)` is in WHNF, but not in NF because the expression `8 + 1` has not been evaluated yet.
+
+[source,ghci]
+----
+λ t = (8 :: Int, 9 :: Int)
+λ :sprint t
+t = (8,9)
+
+λ u = (8 :: Int, (8 + 1) :: Int)
+λ :sprint u
+u = (8,_)
+----
+
+The expression `\n -> n + 1` (a lambda anonymous expression) is in WHNF and NF.
+The operator `+` has been applied to `n` and `1`, but the the expression cannot be further reduced until `\n ->` is applied.
+
+But something like `"TR" ++ "1996"` is neither in WHNF nor NF.
+The `++` function has fully applied arguments, but the whole expression has not been evaluated yet.
+
+Consider `(1, "TR" + "1996")`

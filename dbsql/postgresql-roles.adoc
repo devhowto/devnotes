@@ -2,7 +2,7 @@
 :icons: font
 :toc: left
 
-= Alter role password
+== Alter role password
 
 NOTE: Assume the role _devel_ has admin privileges.
 
