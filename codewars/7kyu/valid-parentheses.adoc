@@ -1,0 +1,78 @@
+= Valid Parenthesis | 7kyu Codewars Challenge
+:icons: font
+:sectlinks:
+:sectnums!:
+:toclevels: 6
+:toc: left
+:favicon: https://fernandobasso.dev/cmdline.png
+
+* link:https://www.codewars.com/kata/6411b91a5e71b915d237332d[Valid Parenthesis 7kyu Codewars challenge^]
+
+In the comments, people say this problem should bin in the 6kyu category.
+
+Examples:
+
+----
+""                //=> true
+"("               //=> false
+"(("              //=> false
+")(()))"          //=> false
+"()"              //=> true
+"()()"            //=> true
+"((()))"          //=> true
+"())()("          //=> false
+"(())((()())())"  //=> true
+----
+
+== JavaScript
+
+=== v1
+
+[source,javascript]
+----
+/**
+ * Recursive solution using the run/go helper function approach.
+ *
+ * - T.C: O(n).
+ * - S.C: O(n).
+ *
+ * @param {string}
+ * @returns {number}
+ */
+function validParens(s) {
+  return (function go(lst, l, r) {
+    if (lst.length === 0) return l === r;
+
+    if (lst[0] === '(') ++l;
+    if (lst[0] === ')') ++r;
+
+    if (r > l) return false;
+
+    return go(lst.slice(1), l, r);
+  })([...s], 0, 0);
+}
+
+
+----
+
+=== v2
+
+[source,js]
+----
+/**
+ * @param {string}
+ * @returns {number}
+ */
+function validParens(s) {
+  return (function go(l, c) {
+    if (l.length === 0) return c === 0;
+
+    if (l[0] === '(') ++c;
+    if (l[0] === ')') --c;
+
+    if (c < 0) return false;
+
+    return go(l.slice(1), c);
+  })([...s], 0);
+}
+----
