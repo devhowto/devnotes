@@ -1,11 +1,14 @@
 require 'yaml'
 require 'fileutils'
 require 'asciidoctor'
+require 'erb'
 
 h = YAML.load_file('./nav.yml')
 
+
 def conv(file)
-  puts "file: #{file}"
+  rhtml = ERB.new(File.read('./adocwiki/templates/page.html.erb', mode: 'r:utf-8'))
+
   arr = file.split('/')
 
   # Drop last element, the file with the .adoc extension.
@@ -18,19 +21,18 @@ def conv(file)
 
   FileUtils.mkpath(dirs.join('/'))
 
-  # puts "dirs: #{dirs}"
-  # puts "outname: #{outname}"
-  # puts "outfile: #{dirs.join('/')}/#{outname}"
-
-  adoc = Asciidoctor.convert_file(
+  adoc = Asciidoctor.load_file(
     file,
-    to_file: "#{dirs.join('/')}/#{outname.gsub(/adoc$/, 'html')}",
-    backend: :html,
-    standalone: false
   )
 
-  p adoc.doctitle
-  p adoc.attributes
+  html_page = rhtml.result(binding)
+
+  File.write(
+    "#{dirs.join('/')}/#{outname.gsub(/adoc$/, 'html')}",
+    html_page,
+  )
+
+  p adoc.attributes['stem']
 end
 
 def do_level(obj)
