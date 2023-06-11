@@ -98,3 +98,17 @@ validParens str = go str 0 0
                     (incIf (head s) '(' l)
                     (incIf (head s) ')' r)
 ----
+
+=== v2
+
+[source,haskell]
+----
+validParens :: String -> Bool
+validParens str = (== 0) count
+  where count = foldr
+                (\c n ->
+                    if n < 0 then n
+                    else if c == '('
+                         then n - 1
+                         else n + 1) 0 str
+----
