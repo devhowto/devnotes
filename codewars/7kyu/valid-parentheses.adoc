@@ -51,8 +51,6 @@ function validParens(s) {
     return go(lst.slice(1), l, r);
   })([...s], 0, 0);
 }
-
-
 ----
 
 === v2
@@ -75,4 +73,28 @@ function validParens(s) {
     return go(l.slice(1), c);
   })([...s], 0);
 }
+----
+
+== Haskell
+
+=== v1
+
+[source,haskell]
+----
+incIf :: Char -> Char -> Int -> Int
+incIf c1 c2 n
+  | c1 == c2 = (+ 1) n
+  | otherwise = n
+
+validParens :: String -> Bool
+validParens str = go str 0 0
+  where
+    go :: String -> Int -> Int -> Bool
+    go s l r
+      | length s == 0 = l == r
+      | r > l = False
+      | otherwise = go
+                    (tail s)
+                    (incIf (head s) '(' l)
+                    (incIf (head s) ')' r)
 ----
