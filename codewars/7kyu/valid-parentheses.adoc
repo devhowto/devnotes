@@ -101,6 +101,8 @@ validParens str = go str 0 0
 
 === v2
 
+This was a solution I saw from user _monadius_:
+
 [source,haskell]
 ----
 validParens :: String -> Bool
@@ -112,3 +114,9 @@ validParens str = (== 0) count
                          then n - 1
                          else n + 1) 0 str
 ----
+
+I could not make sense of it then changed it a little bit and asked on link:https://discord.com/channels/280033776820813825/505367988166197268/1117771069521154048[Discord Haskell server^].
+
+Basically, this is `foldr`, which means the `n` input will be passed the result of folding the tail.
+
+If it was `foldl`` then the n input would be the accumulated result for everything folded over so far, but since it is `foldr , it is instead passed the result of the tail, which means whether the lambda accumulates `n` has no bearing of what `n` will be during the folding of the tail.
