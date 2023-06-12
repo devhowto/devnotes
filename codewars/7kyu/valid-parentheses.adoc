@@ -101,6 +101,36 @@ validParens str = go str 0 0
 
 === v2
 
+Improvements suggested by _@Morrow_ on the link:https://discord.com/channels/280033776820813825/505367988166197268/1117783688504156200[Haskell chat on Discord^].
+
+[quote, Morrow, Haskell Discord chat]
+____
+In `go`, instead of checking if the length is 0 and then using head and tail later, consider pattern matching instead (which also allows GHC to warn you about missing patterns).
+____
+
+
+[source,haskell]
+----
+incIf :: Char -> Char -> Int -> Int
+incIf c1 c2 n
+  | c1 == c2 = (+ 1) n
+  | otherwise = n
+
+validParens :: String -> Bool
+validParens str = go str 0 0
+  where
+    go :: String -> Int -> Int -> Bool
+    go [] l r = l == r
+    go (h : t) l r
+      | r > l = False
+      | otherwise = go
+                    t
+                    (incIf h '(' l)
+                    (incIf h ')' r)
+----
+
+=== v3
+
 This was a solution I saw from user _monadius_:
 
 [source,haskell]
