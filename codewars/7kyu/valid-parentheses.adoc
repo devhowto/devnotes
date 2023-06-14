@@ -129,7 +129,31 @@ validParens str = go str 0 0
                     (incIf h ')' r)
 ----
 
-=== v3
+=== v3 by MorrowM
+
+link:https://discord.com/channels/280033776820813825/505367988166197268/1118113731356926037[Discord Chat about Morrow's solution^].
+link:https://www.codewars.com/kata/reviews/6419c913bfedda0001da3a2c/groups/648709aa74a2f700013c7c1a[Morrow's solution in Codewars^].
+
+[quote, Morrow, Discord Haskell Chat]
+____
+I use a technique where you combine `foldr` with CPS, so the accumulator is actually a function (which is why it looks like `go` has an extra argument).
+This allows it to be both efficient and short circuit, while still being able to use `foldr`, which has its own potential efficiency benefits.
+____
+
+[source,haskell]
+----
+validParentheses :: String -> Bool
+validParentheses s = foldr go (== 0) s 0
+  where
+    go _ _ n | n < 0 = False
+    go '(' k n = k (n + 1)
+    go ')' k n = k (n - 1)
+    go _ k n = k n -- not strictly necessary
+----
+
+Haskell has truly come from an advanced alien civilization.
+
+=== v4
 
 This was a solution I saw from user _monadius_:
 
