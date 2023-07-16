@@ -1,7 +1,8 @@
 ##
 # Env files.
 #
-.env
+.env*
+.pg_env
 
 ##
 # Every .env-like file that does not start with `.env` and

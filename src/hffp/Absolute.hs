@@ -5,6 +5,8 @@ module Absolute (myAbs) where
 myAbs :: Integer -> Integer
 myAbs n = if n >= 0 then n else n * (-1)
 
+xs = map (+ 1) [1 .. 5]
+
 --
 -- Remember that we can replace the whole `n * (-1)` by simply `-n`
 -- since `-` is also a negation operator.
