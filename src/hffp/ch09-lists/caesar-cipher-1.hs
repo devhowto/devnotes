@@ -28,11 +28,11 @@ rotate f step c   = newChar
 
 
 caesar :: Int -> [Char] -> [Char]
-caesar step str = map (rotate (-) step) str
+caesar step = map (rotate (-) step)
 
 
 unCaesar :: Int -> [Char] -> [Char]
-unCaesar step str = map (rotate (+) step) str
+unCaesar step = map (rotate (+) step)
 
 
 orig = "the quick brown fox jumps over the lazy dog"
