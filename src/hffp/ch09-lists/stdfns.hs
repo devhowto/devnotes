@@ -57,19 +57,20 @@ myRev (x : xs) = myRev xs ++ [x]
 -- "zyx"
 --
 
--- mySquish :: [[a]] -> [a]
--- mySquish []         = []
--- mySquish (xs : xss) = xs ++ mySquish xss
 squish :: [[a]] -> [a]
-squish = foldr (++) []
+squish []         = []
+squish (xs : xss) = xs ++ squish xss
+-- squish :: [[a]] -> [a]
+-- squish = foldr (++) []
 --
--- λ> mySquish [[1], [2], [3]]
+-- λ> squish [[1], [2], [3]]
 -- [1,2,3]
 --
 
 squishMap :: (a -> [b]) -> [a] -> [b]
-squishMap _ [] = []
-squishMap f (xs : xss) = f xs ++ squishMap f xss
+-- squishMap _ []         = []
+-- squishMap f (xs : xss) = f xs ++ squishMap f xss
+squishMap f = squish . map f
 --
 -- λ> squishMap (\x -> [1, x, 3]) [2]
 -- [1,2,3]
@@ -78,3 +79,47 @@ squishMap f (xs : xss) = f xs ++ squishMap f xss
 -- [2,3,4]
 --
 
+squishAgain :: [[a]] -> [a]
+squishAgain = squishMap id
+--
+-- λ> squishAgain [[1], [2], [3]]
+-- [1,2,3]
+--
+
+{-
+myMaximumBy :: (a -> a -> Ordering) -> [a] -> a
+myMaximumBy f xs = go f (tail xs) (head xs)
+  where
+    go :: (a -> a -> Ordering) -> [a] -> a -> a
+    go _  []             winnerSoFar = winnerSoFar
+    go fn (first : rest) winnerSoFar =
+      if fn first winnerSoFar == GT
+      then go fn rest first
+      else go fn rest winnerSoFar
+
+myMaximumBy :: (a -> a -> Ordering) -> [a] -> a
+myMaximumBy f xs = go f (tail xs) (head xs)
+  where
+    go :: (a -> a -> Ordering) -> [a] -> a -> a
+    go _  []        winner = winner
+    go fn (h : lst) winner =
+      case fn h winner of
+        GT -> go fn lst h
+        _  -> go fn lst winner
+-}
+-- myMaximumBy _ []       = error "myMaximumBy is not defined for empty lists."
+
+--
+-- https://discord.com/channels/280033776820813825/505367988166197268/1135899035044151366
+--
+myMaximumBy :: (a -> a -> Ordering) -> [a] -> a
+myMaximumBy _ [x]      = x
+myMaximumBy f (x : xs) =
+  case f x (myMaximumBy f xs) of
+    LT -> myMaximumBy f xs
+    _  -> x
+  where g = myMaximumBy f xs
+--
+-- λ> myMaximumBy compare [1, 5, 3]
+-- 5
+--
