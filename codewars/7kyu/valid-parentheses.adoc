@@ -108,7 +108,6 @@ ____
 In `go`, instead of checking if the length is 0 and then using head and tail later, consider pattern matching instead (which also allows GHC to warn you about missing patterns).
 ____
 
-
 [source,haskell]
 ----
 incIf :: Char -> Char -> Int -> Int
