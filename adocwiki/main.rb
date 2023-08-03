@@ -10,25 +10,64 @@ class AdocWiki
     @nav_items = YAML.load_file(nav_file_path)
   end
 
-  def conv(file)
-    rhtml = ERB.new(File.read('./adocwiki/templates/page.html.erb', mode: 'r:utf-8'))
+  ##
+  # Returns the templates path.
+  #
+  def templates_path
+    "#{__dir__}/templates"
+  end
 
-    arr = file.split('/')
+  ##
+  # Returns the template for a given type of content.
+  #
+  # Possible content types:
+  #
+  # - article
+  # - post
+  #
+  # @param type {String} One of `article` or `post`.
+  #
+  def template_for(type)
+    path = "#{templates_path}/#{type}.html.erb"
 
-    # Drop last element, the file with the .adoc extension.
+    return path if File.exists?(path)
+
+    raise "No template type “#{type}”."
+  end
+
+  ##
+  # Converts an Asciidoc file to html and embeds it into the template.
+  #
+  # @param {string} adoc_file
+  #
+  def conv(adoc_file)
+    p 'ADOC_FILE', adoc_file
+    rhtml = ERB.new(File.read(template_for('article'), mode: 'r:utf-8'))
+
+    arr = adoc_file.split('/')
+
+    ##
+    # Drop filename and retain only the directory components.
+    #
     dirs = arr[0 .. -2]
 
+    ##
     # Prepend ‘build’ to the path.
+    #
     dirs.insert(0, 'build')
 
+    ##
+    # Get the basename (filename without preceending dirs) only.
+    #
     outname = arr[-1]
 
-    FileUtils.mkpath(dirs.join('/'))
+    FileUtils.mkpath(dir.join('/'))
 
-    adoc = Asciidoctor.load_file(
-      file,
-    )
+    adoc = Asciidoctor.load_file(file)
 
+    ##
+    # `adoc` variable will be available inside the template as `adoc`
+    #
     html_page = rhtml.result(binding)
 
     File.write(
@@ -68,3 +107,5 @@ end
 
 
 AdocWiki.new('./nav.yml').do_level
+
+# AdocWiki.new('./nav.yml').template_for('page')
