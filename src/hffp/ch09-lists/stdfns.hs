@@ -115,11 +115,18 @@ myMaximumBy f xs = go f (tail xs) (head xs)
 myMaximumBy :: (a -> a -> Ordering) -> [a] -> a
 myMaximumBy _ [x]      = x
 myMaximumBy f (x : xs) =
-  case f x (myMaximumBy f xs) of
-    LT -> myMaximumBy f xs
+  case f x g of
+    LT -> g
     _  -> x
-  where g = myMaximumBy f xs
+ where g = myMaximumBy f xs
 --
 -- λ> myMaximumBy compare [1, 5, 3]
 -- 5
 --
+
+mmb :: (a -> a -> Ordering) -> [a] -> a
+mmb _ [n]        = n
+mmb f (h : rest) =
+  case f h (mmb f rest) of
+    LT -> mmb f rest
+    _  -> h
