@@ -437,7 +437,9 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 </head>
 <body class="article toc2 toc-left">
 
+<div id="content">
 <%= adoc.content %>
+</div>
 
 <% if adoc.attributes['stem'] %>
 <script type="text/x-mathjax-config">
@@ -467,4 +469,4 @@ MathJax.Hub.Register.StartupHook("AsciiMath Jax Ready", function () {
 <% end %>
 
 </body>
-</head>
+</html>
