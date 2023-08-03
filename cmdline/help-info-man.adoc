@@ -687,7 +687,7 @@ Utility Syntax Guidelines 10] says:
 
 [source,text]
 ----
-The first -- argument that is not an option-argument should be accepted as a
+The first `--` argument that is not an option-argument should be accepted as a
 delimiter indicating the end of options. Any following arguments should be
 treated as operands, even if they begin with the '-' character.
 ----
