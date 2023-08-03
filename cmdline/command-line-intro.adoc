@@ -81,6 +81,7 @@ Coreutils FAQ]
 Documentation]
 * http://www.maizure.org/projects/decoded-gnu-coreutils/[GNU Coreutils
 Decoded]
+* https://github.com/landley/toybox[ToyBox]
 
 There is also the mind-blowing, awesome
 http://www.maizure.org/projects/decoded-gnu-coreutils/[Decoded GNU
