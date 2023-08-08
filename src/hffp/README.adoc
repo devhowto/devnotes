@@ -1,7 +1,0 @@
-== Haskell From First Principles
-
-My notes and solutions for the book https://haskellbook.com/[Haskell From First Principles].
-Thanks https://bitemyapp.com/[Chris] for giving me a PDF copy of the https://haskellbook.com/[book] for free. Amazing ❤️ !!!
-
-The https://gitlab.com/programming-studies/haskell-from-first-principles[original repo is on Gitlab].
-The https://github.com/FernandoBasso/Haskell-From-First-Principles[Github repo] is just a push/mirror repo that keeps up to date with what I push to Gitlab.

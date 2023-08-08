@@ -1,4 +1,0 @@
-#
-# This file is currently here just to trigger the builtin neovim LSP
-# so that it is considered a root directory of a project.
-#
