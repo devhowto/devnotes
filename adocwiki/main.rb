@@ -10,6 +10,13 @@ class AdocWiki
     @nav_items = YAML.load_file(nav_file_path)
   end
 
+  def build
+    do_level
+    copy_styles
+  end
+
+  private
+
   ##
   # Returns the templates path.
   #
@@ -116,7 +123,6 @@ end
 
 
 adoc = AdocWiki.new('./nav.yml')
-adoc.do_level
-adoc.copy_styles
+adoc.build
 
 # AdocWiki.new('./nav.yml').template_for('page')

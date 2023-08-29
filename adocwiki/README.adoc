@@ -21,7 +21,7 @@ Python3 has a nice quicky and easy http module:
 
 [,shell-session]
 ----
-$ python -m http.server -b localhost 3001
+$ python3 -m http.server -b localhost 3001
 Serving HTTP on ::1 port 3001 (http://[::1]:3001/) ...
 ----
 
