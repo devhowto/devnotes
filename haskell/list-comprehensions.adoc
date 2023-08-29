@@ -4,7 +4,7 @@
 :icons: font
 :stem: latexmath
 
-= Intro
+== Intro
 
 List comprehensions are a means of generating a new list from one or more lists.
 The concept comes from set comprehensions in math, including the syntax.
