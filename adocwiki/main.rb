@@ -30,7 +30,7 @@ class AdocWiki
   def template_for(type)
     path = "#{templates_path}/#{type}.html.erb"
 
-    return path if File.exists?(path)
+    return path if File.exist?(path)
 
     raise "No template type “#{type}”."
   end
@@ -61,9 +61,9 @@ class AdocWiki
     #
     outname = arr[-1]
 
-    FileUtils.mkpath(dir.join('/'))
+    FileUtils.mkpath(dirs.join('/'))
 
-    adoc = Asciidoctor.load_file(file)
+    adoc = Asciidoctor.load_file(adoc_file)
 
     ##
     # `adoc` variable will be available inside the template as `adoc`
