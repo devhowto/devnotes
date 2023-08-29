@@ -103,9 +103,20 @@ class AdocWiki
       puts 'what‽'
     end
   end
+
+  def copy_styles
+    FileUtils.cp_r(
+      "#{__dir__}/_static",
+      "#{__dir__}/../build/",
+      noop: false,
+      verbose: false,
+    )
+  end
 end
 
 
-AdocWiki.new('./nav.yml').do_level
+adoc = AdocWiki.new('./nav.yml')
+adoc.do_level
+adoc.copy_styles
 
 # AdocWiki.new('./nav.yml').template_for('page')
