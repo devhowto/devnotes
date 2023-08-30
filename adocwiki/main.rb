@@ -48,7 +48,6 @@ class AdocWiki
   # @param {string} adoc_file
   #
   def conv(adoc_file)
-    p 'ADOC_FILE', adoc_file
     rhtml = ERB.new(File.read(template_for('article'), mode: 'r:utf-8'))
 
     arr = adoc_file.split('/')
@@ -121,8 +120,5 @@ class AdocWiki
   end
 end
 
-
 adoc = AdocWiki.new('./nav.yml')
 adoc.build
-
-# AdocWiki.new('./nav.yml').template_for('page')

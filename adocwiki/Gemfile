@@ -4,5 +4,6 @@ source "https://rubygems.org"
 
 gem 'awesome_print'
 gem 'solargraph'
+gem 'rspec'
 gem 'asciidoctor'
 
