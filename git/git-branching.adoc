@@ -77,3 +77,57 @@ $ git branch -vv | grep other-branch
 ----
 
 Note it just says ``Switched to a new branch `other-branch''' without any mentions to making it track some other branch.
+
+== Branch with same name as directory or file
+
+[source,shell-session]
+----
+~/work/src/studies/devhowto/devnotes [drafts|u+1]
+$ git fetch gl
+remote: Enumerating objects: 26, done.
+remote: Counting objects: 100% (26/26), done.
+remote: Compressing objects: 100% (18/18), done.
+remote: Total 20 (delta 11), reused 0 (delta 0), pack-reused 0
+Unpacking objects: 100% (20/20), 8.79 KiB | 428.00 KiB/s, done.
+From gitlab-fernandobasso_devel:devhowto/devnotes
+   dbb9446..7f122ba  drafts     -> gl/drafts
+ * [new branch]      adocwiki   -> gl/adocwiki
+   57a79d7..0a6a9ff  main       -> gl/main
+----
+
+And then I decide to switch to the branch `adocwiki`:
+
+[source,shell-session]
+----
+~/work/src/studies/devhowto/devnotes [drafts|u+1]
+$ git checkout adocwiki
+fatal: 'adocwiki' could be both a local file and a tracking branch.
+Please use -- (and optionally --no-guess) to disambiguate
+----
+
+Because I have a directory name `adocwiki` on current directory, git is unsure what I really want to do (because `checkout` command has different uses).
+Neither worked:
+
+[source,shell-session]
+----
+~/work/src/studies/devhowto/devnotes [drafts|u+1]
+$ git checkout -- adocwiki
+
+~/work/src/studies/devhowto/devnotes [drafts|u+1]
+$ git checkout --no-guess -- adocwiki
+
+~/work/src/studies/devhowto/devnotes [drafts|u+1]
+----
+
+I was still on the original `drafts` branch.
+Using the somewhat newer `switch` command worked, though:
+
+[source,shell-session]
+----
+~/work/src/studies/devhowto/devnotes [drafts|u+1]
+$ git switch adocwiki
+branch 'adocwiki' set up to track 'gl/adocwiki'.
+Switched to a new branch 'adocwiki'
+
+~/work/src/studies/devhowto/devnotes [adocwiki|u=]
+----
