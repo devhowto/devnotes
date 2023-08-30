@@ -1,0 +1,47 @@
+= Jest Mocks and Spies
+:page-subtitle: Web Development
+:page-tags: web development jest javascript typescript
+:toc: left
+
+== Properly mock, type and spy on fetch()
+
+[source,typescript]
+----
+global.jest = jest.fn();
+
+describe("<MyProvider />", () => {
+  beforeEach(() => {
+    jest.clearAllMocks();
+  });
+
+  it("should make request with correct dynamic params", async () => {
+    (jest.spyOn(global, "fetch") as jest.Mock).mockImplementation(async () => {
+      return {
+        ok: true,
+        json: async function json() {
+          return Promise.resolve({ posts: [] });
+        },
+      };
+    });
+
+    const reqParams: RecommendationsRequestParams = {
+      cid: 1,
+      locale: "en_US",
+      pageSize: 2,
+      baseURL: "http://localhost",
+      endpoint: "/api/v1",
+    };
+
+    await act(async () => {
+
+      render(
+        <MyProvider requestParams={ reqParams }>
+          <div />
+        </MyProvider>);
+    });
+
+    expect(global.fetch).toHaveBeenCalledTimes(1);
+    expect(global.fetch).toHaveBeenCalledWith(expect.any(String));
+  });
+});
+----
