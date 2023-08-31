@@ -7,6 +7,83 @@
 
 Lists are a recursive series or *cons cells* `a : [a]` terminated by the empty list `[]`.
 
+= Lists
+:page-subtitle: Haskell
+
+== Spine
+
+When talking lists, we also talk about the _spine_ and the _cons cells_.
+
+The spine is the conceptual structure that keeps the cons cells together.
+
+Some functions (like `length`) works based on the spine and _does not_ force (evaluates) the values (cons cells).
+
+
+Here, we cons a few numbers onto the empty list.
+The values are 1, 2, 3 and `[]`.
+
+[source,haskell]
+----
+1 : 2 : 3 : []
+----
+
+When we use the sugar list syntax, we can cause a make a value to be `undefined` (bottom, ⊥):
+
+We can add the `undefined` ⊥ (bottom) value as a value in a list:
+
+[source,haskell]
+----
+1 : 2 : undefined : 4 : []
+----
+
+And compute the length of that list (which does not force the values):
+
+[source,text]
+----
+λ> length $ 1 : 2 : undefined : 4 : []
+4
+----
+
+But if we use a function that forces (evaluates) the values, then it errors out:
+
+----
+λ> take 2 $ 1 : 2 : undefined : 4 : []
+[1,2]
+
+λ> take 3 $ 1 : 2 : undefined : 4 : []
+[1,2,*** Exception: Prelude.undefined
+CallStack (from HasCallStack):
+  error, called at libraries/base/GHC/Err.hs:74:14 in base:GHC.Err
+  undefined, called at <interactive>:25:18 in interactive:Ghci17
+----
+
+Note how the REPL even tried to print the list, and it printed `[1,2,` and then the exception happened because the next forced value was ⊥.
+
+We can also make ⊥ be part of the spine:
+
+[source,text]
+----
+λ> take 2 $ 1 : 2 : [] ++ undefined ++ 4 : []
+[1,2]
+
+λ> take 3 $ 1 : 2 : [] ++ undefined ++ 4 : []
+[1,2*** Exception: Prelude.undefined
+CallStack (from HasCallStack):
+  error, called at libraries/base/GHC/Err.hs:74:14 in base:GHC.Err
+    undefined, called at <interactive>:32:24 in interactive:Ghci19
+----
+
+And when ⊥ is part of the spine, `length` (or other functions that evaluate the spine) won't work:
+
+[source,text]
+----
+λ> length $ 1 : 2 : [] ++ undefined ++ 4 : []
+*** Exception: Prelude.undefined
+CallStack (from HasCallStack):
+  error, called at libraries/base/GHC/Err.hs:74:14 in base:GHC.Err
+  undefined, called at <interactive>:33:24 in interactive:Ghci19
+----
+
 == Spine and Non-Strict Evaluation
 
 * https://www.fpcomplete.com/haskell/tutorial/all-about-strictness/

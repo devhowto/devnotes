@@ -1,0 +1,429 @@
+# -*- mode: Org; org-download-image-dir: "../assets"; -*-
+#+TITLE: Type Classes :: Chapter 07
+#+STARTUP: content
+
+* Intro
+Unless otherwise noted, always set =NoMonomorphismRestriction= and warnings. In
+a =.hs= file:
+
+#+begin_example
+{-# LANGUAGE NoMonomorphismRestriction #-}
+#+end_example
+
+In the REPL:
+
+#+begin_example
+:set -Wall
+#+end_example
+
+* Exercises: Eq instances
+Page 181.
+
+** 01 TisAnInteger
+
+#+begin_src haskell
+data TisAnInteger = TisAn Integer
+
+instance Eq TisAnInteger where
+  (==) (TisAn i) (TisAn i') = i == i'
+#+end_src
+
+It is redundant to implement a catch-all with =_= placeholder.
+=TisAnInteger= type has only one data constructor, which is also named
+=TisAn=. Also, defining ==== gives us =/== for free as well.
+
+=TisAn= is a data constructor that takes =Integer= as argument. Basic usage
+of the =Eq= instance we just created:
+
+#+begin_example
+λ> (==) (TisAn 1) (TisAn 1)
+True
+
+λ> (==) (TisAn 1) (TisAn 2)
+False
+
+λ> TisAn 1 == TisAn 1
+True
+#+end_example
+
+** 02 TwoIntegers
+
+#+begin_src haskell
+data TwoIntegers = Two Integer Integer
+
+instance Eq TwoIntegers where
+  (==) (Two x y) (Two w yz) = (==) x w && (==) y z
+#+end_src
+
+Example usage:
+
+#+begin_example
+λ> (==) (Two 1 2) (Two 1 2)
+True
+
+λ> Two 1 2 == Two 1 2
+True
+
+λ> Two 1 2 == Two 1 3
+False
+#+end_example
+
+** 03 StringOrInt
+
+#+begin_src haskell
+data StringOrInt =
+    TisAnInt   Int
+  | TisAString String
+
+instance Eq StringOrInt where
+  (==) (TisAnInt n) (TisAnInt m) = (==) n m
+  (==) (TisAString s1) (TisAString s2) = (==) s1 s2
+  (==) _ _ = False
+#+end_src
+
+Example usage:
+
+#+begin_example
+λ> TisAnInt 1 == TisAnInt 1
+True
+
+λ> TisAString "foo" == TisAString "bar"
+False
+#+end_example
+
+** 04 Pair
+
+#+begin_src haskell
+data Pair a = Pair a a
+
+instance Eq a => Eq (Pair a) where
+  (==) (Pair x y) (Pair w z) =
+    (==) x w && (==) y z
+#+end_src
+
+Example usage:
+
+#+begin_example
+λ> (==) (Pair 'k' 'z') (Pair 'k' 'z')
+True
+#+end_example
+
+With numbers, you may get warnings if you have =NoMonomorphismRestriction=
+turned on. Something like:
+
+#+begin_example
+Defaulting the following constraints to type ‘Integer’
+#+end_example
+
+To avoid the warning, be explicit about the concrete numeric type you
+want to use:
+
+#+begin_example
+λ> p1 = Pair (1 :: Word) (2 :: Word)
+λ> p2 = Pair (1 :: Word) (2 :: Word)
+λ> (==) p1 p2
+True
+#+end_example
+
+** 05 Tuple
+:PROPERTIES:
+:CUSTOM_ID: tuple
+:END:
+#+begin_src haskell
+data Tuple a b = Tuple a b
+
+instance (Eq a, Eq b) => Eq (Tuple a b) where
+  (==) (Tuple x y) (Tuple x' y') =
+    (==) x x' && (==) y y'
+#+end_src
+
+Example usage:
+
+#+begin_example
+λ> (==) (Tuple (1 :: Int) 'k') (Tuple (1 :: Int) 'z')
+False
+
+λ> (==) (Tuple (1 :: Int) 'k') (Tuple (1 :: Int) 'k')
+True
+#+end_example
+
+** 06 Which
+
+#+begin_src haskell
+data Which a = ThisOne a | ThatOne a
+
+instance Eq a => Eq (Which a) where
+  (==) (ThisOne x) (ThisOne y) = (==) x y
+  (==) (ThatOne x) (ThatOne y) = (==) x y
+  (==) _           _            = False
+#+end_src
+
+Usage example:
+
+#+begin_example
+λ> (==) (ThisOne (1 :: Int)) (ThisOne (1 :: Int))
+True
+
+λ> (==) (ThisOne (1 :: Int)) (ThisOne ((-1) :: Int))
+False
+#+end_example
+
+** 07 EitherOr
+#+begin_src haskell
+data EitherOr a b = Hello a | Goodbye b
+
+instance (Eq a, Eq b) => Eq (EitherOr a b) where
+  (==) (Hello x)   (Hello y)   = (==) x y
+  (==) (Goodbye x) (Goodbye y) = (==) x y
+  (==) _           _           = False
+#+end_src
+
+There are some things to keep in mind about types here:
+
+#+begin_example
+λ> (==) (Hello 'h') (Hello 'h')
+
+<interactive>:75:1: warning: [-Wtype-defaults]
+    • Defaulting the following constraint to type ‘()’
+        Eq b0 arising from a use of ‘==’
+    • In the expression: (==) (Hello 'h') (Hello 'h')
+      In an equation for ‘it’: it = (==) (Hello 'h') (Hello 'h')
+#+end_example
+
+To avoid the warning, tell GHCi that the type of =a= or =b= is ~()~. See more
+[[https://discord.com/channels/280033776820813825/505367988166197268/856151177947119667][here]] and [[https://stackoverflow.com/questions/57948829/chapter-6-exercise-7-haskell-from-first-principles][here]].
+
+#+begin_example
+λ> (==) (Goodbye 1) (Goodbye 1 :: EitherOr () Int)
+True
+#+end_example
+
+* Exercise on quotRem and divMod
+
+#+begin_example
+λ> :type quotRem
+quotRem :: Integral a => a -> a -> (a, a)
+
+λ> :type divMod
+divMod :: Integral a => a -> a -> (a, a)
+
+λ> ones x = snd (divMod x 10)
+
+λ> ones 13
+3
+
+λ> ones 113
+3
+#+end_example
+
+So they both return the quotient and remainder of an integral division
+as a tuple. This sort of thing can be used to extract the value from the
+“ones place”, the “tens place”, etc.
+
+* Exercises: Will they work?
+
+** 01 max and length
+:PROPERTIES:
+:CUSTOM_ID: max-and-length
+:END:
+Works. Produces 5.
+
+** 02 compare
+:PROPERTIES:
+:CUSTOM_ID: compare
+:END:
+Works. Produces =LT=.
+
+** 03 compare
+:PROPERTIES:
+:CUSTOM_ID: compare-1
+:END:
+Doesn't work. Can't compare values of different types.
+
+** 04 >
+Works. Produces =False=.
+
+* Chapter Exercises
+Page 208.
+
+** Multiple choice
+Page 208.
+
+*** 01 Eq class
+:PROPERTIES:
+:CUSTOM_ID: eq-class
+:END:
+C is correct: "makes equality tests possible."
+
+*** 02 Ord type class
+B is correct. “is a subclass of =Eq=.
+
+[[file:../assets/org_20230427-155848_ord-eq.png]]
+
+As we see, ~Ord~ takes an ~a~, but that ~a~ must already have an instance of ~Eq~.
+
+*** 03 Ord > operator
+A is correct: =Ord a => a -> a -> Bool=.
+
+*** 04 divMod
+C is correct: "the type of x is a tuple".
+
+**** 05 Integral
+A is correct: "=Int= and =Integer= numbers".
+
+** Does it type check
+Page 210.
+
+*** 01 IO () Person
+
+It does not type check. It does if we add a =deriving Show= at the end
+of the type declaration. Fix:
+
+#+begin_src haskell
+data Person = Person Bool deriving Show
+
+printPerson :: Person -> IO ()
+printPerson person = putStrLn $ show person
+#+end_src
+
+*** 02 Mood
+Does not type check. Can't use ==== without an instance of =Eq=. Fix:
+
+#+begin_src haskell
+data Mood =
+  Blah | Woot
+  deriving (Eq, Show)
+
+settleDown x =
+  if x == Woot
+  then Blah
+  else x
+#+end_src
+
+*** 03 settleDown Mood
+a. Only =Blah= and =Woot= are the only two acceptable inputs for
+   ~settleDown~ because those are the only two inhabitants of
+   that type.
+
+b. 9 is not accepted because it is not a valid data constructor for
+   =Mood=, the inferred type for =settleDown=.
+
+c. Will not typecheck unless =Mood= has an instance of =Ord=.
+
+*** 04 Sentence
+Yes, it does. Just be careful with =s1= because it is a Sentence still
+awaiting one argument.
+
+Page 209.
+
+** Given a datatype declaration, what can we do?
+*** 01
+
+=Papu= does not take a string and a bool, but a =Rocks= and a =Yeah=.
+Something like this works:
+
+#+begin_src haskell
+phew = Papu (Rocks "chases") (Yeah True)
+#+end_src
+
+*** 02
+
+Typechecks!
+
+*** 03
+Works because =Papu= derives =Eq= and =Papu='s data constructors uses
+types which also implement =Eq=.
+
+*** 04
+
+Does not typecheck because =Papu= and its data constructor types do not
+implement =Ord=. Derive =(Eq, Ord)= and it should work.
+
+** Match The Types
+
+*** 01 Float a
+
+After =i = 1=, =i= has to be some sort of number, it cannot be simply
+the fully parametrically type =a=. Cannot drop the typeclass constraint.
+
+*** 02 Float Num
+
+Can't change the type signature from ~f :: Float~ to ~f :: Num =​> a~
+because =Num= does not imply =Fractional=. 1.0 is a value that can be
+one of the =Fractional= concrete types like =Float= or =Double=, and
+=Num= does not. Cannot relax from =Fractional= to =Num=.
+
+*** 03 Float Fractional
+
+Contrary to the situation above now, we changed the signature from
+=Float= to =Fractional=, which works because 1.0 has to be one of the
+fractional types.
+
+*** 04 Float RealFrac
+
+Works because both =Double= and =Float= implement =RealFrac=.
+
+*** 05 a Ord
+
+Works because we are making the type more specific.
+
+*** 06 a Int
+
+Works because we are making the type more specific.
+
+*** 07 Int a
+
+Doesn't work. Can't make the type more generic because =myX= is of a
+very specific type.
+
+*** 08 Int Num
+
+Same as the previous. Can't make the function any more generic.
+
+*** 09 Ord [a] [Int]
+
+Works. We can make the function more specific.
+
+*** 10 [Char] to Ord a => [a]
+
+Works. =sort= requires =Ord => a -> [a]= and =head= requires =[a]=. We made the
+signature more generic but =a= is type class constrained by =Ord= (so =sort=
+works) and =head= takes a list of /any/ type.
+
+*** 11 mySort [Char]
+
+Doesn't work because we use =mySort= which requires =[Char]=, which is more
+specific than ~Ord a => [a]~
+
+** Type-Known-Do Two: Electric typealoo
+
+Page 214.
+
+*** 01 chk
+
+This seems to be a function that takes some ~a~ and some ~b~, converts ~a~ to
+~b~, and then compares them for equality.
+
+#+begin_src haskell
+chk :: Eq b => (a -> b) -> a -> b -> Bool
+chk aToB a b = (==) (aToB a) b
+#+end_src
+
+*** 02 arith
+
+Takes some number ~b~, and a function from ~a~ to ~b~, converts ~a~ to ~b~ and
+then performs some math operation on the values.
+
+#+begin_src haskell
+arith :: Num b => (a -> b) -> Integer -> a -> b
+arith aToB i n = (+) (fromInteger i) (aToB n)
+#+end_src
+
+#+begin_src ghci
+λ> :type fromInteger
+fromInteger :: Num a => Integer -> a
+#+end_src
+
+Since =b= is =Num=, and we have a function =(a -> b)=, and the return is
+=b=, we cannot just add =i= and =(aToB a)= together. We must first make
+=i= become =Num= so =(+)= works on two =Num= operands.

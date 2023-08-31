@@ -1,0 +1,444 @@
+# -*- mode: Org; org-download-image-dir: "../assets"; -*-
+#+TITLE: Recursion :: Chapter 08
+#+STARTUP: content
+
+* Intermission: Exercise
+Page 282.
+
+#+begin_src haskell
+applyTimes :: (Eq a, Num a) => a -> (b -> b) -> b -> b
+applyTimes t f acc = f . applyTimes (t - 1) f $ acc
+applyTimes 5 (+1) 5
+#+end_src
+
+Evaluation:
+
+#+begin_example
+applyTimes 5    (+ 1)     5
+        (5 - 1)        (5 + 1)
+           4              6
+
+applyTimes 4    (+ 1)     6
+        (4 - 1)        (6 + 1)
+           3              7
+
+applyTimes 3    (+ 1)     7
+        (3 - 1)        (7 + 1)
+           2              8
+
+applyTimes 2    (+ 1)     8
+        (2 - 1)        (8 + 1)
+           1              9
+
+applyTimes 1    (+ 1)     9
+        (1 - 1)        (9 + 1)
+           0              10
+
+applyTimes 0 (+ 1) 10
+                   10
+#+end_example
+
+- mvaldesdeleon has a [[https://github.com/mvaldesdeleon/haskell-book/blob/master/ch08/exercises.md][different solution]], something like this:
+
+#+begin_example
+apt :: Int -> (a -> a) -> a -> a
+apt 0 _ x = x
+apt t f x = f (apft (t - 1) f x)
+
+λ> apt 3 (+1) 5
+8
+λ> (+1) (apt 2 (+1) 5)
+8
+λ> (+1) ((+1) (apt 1 (+1) 5))
+8
+λ> (+1) ((+1) ((+1) (apt 0 (+1) 5)))
+8
+#+end_example
+
+
+⊥, or /bottom/, is a term used in Haskell to refer to computations that do
+not successfully result in a value.
+
+Examples of bottom:
+
+- error
+- infinite loops
+- partial function
+
+* Chapter Exercises
+Page 293.
+
+** Review of types
+*** 01
+
+D is correct. ~[[True, False], [True, True], [False, True]]~ is a list of
+lists of ~Bool~, so, the type is ~[[Bool]]~.
+
+*** 02
+
+B is correct. ~[[True, False], [True, True], [False, True]]~ is a list of
+lists of ~Bool~, so, the type is ~Bool~, and ~[[3 =​=​ 3], [6 > 5], [3 < 4]]~
+expands to ~[[True], [False], [True]]~, which is a list of lists of
+~Bool~. Remember that the number of elements in lists is not part of the
+type (contraty to tuples).
+
+*** 03
+
+D is correct. =(++)= concatentates lists, and lists must have its
+constituents be of the same type. All options are true.
+
+*** 04
+
+B is correct. Yet, A is also valid. It partially applies the function to
+a single argument, which returns a function awaiting the remaining
+argument. Same with D. C is not correct though because both lists must
+have constituents of the same type.
+
+** Reviewing currying
+*** 01
+
+#+begin_example
+λ> appedCatty "woohoo!"
+"woops mrow woohoo!"
+#+end_example
+
+*** 02
+
+#+begin_example
+λ> frappe "1"
+"1 mrow haha"
+#+end_example
+
+*** 03
+
+#+begin_example
+λ> frappe (appedCatty "2")
+"woops mrow 2 mrow haha"
+#+end_example
+
+*** 04
+
+#+begin_example
+λ> appedCatty (frappe "blue")
+"woops mrow blue mrow haha"
+#+end_example
+
+*** 05
+:PROPERTIES:
+:CUSTOM_ID: section-8
+:END:
+#+begin_example
+λ> :{
+*Main| cattyConny (frappe "pink")
+*Main|                 (cattyConny "green"
+*Main|                   (appedCatty "blue"))
+*Main| :}
+"pink mrow haha mrow green mrow woops mrow blue"
+#+end_example
+
+*** 06
+:PROPERTIES:
+:CUSTOM_ID: section-9
+:END:
+#+begin_example
+λ> cattyConny (flippy "Pugs" "are") "awesome"
+"are mrow Pugs mrow awesome"
+#+end_example
+
+** Recursion
+
+**** 01
+:PROPERTIES:
+:CUSTOM_ID: section-10
+:END:
+Will do =divby 7 2= instead. 15 is just too much trouble :|
+
+#+begin_example
+divby   7     2
+go      7     2     0
+go      5     2     1
+go      3     2     2
+go      1     2     3
+go      (3, 1)
+#+end_example
+
+**** 02
+:PROPERTIES:
+:CUSTOM_ID: section-11
+:END:
+Using the "go" idiom. =go= is recursive.
+
+#+begin_src haskell
+sumUpTo :: (Eq a, Num a) => a -> a
+sumUpTo n = go n 0
+   where go n acc
+           | n == 0 = acc
+           | otherwise = go (n - 1) (acc + n)
+#+end_src
+
+Using pattern matching. Also recursive.
+
+#+begin_example
+sumUpTo :: Word -> Word
+sumUpTo 0 = 0
+sumUpTo n = (+) n $ sumUpTo (n - 1)
+#+end_example
+
+**** 03
+:PROPERTIES:
+:CUSTOM_ID: section-12
+:END:
+#+begin_example
+--
+-- Working with natural numbers because handling negative multiplier is
+-- trickier than I am willing to deal with at this point in the book. 😅
+--
+mult :: Word -> Word -> Word
+mult multiplicand multiplier = go multiplier 0
+  where
+    go multiplier' acc
+      | multiplier' == 0 = acc
+      | otherwise = go (multiplier' - 1) (acc + multiplicand)
+#+end_example
+
+** Fixing divBy
+:PROPERTIES:
+:CUSTOM_ID: fixing-divby
+:END:
+This solution I found on some repo on the web. Don't remember where from
+exactly...
+
+#+begin_src hs
+data Div =
+    Res Integer
+  | ByZero
+  deriving Show
+
+negFst :: (Div, Div) -> (Div, Div)
+negFst (Res x, Res y) = (Res (- x), Res y)
+
+negSnd :: (Div, Div) -> (Div, Div)
+negSnd (Res x, Res y) = (Res x, Res (- y))
+
+--
+-- Do the subtraction with the absolute values, and then negate the
+-- tuple constituents according to the division rules.
+--
+
+divBy :: Integer -> Integer -> (Div, Div)
+divBy num denom
+  | denom == 0 = (ByZero, ByZero)
+  | num < 0 && denom < 0 = negSnd $ go (-num) (-denom) 0
+  | num < 0 && denom > 0 = negFst . negSnd $ go (-num) denom 0
+  | num > 0 && denom < 0 = negFst $ go num (-denom) 0
+  | denom < 0 = negSnd $ go num (-denom) 0
+  | otherwise = go num denom 0
+  where go n d acc
+          | n < d = (Res acc, Res n)
+          | otherwise = go (n - d) d (acc + 1)
+#+end_src
+
+My solution 1, not handling division by zero yet.
+
+#+begin_src hs
+--
+-- `divBy` is my implementation of `quotRem` in terms of subtraction.
+--
+-- Perform the subtraction on the absolute values and then negate the
+-- tuple constituents according to the division rules.
+--
+divBy :: Numerator -> Denominator -> (Quotient, Remainder)
+divBy num denom = signify $ go (abs num) (abs denom) 0
+  where
+    go :: Numerator -> Denominator -> Quotient -> (Quotient, Remainder)
+    go n d count
+      | n < d     = (count, n)
+      | otherwise = go (n - d) d (count + 1)
+    signify :: (Quotient, Remainder) -> (Quotient, Remainder)
+    signify (q, r)
+      | num < 0 && denom < 0 = (q, (- r))
+      | num < 0 = ((- q), (- r))
+      | denom < 0 = ((- q), r)
+      | otherwise = (q, r)
+
+--
+-- Very tiresome testing this by hand, comparing with the results of
+-- `quotRem`, then making sure each new guard did not introduce incorrect
+-- results for other parts of the program, etc. Unit tests would save a lot of
+-- time testing this, besides being a much more reliable way of asserting the
+-- program correctness, reducing the likelihood of human error while manually
+-- testing.
+--
+#+end_src
+
+Using some (hopefully) better types and handling of problems, including
+returning a specific data constructor when the denominator is zero
+(division by zero).
+
+#+begin_src hs
+{-# LANGUAGE NoMonomorphismRestriction #-}
+
+type Numerator = Integer
+type Denominator = Integer
+type Quotient = Integer
+type Remainder = Integer
+
+data Division =
+    Result (Quotient, Remainder)
+  | DivisionByZero
+  deriving Show
+
+--
+-- `divBy` is my implementation of `quotRem` in terms of subtraction.
+--
+-- Perform the subtraction on the absolute values and then negate the
+-- tuple constituents according to the division rules.
+--
+divBy :: Numerator -> Denominator -> Division
+divBy _   0     = DivisionByZero
+divBy num denom = signify $ go (abs num) (abs denom) 0
+  where
+    go :: Numerator -> Denominator -> Quotient -> Division
+    go n d count
+      | d == 0    = DivisionByZero
+      | n < d     = Result (count, n)
+      | otherwise = go (n - d) d (count + 1)
+    signify :: Division -> Division
+    signify (Result (q, r))
+      | num < 0 && denom < 0 = Result (q, (- r))
+      | num < 0              = Result ((- q), (- r))
+      | denom < 0            = Result ((- q), r)
+      | otherwise            = Result (q, r)
+--
+-- λ> divBy (-7) 2
+-- Result (-3,-1)
+--
+-- λ> divBy 7 (-2)
+-- Result (-3,1)
+--
+-- λ> divBy 7 0
+-- DivisionByZero
+--
+
+--
+-- Very tiresome testing this by hand, comparing with the results of
+-- `quotRem`, then making sure each new guard did not introduce incorrect
+-- results for other parts of the program, etc. Unit tests would save a lot of
+-- time testing this, besides being a much more reliable way of asserting the
+-- program correctness, reducing the likelihood of human error while manually
+-- testing.
+--
+#+end_src
+
+** wordNumber
+:PROPERTIES:
+:CUSTOM_ID: wordnumber
+:END:
+A solution from my previous study of the book:
+
+#+begin_src haskell
+module WordNumber where
+
+import Data.List (intersperse)
+
+snums :: [[Char]]
+snums = [
+  "zero",
+  "one",
+  "two",
+  "three",
+  "four",
+  "five",
+  "six",
+  "seven",
+  "eight",
+  "nine"
+  ]
+
+--
+-- A list of [(1, "one"), ... (9, "nine")].
+--
+tups :: [(Int, [Char])]
+tups = zip [(0 :: Int) .. 9] snums
+
+--
+-- Turns a digit into a word, like 1 -> "one" or 7 -> "seven".
+--
+digitToWord :: Int -> String
+digitToWord n = word
+  where word =
+          snd . head $ filter (\ tup -> fst tup == n) tups
+
+--
+-- Turns a number into a list of individual digits. Ex:
+-- 1984 -> [1, 9, 8, 4].
+--
+digits :: Int -> [Int]
+digits n = go n []
+  where
+    go x acc
+      | x < 10 = [x] ++ acc
+      | otherwise = go (div x 10) ([mod x 10] ++ acc)
+
+--
+-- Makes use of the previously defined functions to wordify a number.
+--
+wordNumber :: Int -> String
+wordNumber n =
+  concat . intersperse "-" $ map digitToWord $ digits n
+--
+-- λ> wordNumber 0
+-- "zero"
+-- λ> wordNumber 1984
+-- "one-nine-eight-four"
+--
+#+end_src
+
+My new solution (not better). I just did not research the web this time.
+
+#+begin_src hs
+{-# LANGUAGE NoMonomorphismRestriction #-}
+
+module WordNumber where
+
+import Data.List (intersperse)
+
+digitToWord :: Int -> String
+digitToWord 0 = "zero"
+digitToWord 1 = "one"
+digitToWord 2 = "two"
+digitToWord 3 = "three"
+digitToWord 4 = "four"
+digitToWord 5 = "five"
+digitToWord 6 = "six"
+digitToWord 7 = "seven"
+digitToWord 8 = "eight"
+digitToWord 9 = "nine"
+digitToWord _ = "unknown input"
+
+getOnesPlace :: Int -> Int
+getOnesPlace x = mod x 10
+
+dropOnesPlace :: Int -> Int
+dropOnesPlace x = div x 10
+
+--
+-- `dropOnesPlace x` causes the next iteration of the recursion to run in a
+-- smaller input, tending toward something that is less than 10.
+--
+-- `(:) (getOnesPlace x) acc` cons the right-most digit in the number into the
+-- accumulator.
+--
+digits :: Int -> [Int]
+digits n = go n []
+  where go x acc
+          | x < 10    = (:) x acc
+          | otherwise = go (dropOnesPlace x) ((:) (getOnesPlace x) acc)
+
+wordNumber :: Int -> String
+wordNumber n = concat . intersperse "-" . map digitToWord $ digits n
+--
+-- λ> wordNumber 1984
+-- "one-nine-eight-four"
+--
+#+end_src
