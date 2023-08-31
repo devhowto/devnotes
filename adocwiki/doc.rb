@@ -6,6 +6,7 @@ class Doc
     @path_parts = file.split('/')
   end
 
+
   ##
   # Returns that base path without the filename.
   #
