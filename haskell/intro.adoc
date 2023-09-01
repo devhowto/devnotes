@@ -1,5 +1,6 @@
 = Haskell
 :imagesdir: __assets
+:toc: left
 
 .Ash from Alien 1979 movie talking about the perfect organism.
 image::ash-alien-haskell.png[Ash from Alien 1979 movie talking about the perfect organism.]

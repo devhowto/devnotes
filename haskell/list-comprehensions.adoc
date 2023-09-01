@@ -3,6 +3,7 @@
 :toc: left
 :icons: font
 :stem: latexmath
+:imagesdir: __assets
 
 == Intro
 
@@ -59,7 +60,7 @@ Consider:
 
 Instead of evaluating all values from the leftmost generator (3, 4, 5) to the first element of the rightmost generator, that is, stem:[3 ^ 2], stem:[4 ^ 2], then stem:[5 ^ 2], what happens instead is that the 3 from the leftmost generator is raised to all exponents of the rightmost generator first, e.g. stem:[3 ^ 2] then stem:[3 ^ 3], and only then the evaluation proceeds to the second element of the first generator.
 
-image::assets/haskell-list-comprehension-order.png[Haskell list comprehension generator exhaustion order]
+image::haskell-list-comprehension-order.png[Haskell list comprehension generator exhaustion order]
 
 And a predicate could be used to limit the resulting list to include only certain values, like even, odd, less than some value, more than some value, etc:
 
