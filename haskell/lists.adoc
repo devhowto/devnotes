@@ -7,17 +7,13 @@
 
 Lists are a recursive series or *cons cells* `a : [a]` terminated by the empty list `[]`.
 
-= Lists
-:page-subtitle: Haskell
-
 == Spine
 
-When talking lists, we also talk about the _spine_ and the _cons cells_.
+When talking about lists, we also talk about the _spine_ and the _cons cells_.
 
-The spine is the conceptual structure that keeps the cons cells together.
+The spine is the conceptual structure that holds the cons cells together.
 
-Some functions (like `length`) works based on the spine and _does not_ force (evaluates) the values (cons cells).
-
+Some functions (like `length`) work based on the spine and _does not_ force (evaluate) the values (cons cells).
 
 Here, we cons a few numbers onto the empty list.
 The values are 1, 2, 3 and `[]`.

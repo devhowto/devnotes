@@ -1,0 +1,35 @@
+= Evaluating Folds :: Haskell
+:page-tags: haskell list eval fold foldr foldl
+:imagesdir: ../../__assets
+
+== foldr and foldr implementation
+
+We are naming them `fldr` and `fldl` so they don't conflict with standard `foldr` and `foldl`.
+
+.fldr and fldr
+[source,haskell]
+----
+fldr :: (a -> b -> b) -> b -> [a] -> b
+fldr _ acc []       = acc
+fldr f acc (x : xs) = f x (fldr f acc xs)
+
+fldl :: (b -> a -> b) -> b -> [a] -> b
+fldl _ acc []       = acc
+fldl f acc (x : xs) = fldl f (f acc x) xs
+----
+
+== eval foldr with (+)
+
+[source,text]
+----
+f = (+)
+
+fldr f 0 [1, 2, 3]
+f 1 (fldr f 0 [2, 3])
+f 1 (f 2 (fldr f 0 [3]))
+f 1 (f 2 (f 3 (fldr f 0 [])))
+f 1 (f 2 (f 3 0))
+f 1 (f 2 3)
+f 1 5
+f 6
+----
