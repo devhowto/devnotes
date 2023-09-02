@@ -1,0 +1,5 @@
+= Min Cost Climbing Stairs :: Easy :: LeetCode
+:page-tags: dynamic-programming array list
+
+* link:https://leetcode.com/problems/min-cost-climbing-stairs/[Min Cost Climbing Stairs :: Easy :: Leetcode^]
+
