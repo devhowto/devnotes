@@ -18,7 +18,10 @@ class Doc
   #
   #   ['.', 'my', 'notes']
   #
+  # @return {string}
+  #
   def path_base
     @path_parts[0 .. -2].join('/')
   end
 end
+
