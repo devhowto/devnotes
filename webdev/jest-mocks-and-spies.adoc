@@ -1,6 +1,6 @@
 = Jest Mocks and Spies
 :page-subtitle: Web Development
-:page-tags: web development jest javascript typescript
+:page-tags: web development jest javascript typescript mock spy
 :toc: left
 
 == Properly mock, type and spy on fetch()
