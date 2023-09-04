@@ -1,0 +1,5 @@
+= Two Max :: Algorithms and Data Structures
+:page-tags: algorithm data-structure list array max
+
+Find the two max ints in a list of ints.
+
