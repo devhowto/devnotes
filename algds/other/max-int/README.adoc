@@ -1,0 +1,4 @@
+= Max Int :: Algorithms and Data Structures
+:page-tags: algorithm data-structure list array max
+
+Find the maximum integer value in the list.
