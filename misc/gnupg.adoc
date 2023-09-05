@@ -1,0 +1,107 @@
+= GPG, GnuPG :: Encryption
+:page-tags: gpg, gnupg, encryption, command-line
+:toc: left
+:icons: font
+
+* link:https://www.digitalocean.com/community/tutorials/how-to-use-gpg-to-encrypt-and-sign-messages
+* link:https://wiki.archlinux.org/index.php/GnuPG
+* link:http://allanmcrae.com/2015/01/two-pgp-keyrings-for-package-management-in-arch-linux/
+* link:https://wiki.archlinux.org/index.php/GnuPG#Use_a_keyserver
+
+== Personal Use
+
+[source,shell-session]
+$ gpg --full-gen-key
+$ gpg --output ~/Documents/GPG/revocation.crt --gen-revoke your@email.com
+$ chmod 600 ~/revocation.crt
+----
+
+Encrypt a file using password:
+
+[source,shell-session]
+----
+gpg -c classified.txt
+----
+
+and it creates the file classified.txt.gpg.
+
+Now you can open it in emacs and in vim (with the plugin gnupg.vim) and when you save the file it will ask you for the password.
+At this point you can remove the original .txt file.
+
+[WARNING]
+====
+If you forget your password, your will not be able to recover its contents.
+====
+
+== Import secret key to another computer (method 1)
+
+* link:https://askubuntu.com/questions/32438/how-to-share-one-pgp-key-on-multiple-machines
+* link:https://unix.stackexchange.com/questions/407062/
+* link:gpg-list-keys-command-outputs-uid-unknown-after-importing-private-key-onto
+
+In machine 1 (will ask password):
+
+[source,shell-session]
+----
+$ gpg --export-secret-key -a > classified.asc
+----
+
+In machine 2 (will ask password):
+
+----
+[source,shell-session]
+$ gpg --import classified.asc
+----
+
+Do this in both machines:
+
+[source,shell-session]
+----
+$ shred --remove classified.asc
+----
+
+Then, the key on the new machine shows as "[unknown]" trust level with `--list-secret-keys`.
+Do this:
+
+[source,shell-session]
+----
+gpg --edit-key user@email.xz
+----
+
+and now, from gpg prompt:
+
+[source,text]
+----
+gpg> trust
+choose option 5 (five) here
+gpg> save
+----
+
+== import secret key to another computer (method 2)
+
+[source,shell-session]
+----
+$ gpg --export-secret-keys --armor --output privkey.asc user-id
+----
+
+Example on machine 1, where the key was created:
+
+[source,shell-session]
+----
+$ gpg --export-secret-keys --armor --output \
+    user@example.dev.privkey.asc \
+    user@example.dev
+----
+
+Then, on machine 2, 3, etc:
+
+[source,shell-session]
+----
+$ gpg --import user@example.dev.privkey.asc
+----
+
+* link:https://wiki.archlinux.org/index.php/GnuPG#Key_maintenance
+
+== References
+
+* link:https://wiki.archlinux.org/title/GnuPG[GnuPG :: Arch Wiki^]
