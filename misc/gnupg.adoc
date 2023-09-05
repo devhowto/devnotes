@@ -2,6 +2,7 @@
 :page-tags: gpg, gnupg, encryption, command-line
 :toc: left
 :icons: font
+:imagesdir: ../__assets
 
 * link:https://www.digitalocean.com/community/tutorials/how-to-use-gpg-to-encrypt-and-sign-messages
 * link:https://wiki.archlinux.org/index.php/GnuPG
@@ -11,6 +12,7 @@
 == Personal Use
 
 [source,shell-session]
+----
 $ gpg --full-gen-key
 $ gpg --output ~/Documents/GPG/revocation.crt --gen-revoke your@email.com
 $ chmod 600 ~/revocation.crt
@@ -101,6 +103,48 @@ $ gpg --import user@example.dev.privkey.asc
 ----
 
 * link:https://wiki.archlinux.org/index.php/GnuPG#Key_maintenance
+
+== Run Encrypted shell script
+
+Basically:
+
+* Encrypt a file using a symmetric key (instead of public and private keys, even though that would be possible too).
+* Use a redirection to pass the decrypted script to bash to run the original contents of the script.
+* Done!
+
+[source,shell-session]
+----
+$ tree -C ./
+./
+└── script.sh
+
+1 directory, 1 file
+
+$ bash ./script.sh
+hello
+
+$ gpg \
+> --no-symkey-cache \
+> --symmetric \
+> --output ./script.sh.gpg \
+> ./script.sh
+
+$ tree -C ./
+./
+├── script.sh
+└── script.sh.gpg
+
+1 directory, 2 files
+
+$ cat ./script.sh.gpg
+	f&hgJo2-E$iv7[^ud6
+                         fWܖ%A.]Q[Dޖ4-%nt{l| 8}{k*|-'
+
+$ bash < <(2> /dev/null gpg --decrypt --quiet ./script.sh.gpg)
+hello
+----
+
+image::tree-script-sh-1-2023-09-05T13-46-08-832Z.png[tree -C ./ example]
 
 == References
 
