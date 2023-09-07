@@ -1,6 +1,7 @@
 = Bash Parameter Expansion
 :page-tags: bash cmdline parameter expansion
 :toc: left
+:source-highlighter: highlight.js
 :imagesdir: ../assets
 
 == Filename or current running script
@@ -8,7 +9,7 @@
 Somtimes it is useful to get the filename (basename) of the current running script.
 Example:
 
-[source,shell-session]
+[source,bash]
 ----
 #!/usr/bin/env bash
 
