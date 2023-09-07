@@ -1,6 +1,41 @@
 = Bash Parameter Expansion
-:page-tags: bash cmdline
-:toc: right
+:page-tags: bash cmdline parameter expansion
+:toc: left
+:imagesdir: ../assets
+
+== Filename or current running script
+
+Somtimes it is useful to get the filename (basename) of the current running script.
+Example:
+
+[source,shell-session]
+----
+#!/usr/bin/env bash
+
+usage () {
+	cat <<EOF
+
+Usage:
+
+  ${0##*/} OPTIONS
+
+EOF
+}
+----
+
+`$0` expands to the full path of the current script.
+Using bash's parameter expansion, it is possible to drop the path part and leav only the filename:
+
+[source,shell-session]
+----
+$ val=./src/lib/math.h
+
+$ echo "$val"
+./src/lib/math.h
+
+$ echo "${val##*/}"
+math.h
+----
 
 == Use contents of file as part of string
 
