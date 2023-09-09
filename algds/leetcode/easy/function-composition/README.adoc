@@ -1,0 +1,6 @@
+= Function Composition | LeetCode | Easy
+:page-tags: function compose composition functional-programming javascript
+:toc: left
+
+* link:https://leetcode.com/problems/function-composition/[Funciton Composition :: LeetCode :: Easy^]
+
