@@ -1,5 +1,5 @@
 = Debounce | LeetCode | Medium
-:page-tags: leetcode medium debounce javascript function
+:page-tags: javascript leetcode js30days medium debounce javascript function
 :toc: left
 :
 
