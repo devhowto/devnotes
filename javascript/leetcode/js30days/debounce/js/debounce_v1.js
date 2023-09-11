@@ -1,8 +1,10 @@
 //
-// tags: leetcode medium debounce javascript function
+// tags: javascript leetcode medium debounce function
 //
 
-const log = console.log.bind(console);
+import { performance as perf } from 'node:perf_hooks';
+
+var log = console.log.bind(console);
 
 /**
  * Returns a debounced version of a function.
@@ -23,8 +25,9 @@ function debounce(fn, t) {
   };
 }
 
-const log1 = debounce(log, 50);
+var log1 = debounce(log, 50);
 
-setTimeout(() => log1('#1'), 50);
-setTimeout(() => log1('#2'), 49);
-setTimeout(() => log1('#3'), 49);
+setTimeout(() => log1('#1'), 30);
+setTimeout(() => log1('#2'), 44);
+setTimeout(() => log1('#3'), 13);
+// setTimeout(() => log1('#4'), 200);
