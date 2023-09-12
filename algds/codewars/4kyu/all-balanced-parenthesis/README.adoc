@@ -1,0 +1,11 @@
+= All Balanced Parentheses
+:page-subtitle: 4kyu Codewars Challenge » Algorithms and Data Structures
+:icons: font
+:sectlinks:
+:sectnums!:
+:toclevels: 6
+:toc: left
+:favicon: https://fernandobasso.dev/cmdline.png
+
+
+* link:https://www.codewars.com/kata/5426d7a2c2c7784365000783[All Balanced Parentheses 4kyu Codewars challenge^]
