@@ -1,4 +1,16 @@
+= Bit Counting
+:page-subtitle: 6kyu Codewars Challenge » Algorithms and Data Structures
+:page-tags: algorithm data-structure bit bitwise
+:favicon: https://fernandobasso.dev/cmdline.png
+:icons: font
+:sectlinks:
+:sectnums!:
+:toclevels: 6
+:toc: left
+:source-highlighter: highlight.js
 
+
+* link:https://www.codewars.com/kata/526571aae218b8ee490006f4[Bit Counting 6kyu Codewars challenge^]
 
 == Approach 1
 
