@@ -1,0 +1,3 @@
+#+TITLE: Reversed Strings :: Codewars 8kyu
+
+- [[https://www.codewars.com/kata/5168bb5dfe9a00b126000018][Reversed Strings 8kyu Codewars challenge]]

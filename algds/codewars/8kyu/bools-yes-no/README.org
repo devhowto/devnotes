@@ -1,0 +1,4 @@
+#+TITLE: Bools to Yes or No String :: Codewars 8kyu
+
+- [[https://www.codewars.com/kata/53369039d7ab3ac506000467][Convert bool to 'Yes' or 'No' Codewars 8kyu challenge]]
+

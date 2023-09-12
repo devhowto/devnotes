@@ -1,0 +1,31 @@
+= Grasshopper Summation
+:icons: font
+:toc: right
+:stem: latexmath
+:source-highlighter: highlight.js
+
+* link:https://www.codewars.com/kata/55d24f55d7dd296eb9000030[Grasshopper Summation :: Codewars 8kyu]
+
+
+[source,lisp]
+----
+;;;;
+;; Sums all whole numbers from 1 to n.
+;;
+;; ASSUME: n >= 1.
+;;
+;; sum :: Int -> Int
+;;
+(define sum
+  (λ (n [acc 1])
+    (cond
+      [(= n 1) acc]
+      [else (sum (- n 1) (+ acc n))])))
+----
+
+We can simply do a purely mathematical solution:
+
+[stem]
+++++
+sumToN(n) = \frac{n (n + 1)}{2}
+++++

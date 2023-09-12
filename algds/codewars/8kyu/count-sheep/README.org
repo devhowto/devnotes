@@ -1,0 +1,3 @@
+#+TITLE: Counting Sheep :: Codewars 8kyu
+
+- [[https://www.codewars.com/kata/54edbc7200b811e956000556][Counting Sheep Codewars 8kyu challenge]]

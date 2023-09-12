@@ -1,0 +1,3 @@
+#+TITLE: Even or Odd :: Codewars 8kyu
+
+- [[https://www.codewars.com/kata/5715eaedb436cf5606000381][Sum of Positive Codewars 8kyu challenge]]

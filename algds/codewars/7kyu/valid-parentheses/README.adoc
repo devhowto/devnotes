@@ -1,0 +1,12 @@
+=
+:icons: font
+:sectlinks:
+:sectnums!:
+:toclevels: 6
+:toc: left
+:favicon: https://fernandobasso.dev/cmdline.png
+
+
+* link:https://www.codewars.com/kata/6411b91a5e71b915d237332d[Valid Parenthesis 7kyu Codewars challenge^]
+
+In the comments, people say this problem should bin in the 6kyu category.

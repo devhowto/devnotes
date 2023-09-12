@@ -1,0 +1,11 @@
+= Vowel Count :: 7kyu Codewars Challenge
+:icons: font
+:sectlinks:
+:sectnums!:
+:toclevels: 6
+:toc: left
+:favicon: https://fernandobasso.dev/cmdline.png
+
+
+* link:https://www.codewars.com/kata/54ff3102c1bad923760001f3[Vowel Count 7kyu Codewars challenge^]
+

@@ -1,0 +1,11 @@
+= Gravity Flip :: Codewars
+:icons: font
+:toc: right
+:stem: latexmath
+:source-highlighter: highlight.js
+
+* link:https://www.codewars.com/kata/5f70c883e10f9e0001c89673[Gravity Flip :: Codewars 8kyu]
+
+Other resources:
+
+* link:https://ro-che.info/articles/2016-04-02-descending-sort-haskell[Descending sort in Haskell].

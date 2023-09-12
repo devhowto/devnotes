@@ -1,0 +1,11 @@
+#+TITLE: Square n Sum :: Codewars 8kyu
+
+- [[https://www.codewars.com/kata/515e271a311df0350d00000f][Square n Sum Codewars 8kyu challenge]]
+
+The [[https://www.codewars.com/kata/515e271a311df0350d00000f/solutions/haskell][solutions section]] includes many interesting other approaches. Take
+a look and play with them in the REPL.
+
+#+begin_src haskell
+squareSum :: [Integer] -> Integer
+squareSum = foldl ((. (^2)) . (+)) 0
+#+end_src
