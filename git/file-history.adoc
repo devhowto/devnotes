@@ -15,11 +15,13 @@ With Vim fugitive extension, run this from vim/nvim:
 .vim command line
 [source,text]
 ----
-:0Gclog %
+:0Gclog
 ----
 
 It will open a list of commits that touched the current buffer on the quickfix list.
 Then use `:cnext` and `cprevious` (`:cn` and `:cp` shortenings work too).
+
+Looks like `:0Gclog` _does not_ need the `%` buffer parameter (passing it produces error about git options), but just in case, you may need to want to try `:0Glog %` and see what happens.
 
 Add keybindings to make make things quicker:
 
