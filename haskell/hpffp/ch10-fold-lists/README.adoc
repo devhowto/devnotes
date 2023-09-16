@@ -1,4 +1,5 @@
-= Folding Lists - Chapter 10
+= Folding Lists
+:page-subtitle: Haskell Programming From First Principles
 :pp: {plus}{plus}
 
 Page 365.
@@ -7,8 +8,8 @@ Page 365.
 === 01
 
 B and C are correct.
-Both `foldr`{.verbatim} and `foldl`{.verbatim} will do because `(*)`{.verbatim} is associative.
-Flipping `(*)`{.verbatim} doesn't change the results, again, because `(*)`{.verbatim} is associative.
+Both `foldr` and `foldl` will do because `(*)` is associative.
+Flipping `(*)` doesn't change the results, again, because `(*)` is associative.
 
 [discrete]
 === 02
@@ -58,7 +59,7 @@ acc = 6, (2 * 3)
 Reaches base case, returns ‘z’, our ‘acc’.
 ----
 
-Or, assigning `flip (*)`{.verbatim} to a simpler variable to reduce number of parentheses:
+Or, assigning `flip (*)` to a simpler variable to reduce number of parentheses:
 
 [,example]
 ----
@@ -124,8 +125,8 @@ foldr (&&) True [False, True]
 
 . d
 +
-It always returns `True`{.verbatim}, which is incorrect.
-We must make the zero produce `False`{.verbatim} instead.
+It always returns `True`, which is incorrect.
+We must make the zero produce `False` instead.
 +
 [,haskell]
 ----
@@ -140,7 +141,7 @@ foldr (||) False [False, True]
 "12345"
 ----
 +
-Or flipping `pass:c[((++) . show)]`{.verbatim}, although the result is in reverse order:
+Or flipping `pass:c[((++) . show)]`, although the result is in reverse order:
 +
 [,ghci]
 ----
@@ -148,9 +149,9 @@ Or flipping `pass:c[((++) . show)]`{.verbatim}, although the result is in revers
 "321"
 ----
 +
-`foldr`{.verbatim} applies `f x`{.verbatim} first, so we apply `pass:c[((++) . show)=to =1]`{.verbatim} first, converting it to a string, which is `pass:c[(++)]`{.verbatim} concatenated to the "rest of the fold".
+`foldr` applies `f x` first, so we apply `pass:c[((++) . show)=to =1]` first, converting it to a string, which is `pass:c[(++)]` concatenated to the "rest of the fold".
 +
-`foldl`{.verbatim} applies `f`{.verbatim} to the zero/acc first, which _is_ a string already, and then tries to =({pp})=concatenate it with the number which was _not_ converted to a string.
+`foldl` applies `f` to the zero/acc first, which _is_ a string already, and then tries to =({pp})=concatenate it with the number which was _not_ converted to a string.
 It blows up!
 💣
 +
@@ -189,7 +190,7 @@ Possible solutions, depending on the result sought:
 
 . g
 +
-`foldr const 0 "tacos"`{.verbatim} is incorrect because the accumulator char `'t'`{.verbatim} does not match the type of 0 (the number zero).
+`foldr const 0 "tacos"` is incorrect because the accumulator char `'t'` does not match the type of 0 (the number zero).
 Possible solutions depending on the result sought:
 +
 [,ghci]

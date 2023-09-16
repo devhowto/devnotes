@@ -33,3 +33,68 @@ f 1 (f 2 3)
 f 1 5
 f 6
 ----
+
+== eval foldr with cons (:)
+
+[source,text]
+----
+fldr :: (a -> b -> b) -> b -> [a] -> b
+fldr _ z []       = z
+fldr f z (x : xs) = f x (fldr f z xs)
+
+fldr (:) [] [1, 2, 3]
+
+(:) 1 (fldr (:) [] [2, 3])
+
+(:) 1 ((:) 2 (fldr (:) [] [3]))
+
+(:) 1 ((:) 2 ((:) 3 (fldr (:) [] [])))
+
+(:) 1 ((:) 2 ((:) 3 []))
+
+(:) 1 ((:) 2 [3])
+
+(:) 1 [2, 3]
+
+[1, 2, 3]
+----
+
+== eval foldl with flipped cons (:)
+
+[source,text]
+----
+fldl :: (b -> a -> b) -> b -> [a] -> b
+fldl _ acc []       = acc
+fldl f acc (x : xs) = fldl f (f acc x) xs
+----
+
+Note the signature of the ``foldl``'s folding function:
+
+[source,text]
+----
+(b -> a -> b)
+----
+
+The first stem:[b] is the type of the accumulator, then stem:[a] is the type of the elements of the list.
+The final stem:[b] is the return value.
+If folding a list of type `[Int]`, stem:[b] would be the list itself.
+
+
+[source,text]
+----
+fldl :: (b -> a -> b) -> b -> [a] -> b
+fldl _ acc []       = acc
+fldl f acc (x : xs) = fldl f (f acc x) xs
+
+fldl (:) [] [1, 2, 3]
+
+fldl (:) ([] : 1) [2, 3]
+          ------
+             \
+              \
+               +--> Wrong. Should be 1 : [] instead.
+----
+
+That is why we must _flip_ `:` with `foldl`.
+
+
