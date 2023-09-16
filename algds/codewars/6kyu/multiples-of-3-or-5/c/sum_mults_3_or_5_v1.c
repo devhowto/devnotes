@@ -1,5 +1,5 @@
 //
-// tags: javascript codewars 6kyu math algorithm multiple
+// tags: c codewars 6kyu math multiple algorithm
 //
 
 #include <stdio.h>

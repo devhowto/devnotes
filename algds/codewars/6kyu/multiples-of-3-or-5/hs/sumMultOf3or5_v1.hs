@@ -1,3 +1,6 @@
+--
+-- tags: haskell codewars 6kyu math algorithm multiple
+--
 {-# LANGUAGE NoMonomorphismRestriction #-}
 
 multsOf3or5 :: [Int] -> [Int]
