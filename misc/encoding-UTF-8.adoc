@@ -12,7 +12,7 @@ Those page break markers display something like "^L" in both vim and emacs.
 
 === Emacs
 
-In emacs, we can insert them with kbd:[C-q C-l] and navigate between them with kbd:[C-x [] and kbd:[C-x ].
+In emacs, we can insert them with kbd:[C-q C-l] and navigate between them with kbd:[C-x [] and kbd:[C-x].
 
 From emacs, kbd:[C-h i m Emacs RET] kbd:[m Pages RET].
 
@@ -126,3 +126,7 @@ On VSCode, in the user `settings.json`, because I use the vim extensions, I have
   },
 }
 ----
+
+== Some Useful Unicode Chars and Symbols
+
+INFINITY:: ∞ 0x221e ++&infin;++
