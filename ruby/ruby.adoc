@@ -1,5 +1,5 @@
 = Ruby
-:page-tags: ruby docs tutorial
+:page-tags: ruby docs tutorial syntax concept feature
 :icons: font
 :toc: left
 
@@ -92,3 +92,23 @@ x *= x       #=> 16
 x **= x      #=> 18446744073709551616. Raise to the power
 x /= x       #=> 1
 ----
+
+== gets
+
+.irb session
+[source,text]
+----
+>> s1 = gets
+hey
+=> "hey\n"
+>> s2 = gets.chomp
+hey
+=> "hey"
+>> s3 = gets(chomp: true)
+hey
+=> "hey"
+>> [s1, s2, s3]
+=> ["hey\n", "hey", "hey"]
+----
+
+We can use keyword arg `gets(chomp: true)`, which is a smidge better then `gets.chomp`, maybe...
