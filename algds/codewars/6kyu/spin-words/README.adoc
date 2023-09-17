@@ -1,0 +1,24 @@
+= Stop gninnipS My sdroW!
+:page-subtitle: 6kyu Codewars Challenge
+:page-tags: codewars algorithm
+
+* link:https://www.codewars.com/kata/5264d2b162488dc400000001[Stop gninnipS My sdroW! :: Codewars 6kyu Challenge^]
+
+== Haskell
+
+=== Solution 1
+
+Using `$` operator:
+
+[source,haskell]
+----
+revGE5 :: String -> String
+revGE5 s
+  | length s >= 5 = reverse s
+  | otherwise     = s
+
+spinWords :: String -> String
+spinWords s = unwords $ map revGE5 $ words s
+----
+
+
