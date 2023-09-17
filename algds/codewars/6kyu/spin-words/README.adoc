@@ -1,6 +1,7 @@
 = Stop gninnipS My sdroW!
 :page-subtitle: 6kyu Codewars Challenge
 :page-tags: codewars algorithm
+:source-highlighter: highlight.js
 
 * link:https://www.codewars.com/kata/5264d2b162488dc400000001[Stop gninnipS My sdroW! :: Codewars 6kyu Challenge^]
 
@@ -29,6 +30,21 @@ Just move `revGE5` into a `where` clause:
 ----
 spinWords :: String -> String
 spinWords s = unwords $ map revGE5 $ words s
+  where
+    revGE5 :: String -> String
+    revGE5 w
+      | length w >= 5 = reverse w
+      | otherwise     = w
+----
+
+=== Soluion 3
+
+Point-free and function composition.
+
+[source,haskell]
+----
+spinWords :: String -> String
+spinWords = unwords . map revGE5 . words
   where
     revGE5 :: String -> String
     revGE5 w
