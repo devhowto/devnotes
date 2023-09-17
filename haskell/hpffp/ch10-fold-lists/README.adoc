@@ -1,38 +1,43 @@
 = Folding Lists
 :page-subtitle: Haskell Programming From First Principles
+:page-tags: fold foldr foldl list const eval
+:toc: left
+:toclevels: 6
+:stem: latexmath
 :pp: {plus}{plus}
+
+== Exercises: Understanding folds
 
 Page 365.
 
-[discrete]
 === 01
 
 B and C are correct.
 Both `foldr` and `foldl` will do because `(*)` is associative.
 Flipping `(*)` doesn't change the results, again, because `(*)` is associative.
 
-[discrete]
+C is an error or at least doesn't seem to be a reasonable thing.
+
 === 02
 
-[,example]
+[source,text]
 ----
-foldl * 1 [1, 2, 3]
 
-foldl (flip (*)) 1 [1, 2, 3]
+f = (flip (*))
 
-foldl (flip (*)) (flip (*) 1 1) [2, 3]
+foldl f 1 [1, 2, 3]
 
-foldl (flip (*)) (flip (*) 1 1) [2, 3]
+foldl f (f 1 1) [2, 3]
 
-foldl (flip (*)) ((flip (*)) ((flip (*)) 1 1) 2) [3]
+foldl f (f (f 1 1) 2) [3]
 
-foldl (flip (*)) ((flip (*)) ((flip (*)) ((flip (*)) 1 1) 2) 3) []
+foldl f (f (f (f 1 1) 2) 3) []
 
-((flip (*)) ((flip (*)) ((flip (*)) 1 1) 2) 3)
+(f (f (f 1 1) 2) 3)
 
-((flip (*)) ((flip (*)) 1 2) 3)
+(f (f 1 2) 3)
 
-((flip (*)) 2 3
+f 2 3
 
 6
 ----
@@ -75,87 +80,105 @@ foldl f (f 2 3) []
 6
 ----
 
-[discrete]
 === 03
 
 C is correct.
 
-[discrete]
 === 04
 
 A is correct.
 
-[discrete]
 === 05
 
-. a
-+
-Missing the "zero", default, accumulator parameter.
-+
+==== a
+
+.error
+[source,text]
+----
+Missing the “zero”, or initial, accumulator parameter.
+----
+
 Correct:
-+
-[,ghci]
+
+[source,text]
 ----
 λ> foldr (++) [] ["woot", "WOOT", "woot"]
 "wootWOOTwoot"
 ----
 
-. b
-+
+==== b
+
 Need a list of strings, not a single string.
-+
-Correct:
-+
-[,ghci]
+
+[source,ghci]
 ----
 λ> foldr max [] ["fear", "is", "little", "death"]
 "little"
 ----
 
-. c
-+
-There is no "and" function.
-+
-Correct:
-+
-[,haskell]
+==== c
+
+There is no `and` function.
+
+
+[source,haskell]
 ----
-foldr (&&) True [False, True]
+λ> foldr (&&) True [False, True]
+False
 ----
 
-. d
-+
+==== d
+
 It always returns `True`, which is incorrect.
 We must make the zero produce `False` instead.
-+
-[,haskell]
+
+[source,text]
 ----
-foldr (||) False [False, True]
+λ> foldr (||) False [False, True]
+True
+
+λ> foldr (||) False [False, False]
+False
 ----
 
-. e
-+
-[,ghci]
+`foldr (&&)` must have a base case of `True` and `foldr (||)` must have
+a base case of `False`.
+
+==== e
+
+[source,text]
 ----
 λ> foldr ((++) . show) "" [1..5]
 "12345"
 ----
-+
+
 Or flipping `pass:c[((++) . show)]`, although the result is in reverse order:
-+
-[,ghci]
+
+[source,text]
 ----
 λ> foldl (flip ((++) . show)) "" [1, 2, 3]
 "321"
 ----
-+
-`foldr` applies `f x` first, so we apply `pass:c[((++) . show)=to =1]` first, converting it to a string, which is `pass:c[(++)]` concatenated to the "rest of the fold".
-+
-`foldl` applies `f` to the zero/acc first, which _is_ a string already, and then tries to =({pp})=concatenate it with the number which was _not_ converted to a string.
-It blows up!
-💣
-+
-[,example]
+
+`foldr` applies `f x` first, so we apply ``pass:c[((++) . show)]`` to 1 first, converting it to a string, which is `pass:c[(++)]` concatenated to the “rest of the fold”.
+
+`foldl` applies `f` to the zero/acc first, which _is_ a string already, and then tries to ``(++)``(concatenate) it with the number which was _not_ converted to a string.
+It blows up! 💣
+
+[source,text]
+----
+fdl f "" [1 .. 3]
+
+fdl f ((++) . show) "" 1) [2, 3]
+       -----------
+            \
+             \
+              +---> ((++) . show) "" 1
+                    but we wanted
+                    ((++) . show) 1 ""
+----
+
+[source,example]
 ----
 λ> ((++) . show) 1 ""
 "1"
@@ -164,20 +187,31 @@ It blows up!
 💥 error
 ----
 
-. f
-+
-Zero has the type 'Char', and the list is of type 'Num'.
-The type of zero and the elements of the list must be the same.
+==== f
+
+Zero has the type `Char`, and the list is of type `Num`.
+The type of stem:[zero] and the elements of the list must be the same.
 Possible solutions, depending on the result sought:
-+
-[,ghci]
+
+Flip `const` so it uses the stem:[zero] first
+[source,text]
 ----
 λ> foldr (flip const) 'a' [1, 2, 3]
 'a'
+----
 
+Or use `foldl`, which will use the stem:[zero] first anyway:
+
+[source,text]
+----
 λ> foldl const 'a' [1, 2, 3]
 'a'
+----
 
+Or make the types match:
+
+[source,text]
+----
 λ> foldr const 'a' "bcd"
 'b'
 
@@ -188,12 +222,12 @@ Possible solutions, depending on the result sought:
 1
 ----
 
-. g
-+
+==== g
+
 `foldr const 0 "tacos"` is incorrect because the accumulator char `'t'` does not match the type of 0 (the number zero).
 Possible solutions depending on the result sought:
-+
-[,ghci]
+
+[source,text]
 ----
 λ> foldl const 0 "tacos"
 0
@@ -204,9 +238,9 @@ Possible solutions depending on the result sought:
 λ> foldl const "" "tacos"
 ----
 
-. h
-+
-[,ghci]
+==== h
+
+[source,text]
 ----
 λ> foldr (flip const) 0 "burritos"
 0
@@ -215,9 +249,9 @@ Possible solutions depending on the result sought:
 0
 ----
 
-. i
-+
-[,ghci]
+==== i
+
+[source,text]
 ----
 λ> foldr (flip const) 'z' [1..5]
 'z'
