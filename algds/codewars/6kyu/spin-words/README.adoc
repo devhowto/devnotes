@@ -2,6 +2,7 @@
 :page-subtitle: 6kyu Codewars Challenge
 :page-tags: codewars algorithm
 :source-highlighter: highlight.js
+:toc: left
 
 * link:https://www.codewars.com/kata/5264d2b162488dc400000001[Stop gninnipS My sdroW! :: Codewars 6kyu Challenge^]
 
