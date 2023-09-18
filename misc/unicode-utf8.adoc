@@ -1,4 +1,5 @@
-= Encoding and UTF-8
+= Unicode and UTF-8
+:page-subtitle: Character Encoding
 :page-tags: unicode UTF-8 ASCII plain-text special-character symbol
 :icons: font
 :toc: left
@@ -129,4 +130,6 @@ On VSCode, in the user `settings.json`, because I use the vim extensions, I have
 
 == Some Useful Unicode Chars and Symbols
 
-INFINITY:: ∞ 0x221e ++&infin;++
+INFINITY ∞:: 0x221e ++&infin;++
+LAMBDA λ:: 0x03bb
+BOTTOM ⊥:: 0x22a5
