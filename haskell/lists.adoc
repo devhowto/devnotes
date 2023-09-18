@@ -1,4 +1,5 @@
-= Lists :: Haskell
+= Lists
+:page-subtitle: Haskell
 :page-tags: haskell list evaluation bottom strictness
 :icons: font
 :toc: left
@@ -279,3 +280,64 @@ zs = _
 It shows `xs = [\_,_,_]` but `ys = [1,2,3]`.
 And because `zs` is polymorphic (was not assigned a concrete type), it just shows `zs = _`.
 
+== foldr and foldl spine strictness
+
+Consider these simplified implementations of `foldr` and `foldl`:
+
+.fldr and fldl
+[source,haskell]
+----
+fdr :: (a -> b -> b) -> b -> [a] -> b
+fdr _ acc []       = acc
+fdr f acc (x : xs) = f x (fdr f acc xs)
+--                        ------------
+--                             |
+--                             |
+--                             v
+--             The rest of the fold is evaluated
+--             only if f is strict on x and the
+--             rest of the fold.
+--
+
+fdl :: (b -> a -> b) -> b -> [a] -> b
+fdl _ acc []       = acc
+fdl f acc (x : xs) = fdl f (f acc x) xs
+--                   -----
+--                     |
+--                     |
+--                     v
+--         The successive steps of the fold
+--         are forced unconditionally.
+--
+----
+
+Note how `fdr` has the successive steps of fold evaluation _after_ `f x`.
+If `f` is not strict on both arguments (`x` and “the rest of the fold”), then `fdr` does not force valuation of the remainder of the list.
+
+But ``fdl``'s steps for the successive evaluation of the fold happens immediately, that is, `fdl f` happens first, which means, this fold left has no choice but to continue evaluating the spine.
+
+[source,haskell]
+----
+-- xs has bottom ⊥ as part of the spine.
+xs = [1, 2] ++ 3
+
+-- ys has botton as a value
+ys = [1, 2] ++ [undefined]
+----
+
+Let's experiment with those:
+
+[source,text]
+----
+λ> fdr const 0 xs
+1
+
+λ> fdl const 0 xs
+*** Exception: Prelude.undefined
+
+λ> fdr const 0 ys
+1
+
+λ> fdl const 0 ys
+0
+----
