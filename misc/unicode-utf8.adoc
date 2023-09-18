@@ -115,7 +115,8 @@ So if one types kbd:[Ctrl+k] followed by the char sequence, the special unicode 
 
 On VSCode, in the user `settings.json`, because I use the vim extensions, I have something like this which also works with kbd:[Ctrl+k] followed by char sequence:
 
-[source,json]
+.Excerpt of ~/.config/Code/User/settings.json
+[source,text]
 ----
 {
   "vim.digraphs": {
