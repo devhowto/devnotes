@@ -4,7 +4,9 @@
 
 == strdup
 
-Looks like `strdup` is not part of PO
+`strdup()` is *not* part of standard C, but part of POSIX extensions.
+Except the man page makes it confusing.
+It says “Standard C library”.
 
 .excerpt of man 3 strdup
 [source,text]
@@ -54,6 +56,8 @@ Thus, `gcc -std=c99 ...` will cause `strdup()` to maybe still compile, but then 
 $ gcc -std=c99 -Wall -pedantic ./runme ./runme.c
 warning: implicit declaration of function ‘strdup’
 ----
+
+Using `-std=gnu99` may be one possible solution, as this C dialect supports `strdup()`.
 
 === References
 
