@@ -7,11 +7,13 @@
 #include <string.h>
 
 void spin_words(const char* s) {
-  char* word = strdup(s); // malloc(13 * (sizeof (char *)));
-  word = strdup(s);
+  char* cpy = strdup(s);
+  char* tok = malloc(64);
 
-  // word = strtok((char *) s, " ");
-  printf("%s\n", word);
+  tok = strtok(cpy, " ");
+
+  while (
+  printf("%s\n", tok);
 }
 
 int main(void) {
