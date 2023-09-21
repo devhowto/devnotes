@@ -11,7 +11,7 @@
 #
 
 CC=gcc
-CFLAGS=-std=gnu99 -Wall -pedantic -g -lc
+CFLAGS=-std=c99 -Wall -pedantic -g -lc
 
 ./out:
 	mkdir -pv ./out
@@ -19,5 +19,5 @@ CFLAGS=-std=gnu99 -Wall -pedantic -g -lc
 ./out/%: %.c
 	$(CC) $(CFLAGS) $< -o $@
 
-clear:
+clean:
 	rm -v ./out/*
