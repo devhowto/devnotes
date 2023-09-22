@@ -23,3 +23,27 @@ Any other values signals some sort of failure or malfunction.
 
 0 is success for a return value (or exit status on shell scripts for example), even though it also means “false”.
 1 is some kind of error (again, even on shell script exit status), even though it also means “true”.
+
+== Tooling
+
+=== bear
+
+Bear is able to generate an LLVM/Clangd compilation database from intercepted commands, such as `make <target>`.
+
+See link:https://github.com/rizsotto/Bear[rizsotto/Bear^] repo.
+
+On Arch Linux:
+
+[source,shell-session]
+----
+$ pacman --sync --refresh --needed bear
+----
+
+Create a `compile_commands.json` from a `Makefile`:
+
+[source,shell-session]
+----
+$ bear -- make foo
+----
+
+The result will be a `compile_commands.json` in the current directory which contains the build info for the `foo` `make` target.
