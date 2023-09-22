@@ -11,7 +11,7 @@
 #
 
 CC=gcc
-CFLAGS=-std=c99 -Wall -pedantic -g -lc
+CFLAGS=-std=c99 -Og -g3 -Wall -Wextra -Wpedantic -fsanitize=address,undefined
 
 ./out:
 	mkdir -pv ./out
@@ -20,4 +20,4 @@ CFLAGS=-std=c99 -Wall -pedantic -g -lc
 	$(CC) $(CFLAGS) $< -o $@
 
 clean:
-	rm -v ./out/*
+	rm -rv ./out/*

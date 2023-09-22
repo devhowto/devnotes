@@ -6,13 +6,12 @@
 #include <stdlib.h>
 #include <string.h>
 
-
-void strdup(const char* src, char* dst) {
-  while ((*dst++ = *src++) != '\0')
-    ;
-
-  *dst = '\0';
-}
+// void strdup(const char* src, char* dst) {
+//   while ((*dst++ = *src++) != '\0')
+//     ;
+//
+//   *dst = '\0';
+// }
 
 void str_rev(char* src, char* dst, short len) {
   short i = 0;
@@ -26,12 +25,11 @@ void str_rev(char* src, char* dst, short len) {
 
 void spin_words(const char* s, char* r) {
   // Copy so we own cpy mem.
-  char* cpy = 0;
-  char* tok = 0;
-  cpy = malloc(sizeof(s));
+  char* cpy =  malloc(strlen(s) + 1);
+  char* tok;
   short cnt = 0;
 
-  strdup(s, cpy);
+  cpy = strdup(s);
 
   tok = strtok(cpy, " ");
 
