@@ -37,5 +37,9 @@ build
 ##
 # C compiled programs.
 #
-C/**/out
 **/out
+
+##
+# C compilation caches.
+#
+**/.cache
