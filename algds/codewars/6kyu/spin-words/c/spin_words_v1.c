@@ -74,30 +74,3 @@ void tester(const char *sentence, char *expected) {
 
   cr_assert(1);
 }
-
-// int main(void) {
-//   char s[] = "The source is wicked with these ones.";
-//   char w[200];
-//   spin_words(s, w);
-//
-//   printf("%s\n", w);
-//
-//   return 0;
-// }
-
-//
-// $ make ./out/spin_words_v1 && ./out/spin_words_v1
-// gcc -std=c99 -Wall -pedantic -g -lc spin_words_v1.c -o out/spin_words_v1
-//
-// Welcome
-// emocleW
-//
-// Use the force Luke
-// Use the ecrof Luke
-//
-// red hat hell
-// red hat hell
-//
-// allocate enough memory
-// etacolla hguone yromem
-//

@@ -1,0 +1,21 @@
+[
+  {
+    "arguments": [
+      "/usr/bin/gcc",
+      "-c",
+      "-std=c99",
+      "-Og",
+      "-g3",
+      "-Wall",
+      "-Wextra",
+      "-Wpedantic",
+      "-fsanitize=address,undefined",
+      "-o",
+      "out/spin_words_v1",
+      "spin_words_v1.c"
+    ],
+    "directory": "/home/fernando/work/src/devnotes/algds/codewars/6kyu/spin-words/c",
+    "file": "/home/fernando/work/src/devnotes/algds/codewars/6kyu/spin-words/c/spin_words_v1.c",
+    "output": "/home/fernando/work/src/devnotes/algds/codewars/6kyu/spin-words/c/out/spin_words_v1"
+  }
+]
