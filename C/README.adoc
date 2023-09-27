@@ -126,3 +126,49 @@ And when running the compiled code, specify Creterion's library path:
 $ LD_LIBRARY_PATH="${LD_LIBRARY_PATH}:$HOME/local/clibs/criterion/lib" \
   ./myapp
 ----
+
+Of course, those can be set in the shell rc files and used in
+combination with tools like `make`:
+
+In `~/.bashrc`:
+
+[source,shell-session]
+----
+export CLIBS="$HOME/devel/clibs"
+export LD_LIBRARY_PATH="$LD_LIBRARY_PATH:$CLIBS/criterion/lib"
+----
+
+And an example `Makefile`:
+
+[source,shell-session]
+----
+CLIBS=$(HOME)/local/clibs
+CC=gcc
+CFLAGS=-std=c99 \
+	-Og \
+	-g3 \
+	-Wall \
+	-Wextra \
+	-Wpedantic \
+	-fsanitize=address,undefined \
+	-I $(CLIBS)/criterion/include \
+	-L $(CLIBS)/criterion/lib \
+	-l criterion
+./out:
+	mkdir -pv ./out
+
+./out/%: %.c
+	$(CC) $(CFLAGS) $< -o $@
+
+clean:
+	rm -rfv ./out/*
+----
+
+Then we can simply do:
+
+[source,shell-session]
+----
+$ make ./out
+$ make ./out/myapp
+$ ./out/myapp
+----
