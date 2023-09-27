@@ -1,4 +1,5 @@
 = The C Programming Language
+:page-tags: c gcc clang tools gnu shell
 :toc: right
 :icons: fonts
 :stem: latexmath
@@ -8,9 +9,12 @@
 Unless otherwise noted, assume the the compiler flags include:
 
 * `-std=c99`
+* -Og
+* -g3
 * `-Wall`
-* `-pedantic`
-* `-g`
+* -Wextra
+* `-Wpedantic`
+* -fsanitize=address,undefined
 
 == Return status vs exit status
 
@@ -47,3 +51,78 @@ $ bear -- make foo
 ----
 
 The result will be a `compile_commands.json` in the current directory which contains the build info for the `foo` `make` target.
+
+== Criterion
+
+link:https://github.com/Snaipe/Criterion/releases[Download Criterion^] (if not installing from AUR or the package manager of
+your distro), and extract it to `$HOME/local/clibs`:
+
+[source,shell-session]
+----
+$ mkdir -pv ~/local/clibs
+mkdir: created directory '/home/devel/local/clibs'
+
+$ cd $?
+
+$ \curl -LO https://github.com/Snaipe/Criterion/releases/download/v2.4.2/criterion-2.4.2-linux-x86_64.tar.xz
+  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
+                                 Dload  Upload   Total   Spent    Left  Speed
+  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0
+100  852k  100  852k    0     0   180k      0  0:00:04  0:00:04 --:--:--  172k
+
+$ tree -C ./
+./
+└── criterion-2.4.2-linux-x86_64.tar.xz
+
+1 directory, 1 file
+
+$ tar -vxf ./criterion-2.4.2-linux-x86_64.tar.xz
+criterion-2.4.2/
+criterion-2.4.2/lib/
+criterion-2.4.2/lib/libcriterion.so.3.2.0
+criterion-2.4.2/lib/pkgconfig/
+...
+
+$ rm -v ./criterion-2.4.2-linux-x86_64.tar.xz
+removed './criterion-2.4.2-linux-x86_64.tar.xz'
+----
+
+And maybe rename `criterion-<version>` to simply `criterion` to make
+later commands easier:
+
+[source,shell-session]
+----
+$ mv -v ./criterion{-2.4.2,}
+renamed './criterion-2.4.2' -> './criterion'
+----
+
+Then, C files including Criterion tests must compiled with correct flags
+to include Criterion header files and proper linking:
+
+[source,shell-session]
+----
+$ make -f ./Makefile_dev \
+  ./out/spin_words_v1 && LD_LIBRARY_PATH="${LD_LIBRARY_PATH}:$HOME/local/clibs/criterion/lib"
+
+$ gcc \
+  -std=c99 \
+  -Og \
+  -g3 \
+  -Wall \
+  -Wextra \
+  -Wpedantic \
+  -fsanitize=address,undefined \
+  -I ~/local/clibs/criterion/include \
+  -L ~/local/clibs/criterion/lib \
+  -lcriterion \
+  ./myapp.c \
+  -o ./myapp
+----
+
+And when running the compiled code, specify Creterion's library path:
+
+[source,shell-session]
+----
+$ LD_LIBRARY_PATH="${LD_LIBRARY_PATH}:$HOME/local/clibs/criterion/lib" \
+  ./myapp
+----
