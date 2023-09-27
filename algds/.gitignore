@@ -1,0 +1,11 @@
+#
+# algds/.gitignore
+#
+
+##
+# Currently, I generate `compile_commands.json` (using `bear`) to help
+# with tooling on my editor. As I sometimes program on different
+# machines, the paths do not exactly match so I'm ignoring this json
+# file.
+#
+compile_commands.json
