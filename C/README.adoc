@@ -9,12 +9,12 @@
 Unless otherwise noted, assume the the compiler flags include:
 
 * `-std=c99`
-* -Og
-* -g3
+* `-Og`
+* `-g3`
 * `-Wall`
-* -Wextra
+* `-Wextra`
 * `-Wpedantic`
-* -fsanitize=address,undefined
+* `-fsanitize=address,undefined`
 
 == Return status vs exit status
 
