@@ -9,7 +9,7 @@
 #   $ ./out/solution_v1
 #   $ ./out/solution_v2
 #
-
+#
 #
 # See man pages for:
 #
@@ -17,10 +17,26 @@
 # • ld(1)
 # • ld.so(8)
 #
+#
+#
+# See notes on Criterion:
+#
+# • https://github.com/devhowto/devnotes/tree/main/C#criterion
+#
+##
 
+CLIBS=$(HOME)/local/clibs
 CC=gcc
-CFLAGS=-std=c99 -Og -g3 -Wall -Wextra -Wpedantic -fsanitize=address,undefined -I ~/local/clibs/criterion/include -L ~/local/clibs/criterion/lib -lcriterion
-
+CFLAGS=-std=c99 \
+	-Og \
+	-g3 \
+	-Wall \
+	-Wextra \
+	-Wpedantic \
+	-fsanitize=address,undefined \
+	-I $(CLIBS)/criterion/include \
+	-L $(CLIBS)/criterion/lib \
+	-l criterion
 ./out:
 	mkdir -pv ./out
 
