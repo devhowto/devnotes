@@ -5,81 +5,85 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include <criterion/criterion.h>
 
-// void strdup(const char* src, char* dst) {
-//   while ((*dst++ = *src++) != '\0')
-//     ;
-//
-//   *dst = '\0';
-// }
+void sdup(const char* src, char* dst) {
+  while ((*dst++ = *src++))
+    ;
+}
 
-void str_rev(char* src, char* dst, short len) {
+void strrev(char* src, char* dst) {
   short i = 0;
-  short j = len - 1;
+  short j = strlen(src);
 
-  *(dst + (len - 1)) = '\0';
+  *(dst + j--) = '\0';
 
-  while (i < len)
+  while ((j >= 0)) {
     *(dst + j--) = *(src + i++);
+  }
 }
 
 void spin_words(const char* s, char* r) {
-  // Copy so we own cpy mem.
-  char* cpy =  malloc(strlen(s) + 1);
-  char* tok;
+  char* cpy = malloc(strlen(s) + 1);
+  sdup(s, cpy);
   short cnt = 0;
-
-  cpy = strdup(s);
-
-  tok = strtok(cpy, " ");
+  char* tok = strtok(cpy, " ");
 
   while (tok != NULL) {
-    short l = strlen(tok);
+    char* rev = malloc(strlen(tok) + 1);
 
-    if (l >= 5) {
-      char* rev = malloc(l);
+    if (cnt++ != 0)
+      strcat(r, " ");
 
-      str_rev(tok, rev, l);
-
-      if (cnt++ != 0)
-        strcat(r, " ");
-
+    if (strlen(tok) >= 5) {
+      strrev(tok, rev);
       strcat(r, rev);
     }
     else {
-      if (cnt++ != 0)
-        strcat(r, " ");
-
       strcat(r, tok);
     }
 
     tok = strtok(NULL, " ");
+
+    free(rev);
   }
+
+  free(cpy);
 }
 
-int main(void) {
-  char* s0 = "Welcome";
-  char* w0 = malloc(strlen(s0));
-  char* s1 = "Use the force Luke";
-  char* w1 = malloc(strlen(s1));
-  char* s2 = "red hat hell";
-  char* w2 = malloc(strlen(s2));
-  char* s3 = "allocate enough memory";
-  char* w3 = malloc(strlen(s3));
+void tester(const char *sentence, char *result);
 
-  spin_words(s0, w0);
-  spin_words(s1, w1);
-  spin_words(s2, w2);
-  spin_words(s3, w3);
-
-  printf("\n");
-  printf("%s\n%s\n\n", s0, w0);
-  printf("%s\n%s\n\n", s1, w1);
-  printf("%s\n%s\n\n", s2, w2);
-  printf("%s\n%s\n\n", s3, w3);
-
-  return 0;
+Test(Example_Tests, should_pass_all_the_tests_provided) {
+  tester("Welcome",              "emocleW"             );
+  tester("spam",                 "spam"                );
+  tester("This is a test",       "This is a test"      );
+  tester("This is another test", "This is rehtona test");
 }
+
+void tester(const char *sentence, char *expected) {
+  char submitted[30 * 14 + 1];
+
+  spin_words(sentence, (char *)&submitted);
+
+  if (strcmp(submitted, expected)) {
+    cr_assert_fail(
+      "Sentence:  \"%s\"\n \nSubmitted: \"%s\"\n \nExpected:  \"%s\"\n \n",
+      sentence,             submitted,            expected
+    );
+  }
+
+  cr_assert(1);
+}
+
+// int main(void) {
+//   char s[] = "The source is wicked with these ones.";
+//   char w[200];
+//   spin_words(s, w);
+//
+//   printf("%s\n", w);
+//
+//   return 0;
+// }
 
 //
 // $ make ./out/spin_words_v1 && ./out/spin_words_v1

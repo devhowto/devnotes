@@ -10,9 +10,16 @@
 #   $ ./out/solution_v2
 #
 
-CC=clang
-# CFLAGS=-std=c99 -g3 -Wall -Wextra -Wpedantic
-CFLAGS=-std=c99 -Wall -Wextra -Wpedantic -I ./criterion/include -L ./criterion/lib -lcriterion
+#
+# See man pages for:
+#
+# • ldd(1)
+# • ld(1)
+# • ld.so(8)
+#
+
+CC=gcc
+CFLAGS=-std=c99 -Og -g3 -Wall -Wextra -Wpedantic -fsanitize=address,undefined -I ~/local/clibs/criterion/include -L ~/local/clibs/criterion/lib -lcriterion
 
 ./out:
 	mkdir -pv ./out
