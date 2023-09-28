@@ -52,7 +52,7 @@ SELECT
 FROM city;
 ----
 
-Again, writting the column names explicitly makes it more self-documenting than simply using `*`.
+Again, writing the column names explicitly makes it more self-documenting than simply using `*`.
 
 == Select By ID
 
@@ -96,7 +96,6 @@ FROM station;
 == Weather Observation Station 2
 
 * https://www.hackerrank.com/challenges/weather-observation-station-2[Weather Observation Station 2 :: HackerRank SQL Challenge].
-
 
 [source,sql]
 ----
