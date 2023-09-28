@@ -67,3 +67,26 @@ Once again!
 ====
 Depending on how GnuPG and/or `gpg-agent` is set up on your computer, you may or may not be prompted for passwords at any given time.
 ====
+
+[TIP]
+====
+It may be necessary to prevent errors or warning messages to be sent to STDOUT, which would make the script text invalid.
+Maybe, something like this:
+
+[source,shell-session]
+----
+$ 2> /dev/null gpg -dq ./script.sh.gpg | bash -s - 'Once again!'
+Once again!
+----
+====
+
+== Other Cases
+
+This is also quite useful over ssh.
+Send your script to remote, read back its output
+
+[source,shell-session]
+----
+gpg -dq ./script.gpg 2>/dev/null | bash -s -- <args...>
+---
+
