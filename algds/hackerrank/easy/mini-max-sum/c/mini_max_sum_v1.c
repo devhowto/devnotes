@@ -6,9 +6,7 @@ struct MinMax {
   short max;
 };
 
-
-
-struct MinMax mini_max_sum(short xs[], short len) {
+struct MinMax mini_max_sum(short* xs, short len) {
   struct MinMax minmax;
   short min = *xs;
   short max = *xs;
@@ -30,14 +28,14 @@ struct MinMax mini_max_sum(short xs[], short len) {
   return minmax;
 }
 
-void tester(short input[], short len, struct MinMax expected);
+void tester(short* input, short len, struct MinMax expected);
 
 Test(Mini_Max_Sum_Tests, should_pass) {
   struct MinMax rmm;
   rmm.min = 10;
   rmm.max = 14;
 
-  tester((short[]) {1, 2, 3, 4, 5}, 5, rmm);
+  tester((short[]) { 4, 5, 1, 3, 2 }, 5, rmm);
 }
 
 void tester(short input[], short len, struct MinMax expected) {
