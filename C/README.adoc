@@ -154,6 +154,7 @@ CFLAGS=-std=c99 \
 	-I $(CLIBS)/criterion/include \
 	-L $(CLIBS)/criterion/lib \
 	-l criterion
+
 ./out:
 	mkdir -pv ./out
 
@@ -172,3 +173,7 @@ $ make ./out
 $ make ./out/myapp
 $ ./out/myapp
 ----
+
+== Resources
+
+* link:https://stevens.netmeister.org/631/[Advanced Programming in the UNIX Environment CS631 - APUE by Jan Schaumann^]
