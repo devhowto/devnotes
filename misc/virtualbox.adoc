@@ -1,0 +1,11 @@
+= VirtualBox
+:page-tags: virtualbox vbox vboxmanage cli command-line
+:toc: left
+:icons: font
+
+== VBoxManage
+
+[source,shell-session]
+----
+$ VBoxManage list vms
+----
