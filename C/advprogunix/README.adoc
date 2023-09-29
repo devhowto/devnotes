@@ -1,0 +1,49 @@
+= Advanced Programming in The UNI Environment
+:page-subitle: Notes and code on the course Advanced Programming in the UNIX Environment by Jan Schaumann
+:page-tags: c advanced programming unix linux
+:toc: left
+:icons: font
+:imagesdir: ../__assets
+
+* link:https://stevens.netmeister.org/631/[Advanced Programming in the UNIX Environment CS631 - APUE by Jan Schaumann^]
+* link:https://www.youtube.com/@cs631apue[Youtube playlist^]
+
+== Week 1
+
+* link:https://stevens.netmeister.org/631/01-basics.pdf[Week 1, Segment 3 (PDF)^]
+
+Read `man man` and understand about manual sections.
+
+.Exerpt of `man man`:
+
+[source,text]
+----
+The  table below shows the section numbers of the manual followed by the types
+of pages they contain.
+
+1   Executable programs or shell commands
+2   System calls (functions provided by the kernel)
+3   Library calls (functions within program libraries)
+4   Special files (usually found in /dev)
+5   File formats and conventions, e.g. /etc/passwd
+6   Games
+7   Miscellaneous (including macro packages  and  conventions),  e.g.  man(7),
+    groff(7), man-pages(7)
+8   System administration commands (usually only for root)
+9   Kernel routines [Non standard]
+----
+
+So for example, we could have `printf` in section 1 for user shell commands, and `printf` in section 3 for the C library function.
+`write` is found on section 1, but also on section 2 as a system call function.
+And so on and so forth.
+
+Fetch code examples:
+
+[source,shell-session]
+----
+$ mkdir -v ./advprogunix
+
+$ ftp https://stevens.netmeister.org/631/apue-code.tar.gz
+
+$ tar -xvf ./apue-code.tar.gz
+----
