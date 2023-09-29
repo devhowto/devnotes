@@ -1,0 +1,65 @@
+# Debian on Virtual Box
+:page-subtitle: Installing Debian on Virtual Box in an Arch Linux Host
+:page-tags: debian server virtual-box linux
+:imagesdir: ./__assets
+:toc: left
+:icons: font
+
+== Install
+
+[source,shell-session]
+----
+$ sudo pacman \
+    --sync \
+    --needed \
+    virtualbox \
+    virtualbox-host-modules-arch \
+    virtualbox-guest-iso
+----
+
+Then load the modules:
+
+[source,shell-session]
+----
+$ sudo modprobe vboxdrv
+$ sudo modprobe vboxnetadp
+----
+
+Add two network interfaces.
+A NAT one, and a Host-Only one.
+
+For Host-Only, in Virtual Box, go to File -> Tools -> Network Manager and create a Host-Only network.
+It will likely be named “vboxnet0”.
+On VM settings, add a NAT network and a Host-Only networking using the one just created.
+
+Install Debian and let the installer configure the NAT interface.
+
+Then, from a Debian shell:
+
+[source,shell-session]
+----
+$ sudo vim /etc/network/interfaces
+----
+
+Add something like this:
+
+[source,shell-session]
+----
+allow-hotplug enp0s8
+iface enp0s8 inet dhcp
+----
+
+Then restart the networking:
+
+[source,shell-session]
+----
+$ sudo systemctl restart networking.service
+----
+
+From the host machine, it should now be possible to SSH into the Debian on VBox:
+
+[source,shell-session]
+----
+ssh deveng@192.168.56.101
+----
+
