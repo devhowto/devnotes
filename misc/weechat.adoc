@@ -54,6 +54,25 @@ Auth:
 
 See link:https://weechat.org/files/doc/stable/weechat_user.en.html#irc_smart_filter[FAQ on filters^].
 
+== UI and colors
+
+Try different color numbers, like 0, 3, 11, etc.
+
+Buflist bg color:
+
+[source,text]
+----
+/set buflist.format.buffer_current "${color:,3}${format_buffer}"
+----
+
+Title/topic bar:
+
+[source,text]
+----
+/set weechat.bar.title.color_bg 0
+/set weechat.bar.title.color_bg 3
+----
+
 == References
 
 * link:https://weechat.org/files/doc/stable/weechat_quickstart.en.html[Weechat Quick Start^]
