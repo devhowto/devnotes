@@ -1,5 +1,5 @@
 //
-// tags: codewars haskell algorithm string
+// tags: codewars C algorithm string
 //
 
 #include <stdio.h>
