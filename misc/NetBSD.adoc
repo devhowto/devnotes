@@ -19,3 +19,17 @@ Reboot:
 $ su root -c 'shutdown -r now'
 ----
 
+== Search and Install Packages
+
+Search, for example:
+
+[source,shell-session]
+----
+$ pkgin search nerd-fonts
+----
+
+[source,shell-session]
+----
+$ su root -c 'pkgin install tree vim nerd-fonts-AnonymousPro'
+----
+
