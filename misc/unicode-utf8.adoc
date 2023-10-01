@@ -134,3 +134,4 @@ On VSCode, in the user `settings.json`, because I use the vim extensions, I have
 INFINITY ∞:: 0x221e ++&infin;++
 LAMBDA λ:: 0x03bb
 BOTTOM ⊥:: 0x22a5
+Symbol For Horizontal Tabulation ␉:: 0x2409
