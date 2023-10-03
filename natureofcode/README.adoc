@@ -1,0 +1,34 @@
+= Nature Of Code Book Notes
+:page-tags: math javascript physics simulation animation
+:toc: left
+:icons: font
+
+My notes and code samples from link:https://nature-of-code-2nd-edition.netlify.app/[The Nature of Code 2nd edition^].
+
+== Setup
+
+Download link:https://github.com/processing/p5.js/releases[p5.js] and place it next to this `README.adoc` file.
+The `.html` file includes the `p5.js` file.
+
+== Commits
+
+The commit message uses "noc" (nature of code) as the type and the chapter number as the scope. E.g:
+
+[source,text]
+----
+noc(00): First example
+noc(00): Move ball
+noc(01): Message here
+noc(07): Message...
+----
+
+When it makes sense, also include a body as well:
+
+[source,text]
+----
+noc(00): First example
+
+This change introduces the first example of how to properly setup
+p5.js with a simple HTML page and how to use the `setup()` and
+`draw()` functions.
+----
