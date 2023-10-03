@@ -1,6 +1,7 @@
 = Nature Of Code Book Notes
 :page-tags: math javascript physics simulation animation
-:toc: left
+:source-highlighter: highlight.js
+:toc:
 :icons: font
 
 My notes and code samples from link:https://nature-of-code-2nd-edition.netlify.app/[The Nature of Code 2nd edition^].
@@ -31,4 +32,26 @@ noc(00): First example
 This change introduces the first example of how to properly setup
 p5.js with a simple HTML page and how to use the `setup()` and
 `draw()` functions.
+----
+
+== Code
+
+Even though I follow the examples in the book, I sometimes name variables and functions in a different way.
+I may also use JavaScript constructs in a different (improved? more modern?) at times.
+For example, instead of this:
+
+[source,javascript]
+----
+const nums = [];
+const len = 20;
+
+for (let i = 0; i < nums.length; ++i)
+  nums[i] = 0;
+----
+
+I may do something like this instead:
+
+[source,javascript]
+----
+const nums = Array(20).fill(0);
 ----
