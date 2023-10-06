@@ -10,8 +10,18 @@
 #   $ ./out/solution_v2
 #
 
+CLIBS=$(HOME)/local/clibs
 CC=gcc
-CFLAGS=-std=c99 -Wall -pedantic -g
+CFLAGS=-std=c99 \
+	-Og \
+	-g3 \
+	-Wall \
+	-Wextra \
+	-Wpedantic \
+	-fsanitize=address,undefined \
+	-I $(CLIBS)/criterion/include \
+	-L $(CLIBS)/criterion/lib \
+	-l criterion
 
 ./out:
 	mkdir -pv ./out
@@ -19,5 +29,5 @@ CFLAGS=-std=c99 -Wall -pedantic -g
 ./out/%: %.c
 	$(CC) $(CFLAGS) $< -o $@
 
-clear:
-	rm -v ./out/*
+clean:
+	rm -rfv ./out/*
