@@ -1,0 +1,9 @@
+#
+# .gitignore
+#
+
+##
+# Ignore `compile_commands.json` as we use it as editor tooling
+# but Makefiles for gcc/glang actual compilation.
+#
+compile_commands.json
