@@ -1,0 +1,20 @@
+= Patching
+:page-subtitle: Git
+:page-tags: git patch diff
+:toc:
+:icons: font
+
+== Save diff as patch
+
+[source,shell-session]
+----
+$ git diff -- ./nginx.conf 1> ~/local/patches/proj-nginx-fix.patch
+----
+
+Then later apply the patch without commit:
+
+[source,shell-session]
+----
+$ git apply ~/local/patches/proj-nginx-fix.patch
+----
+
