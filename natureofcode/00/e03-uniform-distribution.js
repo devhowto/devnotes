@@ -7,7 +7,7 @@
 // of random numbers.
 //
 
-const LEN = 18
+const LEN = 18;
 
 const randomCounts = Array(LEN).fill(0);
 
@@ -43,6 +43,7 @@ function draw() {
     rect(
       n * barWidth,
       height - randomCounts[n],
-      barWidth - 1, randomCounts[n],
+      barWidth - 1,
+      randomCounts[n],
     );
 }
