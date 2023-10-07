@@ -7,6 +7,11 @@
  *
  * A word is any number of characters delimited by a space or
  * the NULL terminator `\0`.
+ *
+ * What is interesting in this implementation is that it does not
+ * require splitting and joining the string. It performs a single pass
+ * over the input string, and for each word, does an inner loop that
+ * reverses the word.
  */
 void rev_words(char *s, char *r) {
   short cnt = 0, i, j;
@@ -55,12 +60,11 @@ void tester(char *str, char *expected) {
 
   rev_words(str, res);
 
-  if (strcmp(res, expected)) {
+  if (strcmp(res, expected))
     cr_assert_fail(
       "String: %s\nReversed: %s\nExpeted: %s",
               str,          res,     expected
     );
-  }
 
   cr_assert(1);
 }
