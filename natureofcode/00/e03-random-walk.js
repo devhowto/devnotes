@@ -1,5 +1,5 @@
 //
-// tags: random walk javascript math
+// tags: exercise random walk javascript math
 //
 
 //
