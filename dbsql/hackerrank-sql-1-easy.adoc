@@ -121,6 +121,11 @@ mydb=# SELECT ROUND(3.141592653589793, 5);
   round
 ---------
  3.14159
+
+mydb=# SELECT ROUND(3.14159, 2) AS PI;
+  pi
+------
+ 3.14
 ----
 
 So we basically round the result of the sum and rename the output columns as `lat` and `lon`.
