@@ -160,3 +160,28 @@ We also sort by city name in ascending order so if multiple cities have the same
 For each query, we limit by 1.
 
 Finally, the `UNION ALL` produces the final tabular structure with the result of the two _individual_ queries.
+
+== Weather Station Observation 7
+
+* link:https://www.hackerrank.com/challenges/weather-observation-station-7[Weather Station Observation 7 :: HackerRank SQL Challenge^]
+
+=== Solution 1 using ORs
+
+Simply using a lot of ``OR``'s to match city names ending in vowels.
+
+[source,sql]
+----
+SELECT DISTINCT city
+FROM station
+WHERE city LIKE '%a'
+OR city LIKE '%e'
+OR city LIKE '%i'
+OR city LIKE '%o'
+OR city LIKE '%u';
+----
+
+[NOTE]
+====
+Case sensitivity depends on a few things like collation and configuration.
+This solution worked on HackerRank so we are fine with it.
+====
