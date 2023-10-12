@@ -135,17 +135,28 @@ So we basically round the result of the sum and rename the output columns as `la
 
 [source,sql]
 ----
-(SELECT
-    city
-  , LENGTH(city) AS len_city
-FROM station
-ORDER BY len_city DESC, city ASC
-LIMIT 1)
-UNION ALL
-(SELECT
-    city
-  , LENGTH(city) as len_city
-FROM station
-ORDER BY len_city ASC, city ASC
-LIMIT 1);
+(
+  SELECT
+      city
+    , LENGTH(city) AS len
+  FROM station
+  ORDER BY len DESC, city ASC
+  LIMIT 1
+) UNION ALL (
+  SELECT
+      city
+    , LENGTH(city) AS len
+  FROM station
+  ORDER BY len ASC, city ASC
+  LIMIT 1
+);
 ----
+
+We basically have two queries.
+One that selects the city with lengthier name (`ORDER BY len DESC`), and another that selects the city with the shortest name (`ORDER BY len ASC`).
+
+We also sort by city name in ascending order so if multiple cities have the same max or min length, we choose the first one alphabetically.
+
+For each query, we limit by 1.
+
+Finally, the `UNION ALL` produces the final tabular structure with the result of the two _individual_ queries.
