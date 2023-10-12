@@ -1,0 +1,6 @@
+= Sum Digits Digital Root
+:page-subtitle: 6kyu Codewars Challenge
+:page-tags: codewars algorithm
+
+* link:https://www.codewars.com/kata/541c8630095125aba6000c00[Sum Digits Digital Root :: Codewars 6kyu Challenge^]
+
