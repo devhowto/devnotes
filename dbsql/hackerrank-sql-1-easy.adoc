@@ -3,7 +3,6 @@
 :icons: font
 :source-highlighter: highlight.js
 
-
 == Revising The Select Query I
 
 * https://www.hackerrank.com/challenges/revising-the-select-query[Revising the Select Query I :: HackerRank SQL Challenge].
@@ -129,3 +128,24 @@ mydb=# SELECT ROUND(3.14159, 2) AS PI;
 ----
 
 So we basically round the result of the sum and rename the output columns as `lat` and `lon`.
+
+== Weather Observation Station 5
+
+* link:https://www.hackerrank.com/challenges/weather-observation-station-5[Weather Observation Station 5 :: HackerRank SQL Challenge^]
+
+[source,sql]
+----
+(SELECT
+    city
+  , LENGTH(city) AS len_city
+FROM station
+ORDER BY len_city DESC, city ASC
+LIMIT 1)
+UNION ALL
+(SELECT
+    city
+  , LENGTH(city) as len_city
+FROM station
+ORDER BY len_city ASC, city ASC
+LIMIT 1);
+----
