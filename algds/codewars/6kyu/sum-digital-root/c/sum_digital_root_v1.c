@@ -1,3 +1,7 @@
+//
+// tags: c math sum digital-root recursion
+//
+
 #include <stdio.h>
 
 int sum_digits(int num, int acc) {
@@ -13,6 +17,10 @@ int sum_digits(int num, int acc) {
   return sum_digits(d, acc + r);
 }
 
+/**
+ * • T.C: O(n). We loop (through recursion over each digit.
+ * • S.C: O(1).
+ */
 int digital_root(int num) {
   if (num <= 9) return num;
 

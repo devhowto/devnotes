@@ -1,6 +1,85 @@
 = Sum Digits Digital Root
 :page-subtitle: 6kyu Codewars Challenge
 :page-tags: codewars algorithm
+:toc: left
+:source-highlighter: highlight.js
+:stem: latexmath
 
 * link:https://www.codewars.com/kata/541c8630095125aba6000c00[Sum Digits Digital Root :: Codewars 6kyu Challenge^]
 
+== C
+
+=== Solution 1 with recursion
+
+Using the recursive approach.
+
+[source,c]
+----
+#include <stdio.h>
+
+int sum_digits(int num, int acc) {
+  if (num <= 9) return num + acc;
+
+  // The remainder is the last digit.
+  int r = num % 10;
+
+  // The division without the remainder. This is an integer
+  // containing all digits except the last one.
+  int d = num / 10;
+
+  return sum_digits(d, acc + r);
+}
+
+/**
+ * • T.C: O(n). We loop (through recursion over each digit.
+ * • S.C: O(1).
+ */
+int digital_root(int num) {
+  if (num <= 9) return num;
+
+  int total = sum_digits(num, 0);
+
+  return digital_root(total);
+}
+
+int main(void) {
+  printf("%d\n", digital_root(16));
+  printf("%d\n", digital_root(942));
+  printf("%d\n", digital_root(132189));
+  printf("%d\n", digital_root(493193)); // 29,
+
+  return 0;
+}
+----
+
+=== Soluion 2 from number theory
+
+[source,c]
+----
+#include <stdio.h>
+
+/**
+ * • T.C: O(1). Just three arithmetic operations. No loops!
+ * • S.C: O(1).
+ */
+int digital_root(int num) {
+  return (num - 1) % 9 + 1;
+}
+
+int main(void) {
+  printf("%d\n", digital_root(16));
+  printf("%d\n", digital_root(942));
+  printf("%d\n", digital_root(132189));
+  printf("%d\n", digital_root(493193)); // 29,
+
+  return 0;
+}
+----
+
+Follows an explanation of the maths behind it by my friend Pedro Henrique Antônio de Oliveira.
+
+The solution steams from number theory.
+
+It is a known fact from number theory that stem:[n\mod{9}] (in C, `n % 9`) is the remainder of the division of the sum of the digits of stem:[n] by 9.
+
+Read more on link:https://discord.com/channels/321357556683636737/842471790415708190/1162045278635958364[this Discord thread (pt-br)^].
