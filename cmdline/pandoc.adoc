@@ -33,10 +33,10 @@ for file in *.xml
 do
 	pandoc \
     -s "$file" \
-    -f docbook "$f" \
+    -f docbook "$file" \
     -t gfm \
     --wrap=none \
-    -o "${f%.*}.md"
+    -o "${file%.*}.md"
 done
 ----
 
