@@ -24,7 +24,7 @@ From emacs, kbd:[C-h i m Emacs RET] kbd:[m Pages RET].
 
 In vim, the digraph is `FF`, or with which means we can insert them with kbd:[CTRL-K FF]
 Or, insert the char with kbd:[CTRL-V CTRL-L]
-Then one can search for those page breaks with something like kbd:[/CTRL-V CTRL-L] or kbd:[?CTRL-V CTRL-L] followed by kbd:[n] or kbd:[N] to search forwards and backwards.
+Then one can search for those page breaks with something like kbd:[CTRL-V CTRL-L] or kbd:[?CTRL-V CTRL-L] followed by kbd:[n] or kbd:[N] to search forwards and backwards.
 
 [TIP]
 ====
@@ -135,3 +135,27 @@ INFINITY ∞:: 0x221e ++&infin;++
 LAMBDA λ:: 0x03bb
 BOTTOM ⊥:: 0x22a5
 Symbol For Horizontal Tabulation ␉:: 0x2409
+Empty Set ∅:: 0x2205
+
+
+I sometimes use the Empty Set ∅ (0x2205) on `psql` to more clearly visualize NULL values:
+
+.psql session
+[source,text]
+----
+SQL> \pset null ∅
+Null display is "∅".
+
+SQL> SELECT col_a, col_b
+FROM tbl_a RIGHT OUTER JOIN tbl_b
+ON col_a = col_b;
+
+ col_a | col_b
+-------+-------
+     ∅ |   101
+   102 |   102
+   104 |   104
+   106 |   106
+     ∅ |   108
+(5 rows)
+----
