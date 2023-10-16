@@ -1,0 +1,563 @@
+= ch03 The FROM Clause
+:imagesdir: __assets
+:toc: left
+:icons: font
+
+== Intro
+
+----
+CREATE DATABASE simplysql_teamsgames_devel WITH
+    ENCODING='UTF-8'
+    OWNER=devel
+    LC_CTYPE='en_US.UTF-8'
+    LC_COLLATE='en_US.UTF-8'
+    TEMPLATE=template0
+    CONNECTION LIMIT=3;
+----
+
+The `FROM` clause is what produces the resulting tabular structure, which is referred to as the _result set_ of the `FROM` clause.
+It is sometimes also called the ***_intermediate result set_*** or ***********intermediate tabular result set***********, as that result can be further worked on by other clauses.
+
+Starting with the `FROM` clause makes sense because all the rest is "`derived`" from its result set and also because it is the first clause a database system looks into when evaluating queries.
+
+A DBMS parses SQL queries into component clauses, then it examines the syntax according to the syntax rules of each clause.
+The `FROM` clause is parsed first (rather than the `SELECT` clause, which comes first in the query syntax).
+
+----
+SELECT
+    id
+  , name
+FROM users;
+----
+
+If `SELECT` was parsed and examined first, a DBMS would have to inspect *all* tables to see which ones would have `id` and `name` columns (and indeed, some column names occur in many tables, like `id`, for example).
+
+By parsing and examining the `FROM` clause first, the DBMS can know right away which table(s) the columns are expected to be retrieved from.
+
+The `FROM` clause can read from:
+
+* single tables
+* join tables
+* views
+* derived tables (a.k.a.
+inline views) and subqueries
+
+== FROM One Table
+
+----
+SELECT
+    id
+  , name
+FROM teams;
+----
+
+There mus bet _at least_ one tabular structure to select from.
+
+== FROM More Than One Table Using Joins
+
+`JOIN` joins/combines/relates/associates two or more tables together (in one of several different ways), producing a _single tabular structure_.
+
+The _type of join_ is specified in the `FROM` clause using keywords _as well as_ using the keyword `JOIN`.
+
+A rule called a ***********join condition*********** is used to determine how the the results of the join are selected (to determine which rows should be joined).
+
+== Types of JOIN
+
+There are three types of joins with a total of five variations.
+
+* _inner join_, using the `INNER JOIN` keywords (including old style join).
+* _outer join_:
+ ** `LEFT OUTER JOIN`
+ ** `RIGHT OUTER JOIN`
+ ** `FULL OUTER JOIN`
+* _cross join_, created using the `CROSS JOIN` keywords
+
+----
+CREATE DATABASE simplysql_jointypes_devel WITH
+    ENCODING='UTF-8'
+    OWNER=devel
+    LC_CTYPE='en_US.UTF-8'
+    LC_COLLATE='en_US.UTF-8'
+    TEMPLATE=template0
+    CONNECTION LIMIT=3;
+----
+
+----
+SELECT col_a FROM tbl_a;     SELECT col_b FROM tbl_b;
+ col_a                             col_b
+-------                           -------
+   102                               101
+   104                               102
+   106                               104
+   107                               106
+(4 rows)                             108
+                                  (5 rows)
+----
+
+Observe that 107 in tbl_a does not exist in tbl_b.
+And 101 and 108 from tbl_b do not exist in tbl_a.
+
+== INNER JOIN
+
+For _inner join_, only rows satisfying the condition on the `ON` clause are returned in the result set.
+
+----
+SQL> SELECT col_a, col_b
+FROM tbl_a INNER JOIN tbl_b
+ON col_a = col_b;
+
+ col_a | col_b
+-------+-------
+   102 |   102
+   104 |   104
+   106 |   106
+(3 rows)
+----
+
+In this case, only rows which have the same value on both tables are returned.
+Rows that _match_ the condition are returned.
+
+=== WHERE clause JOIN (old style)
+
+There is an "`old style`" type of join which is performed on the `WHERE` clause.
+It is called "`old style join`", or "`comma list join`" or "`where clause join`" by people.
+
+----
+SQL> SELECT col_a, col_b
+FROM tbl_a, tbl_b
+WHERE col_a = col_b;
+
+ col_a | col_b
+-------+-------
+   102 |   102
+   104 |   104
+   106 |   106
+(3 rows)
+----
+
+This style only supports an inner join result.
+
+== OUTER JOIN
+
+If compared with *****_inner joins_*****, **********outer joins********** differ in the sense that *****_unmatched_***** rows can also be returned.+++<aside>+++💡 Outer joins include things that don't match, but also things that match (like if it was a more lax version of inner join).
+Don't think that somehow outer joins are the opposite of inner joins.
+Don't think like "`inner joins return rows that match, outer joins return rows that don't match.`" That is wrong.
+Again, outer joins returns both rows that match or don't match.+++</aside>+++
+
+=== LEFT OUTER JOIN
+
+All rows on the left table are returned regardless they have a matching row on the right table.
+
+Any table can be the left table or the right table.
+
+----
+
+SQL> \pset null '<null>'
+Null display is "<null>".
+
+SQL> SELECT col_a, col_b
+FROM tbl_a LEFT OUTER JOIN tbl_b
+ON col_a = col_b;
+
+ col_a | col_b
+-------+-------
+   102 |   102
+   104 |   104
+   106 |   106
+   107 | <null>
+(4 rows)
+
+SQL> \pset null ∅
+Null display is "∅".
+SQL> SELECT col_a, col_b
+FROM tbl_a LEFT OUTER JOIN tbl_b
+ON col_a = col_b;
+ col_a | col_b
+-------+-------
+   102 |   102
+   104 |   104
+   106 |   106
+   107 |     ∅
+(4 rows)
+----
+
+All values from `col_a` are returned, as we made `tbl_a` the _left_ table.
+
+107 in A does not have a matching value in B, but it was returned nonetheless because we used a _left outer join_ and made A the left table 🙂.
+And because there is no matching value on the _right_ table, the result set includes a null value for it!
+
+=== RIGHT OUTER JOIN
+
+All rows on the right table are returned, regardless if they have a matching row on the left table.
+
+----
+SQL> \pset null ∅
+Null display is "∅".
+
+SQL> SELECT col_a, col_b
+FROM tbl_a RIGHT OUTER JOIN tbl_b
+ON col_a = col_b;
+
+ col_a | col_b
+-------+-------
+     ∅ |   101
+   102 |   102
+   104 |   104
+   106 |   106
+     ∅ |   108
+(5 rows)
+----
+
+=== FULL OUTER JOIN
+
+All rows are returned, regardless whether they have a matching row on the _other_ table.
+It is the union of the result of the left and right outer joins.
+
+----
+SQL> SELECT col_a, col_b
+FROM tbl_a FULL OUTER JOIN tbl_b
+ON col_a = col_b;
+ col_a | col_b
+-------+-------
+   102 |   102
+   104 |   104
+   106 |   106
+   107 |     ∅
+     ∅ |   108
+     ∅ |   101
+(6 rows)
+----
+
+For a full outer join, it doesn't really mater which table is the left table and which one is the right table.
+
+== CROSS JOIN
+
+Every row for both tables are returned, regardless of whether they match, which is why there is no `ON` clause.
+
+Every row on one table will be combined with every row on the other table.
+
+----
+SQL> SELECT col_a, col_b FROM tbl_a CROSS JOIN tbl_b;
+ col_a | col_b
+-------+-------
+   102 |   101
+   102 |   102
+   102 |   104
+   102 |   106
+   102 |   108
+   104 |   101
+   104 |   102
+   104 |   104
+   104 |   106
+   104 |   108
+   106 |   101
+   106 |   102
+   106 |   104
+   106 |   106
+   106 |   108
+   107 |   101
+   107 |   102
+   107 |   104
+   107 |   106
+   107 |   108
+(20 rows)
+----
+
+It is the same as running this query (the results are exactly the same):
+
+----
+SELECT col_a, col_b FROM tbl_a, tbl_b;
+----
+
+== Real World Joins
+
+=== INNER JOIN
+
+----
+SQL> SELECT
+    categories.name
+  , entries.title
+  , entries.created
+FROM categories INNER JOIN entries
+  ON categories.category = entries.category;
+           name           |            title            |       created
+--------------------------+-----------------------------+---------------------
+ Humorous Anecdotes       | Uncle Karl and the Gasoline | 2009-02-28 00:00:00
+ Humorous Anecdotes       | Hello Statue                | 2009-03-17 00:00:00
+ Stories from the Id      | What If I Get Sick and Die? | 2008-12-30 00:00:00
+ Gentle Words of Advice   | Be Nice to Everybody        | 2009-03-02 00:00:00
+ Our Spectacular Universe | The Size of Our Galaxy      | 2009-04-03 00:00:00
+(5 rows)
+----
+
+**************IMPORTANT**************: Fist, a `FROM` clause produces an intermediate tabular result set, then, the `SELECT` clause selects what will be in the final result set.
+
+The FROM clause is parsed first, and it is also the one executed first.
+
+We could also create aliases to make it a bit shorter:
+
+----
+SELECT
+    c.name
+  , e.title
+  , e.created
+FROM categories AS c
+  INNER JOIN entries AS e
+    ON c.category = e.category;
+----
+
+But because we didn't use duplicate column names on the query, qualifying is not required for the examples above, and we could simplify to this:
+
+----
+SELECT
+    name
+  , title
+  , created
+FROM categories AS c
+  INNER JOIN entries AS e
+    ON c.category = e.category;
+----
+
+BUT...
+tell me from which table is the column `name` coming from?
+`categories` or `entries`?
+What about `title`?
+Is it the title of the category or the title of the entry?
+And how about `created`?
+Is it the created data of the category itself or the entry?
+Because of this, it is recommended, and considered good practice, to "`always`" qualify columns (even when not required) when there are joins involved in the query.
+Qualifying column names helps to make the queries more self-documenting.
+
+After a table name is aliased, the original table name can no longer be used for that query.
+If you make an alias, use the alias consistently for that query.
+
+=== LEFT OUTER JOIN
+
+----
+SQL> \pset null ∅
+Null display is "∅".
+
+SQL> SELECT
+    c.name
+  , e.title
+  , e.created
+FROM categories AS c
+  LEFT OUTER JOIN entries AS e
+    ON c.category = e.category;
+
+           name           |            title            |       created
+--------------------------+-----------------------------+---------------------
+ Log on to My Blog        | ∅                           | ∅
+ Humorous Anecdotes       | Uncle Karl and the Gasoline | 2009-02-28 00:00:00
+ Humorous Anecdotes       | Hello Statue                | 2009-03-17 00:00:00
+ Stories from the Id      | What If I Get Sick and Die? | 2008-12-30 00:00:00
+ Gentle Words of Advice   | Be Nice to Everybody        | 2009-03-02 00:00:00
+ Our Spectacular Universe | The Size of Our Galaxy      | 2009-04-03 00:00:00
+(6 rows)
+----
+
+Note the blog category does not have entries (yet), but its `name` column is still returned in the result set, and filled with null for the `title` and `created` columns on the `entries` table.
+
+NULL is a special value in SQL which represents (or stands for) the _absence of a value_.
+(not even an empty string).
+
+=== RIGHT OUTER JOIN
+
+----
+SQL> SELECT
+    c.name
+  , e.title
+  , e.created
+FROM categories AS c RIGHT OUTER JOIN entries AS e
+    ON c.category = e.category;
+           name           |            title            |       created
+--------------------------+-----------------------------+---------------------
+ Humorous Anecdotes       | Uncle Karl and the Gasoline | 2009-02-28 00:00:00
+ Humorous Anecdotes       | Hello Statue                | 2009-03-17 00:00:00
+ Stories from the Id      | What If I Get Sick and Die? | 2008-12-30 00:00:00
+ Gentle Words of Advice   | Be Nice to Everybody        | 2009-03-02 00:00:00
+ Our Spectacular Universe | The Size of Our Galaxy      | 2009-04-03 00:00:00
+(5 rows)
+----
+
+----
+FROM categories AS c LEFT OUTER JOIN entries AS e
+
+vs
+
+FROM entries AS e RIGHT OUTER JOIN categories AS c
+----
+
+The "`outer`" table will be the one which will have all of its rows in the result set.
+
+If we add an entry without a category, then the right outer join will show all entries and fill null ∅ for missing rows on the categories table.
+
+----
+SQL> SELECT
+    c.name
+  , e.title
+  , created
+FROM categories AS c RIGHT OUTER JOIN entries AS e
+ON c.category = e.category;
+
+           name           |            title            |       created
+--------------------------+-----------------------------+---------------------
+ Humorous Anecdotes       | Uncle Karl and the Gasoline | 2009-02-28 00:00:00
+ Humorous Anecdotes       | Hello Statue                | 2009-03-17 00:00:00
+ Stories from the Id      | What If I Get Sick and Die? | 2008-12-30 00:00:00
+ Gentle Words of Advice   | Be Nice to Everybody        | 2009-03-02 00:00:00
+ Our Spectacular Universe | The Size of Our Galaxy      | 2009-04-03 00:00:00
+ ∅                        | Windows Media Center Rocks  | 2009-04-29 00:00:00
+(6 rows)
+----
+
+=== FULL OUTER JOIN
+
+NOTE: In MySQL versions around the year 2009, the full outer join syntax was not yet supported.
+
+Full outer join include unmatched rows from both the left _and_ the right tables, because both tables are outer tables.
+
+----
+SQL> SELECT
+    c.name
+  , e.title
+  , created
+FROM categories AS c FULL OUTER JOIN entries AS e
+ON c.category = e.category;
+
+           name           |            title            |       created
+--------------------------+-----------------------------+---------------------
+ Log on to My Blog        | ∅                           | ∅
+ Humorous Anecdotes       | Uncle Karl and the Gasoline | 2009-02-28 00:00:00
+ Humorous Anecdotes       | Hello Statue                | 2009-03-17 00:00:00
+ Stories from the Id      | What If I Get Sick and Die? | 2008-12-30 00:00:00
+ Gentle Words of Advice   | Be Nice to Everybody        | 2009-03-02 00:00:00
+ Our Spectacular Universe | The Size of Our Galaxy      | 2009-04-03 00:00:00
+ ∅                        | Windows Media Center Rocks  | 2009-04-29 00:00:00
+(7 rows)
+----
+
+=== UNION Queries
+
+If full outer joins are not supported by your DB vendor, a union query can help, even though they are not joins per se.
+One can think of them as two result sets concatenated together.
+
+The basic idea for the syntax is
+
+----
+...left outer join...
+UNION
+...right outer join...
+----
+
+----
+SELECT
+    c.name
+  , e.title
+  , e.created
+FROM categories AS c LEFT OUTER JOIN entries AS e
+ON c.category = e.category
+UNION
+SELECT
+    c.name
+  , e.title
+  , created
+FROM categories AS c RIGHT OUTER JOIN entries AS e
+ON c.category = e.category;
+
+           name           |            title            |       created
+--------------------------+-----------------------------+---------------------
+ Our Spectacular Universe | The Size of Our Galaxy      | 2009-04-03 00:00:00
+ Stories from the Id      | What If I Get Sick and Die? | 2008-12-30 00:00:00
+ Gentle Words of Advice   | Be Nice to Everybody        | 2009-03-02 00:00:00
+ Humorous Anecdotes       | Hello Statue                | 2009-03-17 00:00:00
+ Log on to My Blog        | ∅                           | ∅
+ Humorous Anecdotes       | Uncle Karl and the Gasoline | 2009-02-28 00:00:00
+ ∅                        | Windows Media Center Rocks  | 2009-04-29 00:00:00
+(7 rows)
+----
+
+Observe the the use of `LEFT` and `RIGHT` outer joins, and the use of `UNION` between the two `SELECT` clauses.
+
+Because the `SELECT` clauses are not on their own, but rather _subordinate_ to the `UNION` query, The `SELECT` clauses are called *************subselects************* in this context.
+They can sometimes more or less informally be referred to as subqueries in this context.
+
+A join is like an horizontal concatenation where columns are appended/concatenated to the right (or left), while a union is more like a vertical concatenation, where rows are appended/concatenated to the end of the first result set.
+And duplicates are removed.
+
+image::unions-sets-2023-10-16T11-50-18-246Z.png[Union, Sets]
+
+Because `UNION` removes duplicate rows, there is also `UNION ALL` which doesn't bother removing duplicate rows, which means it is faster (even though it produces a larger result set) because it doesn't have to scan for duplicate rows.
+
+A union is somewhat like a full outer join and can be used when a DB vendor does not support full outer joins.
+
+Union queries, like join queries, produce a tabular result set.
+
+== Views
+
+----
+CREATE VIEW entries_with_category AS
+SELECT
+    entries.title
+  , entries.created
+  , categories.name AS category_name
+FROM entries
+INNER JOIN categories
+ON entries.category = categories.category;
+----
+
+Now we can select from the view, just like if it was a table:
+
+----
+SELECT
+    title
+  , created
+  , category_name
+FROM entries_with_category;
+
+title            |       created       |      category_name
+-----------------------------+---------------------+--------------------------
+ Uncle Karl and the Gasoline | 2009-02-28 00:00:00 | Humorous Anecdotes
+ Hello Statue                | 2009-03-17 00:00:00 | Humorous Anecdotes
+ What If I Get Sick and Die? | 2008-12-30 00:00:00 | Stories from the Id
+ Be Nice to Everybody        | 2009-03-02 00:00:00 | Gentle Words of Advice
+ The Size of Our Galaxy      | 2009-04-03 00:00:00 | Our Spectacular Universe
+(5 rows)
+----
+
+When we select from a view, the underlying queries for that view are executed, and stored in an intermediate tabular result set, to which the original `FROM` then reads from.
+
+Only column names defined in the view are available to queries that use the view.
+Columns from the original tables are hidden.
+
+== Subqueries and Derived Tables
+
+Derived tables are temporary tables created with subqueries.
+Derived tables are sometimes called ******************inline views****************** as they are like an on-the-fly, temporary view.
+
+----
+SELECT
+    title
+  , category_name
+FROM
+  (
+        SELECT
+                entries.title
+      , entries.created
+      , categories.name AS category_name
+    FROM categories INNER JOIN entries
+        ON categories.category = entries.category
+  ) AS entries_with_categories;
+
+            title            |      category_name
+-----------------------------+--------------------------
+ Uncle Karl and the Gasoline | Humorous Anecdotes
+ Hello Statue                | Humorous Anecdotes
+ What If I Get Sick and Die? | Stories from the Id
+ Be Nice to Everybody        | Gentle Words of Advice
+ The Size of Our Galaxy      | Our Spectacular Universe
+(5 rows)
+----
+
+The subquery (inside parentheses) was given a name using `AS` at the end.
+It produces a tabular structure, and `FROM` can read from any tabular structure.

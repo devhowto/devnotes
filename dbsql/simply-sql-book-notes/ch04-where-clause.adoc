@@ -1,0 +1,63 @@
+= ch04 WHERE Clause
+:doctype: book
+
+`FROM` clause produces a tabular structure, a.k.a.
+_result set_.
+
+The `WHERE` clause is option, but when present, it acts like a filter on the rows of the result set produced by the `FROM` clause.
+
+The `WHERE` clause, more than any other clause, determines how performant our queries will be.
+
+= Conditions
+
+----
+WHERE <condition that evaluate as TRUE>
+----
+
+Example:
+
+----
+SELECT name
+FROM teams
+WHERE id = 9;
+----
+
+A condition is some expression that can be evaluated by the database system, which may result in `TRUE`, `FALSE` or `UNKNOWN`.
+
+The `WHERE` clause evaluates the truth of the condition for every row.
+
+Only one row can possibly have the 9 as its `id` (as IDs have to be unique, no two entities can have the same ID).
+
+`FROM` produces all rows, then the condition _filters out_ all rows whose `id` is not 9.
+It returns `FALSE` for those rows.
+Only the row with `id = 9` will produce `TRUE`.
+
+----
+SELECT name
+FROM teams
+WHERE NOT id = 9;
+
+SELECT name
+FROM teams
+WHERE id <> 9;
+----
+
+`NOT` negates the truthy value.
+`<>` can be read as "`less than or greater than 9 (but not 9).`"
+
+The condition expressions have to produce `TRUE`, even though we want all rows where `id = 9` is `FALSE`.
+
+A `WHERE` clause can include a `NOT` keyword.
+And several conditions logically connected form a **************************compound condition**************************.
+
+Avoid using the non-standard `!=`, supported by some DB vendors.
+
+----
+CREATE DATABASE simplysql_cart_devel WITH
+    ENCODING='UTF-8'
+    OWNER=devel
+    LC_CTYPE='en_US.UTF-8'
+    LC_COLLATE='en_US.UTF-8'
+    TEMPLATE=template0
+    CONNECTION LIMIT=3;
+----
