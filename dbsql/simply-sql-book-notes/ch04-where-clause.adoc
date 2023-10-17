@@ -64,3 +64,52 @@ CREATE DATABASE simplysql_cart_devel WITH
     TEMPLATE=template0
     CONNECTION LIMIT=3;
 ----
+
+[TIP]
+====
+PostgreSQL DB dumps are on my cloud share.
+====
+
+`NULL` can mean a few things (have several interpretations), including _unknown_, _not applicable_, _missing_ (in case of outer joins).
+For the `items` table, when the price is `NULL`, the best interpretation is _unknown_.
+
+If an item has price 2.22, then `...WHERE price = 2.22` is `TRUE`, and `WHERE price = 2.21` is `FALSE`.
+If `price` is `NULL`, the result is `FALSE` (as 2.22 is not `NULL`), but we can also say it is `UNKNOWN`, as the price of the item itself is `UNKNOWN``.
+
+The SQL standard says that `NULL` is not equal to anything, including another `NULL`.
+Similar to `NaN` in ECMAScript, which is not equal to anything, including not being equal to itself:
+
+.psql session to test NULL
+[source,text]
+----
+mydb=# \pset null '∅'
+Null display is "∅".
+mydb=# SELECT 1 = 1 AS res;
+ res
+-----
+ t
+(1 row)
+
+mydb=# SELECT 1 = NULL AS res;
+ res
+-----
+ ∅
+(1 row)
+
+mydb=# SELECT NULL = NULL AS res;
+ res
+-----
+ ∅
+(1 row)
+----
+
+.node REPL session to test NaN
+[source,text]
+----
+> 1 === NaN
+false
+> NaN === NaN
+false
+> Number.isNaN(NaN)
+true
+----
