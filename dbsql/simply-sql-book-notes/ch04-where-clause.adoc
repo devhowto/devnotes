@@ -4,6 +4,11 @@
 :toc: left
 :icons: font
 
+[NOTE]
+====
+Notes from the book with my own extra explanations.
+====
+
 `FROM` clause produces a tabular structure, a.k.a.
 _result set_.
 
@@ -55,6 +60,8 @@ And several conditions logically connected form a *compound condition*.
 
 Avoid using the non-standard `!=`, supported by some DB vendors.
 
+== Shopping Carts
+
 ----
 CREATE DATABASE simplysql_cart_devel WITH
     ENCODING='UTF-8'
@@ -73,7 +80,7 @@ PostgreSQL DB dumps are on my cloud share.
 `NULL` can mean a few things (have several interpretations), including _unknown_, _not applicable_, _missing_ (in case of outer joins).
 For the `items` table, when the price is `NULL`, the best interpretation is _unknown_.
 
-If an item has price 2.22, then `...WHERE price = 2.22` is `TRUE`, and `WHERE price = 2.21` is `FALSE`.
+If an item has price 2.22, then `WHERE price = 2.22` is `TRUE`, and `WHERE price = 2.21` is `FALSE`.
 If `price` is `NULL`, the result is `FALSE` (as 2.22 is not `NULL`), but we can also say it is `UNKNOWN`, as the price of the item itself is `UNKNOWN``.
 
 The SQL standard says that `NULL` is not equal to anything, including another `NULL`.
@@ -113,3 +120,8 @@ false
 > Number.isNaN(NaN)
 true
 ----
+
+``NULL``'s are a tricky topic.
+The `WHERE` clause only retains rows for which the condition evaluates to `TRUE`, so conditions that evaluate to `FALSE` _or_ `UNKNOWN` are filtered out nonetheless.
+
+== The End
