@@ -124,4 +124,32 @@ true
 ``NULL``'s are a tricky topic.
 The `WHERE` clause only retains rows for which the condition evaluates to `TRUE`, so conditions that evaluate to `FALSE` _or_ `UNKNOWN` are filtered out nonetheless.
 
+== Operators
+
+There are other operators besides the “equal to” (`=`) and the “not equal to”  (the standard `<>` or the non-standard `!=`).
+
+=== Comparison Operators
+
+Besides equality, it is possible to check whether a value is _less than_ or _more than_ some other value.
+
+These operators can be used with characters, numbers and dates, among some other potential types:
+
+equal to:: `=`
+not equal to:: `<>` (or the non-standard `!=`)
+less than:: `<`
+less than or equal to:: `pass:[<=]`
+greater than:: `>`
+greater than or equal to:: `>=`
+
+[TIP]
+====
+Text and strings are compared based on the __collating sequence__ or simply __collation__.
+
+See:
+
+* link:https://en.wikipedia.org/wiki/Collation[Collation (Wikipedia)^]
+* link:https://www.postgresql.org/docs/current/collation.html[Collation Support (PostgreSQL Docs)^]
+* link:https://mariadb.com/kb/en/setting-character-sets-and-collations/[Setting Character Sets and Collations (MariDB docs)^]
+====
+
 == The End
