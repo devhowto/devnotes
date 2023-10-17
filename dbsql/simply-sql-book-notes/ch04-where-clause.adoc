@@ -1,5 +1,8 @@
 = ch04 WHERE Clause
-:doctype: book
+:page-subtitle: Simply SQL (book notes) | Databases and SQL
+:page-tags: database sql book note
+:toc: left
+:icons: font
 
 `FROM` clause produces a tabular structure, a.k.a.
 _result set_.
@@ -8,7 +11,7 @@ The `WHERE` clause is option, but when present, it acts like a filter on the row
 
 The `WHERE` clause, more than any other clause, determines how performant our queries will be.
 
-= Conditions
+== Conditions
 
 ----
 WHERE <condition that evaluate as TRUE>
@@ -48,7 +51,7 @@ WHERE id <> 9;
 The condition expressions have to produce `TRUE`, even though we want all rows where `id = 9` is `FALSE`.
 
 A `WHERE` clause can include a `NOT` keyword.
-And several conditions logically connected form a **************************compound condition**************************.
+And several conditions logically connected form a *compound condition*.
 
 Avoid using the non-standard `!=`, supported by some DB vendors.
 

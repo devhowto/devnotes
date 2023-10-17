@@ -1,4 +1,8 @@
 = ch02 SELECT Statement
+:page-subtitle: Simply SQL (book notes) | Databases and SQL
+:page-tags: database sql book note
+:toc: left
+:icons: font
 
 == SELECT
 
@@ -75,7 +79,7 @@ The query _selected_ two columns _from_ a table producing a tabular result.
 == WHERE
 
 `WHERE` is optional and when used acts as a _filter_.
-It specifies a **************condition**************.
+It specifies a *condition*.
 In this case, filter entries whose ID is exactly 524.
 
 ----
@@ -99,7 +103,7 @@ Here, `id` was used in the `WHERE` clause but not in the `SELECT` clause.
 
 == GROUP BY
 
-`GROUP BY` is ***************aggregation***************.
+`GROUP BY` is *aggregation*.
 It produces a single row per group.
 
 ----

@@ -1,4 +1,8 @@
 = ch03 The FROM Clause
+:page-subtitle: Simply SQL (book notes) | Databases and SQL
+:page-tags: database sql book note
+:toc: left
+:icons: font
 :imagesdir: __assets
 :toc: left
 :icons: font
@@ -16,7 +20,7 @@ CREATE DATABASE simplysql_teamsgames_devel WITH
 ----
 
 The `FROM` clause is what produces the resulting tabular structure, which is referred to as the _result set_ of the `FROM` clause.
-It is sometimes also called the ***_intermediate result set_*** or ***********intermediate tabular result set***********, as that result can be further worked on by other clauses.
+It is sometimes also called the *_intermediate result set_* or *intermediate tabular result set*, as that result can be further worked on by other clauses.
 
 Starting with the `FROM` clause makes sense because all the rest is "`derived`" from its result set and also because it is the first clause a database system looks into when evaluating queries.
 
@@ -59,7 +63,7 @@ There mus bet _at least_ one tabular structure to select from.
 
 The _type of join_ is specified in the `FROM` clause using keywords _as well as_ using the keyword `JOIN`.
 
-A rule called a ***********join condition*********** is used to determine how the the results of the join are selected (to determine which rows should be joined).
+A rule called a *join condition* is used to determine how the the results of the join are selected (to determine which rows should be joined).
 
 == Types of JOIN
 
@@ -67,9 +71,9 @@ There are three types of joins with a total of five variations.
 
 * _inner join_, using the `INNER JOIN` keywords (including old style join).
 * _outer join_:
- ** `LEFT OUTER JOIN`
- ** `RIGHT OUTER JOIN`
- ** `FULL OUTER JOIN`
+ * `LEFT OUTER JOIN`
+ * `RIGHT OUTER JOIN`
+ * `FULL OUTER JOIN`
 * _cross join_, created using the `CROSS JOIN` keywords
 
 ----
@@ -139,7 +143,7 @@ This style only supports an inner join result.
 
 == OUTER JOIN
 
-If compared with *****_inner joins_*****, **********outer joins********** differ in the sense that *****_unmatched_***** rows can also be returned.+++<aside>+++💡 Outer joins include things that don't match, but also things that match (like if it was a more lax version of inner join).
+If compared with *_inner joins_*, *outer joins* differ in the sense that *_unmatched_* rows can also be returned.+++<aside>+++💡 Outer joins include things that don't match, but also things that match (like if it was a more lax version of inner join).
 Don't think that somehow outer joins are the opposite of inner joins.
 Don't think like "`inner joins return rows that match, outer joins return rows that don't match.`" That is wrong.
 Again, outer joins returns both rows that match or don't match.+++</aside>+++
@@ -290,7 +294,7 @@ FROM categories INNER JOIN entries
 (5 rows)
 ----
 
-**************IMPORTANT**************: Fist, a `FROM` clause produces an intermediate tabular result set, then, the `SELECT` clause selects what will be in the final result set.
+*IMPORTANT*: Fist, a `FROM` clause produces an intermediate tabular result set, then, the `SELECT` clause selects what will be in the final result set.
 
 The FROM clause is parsed first, and it is also the one executed first.
 
@@ -479,7 +483,7 @@ ON c.category = e.category;
 
 Observe the the use of `LEFT` and `RIGHT` outer joins, and the use of `UNION` between the two `SELECT` clauses.
 
-Because the `SELECT` clauses are not on their own, but rather _subordinate_ to the `UNION` query, The `SELECT` clauses are called *************subselects************* in this context.
+Because the `SELECT` clauses are not on their own, but rather _subordinate_ to the `UNION` query, The `SELECT` clauses are called *subselects* in this context.
 They can sometimes more or less informally be referred to as subqueries in this context.
 
 A join is like an horizontal concatenation where columns are appended/concatenated to the right (or left), while a union is more like a vertical concatenation, where rows are appended/concatenated to the end of the first result set.
@@ -533,7 +537,7 @@ Columns from the original tables are hidden.
 == Subqueries and Derived Tables
 
 Derived tables are temporary tables created with subqueries.
-Derived tables are sometimes called ******************inline views****************** as they are like an on-the-fly, temporary view.
+Derived tables are sometimes called *inline views* as they are like an on-the-fly, temporary view.
 
 ----
 SELECT
