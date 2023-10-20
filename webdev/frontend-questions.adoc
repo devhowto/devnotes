@@ -45,3 +45,16 @@ Read more:
 * link:https://medium.com/@Rahulx1/understanding-event-loop-call-stack-event-job-queue-in-javascript-63dcd2c71ecd[Understanding Event Loop, Call Stack, Event & Job Queue in Javascript^]
 =====
 ====
+
+== Q3
+
+[role="qanda"]
+====
+Talk about the pros and cons of promises vs callbacks.
+
+.Show me!
+[%collapsible]
+=====
+
+=====
+====
