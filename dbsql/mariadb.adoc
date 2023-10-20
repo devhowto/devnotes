@@ -1,0 +1,33 @@
+= MariaDB
+:toc: left
+:icons: font
+:source-highlighter: highlight.js
+
+== macOS
+
+[source,shell-session]
+----
+$ brew install mariadb
+
+$ mysql.server start
+----
+
+Then run `mysql_secure_installation`.
+Select a password for root, and delete the anonymous user and the test database.
+
+Login as `root` and create a user for local development/studying purposes:
+
+----
+$ mysql --user root --password
+
+MariaDB [(none)]> CREATE USER 'deveng'@'localhost' IDENTIFIED BY '1234';
+MariaDB [(none)]> GRANT ALL PRIVILEGES ON *.* TO 'deveng'@'localhost' WITH GRANT OPTION;
+
+MariaDB [(none)]> SELECT user, host FROM mysql.user;
+
+MariaDB [(none)]> SHOW GRANTS FOR 'deveng'@'localhost';
+----
+
+----
+CREATE DATABASE blog CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+----
