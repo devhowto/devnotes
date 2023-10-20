@@ -3,7 +3,7 @@
 :icons: font
 :source-highlighter: highlight.js
 
-== macOS
+== Install MariaDB on macOS
 
 [source,shell-session]
 ----
@@ -12,7 +12,12 @@ $ brew install mariadb
 $ mysql.server start
 ----
 
-Then run `mysql_secure_installation`.
+== General Initial Steps
+
+No mater the operating system, these are useful first steps for a local study or development system.
+
+Run `sudo mysql_secure_installation`.
+
 Select a password for root, and delete the anonymous user and the test database.
 
 Login as `root` and create a user for local development/studying purposes:
@@ -28,6 +33,11 @@ MariaDB [(none)]> SELECT user, host FROM mysql.user;
 MariaDB [(none)]> SHOW GRANTS FOR 'deveng'@'localhost';
 ----
 
+Then create a database and switch context to that database:
+
 ----
-CREATE DATABASE blog CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+MariaDB [(none)]> CREATE DATABASE blog CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+MariaDB [(none)]> USE blog;
 ----
+
+The prompt should now show `MariaDB [blog]>` instead of `MariaDB [(none)]>`.
