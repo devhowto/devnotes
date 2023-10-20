@@ -3,6 +3,7 @@
 :page-tags: database sql book note
 :toc: left
 :icons: font
+:source-highlighter: highlight.js
 
 [NOTE]
 ====
@@ -151,5 +152,28 @@ See:
 * link:https://www.postgresql.org/docs/current/collation.html[Collation Support (PostgreSQL Docs)^]
 * link:https://mariadb.com/kb/en/setting-character-sets-and-collations/[Setting Character Sets and Collations (MariDB docs)^]
 ====
+
+For example, to filter based on a created date greater than or equal to some date:
+
+[source,sql]
+----
+SELECT
+    id
+  , title
+  , created
+FROM entries
+WHERE created >= '2009-01-01';
+----
+
+[source,example]
+----
+ id  |            title            |       created
+-----+-----------------------------+---------------------
+ 537 | Be Nice to Everybody        | 2009-03-02 00:00:00
+ 573 | Hello Statue                | 2009-03-17 00:00:00
+ 598 | The Size of Our Galaxy      | 2009-04-03 00:00:00
+ 524 | Uncle Karl and the Gasoline | 2009-02-28 00:00:00
+(4 rows)
+----
 
 == The End
