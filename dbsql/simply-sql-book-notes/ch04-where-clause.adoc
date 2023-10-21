@@ -177,7 +177,7 @@ WHERE created >= '2009-01-01';
 (4 rows)
 ----
 
-== The LIKE Operator
+=== The LIKE Operator
 
 The `LIKE` operator allows for pattern matching on strings using wild card characters.
 
@@ -224,4 +224,47 @@ WHERE name LIKE 'thing__';
  thingie | widgets
  thingum | gizmos
 ----
+
+=== The BETWEEN Operator
+
+The `BETWEEN` operator checks if a value is between the range of two values, inclusive.
+
+[source,sql]
+----
+SELECT
+    name
+  , type
+  , price
+FROM items
+WHERE price BETWEEN 4.00 AND 10.00
+ORDER BY price ASC;
+----
+
+[source,text]
+----
+    name    |  type   | price
+------------+---------+-------
+ folderol   | doodads |  4.00
+ gewgaw     | widgets |  5.00
+ jigger     | gizmos  |  6.00
+ thingie    | widgets |  9.37
+ gimmick    | doodads |  9.37
+ dingbat    | gizmos  |  9.37
+ knickknack | doodads | 10.00
+----
+
+Note that `WHERE price BETWEEN 4 and 10` is the same as:
+
+[source,sql]
+----
+WHERE price >= 5 AND price <= 10
+----
+
+Or
+
+[source,sql]
+----
+WHERE 5 <= price AND price <= 10
+----
+
 == The End
