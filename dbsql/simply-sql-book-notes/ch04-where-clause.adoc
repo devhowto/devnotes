@@ -267,4 +267,21 @@ Or
 WHERE 5 <= price AND price <= 10
 ----
 
+And to select something since the last 3 days:
+
+[source,sql]
+----
+SELECT title, created
+FROM entries
+WHERE created BETWEEN CURRENT_DATE - INTERVAL 5 DAY
+              AND CURRENT_DATE;
+----
+
+PostgreSQL's syntax is something like `INTERVAL '5 days'`.
+
+[WARNING]
+====
+When selecting between time intervals, make sure the earlier date comes before the later date, or no matches will be returned.
+====
+
 == The End
