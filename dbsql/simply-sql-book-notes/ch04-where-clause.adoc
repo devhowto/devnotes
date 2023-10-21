@@ -284,4 +284,28 @@ PostgreSQL's syntax is something like `INTERVAL '5 days'`.
 When selecting between time intervals, make sure the earlier date comes before the later date, or no matches will be returned.
 ====
 
+An example with constant dates:
+
+[source,sql]
+----
+SELECT title, created
+FROM entries
+WHERE created BETWEEN '2001-01-01' AND '2001-01-23';
+----
+
+For February, that can have 28 or 29 days, it is probably best to use compound condition with an _open-ended upper end point_:
+
+[source,sql]
+----
+SELECT title, created
+FROM entries
+WHERE '2009-02-01' <= created AND created < '2009-03-01';
+----
+
+Note the correct use of `pass:[<=]` and `<` for this particular case.
+We calculate the first day of the following month, but do not include it in the results 🤣.
+This query will correctly match a date range that includes all the days in the month of February.
+Clever and simple at the same time.
+
+
 == The End
