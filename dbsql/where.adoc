@@ -1,6 +1,6 @@
-= ch04 WHERE Clause
-:page-subtitle: Simply SQL (book notes) | Databases and SQL
-:page-tags: database sql book note
+= The WHERE Clause
+:page-subtitle: Databases and SQL
+:page-tags: sql where db
 :toc: left
 :icons: font
 :source-highlighter: highlight.js
@@ -90,21 +90,21 @@ Similar to `NaN` in ECMAScript, which is not equal to anything, including not be
 .psql session to test NULL
 [source,text]
 ----
-mydb=# \pset null '∅'
+SQL> \pset null '∅'
 Null display is "∅".
-mydb=# SELECT 1 = 1 AS res;
+SQL> SELECT 1 = 1 AS res;
  res
 -----
  t
 (1 row)
 
-mydb=# SELECT 1 = NULL AS res;
+SQL> SELECT 1 = NULL AS res;
  res
 -----
  ∅
 (1 row)
 
-mydb=# SELECT NULL = NULL AS res;
+SQL> SELECT NULL = NULL AS res;
  res
 -----
  ∅
@@ -309,6 +309,8 @@ Clever and simple at the same time.
 
 == Compound Conditions with AND and OR
 
+=== OR
+
 [source,sql]
 ----
 SELECT name
@@ -316,6 +318,37 @@ FROM masters
 WHERE name = 'Aayla Secura'
   OR  name = 'Ahsoka Tano';
 ----
+
+=== AND
+
+[source,sql]
+----
+SELECT name, level
+FROM masters
+WHERE name = 'Yoda'
+AND level = 100;
+----
+
+[WARNING]
+====
+`AND` has higher precedence than `OR`.
+====
+
+This query:
+
+[source,sql]
+----
+WHERE c1 = A OR c2 = B AND c3 = C
+----
+
+Can be rewritten as this:
+
+[source,sql]
+----
+WHERE c1 = A OR (c2 = B AND c3 = C)
+----
+
+That is because `AND` has higher precedence than `OR`.
 
 === C
 
