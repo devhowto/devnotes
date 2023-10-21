@@ -133,7 +133,8 @@ There are other operators besides the “equal to” (`=`) and the “not equal 
 
 Besides equality, it is possible to check whether a value is _less than_ or _more than_ some other value.
 
-These operators can be used with characters, numbers and dates, among some other potential types:
+These operators can be used with numbers, strings and dates.
+Numbers are compared in numerically, strings alphabetically, and dates chronologically.
 
 equal to:: `=`
 not equal to:: `<>` (or the non-standard `!=`)
@@ -176,4 +177,51 @@ WHERE created >= '2009-01-01';
 (4 rows)
 ----
 
+== The LIKE Operator
+
+The `LIKE` operator allows for pattern matching on strings using wild card characters.
+
+In standard SQL, `LIKE` provides two wildcards:
+
+The underscore ‘`_`’:: Match exactly one character (similar to
+‘`.`’ in regex).
+Percent sign ‘`%`’:: Match zero or more characters (similar to ‘`.*`’ in regex).
+
+[source,sql]
+----
+SELECT
+    name
+  , type
+FROM items
+WHERE name LIKE 'thing%';
+----
+
+[source,text]
+----
+    name     |  type
+-------------+---------
+ thingie     | widgets
+ thingamajig | widgets
+ thingamabob | doodads
+ thingum     | gizmos
+----
+
+Match “thing” followed by any (and only) two other characters:
+
+[source,sql]
+----
+SELECT
+    name
+  , type
+FROM items
+WHERE name LIKE 'thing__';
+----
+
+[source,text]
+----
+  name   |  type
+---------+---------
+ thingie | widgets
+ thingum | gizmos
+----
 == The End
