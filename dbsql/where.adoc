@@ -422,5 +422,68 @@ WHERE name = 'Aayla Secura'
 WHERE name NOT = 'Aayla Secura'
 ----
 
+== IN with Subqueries
+
+A query creates a tabular structure.
+If we use a query that returns a single-column structure, that tabular result set can be passed as the data for the `IN` condition.
+
+[source,sql]
+----
+SELECT
+  cartitems.item_id
+FROM
+  cartitems
+INNER JOIN carts
+  ON carts.id = cartitems.cart_id
+WHERE carts.customer_id = 750;
+----
+
+----
+ item_id
+---------
+    5913
+    5912
+    5937
+    5913
+----
+
+We now have a list of item IDs (note 5913 shows up twice; maybe that customer bought it more than once).
+
+Let's feed that result to a query to get those items' names using an `IN` condition:
+
+[source,sql]
+----
+SELECT
+  id
+, name
+FROM
+  items
+WHERE
+  id IN (
+    SELECT
+      cartitems.item_id
+    FROM
+      cartitems
+    INNER JOIN carts
+      ON carts.id = cartitems.cart_id
+    WHERE
+      carts.customer_id = 750
+  );
+----
+
+In the end, the `IN` with the subquery is just like this:
+
+[source,sql]
+----
+SELECT
+  id
+, name
+FROM
+  items
+WHERE
+  id IN (5913, 5912, 5937, 5913);
+----
+
+As a reminder, a subquery produces a result which, “from the eyes of the man query”, is just like a table the outer query can select from.
 
 == The End
