@@ -364,7 +364,13 @@ It may be good advice to use explicit parenthesis when writing compound conditio
 It will improve understanding and reduce the chance of some semantic errors.
 ====
 
-=== C
+== Conditional ANDs and ORs
 
+Sometimes applications need to create `WHERE` clause in which conditions are optional (particularly for search forms).
+
+Because the `WHERE` clause requires at least one condition expression, instead of writing complicated logic to know whether or not a `WHERE` clause will be needed, you may like these better:
+
+* For ``WHERE ... AND``, simply start with `WHERE 1 = 1` and then conditionally continue with any ``AND``'s that may be required.
+* Similarly, for ``WHERE ... OR``, start with `WHERE 1 = 0` and then conditionally add any `OR`'s that may be required.
 
 == The End
