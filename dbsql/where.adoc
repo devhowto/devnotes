@@ -7,7 +7,7 @@
 
 [NOTE]
 ====
-Notes from the book with my own extra explanations.
+Notes from the book Simply SQL with my own extra explanations and examples.
 ====
 
 `FROM` clause produces a tabular structure, a.k.a.
@@ -372,5 +372,55 @@ Because the `WHERE` clause requires at least one condition expression, instead o
 
 * For ``WHERE ... AND``, simply start with `WHERE 1 = 1` and then conditionally continue with any ``AND``'s that may be required.
 * Similarly, for ``WHERE ... OR``, start with `WHERE 1 = 0` and then conditionally add any `OR`'s that may be required.
+
+== IN Conditions
+
+The `IN` condition checks if _any_ of the values inside the parentheses match, the condition evaluates as `TRUE`.
+
+[source,sql]
+----
+SELECT name, level
+FROM masters
+WHERE name IN ('Aayla Secura', 'Ahsoka Tano')
+AND battle_count > 7;
+----
+
+It is like the `IN` condition reads as “if this, or this, or this other, etc.”
+
+.From Simply SQL book
+[source,sql]
+----
+WHERE
+  customers.name IN ('A. Jones', 'B. Smith')
+    AND items.name = 'thingum';
+----
+
+And to negate the condition, one of these are valid:
+
+[source,sql]
+----
+SELECT name, level
+FROM masters
+WHERE NOT (name IN ('Aayla Secura', 'Ahsoka Tano'))
+
+SELECT name, level
+FROM masters
+WHERE name NOT IN ('Aayla Secura', 'Ahsoka Tano')
+----
+
+Note that `NOT` does not work with all operators:
+
+.OK
+[source,sql]
+----
+WHERE name = 'Aayla Secura'
+----
+
+.NOT OK
+[source,sql]
+----
+WHERE name NOT = 'Aayla Secura'
+----
+
 
 == The End
