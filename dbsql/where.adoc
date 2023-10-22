@@ -338,10 +338,18 @@ This query:
 
 [source,sql]
 ----
-WHERE c1 = A OR c2 = B AND c3 = C
+WHERE c1 = A OR c1 = B
+  AND c2 = C
 ----
 
-Can be rewritten as this:
+Especially because the first `OR` and the two first equality comparisons are write on their on line, it is easy to think this query means this:
+
+[source,sql]
+----
+WHERE (c1 = A OR c1 = B) AND c2 = C
+----
+
+But it actually means this:
 
 [source,sql]
 ----
@@ -349,6 +357,12 @@ WHERE c1 = A OR (c2 = B AND c3 = C)
 ----
 
 That is because `AND` has higher precedence than `OR`.
+
+[TIP]
+====
+It may be good advice to use explicit parenthesis when writing compound conditions with `AND` and `OR`.
+It will improve understanding and reduce the chance of some semantic errors.
+====
 
 === C
 
