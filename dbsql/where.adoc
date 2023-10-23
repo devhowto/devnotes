@@ -486,4 +486,54 @@ WHERE
 
 As a reminder, a subquery produces a result which, “from the eyes of the man query”, is just like a table the outer query can select from.
 
+== Correlated Subqueries
+
+A correlated subquery is one that refers to (and therefore is dependent on) the parent query to be valid.
+
+It makes a reference, via a correlation variable, to the outer main query.
+
+A query that selects the latest entry (based on the `created` date) for each category:
+
+[source,sql]
+----
+SELECT
+  title
+, category
+, created
+FROM
+  entries AS t
+WHERE
+  created = (
+    SELECT
+      MAX(created)
+    FROM
+      entries
+    WHERE
+      category = t.category
+  );
+----
+
+Because of the `t.category`, it is like if it will _loop_ and find the latest entry for each category in turn.
+
+Each entry's created date is compared with the max created date returned for the subquery.
+Instead of something like
+
+[source,text]
+----
+WHERE created = '2001-01-23'
+----
+
+we instead compare created with the resultant date produced by the correlated subquery
+
+[source,text]
+----
+WHERE created = <resulting date from subquery>
+----
+
+In other words, if the entry's created date is the equal to the created date found by the subquery, that entry is returned in the result set.
+
+A subquery is tied to an object from the outer, main query.
+A join is part of the main query.
+Otherwise, they are similar and in many cases, correlated subqueries can be rewritten as joins.
+
 == The End
