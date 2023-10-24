@@ -9,7 +9,7 @@ Use kramdown, which is better suited than pandoc as it has more AsciiDoc-sensibl
 
 [source,shell-session]
 ----
-$ gem install kramdown
+$ gem install kramdown kramdown-asciidoc
 
 $ for file in ./*.md ; do
     kramdoc \
