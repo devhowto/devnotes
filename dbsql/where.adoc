@@ -536,4 +536,26 @@ A subquery is tied to an object from the outer, main query.
 A join is part of the main query.
 Otherwise, they are similar and in many cases, correlated subqueries can be rewritten as joins.
 
+[source,sql]
+----
+SELECT
+  t.title
+, t.category
+, t.created
+FROM
+  entries AS t
+    INNER JOIN (
+      SELECT
+        category
+      , MAX(created) AS maxdate
+      FROM
+        entries
+      GROUP BY category
+    ) AS m
+      ON m.category = t.category
+        AND m.maxdate = t.created;
+----
+
+The subquery produces one row per category, and each row contains the latest date for that category (which is aliased as a derived table `m`)
+
 == The End
