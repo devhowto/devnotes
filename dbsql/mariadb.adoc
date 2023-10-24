@@ -40,4 +40,44 @@ MariaDB [(none)]> CREATE DATABASE blog CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_c
 MariaDB [(none)]> USE blog;
 ----
 
+“ci” means _case insensitive_.
+
 The prompt should now show `MariaDB [blog]>` instead of `MariaDB [(none)]>`.
+
+Create a `posts` table:
+
+[source,sql]
+----
+CREATE TABLE posts (
+  id INTEGER PRIMARY KEY AUTO_INCREMENT NOT NULL,
+  title VARCHAR(96) NOT NULL,
+  intro VARCHAR(256),
+  body TEXT
+) ENGINE=InnoDB CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+----
+
+Insert some data into the `posts` table:
+
+[source,sql]
+----
+INSERT INTO posts (
+  id,
+  title,
+) VALUES (
+  1,
+  'First post'
+);
+
+INSERT INTO posts (
+  title,
+  intro
+) VALUES
+(
+  '2nd Post',
+  'Intro to second post'
+),
+(
+  'Learning the ways of the force',
+  'Intro to the ways of the force'
+);
+----
