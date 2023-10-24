@@ -558,4 +558,48 @@ FROM
 
 The subquery produces one row per category, and each row contains the latest date for that category (which is aliased as a derived table `m`)
 
+== EXISTS
+
+Similar to an `IN` condition with a subquery, the `EXISTS` condition merely needs the subquery to return _any_ rows at all in order for it to evaluate to `TRUE`.
+
+Select all customers which have items in the cart:
+
+[source,sql]
+----
+SELECT
+  id
+, name
+FROM
+  customers
+WHERE
+  EXISTS (
+    SELECT 1 AS yes
+      FROM
+        carts
+      WHERE
+        carts.customer_id = customers.id
+    );
+----
+
+Select all customers which do not have items in the cart:
+
+[source,sql]
+----
+SELECT
+  id
+, name
+FROM
+  customers
+WHERE
+  NOT EXISTS (
+    SELECT 1 AS yes
+      FROM
+        carts
+      WHERE
+        carts.customer_id = customers.id
+    );
+
+----
+
+
 == The End
