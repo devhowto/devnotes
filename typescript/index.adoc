@@ -45,3 +45,17 @@ Those two steps, type-checking and transpiling are done in separate steps and ar
 Code could be failing to type-check correctly, but `tsc` will still emit JS.
 
 People sometimes incorrectly say “My TypeScript code doesn’t compile.”, when they should really be saying “My TypeScript code does not type-check.”, as TypeScript code with type errors still compiles.
+
+== package.json
+
+Sometimes we are using a version of a library and need a different version for its type definitions:
+
+.package.json
+[source,json]
+----
+"overrides": {
+  "types-ramda": "0.29.4"
+}
+----
+
+See link:https://github.com/ramda/ramda/issues/3415#issuecomment-1758719123[Ramda issue^].
