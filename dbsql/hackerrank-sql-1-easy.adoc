@@ -10,17 +10,20 @@
 [source,sql]
 ----
 SELECT
-    id
-  , name
-  , countrycode
-  , district
-  , population
-FROM city
-WHERE population >= 100000
-AND countrycode = 'USA';
+  id
+, name
+, countrycode
+, district
+, population
+FROM
+  city
+WHERE
+  population >= 100000
+AND
+  countrycode = 'USA';
 ----
 
-We can replace all column names with the start `*`, but this is more readable as all column names are explicitly stated in the query.
+We can replace all column names with the star `*`, but it is more readable if all column names are explicitly stated in the query.
 
 Also, we could use `LIKE` in place of `=` for this case: `... AND countrycode LIKE 'USA'`.
 
@@ -30,10 +33,13 @@ Also, we could use `LIKE` in place of `=` for this case: `... AND countrycode LI
 
 [source,sql]
 ----
-SELECT name
-FROM city
-WHERE population > 120000
-AND countrycode LIKE 'USA';
+SELECT
+  name
+FROM
+  city
+WHERE
+  population >= 120000
+    AND countrycode = 'USA';
 ----
 
 == Select All
@@ -43,12 +49,13 @@ AND countrycode LIKE 'USA';
 [source,sql]
 ----
 SELECT
-    id
-  , name
-  , countrycode
-  , district
-  , population
-FROM city;
+  id
+, name
+, countrycode
+, district
+, population
+FROM
+  city;
 ----
 
 Again, writing the column names explicitly makes it more self-documenting than simply using `*`.
@@ -60,13 +67,15 @@ Again, writing the column names explicitly makes it more self-documenting than s
 [source,sql]
 ----
 SELECT
-    id
-  , name
-  , countrycode
-  , district
-  , population
-FROM city
-WHERE id = 1661;
+  id
+, name
+, countrycode
+, district
+, population
+FROM
+  city
+WHERE
+  id = 1661;
 ----
 
 == Japanese Cities' Attributes
@@ -75,9 +84,16 @@ WHERE id = 1661;
 
 [source,sql]
 ----
-SELECT name
-FROM city
-WHERE countrycode = 'JPN';
+SELECT
+  id
+, name
+, countrycode
+, district
+, population
+FROM
+  city
+WHERE
+  countrycode = 'JPN';
 ----
 
 == Weather Observation Station 1
