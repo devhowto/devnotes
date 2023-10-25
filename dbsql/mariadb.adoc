@@ -81,3 +81,18 @@ INSERT INTO posts (
   'Intro to the ways of the force'
 );
 ----
+
+== Dump and Restore
+
+[source,shell-session]
+----
+$ mysqldump \
+    -u devel \
+    -p1234 \
+    mydb \
+    | sed 's/utf8\( \+\|_\)/utf8mb4\1/g' \
+    | mysql \
+        -u devel \
+        -p1234 \
+        newdb
+----
