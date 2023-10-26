@@ -1,0 +1,45 @@
+= zipWith
+:page-subtitle: Functional Programming Patterns
+:page-tags: ramda javascript functional-programming
+
+== Intro
+
+The example every tutorial (or docs, for that mater), give: apply some math operation on pairs of values from two lists.
+
+=== JavaScript
+
+[source,javascript]
+----
+import {
+  add,
+  zipWith,
+} from 'ramda';
+
+
+const xs = [1, 2, 3];
+const ys = [10, 20, 30];
+
+zipWith(add, xs, ys);
+//=> [11, 22, 33]
+----
+
+== Colors
+
+[source,javascript]
+----
+import { zipWith } from 'ramda';
+
+const colorHexes = ["#ff0000", "#00ff00", "#0000ff"];
+const colorNames = ["Red", "Green", "Blue"];
+
+function toTuple(name, hex) {
+  return [name, hex];
+}
+
+zipWith(toTuple, colorNames, colorHexes)
+//=> [
+//=>   [ 'Red', '#ff0000' ],
+//=>   [ 'Green', '#00ff00' ],
+//=>   [ 'Blue', '#0000ff' ],
+//=> ]
+----
