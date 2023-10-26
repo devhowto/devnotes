@@ -295,9 +295,44 @@ The comparison could be like this too:
 price >= 4.00 AND price <= 10.00
 ----
 ======
-
 =====
 ====
+
+=== Q7
+
+Application: Shopping Cart.
+
+[role="qanda"]
+====
+Select the fields `id`, `name` and `billaddr` for customers whose name is either “A. Jones” or “B. Smith”.
+
+.Show me!
+[%collapsible]
+=====
+[source,sql]
+----
+SELECT
+  id
+, name
+, billaddr
+FROM
+  customers
+WHERE
+     name = 'A. Jones'
+  OR name = 'B. Smith';
+----
+
+.Result
+[source,text]
+----
+ id  |   name   |          billaddr
+-----+----------+----------------------------
+ 710 | A. Jones | 123 Sesame St., Eureka, KS
+ 730 | B. Smith | 456 Sesame St., Eureka, KS
+----
+=====
+====
+
 
 === Question TMP
 
