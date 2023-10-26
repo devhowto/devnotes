@@ -216,6 +216,89 @@ WHERE
 =====
 ====
 
+=== Q6
+
+Application: Shopping Cart.
+
+[role="qanda"]
+====
+Select the fields `name` and `price` for items with price ranging from 5.00 to 10.00, inclusive.
+Do it using the `BETWEEN` operator and then using comparison operators.
+
+.Show me!
+[%collapsible]
+=====
+Using between:
+
+[source,sql]
+----
+SELECT
+  name
+, price
+FROM
+  items
+WHERE
+  price BETWEEN 4.00 AND 10.00;
+----
+
+.Result
+[source,text]
+----
+    name    | price
+------------+-------
+ folderol   |  4.00
+ gewgaw     |  5.00
+ jigger     |  6.00
+ thingie    |  9.37
+ gimmick    |  9.37
+ dingbat    |  9.37
+ knickknack | 10.00
+ (7 rows)
+----
+Using comparison operators:
+
+[source,sql]
+----
+SELECT
+  name
+, price
+FROM
+  items
+WHERE
+  4.00 <= price AND price <= 10.00
+ORDER BY price ASC;
+----
+
+.Result
+[source,text]
+----
+    name    | price
+------------+-------
+    name    | price
+------------+-------
+ folderol   |  4.00
+ gewgaw     |  5.00
+ jigger     |  6.00
+ thingie    |  9.37
+ gimmick    |  9.37
+ dingbat    |  9.37
+ knickknack | 10.00
+(7 rows)
+----
+
+[NOTE]
+======
+The comparison could be like this too:
+
+[source]
+----
+price >= 4.00 AND price <= 10.00
+----
+======
+
+=====
+====
+
 === Question TMP
 
 Application: Shopping Cart.
