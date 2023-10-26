@@ -333,6 +333,58 @@ WHERE
 =====
 ====
 
+=== Q8
+
+Application: Shopping Cart.
+
+[role="qanda"]
+====
+Select the user name, cart id, and items id on that cart where the user is either “A. Smith” or “B. Jones” and the name of the items they bought is “thingum”.
+
+You'll need to join four tables for this.
+Careful with the precedence of `AND` over `OR`.
+
+.Show me!
+[%collapsible]
+=====
+[source,sql]
+----
+SELECT
+  customers.name AS customer
+, carts.id       AS cart
+, items.name     AS item
+FROM
+  customers
+INNER JOIN carts
+  ON carts.customer_id = customers.id
+INNER JOIN cartitems
+  ON cartitems.cart_id = carts.id
+INNER JOIN items
+  ON items.id = cartitems.item_id
+WHERE
+  (
+       customers.name = 'A. Jones'
+    OR customers.name = 'B. Smith'
+  )
+    AND items.name = 'thingum';
+----
+
+.Result
+[source,text]
+----
+ customer | cart |  item
+----------+------+---------
+ A. Jones | 2131 | thingum
+(1 row)
+----
+
+[NOTE]
+======
+Observe the use of parenthesis around the `OR` condition to give it precedence over `AND`.
+======
+=====
+====
+
 
 === Question TMP
 
