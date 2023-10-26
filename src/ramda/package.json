@@ -1,0 +1,13 @@
+{
+  "name": "ramdanotes",
+  "version": "0.0.1",
+  "description": "Ramda examples and notes",
+  "type": "module",
+  "main": "main.js",
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@types/ramda": "^0.29.7",
+    "ramda": "^0.29.1"
+  }
+}
