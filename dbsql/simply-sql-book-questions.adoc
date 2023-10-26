@@ -1,0 +1,248 @@
+= Simply SQL Book Questions
+:page-subtitle: Databases and SQL
+:page-tags: database sql exercise book
+:toc: left
+:icons: font
+:source-highlighter: highlight.js
+
+== Intro
+
+Some practice questions based on the book Simply SQL.
+
+== The WHERE Clause (chapter 4)
+
+=== Q1
+
+Application: Teams and Games.
+
+[role="qanda"]
+====
+
+Select the the fields `id` and `name` of the team with id equal to 9.
+
+.Show me!
+[%collapsible]
+=====
+
+[source,sql]
+----
+SELECT
+  id
+, name
+FROM
+  teams
+WHERE
+  id = 9;
+----
+
+.Result
+[source,text]
+----
+ id |   name
+----+-----------
+  9 | Riff Raff
+(1 row)
+----
+=====
+====
+
+=== Q2
+
+Application: Teams and Games.
+
+[role="qanda"]
+====
+
+Select the `id` and `name` fields of the team with IDs not equal to 9.
+
+.Show me!
+[%collapsible]
+=====
+
+[source,sql]
+----
+SELECT
+  id
+, name
+FROM
+  teams
+WHERE
+  id <> 9;
+----
+
+.Result
+[source,text]
+----
+ id |  name
+----+---------
+ 37 | Havoc
+ 63 | Brewers
+(2 rows)
+----
+=====
+====
+
+=== Q3
+
+Application: Shopping Cart.
+
+[role="qanda"]
+====
+Select items with price not equal to 9.37.
+
+.Show me!
+[%collapsible]
+=====
+Equal to 9.37:
+
+[source,sql]
+----
+SELECT
+  id
+, name
+, type
+, price
+FROM
+  items
+WHERE
+  price <> 9.37;
+----
+
+.Result
+[source,text]
+----
+  id  |      name       |  type   | price
+------+-----------------+---------+-------
+ 5022 | gadget          | doodads | 19.37
+ 5023 | dingus          | gizmos  | 29.37
+ 5041 | gewgaw          | widgets |  5.00
+ 5042 | knickknack      | doodads | 10.00
+ 5043 | whatnot         | gizmos  | 15.00
+ 5061 | bric-a-brac     | widgets |  2.00
+ 5062 | folderol        | doodads |  4.00
+ 5063 | jigger          | gizmos  |  6.00
+ 5901 | doohickey       | widgets | 12.00
+ 5931 | contraption     | widgets | 49.95
+ 5932 | whatchamacallit | doodads | 59.95
+ 5911 | thingamajig     | widgets | 22.22
+ 5912 | thingamabob     | doodads | 22.22
+ 5913 | thingum         | gizmos  | 22.22
+ 5937 | whatsis         | gizmos  | 93.70
+(15 rows)
+----
+=====
+====
+
+=== Q4
+
+Application: Shopping Cart.
+
+[role="qanda"]
+====
+Select the fields `name` and `type` for items whose name include the string “thing”.
+
+.Show me!
+[%collapsible]
+=====
+[source,sql]
+----
+SELECT
+  name
+, type
+FROM
+  items
+WHERE
+  name LIKE 'thing%';
+----
+
+.Result
+[source,text]
+----
+    name     |  type
+-------------+---------
+ thingie     | widgets
+ thingamajig | widgets
+ thingamabob | doodads
+ thingum     | gizmos
+(4 rows)
+----
+=====
+====
+
+=== Q5
+
+Application: Shopping Cart.
+
+[role="qanda"]
+====
+Select the fields `name` and `type` for items whose name does not include the string “thing”.
+
+[source,sql]
+----
+SELECT
+  name
+, type
+FROM
+  items
+WHERE
+  name NOT LIKE 'thing%';
+----
+
+.Show me!
+[%collapsible]
+=====
+
+.Result
+[source,text]
+----
+      name       |  type
+-----------------+---------
+ gadget          | doodads
+ dingus          | gizmos
+ gewgaw          | widgets
+ knickknack      | doodads
+ whatnot         | gizmos
+ bric-a-brac     | widgets
+ folderol        | doodads
+ jigger          | gizmos
+ doohickey       | widgets
+ gimmick         | doodads
+ dingbat         | gizmos
+ contraption     | widgets
+ whatchamacallit | doodads
+ whatsis         | gizmos
+(14 rows)
+----
+=====
+====
+
+=== Question TMP
+
+Application: Shopping Cart.
+
+[role="qanda"]
+====
+Using `EXISTS` and a correlated subquery, display all customer names that have a cart.
+
+.Show me!
+[%collapsible]
+=====
+
+[source,sql]
+----
+SELECT
+  customers.name
+FROM
+  customers
+WHERE
+  EXISTS (
+    SELECT
+      1
+    FROM
+      carts
+    WHERE
+      carts.customer_id = customers.id
+  );
+----
+=====
+====
