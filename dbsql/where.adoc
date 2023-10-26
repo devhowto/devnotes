@@ -598,8 +598,19 @@ WHERE
       WHERE
         carts.customer_id = customers.id
     );
-
 ----
 
+Or with a join and `IS NULL`:
+
+[source,sql]
+----
+SELECT
+  C.name
+FROM
+  customers
+LEFT OUTER JOIN carts
+  ON customers.id = carts.customer_id
+WHERE carts.customer_id IS NULL;
+----
 
 == The End
