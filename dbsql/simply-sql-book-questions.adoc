@@ -333,7 +333,7 @@ WHERE
 =====
 ====
 
-=== Q8
+=== Q8a
 
 Application: Shopping Cart.
 
@@ -385,6 +385,46 @@ Observe the use of parenthesis around the `OR` condition to give it precedence o
 =====
 ====
 
+=== Q8b
+
+Application: Shopping Cart.
+
+[role="qanda"]
+====
+Repeat the same query as the previous question but now using `IN` the place of the `OR` condition.
+
+.Show me!
+[%collapsible]
+=====
+[source,sql]
+----
+SELECT
+  customers.name  AS customer
+, carts.id        AS cart
+, items.name      AS item
+FROM
+  customers
+INNER JOIN carts
+  ON carts.customer_id = carts.id
+INNER JOIN cartitems
+  ON cartitems.cart_id = carts.id
+INNER JOIN items
+  ON items.id = cartitems.item_id
+WHERE
+  customers.name IN ('A. Jones', 'B. Smith')
+    AND items.name = 'thingum';
+----
+
+.Result
+[source,text]
+----
+ customer | cart |  item
+----------+------+---------
+ A. Jones | 2131 | thingum
+(1 row)
+----
+=====
+====
 
 === Question TMP
 
