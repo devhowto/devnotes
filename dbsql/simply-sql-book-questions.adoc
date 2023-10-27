@@ -480,9 +480,9 @@ Those IDs are fed to the `IN` condition in the main query.
 =====
 ====
 
-=== Q10 Correlated Subquery
+=== Q10a Recent Entries by Category
 
-Application: Teams and Games.
+Application: Content Management System.
 
 [role="qanda"]
 ====
@@ -524,6 +524,56 @@ WHERE
 
 The (correlated) subquery finds the max created date for each category based on `t.category`.
 The main query provides categories for the subquery to match on.
+=====
+====
+
+=== Q10b Recent Entries by Category
+
+Application: Content Management System.
+
+[role="qanda"]
+====
+Redo the previous exercise using a join and a subquery as a derived table.
+
+.show answer
+[%collapsible]
+=====
+[source,sql]
+----
+SELECT
+  t.title
+, t.category
+, t.created
+FROM
+  entries AS t
+INNER JOIN (
+  SELECT
+    category
+  , MAX(created) AS maxdate
+  FROM
+    entries
+  GROUP BY
+    category
+) AS m
+  ON
+    m.category = t.category
+      AND m.maxdate = t.created;
+----
+
+.Result
+[source,text]
+----
+            title            | category |       created
+-----------------------------+----------+---------------------
+ What If I Get Sick and Die? | angst    | 2008-12-30 00:00:00
+ Be Nice to Everybody        | advice   | 2009-03-02 00:00:00
+ Hello Statue                | humor    | 2009-03-17 00:00:00
+ The Size of Our Galaxy      | science  | 2009-04-03 00:00:00
+(4 rows)
+----
+
+Note how the join is followed by the `ON` and then two equality comparisons with `t` and `m`.
+The subquery is treated (and works) as a table in this case.
 =====
 ====
 
