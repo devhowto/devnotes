@@ -480,6 +480,41 @@ Those IDs are fed to the `IN` condition in the main query.
 =====
 ====
 
+=== Q10 Correlated Subquery
+
+Application: Teams and Games.
+
+[role="qanda"]
+====
+Using a correlated subquery, select the latest (most recent) entry from each category based on the `created` field.
+
+.show answer
+[%collapsible]
+=====
+[source,sql]
+----
+SELECT
+  title
+, category
+, created
+FROM
+  entries AS t
+WHERE
+  created = (
+    SELECT
+      MAX(created) AS created
+    FROM
+      entries
+    WHERE
+      category = t.category
+  );
+----
+
+The (correlated) subquery finds the max created date for each category based on `t.category`.
+The main query provides categories for the subquery to match on.
+=====
+====
+
 === Question TMP
 
 Application: Shopping Cart.
