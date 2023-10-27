@@ -1,6 +1,10 @@
 = zipWith
 :page-subtitle: Functional Programming Patterns
 :page-tags: ramda javascript functional-programming
+:toc: left
+:sectlinks:
+:icons: font
+:source-highlighter: highlight.js
 
 == Intro
 
