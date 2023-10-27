@@ -2,6 +2,7 @@
 :page-subtitle: Databases and SQL
 :page-tags: database sql exercise book
 :toc: left
+:sectlinks:
 :icons: font
 :source-highlighter: highlight.js
 
@@ -423,6 +424,59 @@ WHERE
  A. Jones | 2131 | thingum
 (1 row)
 ----
+=====
+====
+
+=== Q9 IN + Subquery
+
+Application: Shopping Cart.
+
+[role="qanda"]
+====
+Using a subquery to provide values to the `IN` condition, select all items ever purchased by the customer with id 750.
+
+.show answer
+[%collapsible]
+=====
+[source,sql]
+----
+SELECT
+  id
+, name
+FROM
+  items
+WHERE
+  id IN (
+    SELECT
+      cartitems.item_id
+    FROM
+      cartitems
+    INNER JOIN carts
+      ON carts.id = cartitems.cart_id
+    WHERE
+      carts.customer_id = 750
+  )
+ORDER BY name ASC;
+----
+
+.Result
+[source,text]
+----
+  id  |    name
+------+-------------
+ 5912 | thingamabob
+ 5913 | thingum
+ 5937 | whatsis
+(3 rows)
+----
+
+The idea is to find the IDs of items purchased by the customer with ID 750.
+That is done in the subquery.
+The list of IDs is simply provided by the `IN` condition in the main query.
+
+First, find carts whose `customer_id` is 750.
+Then, get the item IDs on those carts.
+Those IDs are fed to the `IN` condition in the main query.
 =====
 ====
 
