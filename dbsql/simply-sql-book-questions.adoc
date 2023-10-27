@@ -510,6 +510,18 @@ WHERE
   );
 ----
 
+.Result
+[source,text]
+----
+            title            | category |       created
+-----------------------------+----------+---------------------
+ What If I Get Sick and Die? | angst    | 2008-12-30 00:00:00
+ Be Nice to Everybody        | advice   | 2009-03-02 00:00:00
+ Hello Statue                | humor    | 2009-03-17 00:00:00
+ The Size of Our Galaxy      | science  | 2009-04-03 00:00:00
+(4 rows)
+----
+
 The (correlated) subquery finds the max created date for each category based on `t.category`.
 The main query provides categories for the subquery to match on.
 =====
