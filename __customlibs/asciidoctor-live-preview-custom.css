@@ -1,8 +1,10 @@
-/*! Asciidoctor default stylesheet | MIT License | https://asciidoctor.org */
+/*! Custom based on Asciidoctor default stylesheet
+ * MIT License
+ * https://asciidoctor.org */
 
 /**
- * This file is currently being used in Asciidoctor Live Preview addon
- * for Firefox.
+ * This file is currently being used in Asciidoctor Live
+ * Preview add-on for Firefox.
  */
 
 @import "https://fonts.googleapis.com/css?family=Open+Sans:300,300italic,400,400italic,600,600italic%7CNoto+Serif:400,400italic,700,700italic%7CDroid+Sans+Mono:400,700";
@@ -2436,4 +2438,15 @@ p.tableblock {
   #footer {
     padding: 0;
   }
+}
+
+/**
+ * Custom overrides.
+ */
+summary.title {
+  font-variant: small-caps;
+  background-color: #f6f6f6;
+  padding: 0em 0.3em;
+  display: inline-block;
+  border-radius: 3px;
 }

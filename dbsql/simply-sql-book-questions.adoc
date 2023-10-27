@@ -20,7 +20,7 @@ Application: Teams and Games.
 
 Select the the fields `id` and `name` of the team with id equal to 9.
 
-.Show me!
+.show answer
 [%collapsible]
 =====
 
@@ -55,7 +55,7 @@ Application: Teams and Games.
 
 Select the `id` and `name` fields of the team with IDs not equal to 9.
 
-.Show me!
+.show answer
 [%collapsible]
 =====
 
@@ -90,7 +90,7 @@ Application: Shopping Cart.
 ====
 Select items with price not equal to 9.37.
 
-.Show me!
+.show answer
 [%collapsible]
 =====
 Equal to 9.37:
@@ -141,7 +141,7 @@ Application: Shopping Cart.
 ====
 Select the fields `name` and `type` for items whose name include the string “thing”.
 
-.Show me!
+.show answer
 [%collapsible]
 =====
 [source,sql]
@@ -188,7 +188,7 @@ WHERE
   name NOT LIKE 'thing%';
 ----
 
-.Show me!
+.show answer
 [%collapsible]
 =====
 
@@ -225,7 +225,7 @@ Application: Shopping Cart.
 Select the fields `name` and `price` for items with price ranging from 5.00 to 10.00, inclusive.
 Do it using the `BETWEEN` operator and then using comparison operators.
 
-.Show me!
+.show answer
 [%collapsible]
 =====
 Using between:
@@ -306,7 +306,7 @@ Application: Shopping Cart.
 ====
 Select the fields `id`, `name` and `billaddr` for customers whose name is either “A. Jones” or “B. Smith”.
 
-.Show me!
+.show answer
 [%collapsible]
 =====
 [source,sql]
@@ -344,7 +344,7 @@ Select the user name, cart id, and items id on that cart where the user is eithe
 You'll need to join four tables for this.
 Careful with the precedence of `AND` over `OR`.
 
-.Show me!
+.show answer
 [%collapsible]
 =====
 [source,sql]
@@ -393,7 +393,7 @@ Application: Shopping Cart.
 ====
 Repeat the same query as the previous question but now using `IN` the place of the `OR` condition.
 
-.Show me!
+.show answer
 [%collapsible]
 =====
 [source,sql]
@@ -434,7 +434,7 @@ Application: Shopping Cart.
 ====
 Using `EXISTS` and a correlated subquery, display all customer names that have a cart.
 
-.Show me!
+.show answer
 [%collapsible]
 =====
 
