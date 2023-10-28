@@ -13,7 +13,7 @@ Some practice questions based on the book Simply SQL.
 
 == The WHERE Clause (chapter 4)
 
-=== Q1
+=== Q1 By ID Equal To
 
 Application: Teams and Games.
 
@@ -47,7 +47,7 @@ WHERE
 =====
 ====
 
-=== Q2
+=== Q2 By ID Not Equal To
 
 Application: Teams and Games.
 
@@ -83,7 +83,7 @@ WHERE
 =====
 ====
 
-=== Q3
+=== Q3 By Price Not Equal To
 
 Application: Shopping Cart.
 
@@ -134,7 +134,7 @@ WHERE
 =====
 ====
 
-=== Q4
+=== Q4 String Field LIKE Pattern
 
 Application: Shopping Cart.
 
@@ -170,7 +170,7 @@ WHERE
 =====
 ====
 
-=== Q5
+=== Q5 String Field NOT LIKE Pattern
 
 Application: Shopping Cart.
 
@@ -217,7 +217,7 @@ WHERE
 =====
 ====
 
-=== Q6
+=== Q6 Price Between Range
 
 Application: Shopping Cart.
 
@@ -299,7 +299,7 @@ price >= 4.00 AND price <= 10.00
 =====
 ====
 
-=== Q7
+=== Q7 AND and OR
 
 Application: Shopping Cart.
 
@@ -334,9 +334,11 @@ WHERE
 =====
 ====
 
-=== Q8a
+=== Q8 AND and OR and Precedence
 
 Application: Shopping Cart.
+
+==== Q8a
 
 [role="qanda"]
 ====
@@ -386,7 +388,7 @@ Observe the use of parenthesis around the `OR` condition to give it precedence o
 =====
 ====
 
-=== Q8b
+==== Q8b
 
 Application: Shopping Cart.
 
