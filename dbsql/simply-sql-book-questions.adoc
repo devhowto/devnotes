@@ -3,6 +3,7 @@
 :page-tags: database sql exercise book
 :toc: left
 :sectlinks:
+:toclevels: 6
 :icons: font
 :source-highlighter: highlight.js
 
@@ -18,7 +19,6 @@ Application: Teams and Games.
 
 [role="qanda"]
 ====
-
 Select the the fields `id` and `name` of the team with id equal to 9.
 
 .show answer
@@ -427,7 +427,7 @@ WHERE
 =====
 ====
 
-=== Q9 IN + Subquery
+=== Q9 Items Purchased By Customer
 
 Application: Shopping Cart.
 
@@ -480,9 +480,11 @@ Those IDs are fed to the `IN` condition in the main query.
 =====
 ====
 
-=== Q10a Recent Entries by Category
+=== Q10 Recent Entries by Category
 
 Application: Content Management System.
+
+==== Q10a
 
 [role="qanda"]
 ====
@@ -527,7 +529,7 @@ The main query provides categories for the subquery to match on.
 =====
 ====
 
-=== Q10b Recent Entries by Category
+==== Q10b
 
 Application: Content Management System.
 
@@ -580,6 +582,8 @@ The subquery is treated (and works) as a table in this case.
 === Q11 Customers With or Without Carts
 
 Application: Shopping Cart.
+
+==== Q11a
 
 [role="qanda"]
 ====
@@ -653,6 +657,88 @@ WHERE
  F. Black
 (1 row)
 ----
+=====
+====
+
+In both cases, the subquery is a correlated subquery, as it needs `customers`
+
+==== Q11b
+
+Application: Shopping Cart.
+
+[role="qanda"]
+====
+Similar to the previous question, select customer names who do not have a cart, but this time using a `NOT IN` condition instead of `EXISTS` in an _uncorrelated_ subquery.
+
+.show answer
+[%collapsible]
+=====
+[source,sql]
+----
+SELECT
+  name
+FROM
+  customers
+WHERE
+  id NOT IN (
+    SELECT
+      customer_id
+    FROM
+      carts
+  );
+----
+
+.Result
+[source,text]
+----
+   name
+----------
+ F. Black
+(1 row)
+----
+
+The subquery is _uncorrelated_ because it does not use anything from the `customers` table in the main query.
+=====
+====
+
+==== Q11c
+
+Application: Shopping Cart.
+
+[role="qanda"]
+====
+Similar to the previous question, select customer names who do not have a cart, again using a `NOT IN` condition but using a _correlated_ subquery this time.
+
+.show answer
+[%collapsible]
+=====
+[source,sql]
+----
+SELECT
+  name
+FROM
+  customers
+WHERE
+  id NOT IN (
+    SELECT
+      customer_id
+    FROM
+      carts
+    WHERE
+      customers.id = carts.customer_id
+  );
+----
+
+.Result
+[source,text]
+----
+   name
+----------
+ F. Black
+(1 row)
+----
+
+The subquery is _correlated_ because it uses `customers` from the main query.
 =====
 ====
 
