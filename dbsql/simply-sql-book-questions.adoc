@@ -577,6 +577,85 @@ The subquery is treated (and works) as a table in this case.
 =====
 ====
 
+=== Q11 Customers With or Without Carts
+
+Application: Shopping Cart.
+
+[role="qanda"]
+====
+Using an `EXISTS` condition, return the names of users that:
+
+* Have carts.
+* Do not have carts.
+
+.show answer
+[%collapsible]
+=====
+
+Customers with carts:
+
+[source,sql]
+----
+SELECT
+  name
+FROM
+  customers
+WHERE
+  EXISTS (
+    SELECT
+      1
+    FROM
+      carts
+    WHERE
+      customers.id = carts.customer_id
+  );
+----
+
+.Result
+[source,text]
+----
+   name
+----------
+ D. White
+ G. Scott
+ A. Jones
+ E. Baker
+ H. Clark
+ B. Smith
+ C. Brown
+(7 rows)
+----
+
+Customers without carts:
+
+[source,sql]
+----
+SELECT
+  name
+FROM
+  customers
+WHERE
+  NOT EXISTS (
+    SELECT
+      1
+    FROM
+      carts
+    WHERE
+      customers.id = carts.customer_id
+  );
+----
+
+.Result
+[source,text]
+----
+   name
+----------
+ F. Black
+(1 row)
+----
+=====
+====
+
 === Question TMP
 
 Application: Shopping Cart.
