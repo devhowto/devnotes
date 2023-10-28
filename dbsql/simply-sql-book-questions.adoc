@@ -742,6 +742,84 @@ The subquery is _correlated_ because it uses `customers` from the main query.
 =====
 ====
 
+==== Q11d
+
+Application: Shopping Cart.
+
+[role="qanda"]
+====
+Again similar to the previous question, select customer names who do not have a cart, but this time using a `LEFT OUTER JOIN` with an `IS NULL` test.
+
+.show answer
+[%collapsible]
+=====
+First, let's make it clear when values are `NULL` (I'm using PostgreSQL/psql CLI for these examples):
+
+[source,text]
+----
+SQL> \pset null '∅'
+Null display is "∅".
+----
+
+Then let's do the `LEFT OUTER JOIN` _without_ the `IS NULL` test to see the results:
+
+[source,sql]
+----
+SELECT
+  customers.name AS customer_name
+, carts.customer_id AS carts_customer_id
+FROM
+  customers
+LEFT OUTER JOIN carts
+  ON customers.id = carts.customer_id;
+----
+
+.Result
+[source,text]
+----
+ customer_name | carts_customer_id
+---------------+-------------------
+ A. Jones      |               710
+ E. Baker      |               820
+ B. Smith      |               730
+ C. Brown      |               750
+ C. Brown      |               750
+ B. Smith      |               730
+ H. Clark      |               880
+ D. White      |               770
+ G. Scott      |               860
+ C. Brown      |               750
+ F. Black      |                 ∅
+(11 rows)
+----
+
+See? F. Black's ID is not present in the `carts` table.
+
+Finally, let's add the `IS NULL` check to find users whose IDs are not present in the `carts` table:
+
+[source,sql]
+----
+SELECT
+  customers.name AS customers_without_carts
+FROM
+  customers
+LEFT OUTER JOIN carts
+  ON customers.id = carts.customer_id
+WHERE
+  carts.customer_id IS NULL;
+----
+
+.Result
+[source,text]
+----
+ customers_without_carts
+-------------------------
+ F. Black
+(1 row)
+----
+=====
+====
+
 === Question TMP
 
 Application: Shopping Cart.
