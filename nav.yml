@@ -10,3 +10,16 @@ Editors:
     - editors/vim/vim-coc.adoc
   Emacs:
     - editors/emacs/emacs.adoc
+Miscelanous:
+  - misc/archlinux.adoc
+  - misc/asciidoc.adoc
+  - misc/debian-virtualbox.adoc
+  - misc/filename-path.adoc
+  - misc/gnupg.adoc
+  - misc/macos.adoc
+  - misc/NetBSD.adoc
+  - misc/random.adoc
+  - misc/ssh-secure-shell.adoc
+  - misc/unicode-utf8.adoc
+  - misc/virtualbox.adoc
+  - misc/weechat.adoc
