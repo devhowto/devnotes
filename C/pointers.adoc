@@ -1,9 +1,55 @@
 = C Pointers
 :toc: right
 :icons: font
+:source-highlighter: highlight.js
 :stem: latexmath
 
 == Intro
+
+A pointer is a variable that stores the address where a piece of data is located.
+It does not store the data itself.
+A pointer's “data” is a memory address.
+A pointer can point to nothing at all when it is set to `NULL`.
+A pointer can be made to point to an _invalid address_, which is then called a _dangling pointer_.
+
+Programming errors that lead to dangling pointers include (non-exhaustive list):
+
+* Cast integers to pointers.
+* Access out-of-bounds array locations.
+* Deallocate memory which is still being referenced by pointers.
+
+== Storage Allocation
+
+When a pointer is declared, some amount of space in memory is allocated.
+A pointer generally take a machine word, but their size can vary depending on the architecture or other things, like compiler settings or type specifiers allowed by certain C implementations.
+
+When a pointer is declared, memory is allocated only for the address the pointer will store, not for the data stored at that address.
+
+Storage for the data can be allocated by declaring a variable for it or by using functions like `malloc` its relatives.
+
+=== Automatic Variables
+
+Automatic variables are those in which allocation and deallocation is handled automatically.
+Be extra careful when using pointers to automatic variables:
+
+[source,c]
+----
+int f(int **iptr) {
+  int x = 1;
+  *iptr = &x;
+
+  return 0;
+}
+----
+
+`x` is an automatic variable (after `f()` returns, `x` is deallocated automatically).
+When `f()` returns, `x` is deallocated, which means `iptr` has become a dangling pointer.
+
+When memory is dynamically allocated, we are given a pointer to some address on the heap.
+That storage remains valid until we deallocate it explicitly.
+It remains valid even after the function that allocated it in the first place returns.
+
+== Syntax
 
 `*` is used both to declare a pointer _and_ to access the value the pointer points to.
 When it means each is determined by the context.

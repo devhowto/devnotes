@@ -1,6 +1,7 @@
 = C Strings and Char Arrays
-:toc: right
+:toc: left
 :icons: font
+:sectlinks:
 :stem: latexmath
 
 == Char Arrays
