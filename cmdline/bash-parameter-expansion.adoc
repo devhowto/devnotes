@@ -1,6 +1,6 @@
 = Bash Parameter Expansion
 :page-tags: bash cmdline parameter expansion
-:toc: left
+:toc: right
 :source-highlighter: highlight.js
 :imagesdir: ../assets
 
