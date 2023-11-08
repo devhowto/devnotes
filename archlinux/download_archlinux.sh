@@ -1,6 +1,12 @@
-#!/usr/bin/env
+#!/usr/bin/env bash
 
-base_url='https://mirror.ufscar.br/archlinux/iso/2023.09.01'
+#
+# Find the latest version at this URL:
+#
+# https://mirror.ufscar.br/archlinux/iso/
+#
+
+base_url='https://mirror.ufscar.br/archlinux/iso/2023.11.01'
 
 files=(
   b2sums.txt
