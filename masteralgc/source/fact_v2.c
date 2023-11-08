@@ -5,6 +5,9 @@
 #include <stdio.h>
 #include "factail.h"
 
+/**
+ * Implements a factorial.
+ */
 int fact(int n, int acc) {
   if (n < 0) return 0;
   else if (n == 0 || n == 1) return acc;

@@ -1,0 +1,9 @@
+#
+# .gitignore
+#
+
+##
+# We generate the compilation database with `bear` from
+# our make files when needed.
+#
+compile_commands.json
