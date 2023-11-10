@@ -9,7 +9,7 @@ void factor(int x, int n, int j) {
   // 1 is neither prime nor composite.
   //
   if (n == 1) {
-    printf("1 is a unit\n");
+    printf("1 is a unit.\n");
     return;
   }
 
@@ -24,7 +24,7 @@ void factor(int x, int n, int j) {
       // We have found a factor of n. Print it and
       // factor n / i.
       //
-      fprintf(stdout, "%d\n", i);
+      printf("%d\n", i);
       factor(x, (int)(n / i), i);
       return;
     } else {
@@ -38,18 +38,7 @@ void factor(int x, int n, int j) {
   if (n == x)
     printf("%d is prime.\n", x);
   else
-    printf("%d\n", n);
+    printf("%d is not prime.\n", n);
 
   return;
-}
-
-int main(void) {
-  int n;
-
-  for (n = 1; n < 1000; ++n) {
-    printf("Factoring %d:\n", n);
-    factor(n, n, 2);
-  }
-
-  return 0;
 }
