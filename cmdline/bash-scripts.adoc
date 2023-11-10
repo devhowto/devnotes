@@ -88,5 +88,4 @@ Send your script to remote, read back its output
 [source,shell-session]
 ----
 gpg -dq ./script.gpg 2>/dev/null | bash -s -- <args...>
----
-
+----

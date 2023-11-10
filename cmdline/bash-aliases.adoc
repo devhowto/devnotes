@@ -3,7 +3,7 @@
 :toc: right
 :experimental:
 
-=== Intro
+== Intro
 
 Read the link:https://www.gnu.org/savannah-checkouts/gnu/bash/manual/bash.html#Aliases[bash docs on aliases].
 Basically, we do something like this:
@@ -16,7 +16,7 @@ alias tt='tree -CFa'
 
 Then, when we run the command `ls`, it will actually run `ls --classify --color=auto` and when we run `tt` it will actually run `tree -CFa`
 
-=== How To Unalias‽
+== How To Unalias‽
 
 We _aliased_ `ls` to `ls`.
 It is not uncommon to do this for some commands.
@@ -51,7 +51,7 @@ In this case, quoting `ls` so the alias mechanism does not get triggered and you
 In bash, in certain contexts the basckslash *is not* an escape, but a quoting mechanism.
 ====
 
-=== Manually Expanding Aliases
+== Manually Expanding Aliases
 
 When the word at the cursor is an alias, we can expand it.
 For example, type ``ls``kbd:[Ctrl+Tab] or ``ls``kbd:[Esc+Tab].
@@ -74,7 +74,7 @@ $ ls --classify --color=always
 kbd:[Esc] can also be triggered with kbd:[Ctrl+[].
 ====
 
-=== Tricky aliases 😮
+== Tricky aliases 😮
 
 One could be evil and create an alias with this:
 

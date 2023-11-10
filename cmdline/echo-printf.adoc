@@ -228,9 +228,7 @@ ____
 "The format operand shall be reused as often as necessary to satisfy the
 argument operands."
 
---
-https://pubs.opengroup.org/onlinepubs/9699919799/utilities/printf.html[printf
-POSIX spec]
+-- https://pubs.opengroup.org/onlinepubs/9699919799/utilities/printf.html[printf POSIX spec]
 ____
 
 That explains why even with a single `%s`, the next line prints all

@@ -3,6 +3,8 @@
 :page-tags: unicode UTF-8 ASCII plain-text special-character symbol
 :icons: font
 :toc: left
+:sectlinks:
+:sectlevels: 6
 :experimental:
 
 == Page Break
@@ -19,6 +21,9 @@ From emacs, kbd:[C-h i m Emacs RET] kbd:[m Pages RET].
 
 * link:https://www.gnu.org/software/emacs/manual/html_node/emacs/Pages.html[Pages :: Emacs Manual].
 
+==== Further tips
+
+TODO
 
 === Vim
 
