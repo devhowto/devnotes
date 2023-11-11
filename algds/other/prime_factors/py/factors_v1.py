@@ -1,25 +1,31 @@
-from math import sqrt
-
-def factors(x, n, j):
+def factors(x, n, j, ps = []):
+  #
+  # 1 is a unit. Not a prime, and not a composite.
+  #
   if n == 1:
-    print('1 is a unit')
-    return
+    return 1
 
   i = j
-  while i <= int(sqrt(n)):
-  # while i * i <= n:
+  while i * i <= n:
+    #
+    # if n is prime
+    #
     if n % i == 0:
-      print("%d is prime" % i)
-      factors(x, int(n / i), i)
-      return
+      ps.append(i)
+      factors(x, int(n / i), i, ps)
+      return ps
     else:
       i = i + 1
 
+  #
+  # If we got to this point, x is prime.
+  #
   if x == n:
-    print("%d, our x, is prime" % x)
+    return "%d is prime" % x
   else:
-    print("What?", x, n, i)
+    ps.append(n)
+    return ps
 
 
-# factors(1, 1, 2)
-factors(18, 18, 2)
+print(factors(18, 18, 2, []))
+#=> [2, 3, 3]
