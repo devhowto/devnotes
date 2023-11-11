@@ -1,9 +1,9 @@
 = Prime Factors of a Number
 :page-subtitle: Algorithms and Data Structures
 :toc: left
-:sectlinks:
 :icons: font
-:source-highlighter: highlight.js
+:sectlinks:
+:source-highlighter: pygments
 :stem: latexmath
 
 == Intro
@@ -21,66 +21,62 @@ while i <= int(sqrt(n))
 .C solution excerpt
 [source,c]
 ----
-while (i <= (int)sqrt((double)(n)))
-while (i <= (int)sqrt((double)n))) {
-
+while (i <= (int)sqrt((double)n)))
 ----
 
-We can avoid having to deal with doubles vs ints by using stem:[i * i \le n] instead of stem:[i \le sqrt(n)].
+We can avoid having to deal with doubles vs ints and the use of `sqrt()` by using stem:[i * i \le n] instead of stem:[i \le sqrt(n)].
 
 More info on this link:https://stackoverflow.com/a/5811176/2855955[Stack Overflow Answer^].
 
 == Recursive Solution in C
 
-Here's one solution from the book Mastering Algorithms with C:
+Here's one solution from the book Mastering Algorithms with C, with my own modifications to return a pointer to an array of prime factors instead of printing them.
 
 [source,c]
 ----
 #include <stdio.h>
-#include <math.h>
-#include "factor.h"
+#include <stdlib.h>
 
-void factor(int x, int n, int j) {
+int factor(int x, int n, int j, int *ps, int idx) {
   int i;
 
-  //
-  // 1 is neither prime nor composite.
-  //
   if (n == 1) {
     printf("1 is a unit.\n");
-    return;
+    return ++idx;
   }
 
-  //
-  // Determine the prime factors of n.
-  //
   i = j;
 
-  // while (i <= (int)(sqrt((double)n))) {
   while (i * i <= n) {
     if (n % i == 0) {
-      //
-      // We have found a factor of n. Print it and
-      // factor n / i.
-      //
-      printf("%d\n", i);
-      factor(x, (int)(n / i), i);
-      return;
+      *(ps + idx) = i;
+      factor(x, (int)(n / i), i, ps, ++idx);
+      return ++idx;
     } else {
       ++i;
     }
   }
 
-  //
-  // If this point is reached, n is prime.
-  //
   if (n == x)
     printf("%d is prime.\n", x);
   else
-    printf("%d\n", n);
+    *(ps + idx) = n;
 
-  return;
+  return ++idx;
 }
+
+int main(void) {
+  int *ps = malloc(sizeof(int) * 4);
+  int i, len;
+
+  len = factor(18, 18, 2, ps, 0);
+
+  for (i = 0; i <= len; ++i)
+    printf("%d\n", *(ps + i));
+
+  free(ps);
+}
+
 ----
 
 ## Recursive solution in Python
@@ -88,17 +84,11 @@ void factor(int x, int n, int j) {
 [source,python]
 ----
 def factors(x, n, j, ps = []):
-  #
-  # 1 is a unit. Not a prime, and not a composite.
-  #
   if n == 1:
     return 1
 
   i = j
   while i * i <= n:
-    #
-    # if n is prime
-    #
     if n % i == 0:
       ps.append(i)
       factors(x, int(n / i), i, ps)
@@ -106,9 +96,6 @@ def factors(x, n, j, ps = []):
     else:
       i = i + 1
 
-  #
-  # If we got to this point, x is prime.
-  #
   if x == n:
     return "%d is prime" % x
   else:
