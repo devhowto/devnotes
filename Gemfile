@@ -2,8 +2,9 @@
 
 source 'https://rubygems.org'
 
+gem 'asciidoctor'
 gem 'awesome_print'
 gem 'minitest'
+gem 'pygments.rb'
 gem 'rspec'
 gem 'solargraph'
-gem 'asciidoctor'
