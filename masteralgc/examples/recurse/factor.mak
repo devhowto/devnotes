@@ -26,7 +26,7 @@ SRCFLS = factor_run.c \
 OBJFLS = factor_run.o \
 				 $(ROOTDIR)/source/factor.o
 
-EXE = factor_run.exe
+EXE = factor.run
 
 $(EXE): $(OBJFLS)
 	$(LL) $(LFLAGS) -o $@ $(OBJFLS) $(LIBDRS) $(LIBFLS)

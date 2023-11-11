@@ -1,0 +1,84 @@
+= Prime Factors of a Number
+:page-subtitle: Algorithms and Data Structures
+:toc: left
+:sectlinks:
+:icons: font
+:source-highlighter: pygments.rb
+:stem: latexmath
+
+== Intro
+
+For an introduction on prime factorization, peruse link:https://www.mathsisfun.com/prime-factorization.html[Prime Factorization article on Math Is Fun^].
+
+People implement solutions with loop testing divisibility only up to the square root of the target number.
+
+.Python solution excerpt
+[source,python]
+----
+while i <= int(sqrt(n))
+----
+
+.C solution excerpt
+[source,c]
+----
+while (i <= (int)sqrt((double)(n)))
+while (i <= (int)sqrt((double)n))) {
+
+----
+
+We can avoid having to deal with doubles vs ints by using stem:[i * i \le n] instead of stem:[i \le sqrt(n)].
+
+More info on this link:https://stackoverflow.com/a/5811176/2855955[Stack Overflow Answer^].
+
+== Recursive Solution in C
+
+Here's one solution from the book Mastering Algorithms with C:
+
+[source,c]
+----
+#include <stdio.h>
+#include <math.h>
+#include "factor.h"
+
+void factor(int x, int n, int j) {
+  int i;
+
+  //
+  // 1 is neither prime nor composite.
+  //
+  if (n == 1) {
+    printf("1 is a unit.\n");
+    return;
+  }
+
+  //
+  // Determine the prime factors of n.
+  //
+  i = j;
+
+  // while (i <= (int)(sqrt((double)n))) {
+  while (i * i <= n) {
+    if (n % i == 0) {
+      //
+      // We have found a factor of n. Print it and
+      // factor n / i.
+      //
+      printf("%d\n", i);
+      factor(x, (int)(n / i), i);
+      return;
+    } else {
+      ++i;
+    }
+  }
+
+  //
+  // If this point is reached, n is prime.
+  //
+  if (n == x)
+    printf("%d is prime.\n", x);
+  else
+    printf("%d\n", n);
+
+  return;
+}
+----

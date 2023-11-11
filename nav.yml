@@ -60,3 +60,6 @@ Miscelanous:
   - misc/unicode-utf8.adoc
   - misc/virtualbox.adoc
   - misc/weechat.adoc
+
+Algorithms:
+  - ./algds/other/prime_factors/README.adoc

@@ -18,7 +18,8 @@ void factor(int x, int n, int j) {
   //
   i = j;
 
-  while (i <= (int)(sqrt((double)n))) {
+  while (i <= (int)sqrt((double)n)) {
+  // while (i * i <= n) {
     if (n % i == 0) {
       //
       // We have found a factor of n. Print it and
@@ -38,7 +39,7 @@ void factor(int x, int n, int j) {
   if (n == x)
     printf("%d is prime.\n", x);
   else
-    printf("%d is not prime.\n", n);
+    printf("%d\n", n);
 
   return;
 }
