@@ -24,3 +24,18 @@ kbd:[Cmd+Spc] opens Spotlight.
 Navigate item by item with up/down and by section (submenus) with kbd:[Cmd+Up] :kbd:[Cmd+Down].
 Left-click or press kbd:[Enter] to preview.
 kbd:[Cmd+r] opens in Finder.
+
+== Upgrade macOS
+
+[source,shell-session]
+----
+$ softwareupdate --list
+----
+
+System info:
+
+[source,shell-session]
+----
+$ sw_vers
+$ system_profiler
+----
