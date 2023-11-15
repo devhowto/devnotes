@@ -6,3 +6,4 @@ def nth_harmonic_num(n):
 
 print(nth_harmonic_num(4))
 print(nth_harmonic_num(8))
+print(nth_harmonic_num(9))
