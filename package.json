@@ -1,13 +1,13 @@
 {
   "name": "devnotes",
-  "version": "1.0.0",
+  "version": "0.0.1",
+  "description": "Some dev notes and code examples",
   "type": "module",
-  "description": "= Dev Notes :icon: font :toc: :stem: latexmath",
-  "main": "dev.js",
+  "main": "index.js",
   "scripts": {
+    "file": "NODE_OPTIONS=--experimental-vm-modules node",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "keywords": [],
   "author": "",
   "license": "ISC"
 }
