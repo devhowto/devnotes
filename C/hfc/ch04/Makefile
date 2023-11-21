@@ -11,7 +11,6 @@
 CLIBS=$(HOME)/local/clibs
 CC=gcc
 CFLAGS=-std=c99 \
-	-Og \
 	-g3 \
 	-Wall \
 	-Wextra \
