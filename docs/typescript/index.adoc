@@ -59,3 +59,23 @@ Sometimes we are using a version of a library and need a different version for i
 ----
 
 See link:https://github.com/ramda/ramda/issues/3415#issuecomment-1758719123[Ramda issue^].
+
+== import type
+
+The syntax `import type { MyType } from "./my-module"` was link:https://www.typescriptlang.org/docs/handbook/release-notes/typescript-3-8.html#type-only-imports-and-export[introduced in TypeScript 3.8^] to help with problems regarding transpilation related to tools like Babel.
+In short, we should not use it unless strictly necessary to solve some specific problem.
+
+Enable this in `tsconfig.json` to help catch situations where `import type` could be necessary:
+
+[source,json]
+----
+{
+  "compilerOptions": {
+    "importsNotUsedAsValues": "error"
+  }
+}
+----
+
+* link:https://github.com/microsoft/TypeScript/issues/39861[Should I explicitly separate "import" and "import type" statements? (TS repository question)]
+* link:https://stackoverflow.com/questions/66830081/is-import-type-equivalent-to-import[Is `import type` equivalent to `import()` (Stack Overflow)^].
+
