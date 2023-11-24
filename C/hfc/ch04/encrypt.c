@@ -8,9 +8,3 @@ void encrypt(char *msg) {
     msg++;
   }
 }
-
-int main(void) {
-  char h[] = "hello";
-  encrypt(h);
-  printf("%s\n", h);;
-}

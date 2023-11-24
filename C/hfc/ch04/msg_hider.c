@@ -7,7 +7,7 @@
  * Provide word or sentence parameter as the first argument.
  */
 int main(void) {
-  char msg[64];
+  // char msg[64];
 
   char w[] = "hello";
   encrypt(w);
