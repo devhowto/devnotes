@@ -17,14 +17,13 @@ LFLAGS = -fsanitize=address,undefined
 out:
 	mkdir -pv ./out
 
-aquarium.o: aquarium.c
-	$(CC) $(CFLAGS) aquarium.c -o ./aquarium.o
+aquarium_v1.o: aquarium_v1.c
+	$(CC) $(CFLAGS) aquarium_v1.c -o ./aquarium_v1.o
 
-aquarium: aquarium.o
-	$(LL) $(LFLAGS) aquarium.o -o ./out/aquarium
+aquarium_v1: aquarium_v1.o
+	$(LL) $(LFLAGS) aquarium_v1.o -o ./out/aquarium_v1
 
 clean:
 	rm -rfv ./out/*
-
-aquarium: aquarium.c
+	rm -v ./*.o
 
