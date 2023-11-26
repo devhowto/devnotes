@@ -1,0 +1,63 @@
+= Modules
+:page-subtitle: JavaScript
+:page-tags: javascript ecmascript module export es-module commonjs
+:toc: left
+:toclevels: 6
+:sectlinks:
+:icons: font
+:source-highlighter: highlight.js
+
+== Intro
+
+Node.js introduced CommonJS module system before ES Modules became a thing.
+
+== CommonJS
+
+Both `module.exports` and the “shortcut” or “alias” `exports` can be used to export values from a CommonJS module:
+
+.my-module.cjs
+[source,javascript]
+----
+module.exports.x = 1;
+exports.y = 2;
+module.exports.hello = function hello() { return 1; };
+exports.greet = function greet() { return "Greetings!"; };
+----
+
+Test what is actually exports with something like this:
+
+.main.cjs
+[source,javascript]
+----
+const mod = require('./tsutils');
+
+console.log("==== module", mod);
+----
+
+Then:
+
+[source,shell-session]
+----
+$ node ./main.cjs
+----
+
+Then, to see what happens if we reassign `exports` reference, try something like this:
+
+[source,javascript]
+----
+module.exports.x = 1;
+exports.y = 2;
+exports = { msg: "Hey!" }; // <1>
+exports.hello = function hello() { return 1; };
+exports.greet = function greet() { return "Greetings!"; };
+----
+
+<1> We are reassigning `exports` completely, instead of adding a property to it, for instance.
+
+Then run the code again and you'll see neither of the values on the `exports` lines made through to the import on `main.cjs`.
+That is due to the fact that we completely overrode `exports`.
+
+=== References
+
+* link:https://nodejs.org/docs/latest/api/modules.html#the-module-object[Node.js docs on modules^].
+* link:https://stackoverflow.com/questions/7137397/module-exports-vs-exports-in-node-js[module.exports vs exports in Node.js (Stack Overflow)^].
