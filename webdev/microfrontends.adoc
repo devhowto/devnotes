@@ -1,0 +1,26 @@
+= Micro Frontends
+:page-subtitle: Web Development
+:page-tags: webdev frontend
+
+== Server Side Include
+
+Server Side Includes (SSI) is a means to include content on HTML responses using the server itself (nginx, apache) without resorting to PHP, Ruby, Node.js, or other server side programming language.
+
+It allows things to include content using syntax like this:
+
+[source,text]
+----
+<p>Page last modified on <em><!--#echo var="LAST_MODIFIED" --></em></p>
+----
+
+Or files, like this:
+
+[source,text]
+----
+<!--#include virtual="menu.html" -->
+<p>main content of the page here</p>
+<!--#include virtual="footer.html" -->
+----
+
+* link:http://nginx.org/en/docs/http/ngx_http_ssi_module.html[NGINX Module ngx_http_ssi_module (nginx docs)^].
+* link:https://www.a2hosting.com/kb/developer-corner/apache-web-server/using-server-side-includes-ssi/[How to use Server-Side Includes (SSI) (a2Hosting)^].
