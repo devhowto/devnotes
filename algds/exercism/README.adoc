@@ -1,0 +1,26 @@
+= Exercism Solutions
+:toc: left
+:icons: font
+
+== Notes on multiple solutions
+
+Sometimes I work multiple solutions for a challenge.
+I may start with a very simple, naive approach, and then try to improve it with more elegant, clever or performant approaches.
+
+I end up naming the solutions with endings like “v1.c”, “v2.c”, etc.
+But because exercism uses some configuration files (see `.exercism/` directory for each challenge), we must use their original file name when submitting otherwise tests fail in their platform.
+
+For these reasons, the current or last solution I'm working on is always the original name without the “v<num>” suffix.
+
+So my workflow is like this:
+
+* `vim challenge.c` and write the code.
+* `ruby -w challenge_test.c`.
+* `exercism submit challenge.c` (this is the original challenge file name).
+* `cp -v challenge{,v1}.c` to save it as implementation v1.
+* Continue working on `challenge.c`, test and submit it when done (still the original file name, but this is actually v2 now).
+* `cp -v challenge{,v2}.c to save it as implementation v2.
+* Continue working on `challenge.c, test and submit when done (still the original file name, but this is actually v3 now).
+* I may or may not continue trying other solutions.
+  If I don't continue, the last code in `challenge.c` is the last (v3) solution, but I *don't* rename it to v3.
+
