@@ -47,7 +47,7 @@ Editors:
     - editors/vim/vim-coc.adoc
   Emacs:
     - editors/emacs/emacs.adoc
-Miscelanous:
+Miscellaneous:
   - misc/archlinux.adoc
   - misc/asciidoc.adoc
   - misc/debian-virtualbox.adoc
