@@ -19,3 +19,52 @@ $ git remote --verbose
 $ git remote remove <remote-name>
 $ git remote add <remote-name> <URL>
 ----
+
+== send-pack, fatal, connection closed
+
+After I moved 1k files to a different directory and committed, push to a Gitlab repository would fail with this (have seen this happen before on Github too, as it is a Git thing, not a Git hosting provider vendor thing):
+
+[source,text]
+----
+$ git push --force-with-lease gl HEAD
+Enumerating objects: 1356, done.
+Counting objects: 100% (1356/1356), done.
+Delta compression using up to 24 threads
+Compressing objects: 100% (1195/1195), done.
+send-pack: unexpected disconnect while reading sideband packet
+Connection to gitlab.com closed by remote host.
+fatal: the remote end hung up unexpectedly
+----
+
+On Arch Linux, with git v2.43.0, this is what worked for me (did the setting only for the repo/project in question, not globally):
+
+[source,shell-session]
+----
+$ git config --local pack.window 1
+----
+
+After that the push worked just fine.
+
+According to the man page, the default is 10.
+We may want to set it back to the default afterwards.
+
+Couldn't find much info on `pack.window`, but my guess is that 10 (the default value) sends too large chunks of data and those Git hosting providers may cap at a lower limit due to security or performance concerns.
+
+[quote, attribution, cite title]
+____
+For what this does, see link:git-scm.com/docs/git-pack-objects[git-pack-objects^] in particular the --window argument: "The objects are first internally sorted by type, size and optionally names and compared against the other objects within --window to see if using delta compression saves space." So setting the window to 1 effectively disables delta compression (delta compression means only differences between objects are stored to save space when pushing commits)
+____
+
+Setting these may also be necessary:
+
+..git/config
+[source,text]
+----
+[core]
+    packedGitLimit = 512m
+    packedGitWindowSize = 512m
+[pack]
+    deltaCacheSize = 2047m
+    packSizeLimit = 2047m
+    windowMemory = 2047m
+----
