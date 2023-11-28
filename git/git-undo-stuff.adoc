@@ -1,0 +1,112 @@
+= Git :: Undoing Stuff
+:toc: right
+:icons: font
+:stem: latexmath
+
+[CAUTION]
+====
+Carefully read and impress upon yourself the importance of what is mentioned at the first admonition of link:./git-intro.adoc[git intro].
+
+Very ominous, yes, but please follow the advice given there.
+Better a little caution than a great regret.
+You have been warned.
+====
+
+== Discard changes in unstaged files
+
+[NOTE]
+====
+My git setup disables some hints to make commands like `git status` less verbose, for example:
+
+----
+$ git config --local advice.statusHints false
+----
+====
+
+[WARNING]
+====
+The commands below will cause you to irreversibly and irrevocably lose your changes.
+Read carefully before proceeding!
+====
+
+We have this changed file in our repo:
+
+----
+$ git status .
+Untracked files:
+	Makefile
+----
+
+We want to undo the changes — make it so as we never changed the file in the first place.
+We can do:
+
+----
+$ git restore -- ./Makefile
+----
+
+In older version where `restore` is not available we can use `checkout`:
+
+----
+$ git checkout -- ./Makefile
+----
+
+== Unstage files
+
+[NOTE]
+====
+This will remove the files from stage (a.k.a. the index), but your changes will still be present in the files.
+====
+
+If the file is staged:
+
+----
+$ git status .
+Changes to be committed:
+	modified:   Makefile
+----
+
+Then run:
+
+----
+$ git restore --staged -- ./Makefile
+----
+
+Or, if `restore` is not available on your version of git:
+
+----
+$ git reset --mixed -- ./Makefile
+Unstaged changes after reset:
+M	Makefile
+----
+
+Running `git status` should show `Makefile` as untracked, but still retaining all the changes:
+
+----
+$ git status .
+Changes to be committed:
+	modified:   Makefile
+----
+
+.git reset
+[TIP]
+====
+`git reset` is actually `git reset --mixed .`
+
+`--mixed` resets the index (staged stuff) but not the working tree (the actual contents of the files).
+
+* Running `git reset --mixed` on a staged file will unstage it.
+* Running `git reset --mixed` on a non-staged file will simply do nothing.
+  The contents of the file will remain intact (the contents of the working tree are not discarded).
+====
+
+
+.git checkout
+[TIP]
+====
+* `git checkout` on an untracked file is an error as it can only work with stuff already known and managed by git, and untracked files are not in this category.
+
+* `git checkout -- ./file.txt` does not unstage a staged file.
+  Simply nothing happens.
+
+* `git checkout -- ./file.txt` *discards changes to the file* if the file is not staged.
+====

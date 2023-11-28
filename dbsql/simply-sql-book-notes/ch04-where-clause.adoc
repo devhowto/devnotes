@@ -1,0 +1,323 @@
+= ch04 WHERE Clause
+:page-subtitle: Simply SQL (book notes) | Databases and SQL
+:page-tags: database sql book note
+:toc: left
+:icons: font
+:source-highlighter: highlight.js
+
+[NOTE]
+====
+Notes from the book with my own extra explanations.
+====
+
+`FROM` clause produces a tabular structure, a.k.a.
+_result set_.
+
+The `WHERE` clause is optional, but when present, acts like a filter on the rows of the result set produced by the `FROM` clause.
+
+The `WHERE` clause, more than any other clause, determines how performant our queries will be.
+
+== Conditions
+
+----
+WHERE <condition that evaluate as TRUE>
+----
+
+Example:
+
+----
+SELECT name
+FROM teams
+WHERE id = 9;
+----
+
+A condition is some expression that can be evaluated by the database system, which may result in `TRUE`, `FALSE` or `UNKNOWN`.
+
+The `WHERE` clause evaluates the truth of the condition for every row.
+
+Only one row can possibly have the 9 as its `id` (as IDs have to be unique, no two entities can have the same ID).
+
+`FROM` produces all rows, then the condition _filters out_ all rows whose `id` is not 9.
+It returns `FALSE` for those rows.
+Only the row with `id = 9` will produce `TRUE`.
+
+----
+SELECT name
+FROM teams
+WHERE NOT id = 9;
+
+SELECT name
+FROM teams
+WHERE id <> 9;
+----
+
+`NOT` negates the truthy value.
+`<>` can be read as "`less than or greater than 9 (but not 9).`"
+
+The condition expressions have to produce `TRUE`, even though we want all rows where `id = 9` is `FALSE`.
+
+A `WHERE` clause can include a `NOT` keyword.
+And several conditions logically connected form a *compound condition*.
+
+Avoid using the non-standard `!=`, supported by some DB vendors.
+
+== Shopping Carts
+
+----
+CREATE DATABASE simplysql_cart_devel WITH
+    ENCODING='UTF-8'
+    OWNER=devel
+    LC_CTYPE='en_US.UTF-8'
+    LC_COLLATE='en_US.UTF-8'
+    TEMPLATE=template0
+    CONNECTION LIMIT=3;
+----
+
+[TIP]
+====
+PostgreSQL DB dumps are on my cloud share.
+====
+
+`NULL` can mean a few things (have several interpretations), including _unknown_, _not applicable_, _missing_ (in case of outer joins).
+For the `items` table, when the price is `NULL`, the best interpretation is _unknown_.
+
+If an item has price 2.22, then `WHERE price = 2.22` is `TRUE`, and `WHERE price = 2.21` is `FALSE`.
+If `price` is `NULL`, the result is `FALSE` (as 2.22 is not `NULL`), but we can also say it is `UNKNOWN`, as the price of the item itself is `UNKNOWN``.
+
+The SQL standard says that `NULL` is not equal to anything, including another `NULL`.
+Similar to `NaN` in ECMAScript, which is not equal to anything, including not being equal to itself:
+
+.psql session to test NULL
+[source,text]
+----
+mydb=# \pset null '∅'
+Null display is "∅".
+mydb=# SELECT 1 = 1 AS res;
+ res
+-----
+ t
+(1 row)
+
+mydb=# SELECT 1 = NULL AS res;
+ res
+-----
+ ∅
+(1 row)
+
+mydb=# SELECT NULL = NULL AS res;
+ res
+-----
+ ∅
+(1 row)
+----
+
+.node REPL session to test NaN
+[source,text]
+----
+> 1 === NaN
+false
+> NaN === NaN
+false
+> Number.isNaN(NaN)
+true
+----
+
+``NULL``'s are a tricky topic.
+The `WHERE` clause only retains rows for which the condition evaluates to `TRUE`, so conditions that evaluate to `FALSE` _or_ `UNKNOWN` are filtered out nonetheless.
+
+== Operators
+
+There are other operators besides the “equal to” (`=`) and the “not equal to”  (the standard `<>` or the non-standard `!=`).
+
+=== Comparison Operators
+
+Besides equality, it is possible to check whether a value is _less than_ or _more than_ some other value.
+
+These operators can be used with numbers, strings and dates.
+Numbers are compared in numerically, strings alphabetically, and dates chronologically.
+
+equal to:: `=`
+not equal to:: `<>` (or the non-standard `!=`)
+less than:: `<`
+less than or equal to:: `pass:[<=]`
+greater than:: `>`
+greater than or equal to:: `>=`
+
+[TIP]
+====
+Text and strings are compared based on the __collating sequence__ or simply __collation__.
+
+See:
+
+* link:https://en.wikipedia.org/wiki/Collation[Collation (Wikipedia)^]
+* link:https://www.postgresql.org/docs/current/collation.html[Collation Support (PostgreSQL Docs)^]
+* link:https://mariadb.com/kb/en/setting-character-sets-and-collations/[Setting Character Sets and Collations (MariDB docs)^]
+====
+
+For example, to filter based on a created date greater than or equal to some date:
+
+[source,sql]
+----
+SELECT
+    id
+  , title
+  , created
+FROM entries
+WHERE created >= '2009-01-01';
+----
+
+[source,example]
+----
+ id  |            title            |       created
+-----+-----------------------------+---------------------
+ 537 | Be Nice to Everybody        | 2009-03-02 00:00:00
+ 573 | Hello Statue                | 2009-03-17 00:00:00
+ 598 | The Size of Our Galaxy      | 2009-04-03 00:00:00
+ 524 | Uncle Karl and the Gasoline | 2009-02-28 00:00:00
+(4 rows)
+----
+
+=== The LIKE Operator
+
+The `LIKE` operator allows for pattern matching on strings using wild card characters.
+
+In standard SQL, `LIKE` provides two wildcards:
+
+The underscore ‘`_`’:: Match exactly one character (similar to
+‘`.`’ in regex).
+Percent sign ‘`%`’:: Match zero or more characters (similar to ‘`.*`’ in regex).
+
+[source,sql]
+----
+SELECT
+    name
+  , type
+FROM items
+WHERE name LIKE 'thing%';
+----
+
+[source,text]
+----
+    name     |  type
+-------------+---------
+ thingie     | widgets
+ thingamajig | widgets
+ thingamabob | doodads
+ thingum     | gizmos
+----
+
+Match “thing” followed by any (and only) two other characters:
+
+[source,sql]
+----
+SELECT
+    name
+  , type
+FROM items
+WHERE name LIKE 'thing__';
+----
+
+[source,text]
+----
+  name   |  type
+---------+---------
+ thingie | widgets
+ thingum | gizmos
+----
+
+=== The BETWEEN Operator
+
+The `BETWEEN` operator checks if a value is between the range of two values, inclusive.
+
+[source,sql]
+----
+SELECT
+    name
+  , type
+  , price
+FROM items
+WHERE price BETWEEN 4.00 AND 10.00
+ORDER BY price ASC;
+----
+
+[source,text]
+----
+    name    |  type   | price
+------------+---------+-------
+ folderol   | doodads |  4.00
+ gewgaw     | widgets |  5.00
+ jigger     | gizmos  |  6.00
+ thingie    | widgets |  9.37
+ gimmick    | doodads |  9.37
+ dingbat    | gizmos  |  9.37
+ knickknack | doodads | 10.00
+----
+
+Note that `WHERE price BETWEEN 4 and 10` is the same as:
+
+[source,sql]
+----
+WHERE price >= 5 AND price <= 10
+----
+
+Or
+
+[source,sql]
+----
+WHERE 5 <= price AND price <= 10
+----
+
+And to select something since the last 3 days:
+
+[source,sql]
+----
+SELECT title, created
+FROM entries
+WHERE created BETWEEN CURRENT_DATE - INTERVAL 5 DAY
+              AND CURRENT_DATE;
+----
+
+PostgreSQL's syntax is something like `INTERVAL '5 days'`.
+
+[WARNING]
+====
+When selecting between time intervals, make sure the earlier date comes before the later date, or no matches will be returned.
+====
+
+An example with constant dates:
+
+[source,sql]
+----
+SELECT title, created
+FROM entries
+WHERE created BETWEEN '2001-01-01' AND '2001-01-23';
+----
+
+For February, that can have 28 or 29 days, it is probably best to use compound condition with an _open-ended upper end point_:
+
+[source,sql]
+----
+SELECT title, created
+FROM entries
+WHERE '2009-02-01' <= created AND created < '2009-03-01';
+----
+
+Note the correct use of `pass:[<=]` and `<` for this particular case.
+We calculate the first day of the following month, but do not include it in the results 🤣.
+This query will correctly match a date range that includes all the days in the month of February.
+Clever and simple at the same time.
+
+== Compound Conditions with AND and OR
+
+[source,sql]
+----
+SELECT name
+FROM masters
+WHERE name = 'Aayla Secura'
+  OR  name = 'Ahsoka Tano';
+----
+
+=== C
+
+
+== The End

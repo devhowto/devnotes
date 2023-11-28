@@ -1,0 +1,343 @@
+= Lists
+:page-subtitle: Haskell
+:page-tags: haskell list evaluation bottom strictness
+:icons: font
+:toc: left
+
+== Intro
+
+Lists are a recursive series or *cons cells* `a : [a]` terminated by the empty list `[]`.
+
+== Spine
+
+When talking about lists, we also talk about the _spine_ and the _cons cells_.
+
+The spine is the conceptual structure that holds the cons cells together.
+
+Some functions (like `length`) work based on the spine and _does not_ force (evaluate) the values (cons cells).
+
+Here, we cons a few numbers onto the empty list.
+The values are 1, 2, 3 and `[]`.
+
+[source,haskell]
+----
+1 : 2 : 3 : []
+----
+
+When we use the sugar list syntax, we can cause a make a value to be `undefined` (bottom, ⊥):
+
+We can add the `undefined` ⊥ (bottom) value as a value in a list:
+
+[source,haskell]
+----
+1 : 2 : undefined : 4 : []
+----
+
+And compute the length of that list (which does not force the values):
+
+[source,text]
+----
+λ> length $ 1 : 2 : undefined : 4 : []
+4
+----
+
+But if we use a function that forces (evaluates) the values, then it errors out:
+
+----
+λ> take 2 $ 1 : 2 : undefined : 4 : []
+[1,2]
+
+λ> take 3 $ 1 : 2 : undefined : 4 : []
+[1,2,*** Exception: Prelude.undefined
+CallStack (from HasCallStack):
+  error, called at libraries/base/GHC/Err.hs:74:14 in base:GHC.Err
+  undefined, called at <interactive>:25:18 in interactive:Ghci17
+----
+
+Note how the REPL even tried to print the list, and it printed `[1,2,` and then the exception happened because the next forced value was ⊥.
+
+We can also make ⊥ be part of the spine:
+
+[source,text]
+----
+λ> take 2 $ 1 : 2 : [] ++ undefined ++ 4 : []
+[1,2]
+
+λ> take 3 $ 1 : 2 : [] ++ undefined ++ 4 : []
+[1,2*** Exception: Prelude.undefined
+CallStack (from HasCallStack):
+  error, called at libraries/base/GHC/Err.hs:74:14 in base:GHC.Err
+    undefined, called at <interactive>:32:24 in interactive:Ghci19
+----
+
+And when ⊥ is part of the spine, `length` (or other functions that evaluate the spine) won't work:
+
+[source,text]
+----
+λ> length $ 1 : 2 : [] ++ undefined ++ 4 : []
+*** Exception: Prelude.undefined
+CallStack (from HasCallStack):
+  error, called at libraries/base/GHC/Err.hs:74:14 in base:GHC.Err
+  undefined, called at <interactive>:33:24 in interactive:Ghci19
+----
+
+== Spine and Non-Strict Evaluation
+
+* https://www.fpcomplete.com/haskell/tutorial/all-about-strictness/
+
+We talk about a list’s _spine_ when talking about lists and their evaluation.
+The spine is the (conceptual) connective structure that holds the elements of the collection together.
+
+The list `[1, 2, 3]` is actually `1 : (2 : (3 : []))`, which we can visualize like this:
+
+**IMPORTANT**: The `1 : 2 : [3]` representation makes it look like 1 exists before the cons cell that contains it, but it is the cons cell that contains values (not values coming before, and containing, the cons cells).
+
+Because of non-strict evaluation, it is possible to evaluate the cons cells without having to evaluate the values the cons cells contain.
+
+TODO: Is the cons cell the same as the spine?
+
+It is also possible to evaluate only part of a list.
+
+- Evaluation of the list proceeds *down* the spine.
+- Constructing the list proceeds *up* the spine.
+
+For `1 : (2 : [])`, start with the infix `:` and evaluate 1 on the left and the cons cell on the right.
+Then evaluate the next `:` for the 2 and the empty list.
+
+Construct the list `[1, 2]`:
+
+* `1 : (2 : [])`
+* First, cons 2 to the empty list (put 2 in front of the empty list).
+* Then cons 1 to the existing, already existing list `2 : []` (put 1 in front of 2).
+
+Haskell is non-strict.
+When we “have a list”, we have a *blueprint for a list*, not the list itself.
+It will be constructed only when something needs its values, and it will only construct the needed values.
+
+```
+ghci> take 3 [1 ..]
+[1,2,3]
+```
+
+Even though `[1 ..]` can potentially build an infinite list, because of `take 3`, only three elements are actually constructed.
+
+![Untitled](https://s3-us-west-2.amazonaws.com/secure.notion-static.com/9d561e64-18e8-46db-b878-872de408977a/Untitled.png)
+
+With lists, the spine is a linear succession of a cons cell wrapping another cons cell.
+With trees and some other data structures, the spines can be nodes containing other nodes.
+
+== Checking Evaluation with :sprint
+
+Docs for link:https://downloads.haskell.org/ghc/latest/docs/users_guide/ghci.html#ghci-cmd-:print[GHCi :print^] and link:https://downloads.haskell.org/ghc/latest/docs/users_guide/ghci.html#ghci-cmd-:sprint[GHCi :sprint^].
+
+GHC introduces some opportunistic optimizations to make code faster when it knows it won’t change how it (the code) evaluates.
+Also remember that something like `Num a => a` means `a` is not a concrete type yet (it is waiting for a concrete type to be fully realized.)
+
+The output “_” means *unevaluated*.
+
+[source,ghci]
+----
+λ> xs = [1 .. 5] :: [Int]
+λ> :sprint xs
+xs = _
+[source,ghci]
+----
+
+In this case, the `xs = _` means `xs` is completely unevaluated.
+But if we take one value from `xs`, then one element has been evaluated, but not the rest:
+
+[source,ghci]
+----
+λ> take 1 xs
+1
+:sprint xs
+xs = 1 : _
+take 2 xs
+[1, 2]
+:sprint xs
+xs = 1 : 2 : _
+----
+
+BEWARE: We need a concrete type for `:sprint` to show how much has been evaluated.
+See link:https://discord.com/channels/280033776820813825/505367988166197268/1115246246093922334[this Discord question].
+
+The `length` function is only strict on the spine (it doesn't need to evaluate the values).
+It seems at some versions of GHC would force evaluation of the values too, though.
+
+[source,ghci]
+----
+λ xs = [1 .. 5] :: [Int]
+λ :sprint xs
+xs = _
+λ take 2 xs
+[1,2]
+λ :sprint xs
+xs = 1 : 2 : _
+λ length xs
+5
+λ :sprint xs
+xs = [1,2,3,4,5]
+----
+
+`xs` is not a list in memory in which we can see the evaluation proceed until you specify a type.
+For instance, we can say:
+
+[source,ghci]
+----
+λ> xs = [1 .. 5]
+λ> take 2 (xs :: [Int])
+[1,2]
+λ> take 3 (xs :: [Double])
+[1.0,2.0,3.0]
+----
+
+`xs` can't be a list of both these types at once.
+
+== Evaluations of Spines and Values
+
+“Normal Form” (NF) means an expression is fully evaluated.
+By default, all expressions are in WKNF (_Weak Head Normal Form_), which means expressions are only evaluated as far as necessary.
+
+If an expression is WHNF, it means it could be fully evaluated, or it was evaluated up to the point of reaching a data constructor or a lambda awaiting an argument.
+
+Some expression in WHNF can be further evaluated if another argument is provided.
+If no further arguments are possible, we say it is in WHNF but also NF.
+
+By definition, anything in NF is also in WHNF.
+
+WH is an expression evaluated at least up to the first data constructor.
+
+The expression `(8, 9)` is in WHNF and NF.
+The expression is indeed evaluated to _at least_ the first data constructor.
+It is also NF because it is fully evaluated.
+
+The expression `(8, 8 + 1)` is in WHNF, but not in NF because the expression `8 + 1` has not been evaluated yet.
+
+[source,ghci]
+----
+λ t = (8 :: Int, 9 :: Int)
+λ :sprint t
+t = (8,9)
+
+λ u = (8 :: Int, (8 + 1) :: Int)
+λ :sprint u
+u = (8,_)
+----
+
+The expression `\n -> n + 1` (a lambda anonymous expression) is in WHNF and NF.
+The operator `+` has been applied to `n` and `1`, but the the expression cannot be further reduced until `\n ->` is applied.
+
+But something like `"TR" ++ "1996"` is neither in WHNF nor NF.
+The `++` function has fully applied arguments, but the whole expression has not been evaluated yet.
+
+== length and evaluation
+
+Note we have a _bottom_ value (`undefined`) as the second element in the lists below:
+
+[source,ghci]
+----
+λ length [1, undefined, 3]
+3
+
+λ map (+ 1) [1, undefined, 3]
+[2,*** Exception: Prelude.undefined
+CallStack (from HasCallStack):
+  error, called at libraries/base/GHC/Err.hs:75:14 in base:GHC.Err
+  undefined, called at <interactive>:19:15 in interactive:Ghci2
+----
+
+The `length` expression works but the `map` one does not. Why‽
+
+Because `length` is only strict on the spine.
+It only counts how many cons cells there are without even trying to evaluate the values.
+
+The `map (+ 1)` on the other hand, requires that the values are evaluated so `(+ 1)` can be applied to them.
+
+Note, however, that `:sprint` thinks the list was fully evaluated in some situations:
+
+[source,ghci]
+----
+λ xs :: [Int]; xs = [1, 2, 3]
+λ length xs
+3
+λ :sprint xs
+xs = [_,_,_]
+
+λ ys = [1, 2, 3] :: [Int]
+λ length ys
+3
+length = _
+λ :sprint ys
+ys = [1,2,3]
+
+λ zs = [1, 2, 3]
+λ length zs
+3
+λ :sprint zs
+zs = _
+----
+
+It shows `xs = [\_,_,_]` but `ys = [1,2,3]`.
+And because `zs` is polymorphic (was not assigned a concrete type), it just shows `zs = _`.
+
+== foldr and foldl spine strictness
+
+Consider these simplified implementations of `foldr` and `foldl`:
+
+.fldr and fldl
+[source,haskell]
+----
+fdr :: (a -> b -> b) -> b -> [a] -> b
+fdr _ acc []       = acc
+fdr f acc (x : xs) = f x (fdr f acc xs)
+--                        ------------
+--                             |
+--                             |
+--                             v
+--             The rest of the fold is evaluated
+--             only if f is strict on x and the
+--             rest of the fold.
+--
+
+fdl :: (b -> a -> b) -> b -> [a] -> b
+fdl _ acc []       = acc
+fdl f acc (x : xs) = fdl f (f acc x) xs
+--                   -----
+--                     |
+--                     |
+--                     v
+--         The successive steps of the fold
+--         are forced unconditionally.
+--
+----
+
+Note how `fdr` has the successive steps of fold evaluation _after_ `f x`.
+If `f` is not strict on both arguments (`x` and “the rest of the fold”), then `fdr` does not force valuation of the remainder of the list.
+
+But ``fdl``'s steps for the successive evaluation of the fold happens immediately, that is, `fdl f` happens first, which means, this fold left has no choice but to continue evaluating the spine.
+
+[source,haskell]
+----
+-- xs has bottom ⊥ as part of the spine.
+xs = [1, 2] ++ 3
+
+-- ys has botton as a value
+ys = [1, 2] ++ [undefined]
+----
+
+Let's experiment with those:
+
+[source,text]
+----
+λ> fdr const 0 xs
+1
+
+λ> fdl const 0 xs
+*** Exception: Prelude.undefined
+
+λ> fdr const 0 ys
+1
+
+λ> fdl const 0 ys
+0
+----

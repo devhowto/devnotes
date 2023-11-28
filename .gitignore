@@ -38,6 +38,7 @@ build
 # C compiled programs.
 #
 **/out
+*.o
 
 ##
 # C compilation caches.

@@ -1,0 +1,65 @@
+Command Line:
+  - cmdline/curl.adoc
+  - cmdline/bash-brace-expansion.adoc
+  - cmdline/du.adoc
+  - cmdline/bash-conditionals.adoc
+  - cmdline/performance-benchmark.adoc
+  - cmdline/gnu-utils-macos.adoc
+  - cmdline/grep.adoc
+  - cmdline/command-line-intro.adoc
+  - cmdline/cp.adoc
+  - cmdline/help-info-man.adoc
+  - cmdline/echo-printf.adoc
+  - cmdline/built-in.adoc
+  - cmdline/find.adoc
+  - cmdline/pandoc.adoc
+  - cmdline/bash-parameter-expansion.adoc
+  - cmdline/tar.adoc
+  - cmdline/filter-lines.adoc
+  - cmdline/mkdir.adoc
+  - cmdline/argument-syntax.adoc
+  - cmdline/bash-aliases.adoc
+  - cmdline/sed.adoc
+  - cmdline/null-command.adoc
+  - cmdline/bash-arrays.adoc
+  - cmdline/encoding.adoc
+  - cmdline/bash-subshell-child-process.adoc
+  - cmdline/bash-history.adoc
+  - cmdline/od.adoc
+  - cmdline/bash-scripts.adoc
+  - cmdline/hackerrank-shell.adoc
+  - SED:
+    - cmdline/sed/sed-tasks-1.adoc
+    - cmdline/sed/sed-insert.adoc
+  - Terminal:
+    - cmdline/terminal/index.adoc
+    - cmdline/terminal/kitty.adoc
+
+Databases:
+  - dbsql/databases-intro.adoc
+  - dbsql/basic-sql-1.adoc
+  - dbsql/hackerrank-sql-1-easy.adoc
+  - dbsql/postgresql-roles.adoc
+  - dbsql/useful-postgresql-commands.adoc
+  - dbsql/postgresql-docker.adoc
+Editors:
+  Vim:
+    - editors/vim/vim-coc.adoc
+  Emacs:
+    - editors/emacs/emacs.adoc
+Miscelanous:
+  - misc/archlinux.adoc
+  - misc/asciidoc.adoc
+  - misc/debian-virtualbox.adoc
+  - misc/filename-path.adoc
+  - misc/gnupg.adoc
+  - misc/macos.adoc
+  - misc/NetBSD.adoc
+  - misc/random.adoc
+  - misc/ssh-secure-shell.adoc
+  - misc/unicode-utf8.adoc
+  - misc/virtualbox.adoc
+  - misc/weechat.adoc
+
+Algorithms:
+  - ./algds/other/prime-factors/README.adoc

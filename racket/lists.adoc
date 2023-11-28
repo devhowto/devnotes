@@ -1,0 +1,50 @@
+= Racket :: Lists
+:icons: font
+:toc: left
+:source-highlighter: pygments
+
+== reverse
+
+First of all, `foldl` does NOT start at the last argument of the list:
+
+.reverse
+[source,racket]
+----
+(foldl cons '() '(1 2 3))
+----
+
+The above works like this:
+
+.evolution of the foldl example above
+[source,racket]
+----
+(cons 1 '())
+(cons 2 (cons 1 '()))
+(cons 3 (cons 2 (cons 1 '())))
+----
+
+A non tail call recursion that increments each integer in the list:
+
+.increment all
+[source,racket]
+----
+(define inc-all
+  (λ (xs)
+    (cond
+      [(null? xs) '()]
+      [else (cons (add1 (car xs)) (rev (cdr xs)))])))
+
+(inc-all '(1 2 3))
+----
+
+.reverse a list
+[source,racket]
+----
+(define rev
+  (λ (xs)
+    (cond
+      [(null? xs) '()]
+      [else
+       (append (rev (cdr xs))
+               (cons (car xs) '()))])))
+----

@@ -1,0 +1,44 @@
+= Racket :: Randon Stuff
+:toc: right
+:icons: font
+
+== number to th
+
+[source,racket]
+----
+#lang racket
+;;
+;; in /racket/collects/racket/contract/private/guts.rkt
+;;
+
+(define (n->th n)
+  (string-append
+   (number->string n)
+   (case (remainder n 100)
+     [(11 12 13) "th"]
+     [else
+      (case (modulo n 10)
+        [(1) "st"]
+        [(2) "nd"]
+        [(3) "rd"]
+        [else "th"])])))
+----
+
+.example n->th racket REPL session
+[source,text]
+----
+nth.rkt> (n->th 0)
+"0th"
+nth.rkt> (n->th 1)
+"1st"
+nth.rkt> (n->th 2)
+"2nd"
+nth.rkt> (n->th 3)
+"3rd"
+nth.rkt> (n->th 4)
+"4th"
+nth.rkt> (n->th 10)
+"10th"
+nth.rkt> (n->th 99)
+"99th"
+----

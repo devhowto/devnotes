@@ -1,0 +1,21 @@
+= Arrays
+:page-subtitle: JavaScript
+:page-tags: javascript array
+
+== Array of n elements
+
+[source,javascript]
+----
+Array(5).fill(0);
+----
+
+The above makes a sparse array, and sparse arrays are permanently slow.
+
+Using `Array()` has always been considered a bad practice and engines never bothered to optimizing it as they would have to check the prototype chain.
+
+This is the more recommended way of creating an array of stem:[n] elements:
+
+[source,javascript]
+----
+Array.from({ length: 5 }) => (_, i) => i;
+----

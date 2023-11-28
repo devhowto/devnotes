@@ -1,0 +1,36 @@
+= File History :: Git
+:page-tags: git command-line shell editor vim nvim emacs
+
+== Vanilla Git command line
+
+[source,shell-session]
+----
+$ git log --follow --patch -- ./path/to/file.c
+----
+
+== vim fugitive
+
+With Vim fugitive extension, run this from vim/nvim:
+
+.vim command line
+[source,text]
+----
+:0Gclog
+----
+
+It will open a list of commits that touched the current buffer on the quickfix list.
+Then use `:cnext` and `cprevious` (`:cn` and `:cp` shortenings work too).
+
+Looks like `:0Gclog` _does not_ need the `%` buffer parameter (passing it produces error about git options), but just in case, you may need to want to try `:0Glog %` and see what happens.
+
+Add keybindings to make make things quicker:
+
+[source,text]
+----
+
+.nvim's init.lua
+----
+vim.keymap.set('n', '[q', ':cprev<CR>')
+vim.keymap.set('n', ']q', ':cnext<CR>')
+----
+

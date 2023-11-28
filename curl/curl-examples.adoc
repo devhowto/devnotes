@@ -1,0 +1,22 @@
+= cURL Examples
+:icons: font
+:toc: left
+
+== Request html, json, etc.
+
+We can pass the `Accept` header specifying it with `--header` or `-H`:
+
+[source,shell-session]
+----
+$ curl --header 'Accept: application/json' <URL>
+$ curl --header 'Accept: text/plain'
+$ curl --header 'Accept: text/plain,text/html'
+
+$ curl --header \
+    'text/html,application/xhtml+xml,application/xml'
+
+$ curl --header \
+    'Accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,*/*;q=0.8'
+----
+
+Note the syntax: we say `Accept`, then `:`, then a space, then the value for the `Accept` header.

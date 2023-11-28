@@ -1,0 +1,45 @@
+= Debounce | LeetCode | Medium
+:page-tags: javascript leetcode js30days medium debounce javascript function
+:toc: left
+:
+
+* link:https://leetcode.com/problems/debounce/[Debounce :: LeetCode :: Medium]
+
+Whenever the debounced function is called within the given time window, the timer is reset.
+Only after the elapsed period of inactivity exceeds the debounce time will the debounced function be called.
+
+== Meaning of debounce in this context
+
+The term _debounce_ originates from electronics.
+When a switch is pressed, it generates multiple ripples of current/contact which causes the device to inadvertently activate multiple times.
+This phenomenon is dubbed _bouncing_.
+Thus, debouncing is some technique to prevent this unwanted behavior.
+
+Regarding software, the debouncing idea was borrowed to _debounce_ events, signals, etc.
+
+
+* link:https://en.wikipedia.org/wiki/Switch#Contact_bounce[Switch, contact bounce and debounce (Wikipedia)^]
+
+== Solution
+
+[source,javascript]
+----
+/**
+ * Returns a debounced version of a function.
+ *
+ * @param {Function} fn The function to debounce.
+ * @param {number} t The number of milliseconds for the time window.
+ * @returns {Function}
+ */
+function debounce(fn, t) {
+  let timeoutId;
+
+  return function debounced(...args) {
+    if (timeoutId) clearTimeout(timeoutId);
+
+    timeoutId = setTimeout(function debounced () {
+      fn(...args);
+    }, t);
+  };
+}
+----

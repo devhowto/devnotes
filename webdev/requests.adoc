@@ -1,0 +1,14 @@
+= HTTP requests
+:page-subtitle: WebDev
+:page-tags: web http fetch xmlhttprequest
+
+== Request Timeout
+
+[quote, attribution, cite title]
+____
+In browsers, `fetch()`` usually times out after a set period of time which varies amongst browsers.
+For example, in Firefox this timeout is set to 90 seconds by default, but in Chromium, it is 300 seconds.
+In Node.js, no default timeout is set for `fetch()` requests, but the newly added `AbortSignal.timeout()` API provides an easy way to cancel a `fetch()` request when a timeout is reached.
+____
+
+* link:https://betterstack.com/community/guides/scaling-nodejs/nodejs-timeouts/[Node.js Timeouts (Better Stack)]

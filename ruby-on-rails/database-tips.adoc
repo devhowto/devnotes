@@ -1,0 +1,43 @@
+= Database Tips :: Ruby on Rails
+:icons: font
+:toc: left
+
+== Starting DB from scratch
+
+Sometimes during development one may want (or need) to start from a clean slate.
+
+[NOTE]
+====
+It may be necessary to make sure the database has no active connections or the following commands may fail.
+
+Check if `rails server` is running, or if you are logged into `db:console`, `psql` or `mysql` CLIs or some of their UI clients, etc.
+====
+
+=== db:reset
+
+This loads database information from `schema.rb`.
+It DOES NOT run migrations.
+
+[source,shell-session]
+----
+$ rails db:reset
+----
+
+The above is equivalent to:
+
+[source,shell-session]
+----
+$ rails db:drop db:setup
+----
+
+- link:https://edgeguides.rubyonrails.org/active_record_migrations.html#resetting-the-database[Resetting the Database :: Ruby on Rails Docs].
+- link:https://edgeguides.rubyonrails.org/active_record_migrations.html#schema-dumping-and-you[Schema Dumping and You :: Ruby on Rails Docs].
+
+=== drop, create, migrate, seed
+
+Alternatively, we may want to start fresh but running the migrations (instead of loading from `schema.rb`):
+
+[source,shell-session]
+----
+$ rails db:drop db:create db:migrate db:seed
+----

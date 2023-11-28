@@ -1,0 +1,220 @@
+= Folding Lists
+:page-subtitle: Haskell
+:experimental:
+
+== Intro
+
+Folds are catamorphisms.
+“Cata-” means “down” or or “against”, as in catacomb.
+“Morph” means “form”, like we already know from “monomorphism” or “polymorphism”.
+
+Cathamorphism is a means to deconstruct data.
+A list has a spine defining the list's structure, and a fold is the operation that can reduce (transform) that structure.
+A fold (catamorphism) can break down that structure, but evaluation can potentially reconstruct the list, which is why folds can operate on lists and still return lists as a result.
+
+* https://en.wikipedia.org/wiki/Catamorphism[catamorphism (Wikipedia)^].
+* https://www.etymonline.com/search?q=catacomb[catacomb (Etymonline)^].
+* https://www.etymonline.com/search?q=monomorphus[monomorphus (Etymonline)^].
+* https://www.etymonline.com/search?q=polymorphism[polymorphism (Etymonline)^].
+
+== Fold Right
+
+* https://en.wikipedia.org/wiki/Fold_(higher-order_function)[Fold higher-order function (Wikipedia)^].
+
+`foldr` is short for _fold right_.
+
+[NOTE]
+====
+Although not all programming languages implement the exact same concept of a `reduce` function, we can more or less think of `foldr`  as `reduce`.
+
+.Node.js REPL
+[source,text]
+----
+$ node --interactive
+> [1, 2, 3].reduce((acc, n) => acc + n, 0);
+6
+----
+
+.IRB REPL
+[source,text]
+----
+$ irb --simple-prompt
+>> [1, 2, 3].reduce(0) { |acc, n| n + acc }
+=> 6
+----
+
+There are more idiomatic ways of doing it in Ruby, but we kept it like this to make the similarities easier to behold.
+
+.Python REPL
+[source,text]
+----
+$ python
+from functools import reduce
+>>> reduce(lambda acc, n : acc + n, [1, 2, 3], 0)
+6
+----
+
+And finally `foldr` in Haskell:
+
+.GHCi REPL
+[source,text]
+----
+$ ghci
+λ> foldr (+) 0 [1, 2, 3]
+6
+----
+====
+
+GHCi 9.2.8 (2023) gives us this type for `foldr`:
+
+.type signature of foldr
+[source,text]
+----
+λ> :type foldr
+foldr :: Foldable t => (a -> b -> b) -> b -> t a -> b
+----
+
+Because `foldr` works on any foldable type (not just lists), it says “Foldable t”.
+For now, we can replace (mentally or on our simpler code examples) `Foldable t` with `[a]` (list of stem:[a]).
+That is possible because we can make generic types more concrete (but not the other way around).
+
+Type-checks perfectly fine:
+
+[source,haskell]
+----
+myFoldR :: (a -> b -> b) -> b -> [a] -> b
+myFoldR = foldr
+----
+
+A fold replaces each cons constructor with the function being applied and reduces the list.
+
+This:
+
+[source,text]
+----
+foldr (+) 0 [1, 2, 3]
+----
+
+Is the same as:
+
+[source,text]
+----
+foldr (+) 0 1 : 2 : 3 : []
+----
+
+Which is more or less like this:
+
+[source,text]
+----
+
+1 + (2 + (3 + ))
+----
+
+We could say `foldr` is similar to `map`.
+While `map` applies a function to each element of a list and returns a list, `foldr` maps a function of each element of the list and also _reduces_ the list.
+
+`foldr` is _right associative_.
+
+[source,haskell]
+----
+fldr :: (a -> b -> b) -> b -> [a] -> b
+fldr _ z []       = z
+fldr f z (x : xs) = f x (fldr f z xs)
+----
+
+And `fldr (+) 0 [1, 2, 3]` evaluates like this:
+
+[source,text]
+----
+fldr (+) 0 [1, 2, 3]
+(+) 1 (fldr (+) 0 [2, 3])
+(+) 1 ((+) 2 (fldr (+) 0 [3]))
+(+) 1 ((+) 2 ((+) 3 (fldr (+) 0 [])))
+(+) 1 ((+) 2 ((+) 3 0))
+(+) 1 ((+) 2 3)
+(+) 1 5
+6
+----
+
+Which can be also thought like this:
+
+[source,haskell]
+----
+1 + (2 + (3 + 0))
+1 + (2 + 3)
+1 + 5
+6
+----
+
+== Visualizing foldr with a helper
+
+[source,haskell]
+----
+--
+-- A “print fold right” utility to display the folding right
+-- of simple lists of numbers using the `+` operator.
+--
+pfr :: Foldable t => t [Char] -> [Char]
+pfr = foldr (\x y -> concat ["(", x, " + ", y, ")"]) "0"
+--
+-- λ> pfr $ map show [1 .. 5]
+-- "(1 + (2 + (3 + (4 + (5 + 0)))))"
+--
+----
+
+== Folding Stages
+
+Folding happens in two stages.
+
+* Traversal (recursing over the spine).
+* Evaluation (folding of the values by applying the function).
+
+In the first stage, the spine is recured computing expressions to be evaluated at the second stage.
+In the second stage, those expressions are evaluated.
+The function is finally really applied to the arguments and the list is reduced.
+
+Both left and right folds recur the spine from left to right, but then the folding proper can be left-associative (for left folds) or right-associative for right folds).
+
+[source,text]
+----
+fldr (+) 0 [1, 2, 3]
+(+) 1 (fldr (+) 0 [2, 3])                Traverse (recurse) from left
+(+) 1 ((+) 2 (fldr (+) 0 [3]))           to right building up exprs.
+(+) 1 ((+) 2 ((+) 3 (fldr (+) 0 [])))
+
+(+) 1 ((+) 2 ((+) 3 0))                  Evaluates the expressions
+(+) 1 ((+) 2 3)                          by applying the function (+)
+(+) 1 5                                  thus reducing the list.
+6
+----
+
+The evaluation of the expressions is the actual folding.
+
+A fold right uses “the rest of the fold” as one of its arguments.
+
+[source,haskell]
+----
+fldr f z (x : xs) = f x (fldr f z xs)
+--                      ^-----------^
+--                            /
+--                           /
+--                    rest of the fold
+----
+
+== Force or not to force
+
+Because of this two-stage process and non-strict (lazy) evaluation, if the function does not evaluate (force) its second argument (the rest of the fold), the rest of the spine is not forced, which is what allows Haskell to work with infinite streams of data.
+
+`+`, for instance, is strict on both arguments.
+It will force the all the spine and all the values, which is why we cannot do something like this (note the infinite list):
+
+.Runs forever. Don't do this at home 😅
+[source,haskell]
+----
+foldr (+) 0 [1..]
+----
+
+[NOTE]
+====
+Remember you can hit kbd:[Ctrl+c] to cancel long-running processes.
+====

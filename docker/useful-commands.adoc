@@ -1,0 +1,105 @@
+= Useful Docker Command Line Examples
+:page-subtitle: Docker
+:page-tags: docker cmdline bash shell
+:imagesdir: __assets
+:icons: font
+:toc: left
+:source-highlighter: highlight.js
+:experimental:
+
+Created by: Fernando Basso Created time: June 20, 2023 8:25 AM
+
+== Remove containers, volumes, etc.
+
+[WARNING]
+====
+Careful when removing stuff.
+You don't want to destroy anything in production by being careless.
+====
+
+We want to remove all these volumes:
+
+[source,text]
+----
+$ docker volume ls
+DRIVER    VOLUME NAME
+local     0ab46de978a197003ab775d96f5829e796f6b947cffb1ba605147ae3756ebdfc
+local     0be0965b268ae999f1ec1f3d972491be73231d015b6752c8115ebe865bf9c85c
+local     0c25d911eb97a468fc43e6744c79c3c2bedcded41a779e7d24df412019b03b37
+local     0e563f6748040a98bf6830d9fd7ae285e741fbcb2c1c6e2c7d360da347fbc7b1
+local     4eb2fa8b836ced1ef97eaf633cd644aa8c10b8120a5f11cdd717f5c46fd42aea
+local     4fb5a8ac8ca7a351aa97dc233010fe1d9b8f6c29703f89551801d924136c5ee4
+local     4fd7b7ab8475dbe935c6fd193d44072478d0361ec226eafe1c20ff9385624709
+local     5a5864c437a2aa5ba0a76c9e44f3144848a32eb594dca0a7f20261ed96fc7c96
+local     8ba7ad962e7c9639cf2ad2b27ba5872f7101b7fd51e407c14c94bd8d0e2bce69
+local     26f9b8ea0868fa0e8c29ef2d6ee008f0ae41c7206ea6262a69d6c04a0a86fa3b
+local     46f8cee5e47730f685e21890b17d07f958211c7de4be1ea5de3d49aa2982a1d1
+local     68d2f632ff7eae52926a90a4595d8b959202bcf517a7fd0c26e1be43e2f12992
+local     70cd66dd6f719f0305c75d72e057615abf3b59f138296148039a65295bf1f7d0
+local     435cfbec6ce8d2126fc6c0a3225ca480d8f635d19a99e754265c96e724cce27c
+local     554a5add4379064b572dab7cfa8ee883f0bb759ec7402d152158a97d358f9dd5
+local     693b6f1c74a1741c1c78307900f1a4092b59741ef2958e8f1bec788280e556cf
+local     949f590379896484d2fd1e5cb1d4154558d8f367227411d967c991c63bc20dc2
+local     7123a615b3c0387abacf1e56130ea829480b710359d3eb9858048f6ea97d2393
+local     85254454f07220274db0797f9e46cafaa5bd57a07cece1b6d7a9a186887c8665
+local     a2e05b5b709af6a7117cd0128758e001366414b81ad2dab909e329abab73162e
+local     a701f4a16fbbcdcf0c3678b5f7ce9eef3278c9b87f96396b33c1de3015dd7ac9
+local     a4116dd56f8ae7d2c45d41c6a264216d244b0dd1b20e290cb2e6cd3662773693
+local     b43ef0ed07eabbd302621a187039f88c038270f71221bb4816f245863f4b678b
+local     blog1_ror_blog1_dbdata
+local     c8be214b285a8d5be7b19d25d48e836f6496e5eaffbfb20233ad4e1d7c170dce
+local     ce6c4a59546e12f1d8cc41837044f26cb6da434f2bb651c9096fc577295610f3
+local     ced504060a5450c5e32f41cdfae5c10d749195136b1acfc6d7376abd381a5d75
+local     d5d5dd2cde83dd32223f7672e96581e080f501c5a8acad8aaa51df861f4794f4
+local     d571e7ea9daa492fdd0480d35e733b3e38e815ed14f9a5bdf080b25460599d79
+local     d1559333b12b3ed3cb77e53b3f62bccc3bdd9d2d45adb016aa96d8a617fb9cbe
+local     databases-sql_dbdata
+local     dd9c0bf3078ccf5a99182d34ededa0585a61b93a7447abe757b2951c70689e1c
+local     ea842b43a8fdc8fe241415db4d2de9dd9b7f71a4007c61a34e5b898a505c975a
+local     f4c7470ba5c8fb930ecf9d9c67ec38dfde4c43cfef242cd5d71a028c451502ca
+local     f9138c0a4747224b2c926a4dbd92ac0d30d88dd8f63ab58e3c71f8081907b3b8
+local     fd81db09a6ae35e9dc96d23ec8b0c5d8b17b7ad12614e893a638a70374eaaca4
+----
+
+Do you tediously type them one by one?
+Copy and paste?
+Open in an editor first (like `docker volume ls | vim -`), etc?
+
+Or just use Bash's amazing completion (assuming it is properly configured on your system).
+
+In many situations, Bash (actually readline, which is used by bash) allows us to expand possible filename parameters by typing `Esc *`  or `Ctrl+[ *`.
+
+For instance, in a directory with a few files, list them:
+
+[source,shell-session]
+----
+$ ls -1
+docker-entrypoint-initdb.d/
+film_actor/
+pokemon/
+postgresql-playground-1.docker.yml
+reset_pg1.sh
+simply_sql/
+simply-sql-archive/
+----
+
+image::bash-ls.png[bash ls -1]
+
+Then we want to run the command `file` on each of them.
+Type `file` followed by a space, followed by `Esc *`, and it will complete all filenames:
+
+image::file-bash-completion.png[file bash completion]
+
+If we type `file` and kbd:[Esc+*] without the space first, then the shell will complete all possible commands that start with "`file`" (and not the filenames in that directory).
+
+So, for Docker, run `docker volume rm kbd:[Ctrl+*]`, that is, `docker volume rm` followed by a space, followed by kbd:[Ctrl+*].
+When you hit kbd:[Enter], volumes should be removed.
+If there are containers using some of the volumes, you'll get a few errors.
+Remove the containers first:
+
+[source,shell-session]
+----
+$ docker volume rm Ctrl *
+$ docker container rm Ctrl *
+$ docker volume rm Ctrl *
+----

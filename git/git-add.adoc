@@ -1,0 +1,14 @@
+= git add
+:toc: left
+:icons: font
+
+== Add and ignore untracked files
+
+Sometimes we want to only add changed files (including deleted), but not
+new, untracked files.
+We can use `--update` or `-u`:
+
+[source,shell-session]
+----
+$ git add --update .
+----
