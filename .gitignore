@@ -9,6 +9,11 @@
 node_modules
 
 ##
+# PureScript nvim LSP stuff.
+#
+.psc-ide-port
+
+##
 # macOS stuff.
 #
 .DS_Store
