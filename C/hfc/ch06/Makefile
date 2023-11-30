@@ -3,7 +3,7 @@
 CC = gcc
 LL = gcc
 
-CFLAGS = -std=c99 \
+CFLAGS = -std=gnu99 \
 				 -Og \
 				 -g3 \
 				 -Wall \
