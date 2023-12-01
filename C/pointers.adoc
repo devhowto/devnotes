@@ -3,6 +3,7 @@
 :icons: font
 :source-highlighter: highlight.js
 :stem: latexmath
+:imagesdir: ./__assets
 
 == Intro
 
@@ -156,3 +157,96 @@ On “this machine”, a pointer to char takes 8 bytes.
 
 In `main`, `cs` is a *char array*.
 When passed to the `f`, it becomes a (constant) pointer.
+
+== Memory Leaks
+
+A memory leak happens when there is no longer any reference to an existing dynamically allocated piece of storage on the heap.
+
+All dynamically allocated memory should bee ``free``'d, but if there is no longer any reference to its location, it becomes impossible to free it, thus, the memory leak occurs.
+
+=== Struct Example
+
+Consider this code:
+
+[source,c]
+----
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+
+typedef struct Jedi_ {
+  char *name;
+  short level;
+} Jedi;
+
+Jedi *create(const char *name, short level) {
+  Jedi *jedi = malloc(sizeof(Jedi));
+
+  /* Assign a copy of the string, not a reference to
+   * the original string. */
+  jedi->name = strdup(name);
+  jedi->level = level;
+
+  return jedi;
+}
+
+int main(void) {
+  Jedi *ahsoka = create("Ahsoka Tano", 97);
+
+  printf("%s is level %hd.\n", ahsoka->name, ahsoka->level);
+
+  free(ahsoka);
+
+  return 0;
+}
+----
+
+It creates a struct with dynamically allocated memory, and one of the fields of the struct is a pointer to `char` which is assigned the result of `strdup()`, which allocates memory for the dup'ed string and returns the pointer to that memory on the heap.
+
+Then we compile the program and run the program:
+
+[source,shell-session]
+----
+$ gcc \
+    -std=gnu99 \
+    -Og \
+    -g3 \
+    -Wall \
+    -Wextra \
+    -Wpedantic \
+    -fsanitize=address,undefined \
+    leak_struct.c \
+    -o ./out/leak_struct
+
+$ ./out/leak_struct
+Ahsoka Tano is level 97.
+
+=================================================================
+==616721==ERROR: LeakSanitizer: detected memory leaks
+
+Direct leak of 12 byte(s) in 1 object(s) allocated from:
+    #0 0x7fb62d46c32a in __interceptor_strdup /usr/src/debug/gcc/gcc/libsanitizer/asan/asan_interceptors.cpp:454
+    #1 0x55c19d9cc23c in create /home/deveng/work/src/devnotes/src/C/leak_struct.c:15
+
+SUMMARY: AddressSanitizer: 12 byte(s) leaked in 1 allocation(s).
+----
+
+image:c-memory-leak-free-struct-2023-12-01T09-54-04-861Z.png[C memory leak with free on struct]
+
+When `free(ahsoka)` is run, it de-allocates memory for the struct, causing the reference to the `name` which was dynamically allocated memory through the use of `strdup()` is lost.
+
+To fix the problem, at least one way is to first free the memory on the `name` field, _then_ free the struct itself:
+
+[source,diff]
+----
+  int main(void) {
+    Jedi *ahsoka = create("Ahsoka Tano", 97);
+
+    printf("%s is level %hd.\n", ahsoka->name, ahsoka->level);
+
++   free(ahsoka->name);
+    free(ahsoka);
+
+    return 0;
+  }
+----
