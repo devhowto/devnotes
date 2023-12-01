@@ -58,6 +58,8 @@ int main(void) {
   display(p_island1);
   display(p_island0);
 
+  free(p_island0->name);
+  free(p_island1->name);
   free(p_island0);
   free(p_island1);
 
