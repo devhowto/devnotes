@@ -1,5 +1,0 @@
-Look at this line:
-
-Share '6079aab6-e5b9-401b-820c-e1ad0e334c65', expires Mon Oct 31 14:29:25 2022 UTC, created by 'local', 0 bytes, 2 files, 0 download
-
-End!

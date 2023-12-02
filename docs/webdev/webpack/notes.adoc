@@ -1,8 +1,0 @@
-= Webpack
-:page-tags: webdev webpack config
-
-== NODE_ENV
-
-When webpack is run with `--mode=<development or production>`, it does not set `process.env.NODE_ENV`.
-It has to be set from a shell's env var, or some place in webpack config which has access to `mode`.
-

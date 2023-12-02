@@ -1,3 +1,0 @@
-= 10 Folding Lists
-:page-subtitle: Haskell Programming From First Principles
-

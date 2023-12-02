@@ -1,8 +1,0 @@
-= 02 Pointer pointer manipulation
-:page-subtitle: Mastering Algorithms With C (book)
-:toc: left
-:icons: font
-:sectlinks:
-
-
-dangling po

@@ -1,3 +1,0 @@
-= Haskell Programming From First Principles
-
-My notes and solutions for the book https://haskellbook.com/[Haskell Programming From First Principles^].

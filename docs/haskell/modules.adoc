@@ -1,4 +1,0 @@
-= Modules
-:page-subtitle: Haskell
-
-* https://discord.com/channels/280033776820813825/505367988166197268/1140945669893406802[Discord discussion about importing GHC.Utils.Misc^]
