@@ -76,6 +76,10 @@ int main(void) {
         printf("Question that is TRUE for %s but not for %s\ninput: ",
             suspect, current->question);
         fgets(question, 80, stdin);
+
+        /* Free old storage in the heap before assigning a new value. */
+        free(current->question);
+
         current->question = strdup(question);
       }
     }
