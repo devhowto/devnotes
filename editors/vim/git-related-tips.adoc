@@ -1,0 +1,29 @@
+= Git Related Tips
+:page-subtitle: Vim
+:page-tags: vim nvim git tip
+:icons: font
+:toc: left
+:experimental:
+
+== Unstage or discard change or file under cursor
+
+[WARNING]
+====
+When changes are *unstaged*, they still remain on the working tree and no code/text is lost.
+Those changes can be further edited or simply staged again.
+
+When changes are *discarded*, they are lost and not available any more on the working tree.
+If this was done by accident, the code would have to be rewritten again.
+Sometimes the editor still have the text on the buffer though, so it could just be saved again.
+====
+
+=== vim fugitive
+
+Run `:Git` or `:vert Git`, then move to the stage files with kbd:[gs].
+To unstage an entire file, type kbd:[u] when the cursor is on the line listing that file.
+Internally, this uses something like  `git reset ./path/to/file`.
+
+To unstage hunks (pieces of change), first move the cursor to the file in question, expand the changes with kbd:[Tab], then navigate to the changes with kbd:[[c], and finally unstage _that specific hunk_ with kbd:[u].
+
+To discard (completely wipe the changes out), follow to same steps but instead of kbd:[u] to unstage, type kbd:[X].
+It can be done on the line listing the file with changes, or on each individual change just like discussed above for unstaging changes.

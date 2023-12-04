@@ -45,6 +45,7 @@ Databases:
 Editors:
   Vim:
     - editors/vim/vim-coc.adoc
+    - editors/vim/git-related-tips.adoc
   Emacs:
     - editors/emacs/emacs.adoc
 Miscelanous:
