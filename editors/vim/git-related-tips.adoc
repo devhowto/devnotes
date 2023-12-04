@@ -5,20 +5,23 @@
 :toc: left
 :experimental:
 
-== Unstage or discard change or file under cursor
+== Intro
+
+To learn how to do the things described here using the git  command line only, check link:/git/git-undo-stuff.html[Git Undo Stuff document^].
+
+== Unstage or discard changes
 
 [WARNING]
 ====
 When changes are *unstaged*, they still remain in the working tree and no code/text is actually lost.
 Those changes can be further edited or simply staged again.
+_Unstaging_ is associated with idea of _resetting_.
 
 When changes are *discarded*, they are lost and not available any longer in the working tree.
 If this was done by accident, the code would have to be rewritten again.
 Sometimes the editor still have the text on the buffer though, so it could just be saved again.
-====
-
-_Unstaging_ is associated with idea of _resetting_.
 _Discarding_ is associated with the idea of _checking out_.
+====
 
 === Fugitive
 
@@ -36,7 +39,7 @@ To unstage hunks (pieces of change), first move the cursor to the file in questi
 To discard (completely wipe the changes out), follow to same steps but instead of kbd:[u] to unstage, type kbd:[X].
 It can be done on the line listing the file with changes, or on each individual change just like discussed above for unstaging changes.
 
-== Gitsigns
+=== Gitsigns
 
 [NOTE]
 ====
