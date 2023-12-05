@@ -19,11 +19,21 @@ int compare_area_asc(const void* rect_a, const void* rect_b) {
   return area_a - area_b;
 }
 
+/* This works with less intermediate steps. */
+/*
 int compare_area_desc(const void* rect_a, const void* rect_b) {
   int area_a = (*(Rect*)rect_a).width * (*(Rect*)rect_a).height;
   int area_b = (*(Rect*)rect_b).width * (*(Rect*)rect_b).height;
 
   return area_b - area_a;
+}
+*/
+
+/**
+ * Implement the desc version in terms of the asc one just
+ * by flipping the params order. */
+int compare_area_desc(const void *rect_a, const void *rect_b) {
+  return compare_area_asc(rect_b, rect_a);
 }
 
 int main(void) {
