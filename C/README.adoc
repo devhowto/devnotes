@@ -52,6 +52,9 @@ $ bear -- make foo
 
 The result will be a `compile_commands.json` in the current directory which contains the build info for the `foo` `make` target.
 
+Sometimes it generates an empty `compile_commands.json`.
+One time when it happened, no `main()` function was present, and just momentarily adding a minimal main function solved the problem.
+
 == Criterion
 
 link:https://github.com/Snaipe/Criterion/releases[Download Criterion^] (if not installing from AUR or the package manager of

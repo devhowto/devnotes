@@ -66,5 +66,5 @@ And and it has an option to enable it only when holding `ctrl+alt`, which is awe
 
 [NOTE]
 ====
-Behold! Vim is aswesome!
+Behold! Vim is awesome!
 ====
