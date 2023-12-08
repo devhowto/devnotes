@@ -7,3 +7,9 @@
 #
 *.run
 *.out
+
+##
+# compile_commands.json is different on different machines and can
+# generated with `bear -- make` or similar.
+#
+compile_commands.json
