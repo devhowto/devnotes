@@ -1,11 +1,12 @@
 /**
- * Solution 1.
+ * Solution 2.
  *
- * Use a few helper functions to decompose the int into
- * an array of its digits so we can sum each digit and compare with
- * the input number.
+ * No helper functions and compute the power using an inner for loop.
+ *
+ * Get the number of digits by using the log10(n) + 1 math trick.
  */
 
+#include <stdio.h>
 #include <stdlib.h>
 #include <math.h>
 #include <stdbool.h>
@@ -13,51 +14,28 @@
 
 #define MAX_DIGITS 12
 
-/**
- * Counts the number of digits in `n`.
- *
- * ASSUME: `n` is positive.
- */
-size_t count_digits(long int n) {
-  short len = 1;
-  long int d = n;
-
-  while (d >= 10) {
-    d = d / 10;
-    ++len;
-  }
-
-  return len;
-}
-
-/**
- * Turns the int into an array of its composing int digits.
- */
-short* to_digits(long int n, size_t *len) {
-  *len = count_digits(n);
-  short *digits = malloc(sizeof(short) * (*len) + 24);
-  short i = (*len) - 1;
-  long int d = n;
-
-  while (d >= 10) {
-    *(digits + i--) = d % 10;
-    d = d / 10;
-  }
-
-  *digits = d;
-
-  return digits;
-}
-
 bool is_armstrong_number(int n) {
-  size_t len = count_digits(n);
-  short *digits = to_digits(n, &len);
-  long int sum = 0;
+  int len = log10(n) + 1,
+      total = 0,
+      pow_tmp = 1,
+      d = n,
+      r;
 
-  for (size_t i = 0; i < len; ++i)
-    sum += pow(*(digits + i), len);
+  if (d < 10) return 1;
 
-  free(digits);
+  while (d > 0) {
+    r = d % 10;
 
-  return sum == n;
+    pow_tmp = 1;
+
+    for (int i = 0; i < len; ++i)
+      pow_tmp *= r;
+
+    total += pow_tmp;
+
+    r = d % 10;
+    d = d / 10;
+  }
+
+  return total == n;
 }
