@@ -48,7 +48,7 @@ Editors:
     - editors/vim/git-related-tips.adoc
   Emacs:
     - editors/emacs/emacs.adoc
-Miscelanous:
+Miscellaneous:
   - misc/archlinux.adoc
   - misc/asciidoc.adoc
   - misc/debian-virtualbox.adoc
@@ -61,6 +61,9 @@ Miscelanous:
   - misc/unicode-utf8.adoc
   - misc/virtualbox.adoc
   - misc/weechat.adoc
+
+C:
+ - C/clangd.adoc
 
 Algorithms:
   - ./algds/other/prime-factors/README.adoc
