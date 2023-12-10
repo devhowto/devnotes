@@ -67,3 +67,7 @@ C:
 
 Algorithms:
   - ./algds/other/prime-factors/README.adoc
+
+Exercism Challenges:
+  Easy:
+    - exercism/easy/armstrong-number.adoc
