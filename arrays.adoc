@@ -7,18 +7,30 @@
 [data-date="2022-10-29",data-tags="array swap"]
 == Swap array element
 
+Wee need to swap (in place) element and index 0 to element at index 3.
+Good old approach which work on most languages which allow mutable data structures:
+
 .stood the test of time
+[source,javascript]
 ----
-tmp = xs[idx1];
-xs[idx1] = xs[idx2];
-xs[idx2] = tmp;
+var xs = [10, 20, 30, 40];
+var tmp = xs[0];
+xs[0] = xs[3];
+xs[3] = tmp;
+log(xs);
+//=> [ 40, 20, 30, 10 ]
 ----
 
 Not all languages allow something like this:
 
 .smart approach
+[source,javascript]
 ----
-[xs[idx1], xs[idx2] = [xs[idx2], idx[1]]
+var xs = [10, 20, 30, 40];
+
+[xs[0], xs[3]] = [xs[3], xs[0]];
+log(xs);
+//=> [ 40, 20, 30, 10 ]
 ----
 
 .ES6 example:
