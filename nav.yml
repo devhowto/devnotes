@@ -46,6 +46,8 @@ Editors:
   Vim:
     - editors/vim/vim-coc.adoc
     - editors/vim/git-related-tips.adoc
+  Nvim:
+    - editors/nvim/lua-intro.adoc
   Emacs:
     - editors/emacs/emacs.adoc
 Miscellaneous:
