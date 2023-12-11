@@ -1,0 +1,3 @@
+= Deep Dive into Advanced TypeScript
+
+Examples from link:https://www.youtube.com/watch?v=5woZK_3z25U[this video^].
