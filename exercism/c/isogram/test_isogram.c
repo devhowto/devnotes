@@ -92,13 +92,13 @@ static void test_duplicated_character_in_the_middle(void)
 
 static void test_same_first_and_last_characters(void)
 {
-   TEST_IGNORE();
+   // TEST_IGNORE();
    TEST_ASSERT_FALSE(is_isogram("angola"));
 }
 
 static void test_word_with_duplicated_character_and_with_two_hyphens(void)
 {
-   TEST_IGNORE();
+   // TEST_IGNORE();
    TEST_ASSERT_FALSE(is_isogram("up-to-date"));
 }
 

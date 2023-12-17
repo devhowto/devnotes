@@ -32,6 +32,6 @@ memcheck: ./*.c ./*.h
 clean:
 	rm -rf *.o *.out *.out.dSYM
 
-tests.out: ./*.c ./*.h
+tests.out: ./isogram.c ./*.h
 	@echo Compiling $@
-	@$(CC) $(CFLAGS) test-framework/unity.c ./*.c -o tests.out $(LIBS)
+	@$(CC) $(CFLAGS) test-framework/unity.c ./isogram.c ./test_isogram.c -o tests.out $(LIBS)
