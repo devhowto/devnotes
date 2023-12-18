@@ -9,9 +9,7 @@ bool is_isogram(const char *s) {
 
   if (!s) return 0;
 
-  while (*s) {
-    chr = *s;
-
+  while ((chr = *s++) != '\0') {
     if (chr >= 'a' && chr <= 'z')
       sub = 'a';
     else if (chr >= 'A' && chr <= 'Z')
@@ -19,17 +17,13 @@ bool is_isogram(const char *s) {
     else
       sub = 'x';
 
-    if (sub == 'x') {
-      s++;
+    if (sub == 'x')
       continue;
-    }
 
     if ((bits & (1 << (chr - sub))) != 0)
       return 0;
     else
       bits |= (1 << (chr - sub));
-
-    s++;
   }
 
   return 1;
