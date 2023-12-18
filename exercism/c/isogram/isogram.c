@@ -1,21 +1,35 @@
-#include <stdio.h>
 #include <stdbool.h>
-#include <ctype.h>
+#include <stdint.h>
 #include "isogram.h"
 
 bool is_isogram(const char *s) {
-  char seen['z' - 'a' + 1] = { 0 };
-  char c;
-  size_t i = 0;
+  char chr,
+       sub = 'x';
+  uint32_t bits = 0;
 
-  if (s == NULL) return 0;
+  if (!s) return 0;
 
-  while ((c = tolower(s[i++]))) {
-    if (!isalpha(c)) continue;
+  while (*s) {
+    chr = *s;
 
-    if (seen[c - 'a']) return 0;
+    if (chr >= 'a' && chr <= 'z')
+      sub = 'a';
+    else if (chr >= 'A' && chr <= 'Z')
+      sub = 'A';
+    else
+      sub = 'x';
 
-    seen[c - 'a'] = 1;
+    if (sub == 'x') {
+      s++;
+      continue;
+    }
+
+    if ((bits & (1 << (chr - sub))) != 0)
+      return 0;
+    else
+      bits |= (1 << (chr - sub));
+
+    s++;
   }
 
   return 1;
