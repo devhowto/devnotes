@@ -923,7 +923,7 @@ By adding 97 to our ints, we can compute the int value of each one of the letter
 
 [NOTE]
 ====
-I learned about this ideas of addign or subtracting from a char in the book The C Programming Language by Brian Kernighan and Dennis Ritchie (also informally known as the KR C book)`.
+I learned about this ideas of adding or subtracting from a char in the book The C Programming Language by Brian Kernighan and Dennis Ritchie (also informally known as the KR C book)`.
 ====
 
 Play with those ideas in GHCi’s REPL to get a better feeling for it.
