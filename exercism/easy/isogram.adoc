@@ -51,9 +51,9 @@ bool is_isogram(const char s[]) {
 
 === Solution 2
 
-Uses a a bit field and some bitwise operators to turn on the flag chars that have been seen.
+Use a bit field and some bitwise operators to turn on the flag for chars that have been seen.
 
-If we consider that ‘a’ is the right most position in the bit field, then as soon as the first bit from the right is 1, we know it has been seen before.
+If we consider that ‘a’ is the right most position in the bit field, then as soon as the first bit from the right is 1, we know ‘a’ has been seen before.
 
 Imagine a bit field like this:
 
@@ -62,7 +62,7 @@ Imagine a bit field like this:
 0 0 0 0
 ----
 
-We want to check if the ‘c’ (which falls third right-to-left position flag has been set.
+We want to check if the ‘c’ (which falls in the third right-to-left position) flag has been set.
 We would do something like `1 << 3`, which means “I am moving the bit `1` three steps to the left, which would become `0 1 0 0`.
 Then we check, “in the existing flags, has that position already been set to 1?”:
 
@@ -86,7 +86,7 @@ At this point, our bit field will look like this:
 0 1 0 0
 ----
 
-The next time a char ‘c’ appears, the initial check will result in true, at which time we know that char has been seen before, and we return false from the function, meaning the current word/string is not an isogram.
+The next time a char ‘c’ appears, the initial check will result in true, at which time we know that ‘c’ has been seen before, and we return false from the function, meaning the current word/string is not an isogram.
 
 [source,text]
 ----
@@ -108,9 +108,9 @@ flags & 1 << 3 is the same as
   00000100
 ----
 
-When the `&` bitwise operator returns anything that is not 0, it means the flag (or bit in thag position) has been set before, which means the given char has been seen before.
+When the `&` bitwise operator returns anything that is not 0, it means the flag (or bit in that position) has been set before, which means the given char has been seen before.
 
-To compute the position in the bit field, we use the good old char subtraction trick (which I learned in which we subtract (or add) one char from another using their internal numerical representation.
+To compute the position in the bit field, we use the good old trick in which we subtract (or add) one char from another using their internal numerical representation.
 For example, since ‘a’ is 0x61 (97 in decimal) in ASCII and UTF-8, doing `'a' - 'a'` in C produces 0 (zero), and `'z' - 'a'` 25 in decimal.
 Well, the English alphabet contains 26 lowercase letters, so from 0 to 25 we can have room for the 26 letters.
 
