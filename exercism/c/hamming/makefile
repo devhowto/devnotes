@@ -13,9 +13,11 @@ CFLAGS += -Werror
 CFLAGS += -Wmissing-declarations
 CFLAGS += -DUNITY_SUPPORT_64 -DUNITY_OUTPUT_COLOR
 
-ASANFLAGS  = -fsanitize=address
+ASANFLAGS  = -fsanitize=address,undefined
 ASANFLAGS += -fno-common
 ASANFLAGS += -fno-omit-frame-pointer
+
+SRC = ./test_hamming.c ./hamming_v2.c
 
 .PHONY: test
 test: tests.out
@@ -24,7 +26,7 @@ test: tests.out
 .PHONY: memcheck
 memcheck: ./*.c ./*.h
 	@echo Compiling $@
-	@$(CC) $(ASANFLAGS) $(CFLAGS) test-framework/unity.c ./*.c -o memcheck.out $(LIBS)
+	@$(CC) $(ASANFLAGS) $(CFLAGS) test-framework/unity.c $(SRC) -o memcheck.out $(LIBS)
 	@./memcheck.out
 	@echo "Memory check passed"
 
@@ -34,4 +36,4 @@ clean:
 
 tests.out: ./*.c ./*.h
 	@echo Compiling $@
-	@$(CC) $(CFLAGS) test-framework/unity.c ./*.c -o tests.out $(LIBS)
+	@$(CC) $(CFLAGS) test-framework/unity.c $(SRC) -o tests.out $(LIBS)
