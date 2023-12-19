@@ -4,6 +4,7 @@
 :toc: left
 :sectlinks:
 
+* link:https://exercism.org/tracks/c/exercises/isogram[Isogram Exercism Challenge^].
 
 == C
 
@@ -52,6 +53,11 @@ bool is_isogram(const char s[]) {
 === Solution 2
 
 Use a bit field and some bitwise operators to turn on the flag for chars that have been seen.
+
+[NOTE]
+====
+This solution is based on link:https://github.com/exercism/c/blob/main/exercises/practice/isogram/.approaches/bitfield/content.md[Bit field approach^] suggested in the Dig Deeper section of the Isogram challenge.
+====
 
 If we consider that ‘a’ is the right most position in the bit field, then as soon as the first bit from the right is 1, we know ‘a’ has been seen before.
 
@@ -111,8 +117,8 @@ flags & 1 << 3 is the same as
 When the `&` bitwise operator returns anything that is not 0, it means the flag (or bit in that position) has been set before, which means the given char has been seen before.
 
 To compute the position in the bit field, we use the good old trick in which we subtract (or add) one char from another using their internal numerical representation.
-For example, since ‘a’ is 0x61 (97 in decimal) in ASCII and UTF-8, doing `'a' - 'a'` in C produces 0 (zero), and `'z' - 'a'` 25 in decimal.
-Well, the English alphabet contains 26 lowercase letters, so from 0 to 25 we can have room for the 26 letters.
+For example, since ‘a’ is 0x61 (97 in decimal) in ASCII and UTF-8, doing `'a' - 'a'` in C produces 0 (zero), and `'z' - 'a'` yields 25 in decimal.
+Well, the English alphabet contains 26 lowercase letters, so from 0 to 25 we have room for the 26 letters.
 
 This sort of stuff can be used to signify positions of letters in relation to the alphabet or something else, like rot13 ciphers.
 
