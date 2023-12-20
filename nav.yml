@@ -67,6 +67,11 @@ Miscellaneous:
 C:
  - C/clangd.adoc
 
+Scheme:
+ - scheme/compiling-installing-chicken.adoc
+ - scheme/debugging.adoc
+ - scheme/functions.adoc
+
 Algorithms:
   - ./algds/other/prime-factors/README.adoc
 
