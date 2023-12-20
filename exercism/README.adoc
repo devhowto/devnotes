@@ -24,3 +24,11 @@ So my workflow is like this:
 * I may or may not continue trying other solutions.
   If I don't continue, the last code in `challenge.c` is the last (v3) solution, but I *don't* rename it to v3.
 
+== Scheme
+
+**NOTE**: This is a work in progress.
+
+Exercism Scheme challenges are supposed to work with Chez or Guile.
+To make them work with Chicken Scheme, a few changes are necessary:
+
+* Replace `(import (rnrs)) ...` `(import (scheme))...`.

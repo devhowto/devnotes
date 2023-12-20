@@ -1,4 +1,5 @@
-(import (except (rnrs) current-output-port))
+(import (scheme) (process-context))
+(import (except (scheme) current-output-port))
 
 (define test-fields '(input expected actual))
 

@@ -68,7 +68,7 @@ C:
  - C/clangd.adoc
 
 Scheme:
- - scheme/compiling-installing-chicken.adoc
+ - scheme/chicken.adoc
  - scheme/debugging.adoc
  - scheme/functions.adoc
 
@@ -80,3 +80,4 @@ Exercism Challenges:
     - exercism/easy/armstrong-number.adoc
     - exercism/easy/isogram.adoc
     - exercism/easy/hamming.adoc
+    - exercism/easy/grains.adoc
