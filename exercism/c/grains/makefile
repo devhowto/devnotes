@@ -17,7 +17,7 @@ ASANFLAGS  = -fsanitize=address
 ASANFLAGS += -fno-common
 ASANFLAGS += -fno-omit-frame-pointer
 
-SRC = ./grains_v2.c ./test_grains.c
+SRC = ./grains_v3.c ./test_grains.c
 
 .PHONY: test
 test: tests.out
