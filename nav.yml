@@ -73,7 +73,8 @@ Scheme:
  - scheme/functions.adoc
 
 Algorithms:
-  - ./algds/other/prime-factors/README.adoc
+  - algds/other/prime-factors/README.adoc
+  - algds/other/count-vowels.adoc
 
 Exercism Challenges:
   Easy:
