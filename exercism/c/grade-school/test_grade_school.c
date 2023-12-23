@@ -4,15 +4,15 @@
 #include <string.h>
 #include <stdio.h>
 
-#define NON_EMPTY_DUMMY_ROSTER                                                 \
-   {                                                                           \
-      1,                                                                       \
-      {                                                                        \
-         (student_t)                                                           \
-         {                                                                     \
-            255, "DEADBEEF"                                                    \
-         }                                                                     \
-      }                                                                        \
+#define NON_EMPTY_DUMMY_ROSTER                                         \
+   {                                                                   \
+      1,                                                               \
+      {                                                                \
+         (student_t)                                                   \
+         {                                                             \
+            255, "DEADBEEF"                                            \
+         }                                                             \
+      }                                                                \
    }
 
 void setUp(void)

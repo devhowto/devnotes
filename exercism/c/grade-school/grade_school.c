@@ -2,6 +2,9 @@
 #include <stdlib.h>
 #include <string.h>
 
+/**
+ * Initializes an empty roster.
+ */
 void init_roster(roster_t *roster) {
   roster->count = 0;
   memset(roster->students, 0, sizeof(roster->students));

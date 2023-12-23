@@ -23,6 +23,8 @@ void init_roster(roster_t *roster);
 bool add_student(roster_t *roster, const char *student_name,
                  uint8_t student_grade);
 
+int sort_by_grade_name_desc(const void *lhs, const void *rhs);
+
 roster_t get_grade(roster_t *roster, uint8_t desired_grade);
 
 #endif
