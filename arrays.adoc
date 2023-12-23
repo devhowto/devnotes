@@ -224,6 +224,9 @@ This works because `...xs` will expand to each individual sub-array, which are e
 
 == Generate an array of random numbers
 
+=== JavaScript
+
+==== apply and map approach
 [source,javascript]
 ----
 Array.apply(null, { length: 1e5 })
@@ -245,6 +248,20 @@ $ deno repl
 ]
 ----
 
+=== Array.from approach
+
+.Node.js REPL
+[source,javascript]
+----
+> Array.from({ length: 4 }, Math.random);
+//=> [
+//=>   0.8160035401943684,
+//=>   0.7165590142911911,
+//=>   0.5482091809438912,
+//=>   0.7045703602373274
+//=> ]
+----
+
 We can create some helper functions.
 
 .librand.js
@@ -261,6 +278,8 @@ var random = Math.random.bind(Math);
  * @sig Number Number -> Number
  */
 function rand(min, max) {
+  // Replace (max - min) with (max + 1 - min) to cause max
+  // to be inclusive as well.
   return (random() * (max - min) | 0) + min;
 }
 
