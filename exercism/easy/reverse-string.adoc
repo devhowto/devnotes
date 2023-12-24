@@ -1,0 +1,72 @@
+= Reverse String
+:page-subtitle: Exercism Easy Challenge
+:icons: font
+:toc: left
+:sectlinks:
+:stem: latexmath
+
+* link:https://exercism.org/tracks/c/exercises/reverse-string[Reverse String Exercism Challenge^].
+
+== C
+
+=== Solution 1
+
+[source,c]
+----
+#include <string.h>
+#include <stdlib.h>
+#include "reverse_string.h"
+
+/**
+ * Reverses an ASCII string.
+ *
+ * Uses a j variable to help move from end to beginning of dst.
+ */
+char *reverse(const char *src) {
+  int len = strlen(src);
+  char *dst = malloc(len + 1);
+  char c;
+  int j = len - 1;
+
+  while ((c = *src++) != '\0')
+    *(dst + j--) = c;
+
+  *(dst + len) = '\0';
+
+  return dst;
+}
+----
+
+=== Solution 2
+
+This solution looks a little more involved than the previous one due to the fact that we manipulate `dst` pointer itself without the use of a `j` variable.
+
+[source,c]
+----
+/**
+ * Reverse an ASCII string.
+ */
+char *reverse(const char *src) {
+  int len = strlen(src);
+  char *dst = malloc(len);
+  char c;
+
+  /* Point to last char just before before
+   * where '\0' will later be added */
+  dst += len - 1;
+
+  while ((c = *src++) != '\0')
+    *dst-- = c;
+
+  /* At this point, dst is pointing to memory position on less than
+   * its correct initial place. Advance it once so it correctly
+   * points to the beginning of its allotted memory. */
+  dst++;
+
+  /* Add the string terminator at last position. */
+  *(dst + len) = '\0';
+
+  return dst;
+}
+
+----
