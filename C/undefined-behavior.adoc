@@ -5,7 +5,7 @@
 :icons: font
 :imagesdir: __assets
 
-== Werror sequenc-point
+== Werror sequence-point
 
 Consider this code:
 
