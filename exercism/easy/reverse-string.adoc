@@ -68,5 +68,73 @@ char *reverse(const char *src) {
 
   return dst;
 }
-
 ----
+
+=== Solution 3
+
+Compute the string length internally without relying in `string.h` `strlen()`.
+
+Interesting use of `len` and `j` to start copying from the end of the original string.
+As `j` is incremented, we copy chars further to the left of the original string and place them further to the right of the destination string.
+
+[source,c]
+----
+#include <stdio.h>
+#include <stdlib.h>
+#include "reverse_string.h"
+
+/**
+ * Reverse an ASCII string.
+ *
+ * Computes string length internally without requiring
+ * strlen() from string.h.
+ */
+char *reverse(const char *s) {
+  size_t len = 0;
+  size_t j = 0;
+  char *dst;
+
+  while (*(s + len) != '\0')
+    ++len;
+
+  dst = malloc(len + 1);
+
+  while (*(s + j) != '\0') {
+    *(dst + j) = *(s + len - 1 - j);
+    ++j; /* <1> */
+  }
+
+  *(dst + len) = '\0';
+
+  return dst;
+}
+----
+
+If an int is incremented, it can be used to move something to the right, but also to the left if we subtract it from some other numeric value!
+It is an interesting approach that can be put to good use from time to time.
+
+
+I remember having applied it to the link:https://www.hackerrank.com/challenges/diagonal-difference[Diagonal Difference HackerRank challenge^]:
+
+[source,javascript]
+----
+/**
+ * Calculates the diagonal difference of the square matrix.
+ *
+ * @sig [Number] -> Number
+ */
+function diagDiff(xs) {
+  let ltrDiag = 0;
+  let rtlDiag = 0;
+  const lastPos = xs.length - 1;
+
+  for (let i = 0; i <= lastPos; ++i) {
+    ltrDiag += xs[i][i];
+    rtlDiag += xs[i][lastPos - i];
+  }
+
+  return Math.abs(ltrDiag - rtlDiag);
+}
+----
+
+Here, `i` increases each time, but because we use it in a subtraction (`lastPos - i`), it causes the second subscript to actually decrease, instead of increase.
