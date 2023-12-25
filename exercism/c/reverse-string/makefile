@@ -17,7 +17,7 @@ ASANFLAGS  = -fsanitize=address
 ASANFLAGS += -fno-common
 ASANFLAGS += -fno-omit-frame-pointer
 
-SRC = ./test_reverse_string.c ./reverse_string_v2.c
+SRC = ./test_reverse_string.c ./reverse_string_v3.c
 
 .PHONY: test
 test: tests.out
