@@ -66,6 +66,7 @@ Miscellaneous:
 
 C:
  - C/clangd.adoc
+ - C/undefined-behavior.adoc
 
 Scheme:
  - scheme/chicken.adoc
