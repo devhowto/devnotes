@@ -1,4 +1,4 @@
-export const MODNAME = 'e03-events';
+export const MODNAME = 'e01c-events';
 
 type Events = {
   add: string;
