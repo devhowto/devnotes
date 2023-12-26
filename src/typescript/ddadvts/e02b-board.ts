@@ -1,4 +1,4 @@
-export const MODNAME = "e02a-board";
+export const MODNAME = "e02b-board";
 
 //
 // Represent a board with N squares.
