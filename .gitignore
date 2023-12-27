@@ -46,6 +46,7 @@ build
 *.o
 *.run
 *.exe
+*.dSYM
 
 ##
 # C compilation caches.
