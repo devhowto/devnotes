@@ -74,6 +74,9 @@ Scheme:
  - scheme/debugging.adoc
  - scheme/functions.adoc
 
+JavaScript:
+  - ./javascript/arrays.adoc
+
 Algorithms:
   - algds/other/prime-factors/README.adoc
   - algds/other/count-vowels.adoc
