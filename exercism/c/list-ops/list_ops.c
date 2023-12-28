@@ -26,8 +26,19 @@ list_t *append_list(list_t *xs, list_t *ys) {
 
   list_t *list = new_list(new_list_len, NULL);
 
-  for (size_t i = 0; i < ys->length; ++i)
-    list->elements[i] = ys->elements[i];
+  size_t i,
+         j = 0;
+
+  if (xs->length > 0)
+    for (i = 0; i < xs->length; ++i, ++j)
+      list->elements[j] = xs->elements[i];
+
+  /* j is not reset to 0 as we want to keep adding elements from ys
+   * right after the elements from xs. */
+
+  if (ys->length > 0)
+    for (i = 0 ; i < ys->length; ++i, ++j)
+      list->elements[j] = ys->elements[i];
 
   return list;
 }
