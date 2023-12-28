@@ -75,6 +75,16 @@ list_t *filter_list(list_t *list, bool (*filter)(list_element_t)) {
   return filtered;
 }
 
+/**
+ * Returns the length of the list.
+ *
+ * - T.C: O(1).
+ * - S.C: O(1).
+ */
+size_t length_list(list_t *list) {
+  return list->length;
+}
+
 // int main(void) {
 //   list_t *l = new_list(3, (int[]){ 1, 2, 3 });
 //

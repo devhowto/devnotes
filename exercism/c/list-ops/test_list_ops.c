@@ -210,7 +210,7 @@ static void test_filter_non_empty_list(void)
 
 static void test_length_empty_list(void)
 {
-   TEST_IGNORE();
+   // TEST_IGNORE();
    list = new_list(0, NULL);
    size_t expected = 0;
 
@@ -222,7 +222,7 @@ static void test_length_empty_list(void)
 
 static void test_length_non_empty_list(void)
 {
-   TEST_IGNORE();
+   // TEST_IGNORE();
    list = new_list(4, (list_element_t[]){ 1, 2, 3, 4 });
    size_t expected = 4;
 
