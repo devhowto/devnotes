@@ -101,6 +101,24 @@ list_t *map_list(list_t *list, list_element_t (*map)(list_element_t)) {
   return mapped;
 }
 
+/**
+ * Rolds (reduces) the given list from the left with a function.
+ *
+ * - T.C: O(n).
+ * - S.C: O(n).
+ */
+list_element_t foldl_list(list_t *list, list_element_t initial,
+                          list_element_t (*foldl)(list_element_t,
+                                                  list_element_t)) {
+  list_element_t acc = initial;
+  size_t i;
+
+  for (i = 0; i < list->length; ++i)
+    acc = foldl(list->elements[i], acc);
+
+  return acc;
+}
+
 // int main(void) {
 //   list_t *l = new_list(3, (int[]){ 1, 2, 3 });
 //
