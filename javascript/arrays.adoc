@@ -5,6 +5,7 @@
 :icons: font
 :sectlinks:
 :sectlevel: 6
+:stem: latexmat
 
 == Array of n elements
 
