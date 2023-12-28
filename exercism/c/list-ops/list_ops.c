@@ -102,10 +102,10 @@ list_t *map_list(list_t *list, list_element_t (*map)(list_element_t)) {
 }
 
 /**
- * Rolds (reduces) the given list from the left with a function.
+ * Folds (reduces) the given list from the left with a function.
  *
- * - T.C: O(n).
- * - S.C: O(n).
+ * • T.C: O(n).
+ * • S.C: O(n).
  */
 list_element_t foldl_list(list_t *list, list_element_t initial,
                           list_element_t (*foldl)(list_element_t,
@@ -115,6 +115,29 @@ list_element_t foldl_list(list_t *list, list_element_t initial,
 
   for (i = 0; i < list->length; ++i)
     acc = foldl(list->elements[i], acc);
+
+  return acc;
+}
+
+/**
+ * Folds (reduces) the given list from the right with a function.
+ *
+ * • T.C: O(n).
+ * • S.C: O(n).
+ */
+list_element_t foldr_list(list_t *list, list_element_t initial,
+                          list_element_t (*foldr)(list_element_t,
+                                                  list_element_t)) {
+
+  list_element_t acc = initial;
+  size_t i;
+
+  /* FIXME: Because we are using size_t (which means i cannot possibly
+   * be negative), i >= 0 will always be true. Thus, we do i >= 1 and
+   * index the elements with i - 1 to work around the problem. Maybe
+   * there is a better way to solve this. */
+  for (i = list->length; i >= 1; --i)
+    acc = foldr(list->elements[i - 1], acc);
 
   return acc;
 }
