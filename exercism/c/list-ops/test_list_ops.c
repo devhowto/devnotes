@@ -234,7 +234,7 @@ static void test_length_non_empty_list(void)
 
 static void test_map_empty_list(void)
 {
-   TEST_IGNORE();
+   // TEST_IGNORE();
    list = new_list(0, NULL);
 
    actual = map_list(list, map_increment);
@@ -247,7 +247,7 @@ static void test_map_empty_list(void)
 static void test_map_non_empty_list(void)
 {
 
-   TEST_IGNORE();
+   // TEST_IGNORE();
    list = new_list(4, (list_element_t[]){ 1, 3, 5, 7 });
    size_t expected_length = 4;
    list_element_t expected_elements[] = { 2, 4, 6, 8 };

@@ -85,6 +85,22 @@ size_t length_list(list_t *list) {
   return list->length;
 }
 
+/**
+ * Returns a new list with each element transformed by the map function.
+ *
+ * - T.C: O(n).
+ * - S.C: O(n).
+ */
+list_t *map_list(list_t *list, list_element_t (*map)(list_element_t)) {
+  list_t *mapped = new_list(list->length, NULL);
+  size_t i;
+
+  for (i = 0; i < list->length; ++i)
+    mapped->elements[i] = map(list->elements[i]);
+
+  return mapped;
+}
+
 // int main(void) {
 //   list_t *l = new_list(3, (int[]){ 1, 2, 3 });
 //
