@@ -43,6 +43,38 @@ list_t *append_list(list_t *xs, list_t *ys) {
   return list;
 }
 
+/**
+ * Returns a new list containing only elements that satisfy the
+ * predicate.
+ *
+ * Loops over all elements twice.
+ *
+ * - T.C: O(n * 2).
+ * - S.C: O(n).
+ */
+list_t *filter_list(list_t *list, bool (*filter)(list_element_t)) {
+  list_t *filtered;
+
+  size_t i,
+         len = 0,
+         j = 0;
+
+  /* Count how many elements will pass the predicate so we can
+   * allocate the correct amount of memory to the new list which
+   * will contain the filtered elements. */
+  for (i = 0; i < list->length; ++i)
+    if(filter(list->elements[i]))
+      ++len;
+
+  filtered = new_list(len, NULL);
+
+  for (i = 0; i < list->length; ++i)
+    if (filter(list->elements[i]))
+      filtered->elements[j++] = list->elements[i];
+
+  return filtered;
+}
+
 // int main(void) {
 //   list_t *l = new_list(3, (int[]){ 1, 2, 3 });
 //

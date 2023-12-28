@@ -152,7 +152,7 @@ static void test_append_list_to_empty_list(void)
 
 static void test_append_empty_list_to_list(void)
 {
-   TEST_IGNORE();
+   // TEST_IGNORE();
    list = new_list(4, (list_element_t[]){ 1, 2, 3, 4 });
    list2 = new_list(0, NULL);
    size_t expected_length = 4;
@@ -168,7 +168,7 @@ static void test_append_empty_list_to_list(void)
 
 static void test_append_non_empty_lists(void)
 {
-   TEST_IGNORE();
+   // TEST_IGNORE();
    list = new_list(2, (list_element_t[]){ 1, 2 });
    list2 = new_list(4, (list_element_t[]){ 2, 3, 4, 5 });
    size_t expected_length = 6;
@@ -184,7 +184,7 @@ static void test_append_non_empty_lists(void)
 
 static void test_filter_empty_list(void)
 {
-   TEST_IGNORE();
+   // TEST_IGNORE();
    list = new_list(0, NULL);
 
    actual = filter_list(list, filter_modulo);
@@ -196,7 +196,7 @@ static void test_filter_empty_list(void)
 
 static void test_filter_non_empty_list(void)
 {
-   TEST_IGNORE();
+   // TEST_IGNORE();
    list = new_list(5, (list_element_t[]){ 1, 2, 3, 4, 5 });
    size_t expected_length = 3;
    list_element_t expected_elements[] = { 1, 3, 5 };
