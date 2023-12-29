@@ -343,7 +343,7 @@ test_foldr_direction_dependent_function_applied_to_non_empty_list(void)
 
 static void test_reverse_empty_list(void)
 {
-   TEST_IGNORE();
+   // TEST_IGNORE();
    list = new_list(0, NULL);
 
    actual = reverse_list(list);
@@ -355,7 +355,7 @@ static void test_reverse_empty_list(void)
 
 static void test_reverse_non_empty_list(void)
 {
-   TEST_IGNORE();
+   // TEST_IGNORE();
    list = new_list(4, (list_element_t[]){ 1, 3, 5, 7 });
    size_t expected_length = 4;
    list_element_t expected_elements[] = { 7, 5, 3, 1 };
