@@ -14,5 +14,11 @@ type UnwrapArray<T> =
     ? UnwrapArray<Inner>
     : T;
 
-type U = UnwrapArray<Array<Array<number>>>;
+type U = Array<Array<number>>;
+//   ^?
+// Type is number[][].
+
+
+// But we can unwrap the type.
+type V = UnwrapArray<Array<Array<number>>>;
 //   ^?
