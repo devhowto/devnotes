@@ -1,6 +1,11 @@
 #include <stdio.h>
 #include "list_ops.h"
 
+/*
+ * All operations always return a new list without modifying the
+ * input list.
+ */
+
 list_t *new_list(size_t len, list_element_t elmts[]) {
   list_t *list = malloc(sizeof(list_t) + sizeof(list_element_t) * len);
   list->length = len;
@@ -21,6 +26,12 @@ void delete_list(list_t *list) {
   free(list);
 }
 
+/**
+ * Appends the second list to the first.
+ *
+ * • T.C: O(n).
+ * • S.C: O(n).
+ */
 list_t *append_list(list_t *xs, list_t *ys) {
   size_t new_list_len = xs->length + ys->length;
 
@@ -49,8 +60,8 @@ list_t *append_list(list_t *xs, list_t *ys) {
  *
  * Loops over all elements twice.
  *
- * - T.C: O(n * 2).
- * - S.C: O(n).
+ * • T.C: O(n * 2).
+ * • S.C: O(n).
  */
 list_t *filter_list(list_t *list, bool (*filter)(list_element_t)) {
   list_t *filtered;
@@ -78,8 +89,8 @@ list_t *filter_list(list_t *list, bool (*filter)(list_element_t)) {
 /**
  * Returns the length of the list.
  *
- * - T.C: O(1).
- * - S.C: O(1).
+ * • T.C: O(1).
+ * • S.C: O(1).
  */
 size_t length_list(list_t *list) {
   return list->length;
@@ -88,8 +99,8 @@ size_t length_list(list_t *list) {
 /**
  * Returns a new list with each element transformed by the map function.
  *
- * - T.C: O(n).
- * - S.C: O(n).
+ * • T.C: O(n).
+ * • S.C: O(n).
  */
 list_t *map_list(list_t *list, list_element_t (*map)(list_element_t)) {
   list_t *mapped = new_list(list->length, NULL);
@@ -142,13 +153,23 @@ list_element_t foldr_list(list_t *list, list_element_t initial,
   return acc;
 }
 
-// int main(void) {
-//   list_t *l = new_list(3, (int[]){ 1, 2, 3 });
-//
-//   for (size_t i = 0; i < 3; ++i)
-//     printf("%d\n", l->elements[i]);
-//
-//   free(l);
-//
-//   return 0;
-// }
+/**
+ * Returns a new list with the reversed elements of the input list.
+ *
+ * • T.C: O(n).
+ * • S.C: O(n).
+ */
+list_t *reverse_list(list_t *list) {
+  list_t *reversed = new_list(list->length, NULL);
+  size_t i,
+         j = 0;
+
+  /* FIXME: Same as the fixme above. Because i is size_t (non-negative),
+   * comparing >= 0 is always true. Thus the i - 1 thing and i starts
+   * one past the end of the list, instead if i = list->length - 1,
+   * which would be the normal way of doing it and avoid the i - 1. */
+  for (i = list->length; i >= 1; --i, ++j)
+    reversed->elements[j] = list->elements[i - 1];
+
+  return reversed;
+}
