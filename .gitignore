@@ -52,3 +52,9 @@ build
 # C compilation caches.
 #
 **/.cache
+
+##
+# Java stuff. (No, neither Java nor PHP, nor JavaScript suck. They are
+# languages with pros and cons like any other language or tool.)
+#
+*.jar
