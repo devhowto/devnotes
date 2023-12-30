@@ -1,0 +1,10 @@
+= File Retriever Example v1
+:toc: left
+:icons: font
+:sectlinks:
+:sectlevels: 6
+
+== Intro
+
+These are my own notes and variations on link:https://sandimetz.com/blog/2009/03/21/solid-design-principles[this blog post by Sandi Metz^] about dependency injection^].
+
