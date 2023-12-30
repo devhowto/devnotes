@@ -1,4 +1,71 @@
-= RSpec :: Ruby
+= RSpec
+:page-subtitle: Ruby
+:toc: left
+:sectlinks:
+:sectlevels: 6
+:imagesdir: __assets
+
+== Getting Started
+
+=== Simplest Approach
+
+Install `rspec`:
+
+[source,shell-session]
+----
+$ rvm install rspec
+----
+
+Then, if you have ruby specs like this one:
+
+.job.spec.rb
+[source,rb]
+----
+require_relative 'job'
+
+describe Job do
+  it 'should work' do
+    expect(Job.new.run).to eq('Run!')
+  end
+end
+----
+
+[NOTE]
+====
+Observe we *do not* need to `require 'rspec'`.
+====
+
+Simply run:
+
+[source,shell-session]
+----
+$ rspec --format=documentation ./job.spec.rb
+----
+
+image::rspec-example-1-fail.png[rspec example fail]
+
+Update the implementation of `Job#run` to satisfy the test and run it again.
+
+image::rspec-example-1-pass.png[rspec example pass]
+
+[TIP]
+====
+We can replace `--format=documentation` with `-f d`.
+`rspec --help` says:
+
+.excerpt from rspec --help
+[source,text]
+----
+-f, --format FORMATTER Choose a formatter.
+
+  • [p]rogress (default - dots)
+  • [d]ocumentation (group and example names)
+  • [h]tml
+  • [j]son
+  • [f]ailures ("file:line:reason", suitable for
+     editors integration)
+----
+====
 
 == Assert STDOUT output
 
@@ -37,7 +104,7 @@ describe PlainTextFormatter do
 end
 ----
 
-==== References
+=== References
 
 * https://relishapp.com/rspec/rspec-expectations/v/3-11/docs/built-in-matchers/output-matcher[RSpec
 output matcher docson Relish].
