@@ -74,6 +74,9 @@ Scheme:
  - scheme/debugging.adoc
  - scheme/functions.adoc
 
+Ruby:
+ - ruby/rspec.adoc
+
 JavaScript:
   - ./javascript/arrays.adoc
 
