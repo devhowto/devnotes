@@ -7,6 +7,11 @@ describe Job do
   # Now because the dependencies are passed as parameters we can
   # pass true mock objects as params to inject them.
   #
+  # NOTE: Copied this example from a blog post (see readme) and
+  # even the test suggests we are doing  too much. It says file
+  # retriever but we actually retrieve, clean it up and save
+  # a local copy after cleaning it up. Maybe it is doing too much.
+  #
   it 'should retrieve file and store it locally' do
     retriever = double('FileRetriever')
     allow(retriever).to receive(:get_file).and_return('the%20force')

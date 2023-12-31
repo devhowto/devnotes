@@ -21,6 +21,9 @@ class Job
     @local_path = local_path
   end
 
+  ##
+  # See notes on the tests. This method seems to be doing too much.
+  #
   def run
     content = @retriever.get_file(@remote_path)
 
