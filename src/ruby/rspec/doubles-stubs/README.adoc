@@ -1,0 +1,8 @@
+= Doubles and Stubs
+:page-subtitle: Thoughtbot
+:page-tags: test unit tdd rspec ruby double stub spy
+:icons: font
+:sectlinks:
+:toc: left
+
+Code based on link:https://thoughtbot.com/blog/stubbles-stubbing-and-doubles-innit[Stubbles - Stubbing and Doubles innit^] Thoughbot post.
