@@ -32,15 +32,15 @@ class Meetup
     @last_schedule = days_in_month - 6
   end
 
+  # 2024, 2, :second
+  # 2024, 2,
   def day(weekday, schedule)
+    date_schedule_starts = Date.new(@year, @month, schedule_start(schedule))
     wday = DAYS_OF_WEEK[weekday]
-    d = Date.new(@year, @month, schedule_start(schedule))
 
-    ##
-    # Jump forward one week if we would go back.
-    #
-    wday += 7 if wday < d.wday
-    d + (wday - d.wday)
+    # <1>
+    wday += 7 if wday < date_schedule_starts.wday
+    date_schedule_starts + (wday - date_schedule_starts.wday)
   end
 
   def schedule_start(schedule)
@@ -50,3 +50,16 @@ class Meetup
       raise "Unknown schedule: “#{schedule.inspect}”"
   end
 end
+
+
+#
+# <1> If the day of week we target is >= the start day of the
+# schedule then I just use it.
+#
+# So if my schedule starts with Tuesday (2) and I want a Wednesday (3) I
+# just need to add one day (3 - 1).
+#
+# But if my schedule starts on Friday (5) and I want a Monday (1) I
+# would need to go back 4 days (5-1) but then I would end up before my
+# start day, so I just add a full week (7) to get the next Monday.
+#
