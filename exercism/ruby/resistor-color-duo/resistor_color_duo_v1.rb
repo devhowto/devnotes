@@ -26,8 +26,8 @@ class ResistorColorDuo
     #
     # ['black', 'red', 'grey'] -> [0, 2]
     #
-    # At most two colors are taken into consideration. Excess colors are
-    # simply ignored.
+    # At most two colors are taken into consideration. Excess
+    # colors are simply ignored.
     #
     def to_index_array(colors)
       colors.take(2).collect do |color|
@@ -35,6 +35,14 @@ class ResistorColorDuo
       end
     end
 
+    ##
+    # Get the color values for the given pair (two-element array)
+    # of color names.
+    #
+    # @param color_names '{Array<String>} An array of two color
+    #   name string.
+    # @return String A string with the two color values.
+    #
     def value(colors)
       to_index_array(colors).join('').to_i
     end
