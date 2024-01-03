@@ -1,3 +1,20 @@
+= Microwave
+:page-subtitle: Exercism Easy Challenge
+:icons: font
+:toc: left
+:sectlinks:
+
+* link:https://exercism.org/tracks/ruby/exercises/microwave[Microwave Exercism Challenge^].
+
+== Ruby
+
+=== Solution 1
+
+This solution involves some string surgery.
+It works but there is probably a more mathy and elegant (and probably shorter) approach we can try.
+
+[source,ruby]
+----
 Microwave = Class.new do
   def initialize(seconds)
     @seconds = seconds
@@ -69,3 +86,4 @@ Microwave = Class.new do
     s.size < 2 ? '0' << s : s
   end
 end
+----
