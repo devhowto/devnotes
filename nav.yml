@@ -85,14 +85,17 @@ Algorithms:
   - algds/other/count-vowels.adoc
 
 Exercism Challenges:
-  Easy:
-    - exercism/easy/armstrong-number.adoc
-    - exercism/easy/isogram.adoc
-    - exercism/easy/hamming.adoc
-    - exercism/easy/grains.adoc
-    - exercism/easy/difference-of-squares.adoc
-    - exercism/easy/grade-school.adoc
-    - exercism/easy/reverse-string.adoc
-    - exercism/easy/list-operations.adoc
-    - exercism/easy/lasagna.adoc
-    - exercism/easy/microwave.adoc
+  C:
+    Easy:
+      - exercism/C/easy/armstrong-number.adoc
+      - exercism/C/easy/isogram.adoc
+      - exercism/C/easy/hamming.adoc
+      - exercism/C/easy/grains.adoc
+      - exercism/C/easy/difference-of-squares.adoc
+      - exercism/C/easy/grade-school.adoc
+      - exercism/C/easy/reverse-string.adoc
+      - exercism/C/easy/list-operations.adoc
+  Ruby:
+    Easy:
+      - exercism/ruby/easy/lasagna.adoc
+      - exercism/ruby/easy/microwave.adoc
