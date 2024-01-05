@@ -1,0 +1,21 @@
+[
+  {
+    "arguments": [
+      "/usr/bin/gcc",
+      "-c",
+      "-std=c99",
+      "-Og",
+      "-g3",
+      "-Wall",
+      "-Wextra",
+      "-Wpedantic",
+      "-fsanitize=address,undefined",
+      "-o",
+      "./main.run",
+      "./isogram.c"
+    ],
+    "directory": "/home/deveng/work/src/devnotes/exercism/c/isogram",
+    "file": "/home/deveng/work/src/devnotes/exercism/c/isogram/isogram.c",
+    "output": "/home/deveng/work/src/devnotes/exercism/c/isogram/main.run"
+  }
+]

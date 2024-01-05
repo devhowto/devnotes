@@ -1,0 +1,21 @@
+[
+  {
+    "arguments": [
+      "/usr/bin/gcc",
+      "-c",
+      "-std=c99",
+      "-Og",
+      "-g3",
+      "-Wall",
+      "-Wextra",
+      "-Wpedantic",
+      "-fsanitize=address,undefined",
+      "-o",
+      "./v3.run",
+      "./reverse_string_v3.c"
+    ],
+    "directory": "/home/deveng/work/src/devnotes/exercism/c/reverse-string",
+    "file": "/home/deveng/work/src/devnotes/exercism/c/reverse-string/reverse_string_v3.c",
+    "output": "/home/deveng/work/src/devnotes/exercism/c/reverse-string/v3.run"
+  }
+]

@@ -1,0 +1,21 @@
+[
+  {
+    "arguments": [
+      "/usr/bin/gcc",
+      "-c",
+      "-std=c99",
+      "-Og",
+      "-g3",
+      "-Wall",
+      "-Wextra",
+      "-Wpedantic",
+      "-fsanitize=address,undefined",
+      "-o",
+      "./main.run",
+      "./armstrong_numbers.c"
+    ],
+    "directory": "/home/deveng/work/src/devnotes/exercism/c/armstrong-numbers",
+    "file": "/home/deveng/work/src/devnotes/exercism/c/armstrong-numbers/armstrong_numbers.c",
+    "output": "/home/deveng/work/src/devnotes/exercism/c/armstrong-numbers/main.run"
+  }
+]
