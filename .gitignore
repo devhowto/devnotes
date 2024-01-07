@@ -58,3 +58,8 @@ build
 # languages with pros and cons like any other language or tool.)
 #
 *.jar
+
+##
+# Python.
+#
+__pycache__
