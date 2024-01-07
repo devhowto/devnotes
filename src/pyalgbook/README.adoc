@@ -1,0 +1,69 @@
+= Mastering Basic Algorithms in Python (book)
+
+== Timing Execution
+
+[source,text]
+----
+>>> from timeit import timeit
+>>> timeit('y = 2 + -2')
+0.014075674997002352
+>>> timeit('sum(range(1, 1001))')
+7.9507100810005795
+----
+
+Or from the shell.
+First, suppose mysum.py file:
+
+[source,python]
+----
+def sum_from_to(ini, end):
+    return sum(range(ini, end + 1))
+----
+
+Then, from the shell:
+
+[source,shell-session]
+----
+$ python3 -m timeit -s'import mysum as m' 'm.sum_all(1, 100)'
+55
+500000 loops, best of 5: 614 nsec per loop
+----
+
+== Profiling
+
+Don't guess where your program is spending time.
+Instead, use a profiler like `cProfiler`.
+
+[source,python]
+----
+import cProfile
+
+def sum_from_to(ini, end):
+    return sum(range(ini, end + 1))
+
+def main():
+    total = sum_from_to(1, int(1e9))
+    print(total)
+
+cProfile.run('main()')
+----
+
+Then from the shell:
+
+[source,shell-session]
+----
+$ python3 ./mysum.py
+500000000500000000
+         7 function calls in 8.901 seconds
+
+   Ordered by: standard name
+
+   ncalls  tottime  percall  cumtime  percall filename:lineno(function)
+        1    0.000    0.000    8.901    8.901 <string>:1(<module>)
+        1    0.000    0.000    8.901    8.901 sum_v1.py:3(sum_from_to)
+        1    0.000    0.000    8.901    8.901 sum_v1.py:6(main)
+        1    0.000    0.000    8.901    8.901 {built-in method builtins.exec}
+        1    0.000    0.000    0.000    0.000 {built-in method builtins.print}
+        1    8.901    8.901    8.901    8.901 {built-in method builtins.sum}
+        1    0.000    0.000    0.000    0.000 {method 'disable' of '_lsprof.Profiler' objects}
+----
