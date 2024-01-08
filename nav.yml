@@ -42,6 +42,7 @@ Databases:
   - dbsql/postgresql-roles.adoc
   - dbsql/useful-postgresql-commands.adoc
   - dbsql/postgresql-docker.adoc
+
 Editors:
   Vim:
     - editors/vim/vim-coc.adoc
@@ -50,6 +51,7 @@ Editors:
     - editors/nvim/lua-intro.adoc
   Emacs:
     - editors/emacs/emacs.adoc
+
 Miscellaneous:
   - misc/archlinux.adoc
   - misc/asciidoc.adoc
@@ -83,6 +85,10 @@ JavaScript:
 Algorithms:
   - algds/other/prime-factors/README.adoc
   - algds/other/count-vowels.adoc
+
+Codewars Challenges:
+  6kyu:
+    - codewars/6kyu/sum-multiples-of-3-or-5/README.adoc
 
 Exercism Challenges:
   C:
