@@ -10,10 +10,13 @@ insert_final_newline = true
 indent_style = tab
 indent_size = 2
 
+[*.{py}]
+indent_size = 4
+
 [Makefile]
 indent_style = tab
 indent_size = 4
 
-[*.{c,hs,rb,js,ts,py,java,css,adoc,html}]
+[*.{c,hs,rb,js,ts,java,css,adoc,html}]
 indent_style = space
 indent_size = 2
