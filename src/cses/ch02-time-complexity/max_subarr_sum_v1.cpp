@@ -2,6 +2,9 @@
 
 using namespace std;
 
+/**
+ * T.C: O(n³) because of three nested loops.
+ */
 int find_max_sum(const int *xs, size_t len) {
   int best = 0;
 
