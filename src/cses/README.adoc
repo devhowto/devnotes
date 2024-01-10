@@ -1,0 +1,4 @@
+= CSES Competitive Programming and Algorithms
+
+* https://cses.fi/book/index.php[CSES website^] where the PDF book can be downloaded from.
+* https://cses.fi/problemset/[Problem Set^].
