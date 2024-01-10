@@ -103,6 +103,7 @@ Exercism Challenges:
       - exercism/C/easy/list-operations.adoc
   Ruby:
     - exercism/ruby/lasagna.adoc
+    - exercism/ruby/acronym.adoc
     - exercism/ruby/microwave.adoc
     - exercism/ruby/resistor-color-duo.adoc
     - exercism/ruby/meetup.adoc
