@@ -1,10 +1,10 @@
 = Acronym
-:page-subtitle: Exercism Easy Challenge
+:page-subtitle: Exercism Easy Challenge :: Ruby
 :icons: font
 :toc: left
 :sectlinks:
 
-* link:https://exercism.org/tracks/ruby/exercises/acronym[Acronym Exercism Challenge^].
+* link:https://exercism.org/tracks/ruby/exercises/acronym[Acronym Exercism easy Ruby challenge^].
 
 == Solution 1
 

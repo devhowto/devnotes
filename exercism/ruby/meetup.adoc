@@ -6,9 +6,9 @@
 :sectlinks:
 :stem: latexmath
 
-* link:https://exercism.org/tracks/ruby/exercises/meetup[Meetup Exercism Challenge^].
+* link:https://exercism.org/tracks/ruby/exercises/meetup[Meetup Exercism easy Ruby challenge^].
 
-This exercise is categorized as _easy_, but it involves some date stuff which is not easy unless one is versed in date stuff in general and dates in ruby specificially.
+This exercise is categorized as _easy_, but it involves some date stuff which is not easy unless one is versed in date stuff in general and dates in ruby specifically.
 
 == Solution 1
 

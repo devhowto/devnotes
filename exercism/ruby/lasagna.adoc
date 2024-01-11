@@ -1,10 +1,10 @@
 = Lasagna
-:page-subtitle: Exercism Easy Challenge
+:page-subtitle: Exercism Learning Exercise :: Ruby
 :icons: font
 :toc: left
 :sectlinks:
 
-* link:https://exercism.org/tracks/ruby/exercises/lasagna[Lasagna Exercism Challenge^].
+* link:https://exercism.org/tracks/ruby/exercises/lasagna[Lasagna Exercism Ruby learning exercise^].
 
 == Ruby
 

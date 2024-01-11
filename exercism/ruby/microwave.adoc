@@ -1,10 +1,10 @@
 = Microwave
-:page-subtitle: Exercism Easy Challenge
+:page-subtitle: Exercism Easy Challenge :: Ruby
 :icons: font
 :toc: left
 :sectlinks:
 
-* link:https://exercism.org/tracks/ruby/exercises/microwave[Microwave Exercism Challenge^].
+* link:https://exercism.org/tracks/ruby/exercises/microwave[Microwave Exercism easy Ruby challenge^].
 
 == Ruby
 

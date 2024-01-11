@@ -1,10 +1,10 @@
 = Amusement Park
-:page-subtitle: Exercism Easy Challenge
+:page-subtitle: Exercism Learning Exercise :: Ruby
 :icons: font
 :toc: left
 :sectlinks:
 
-* link:https://exercism.org/tracks/ruby/exercises/amusement-park[Amusement Park Exercism Challenge^].
+* link:https://exercism.org/tracks/ruby/exercises/amusement-park[Amusement Park Exercism Ruby learning exercise^].
 
 == Solution
 

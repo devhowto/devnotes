@@ -1,12 +1,12 @@
 = Resistor Color Duo
-:page-subtitle: Exercism Easy Challenge
+:page-subtitle: Exercism Easy Challenge :: Ruby
 :page-tags: ruby hash
 :icons: font
 :toc: left
 :sectlinks:
 :stem: latexmath
 
-* link:https://exercism.org/tracks/ruby/exercises/resistor-color-duo[Resistor Color Duo Exercism Challenge^].
+* link:https://exercism.org/tracks/ruby/exercises/resistor-color-duo[Resistor Color Duo Exercism easy Ruby challenge^].
 
 == Solution 1
 
