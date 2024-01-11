@@ -85,3 +85,27 @@ $ grep --color -r '\* link.*' \
 [Acronym Exercism easy Ruby challenge^].
 [Resistor Color Duo Exercism easy Ruby challenge^].
 ----
+
+=== VSCode Snippets
+
+A VSCode snippet for a learning exercise:
+
+[source,json]
+----
+	"Exercism learning exercise": {
+		"prefix": "exercismle",
+		"body": [
+			"= $1",
+			":page-subtitle: Exercism Learning Exercise :: ${2:language}",
+			":page-tags: ${5:tags}"
+			":favicon: https://fernandobasso.dev/cmdline.png",
+			":icons: font",
+			":sectlinks:",
+			":sectnums!:",
+			":toclevels: 6",
+			":toc: left",
+			"\n",
+			"* link:${3}[$1 Exercism ${4:difficulty} ${2:language} learning exercise^]",
+		]
+	},
+----
