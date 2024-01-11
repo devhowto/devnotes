@@ -91,21 +91,22 @@ Codewars Challenges:
     - codewars/6kyu/sum-multiples-of-3-or-5/README.adoc
 
 Exercism Challenges:
-  C:
-    Easy:
-      - exercism/C/easy/armstrong-number.adoc
-      - exercism/C/easy/isogram.adoc
-      - exercism/C/easy/hamming.adoc
-      - exercism/C/easy/grains.adoc
-      - exercism/C/easy/difference-of-squares.adoc
-      - exercism/C/easy/grade-school.adoc
-      - exercism/C/easy/reverse-string.adoc
-      - exercism/C/easy/list-operations.adoc
-  Ruby:
-    - exercism/ruby/lasagna.adoc
-    - exercism/ruby/acronym.adoc
-    - exercism/ruby/microwave.adoc
-    - exercism/ruby/resistor-color-duo.adoc
-    - exercism/ruby/meetup.adoc
-    - exercism/ruby/amusement-park.adoc
-    - exercism/ruby/amusement-park-improvements.adoc
+  - exercism/README.adoc
+  - C:
+      Easy:
+        - exercism/C/easy/armstrong-number.adoc
+        - exercism/C/easy/isogram.adoc
+        - exercism/C/easy/hamming.adoc
+        - exercism/C/easy/grains.adoc
+        - exercism/C/easy/difference-of-squares.adoc
+        - exercism/C/easy/grade-school.adoc
+        - exercism/C/easy/reverse-string.adoc
+        - exercism/C/easy/list-operations.adoc
+  - Ruby:
+      - exercism/ruby/lasagna.adoc
+      - exercism/ruby/acronym.adoc
+      - exercism/ruby/microwave.adoc
+      - exercism/ruby/resistor-color-duo.adoc
+      - exercism/ruby/meetup.adoc
+      - exercism/ruby/amusement-park.adoc
+      - exercism/ruby/amusement-park-improvements.adoc
