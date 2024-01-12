@@ -1,24 +1,23 @@
 class LogLineParser
+  attr_reader :log_level, :message
+
   def initialize(line)
-    @line = line
-  end
-
-  def message
     ##
-    # The first `gsub` replaces tabs and newlines with a single
-    # space.
+    # The first named capturing group matches the log level without
+    # its surrounding ‘[’ and ‘]’ characters.
     #
-    # The second `gsub` matches an initial literal ‘[’ followed by
-    # character that is NOT a closing (literal) `]` one or more
-    # times. Then matches the char sequence ‘]: ’ (not the space)
-    # and replaces the entire match nothing, effectively “deleting”
-    # whatever was matched.
+    # The second named capturing group matches the log message, which
+    # is everything after the ‘:<spaces>’.
     #
-    @line.gsub(/(\t|\r\n?)/, ' ').gsub(/^\[[^\]]+\]:\s+/, '').strip
-  end
+    m = /\[(?<level>[^\]]+)\]:\s*(?<text>.*)/.match(line)
 
-  def log_level
-    @line.match(/\[([^\]]+)\]/)[1].downcase
+    #
+    # Strip takes care of spaces, tabs and newlines at both ends
+    # of the string.
+    #
+
+    @log_level = m[:level].strip.downcase
+    @message = m[:text].strip
   end
 
   def reformat
