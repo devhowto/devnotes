@@ -8,7 +8,7 @@
 :toclevels: 6
 :toc: left
 
-* link:https://exercism.org/tracks/ruby/exercises/log-line-parser[Log Line Parser Exercism easy Ruby learning exercise^]
+* link:https://exercism.org/tracks/ruby/exercises/log-line-parser[Log Line Parser Exercism Ruby learning exercise^]
 
 == Solution 1
 

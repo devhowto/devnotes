@@ -1,0 +1,11 @@
+= Assembly Line
+:page-subtitle: Exercism Learning Exercise :: Ruby
+:page-tags: ruby number integer
+:icons: font
+:sectlinks:
+:sectnums!:
+:toclevels: 6
+:toc: left
+
+* link:https://exercism.org/tracks/ruby/exercises/assembly-line[Assembly Line Exercism Ruby learning exercise^]
+
