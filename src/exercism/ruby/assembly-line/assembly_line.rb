@@ -6,18 +6,17 @@ class AssemblyLine
   end
 
   def production_rate_per_hour
-    case @speed
-    when 1..4
-      @speed * CARS_PER_HOUR * 1.0
-    when 5..8
-      @speed * CARS_PER_HOUR * 0.9
-    when 9
-      @speed * CARS_PER_HOUR * 0.8
-    when 10
-      @speed * CARS_PER_HOUR * 0.77
-    else
-      raise "Speed ‘#{@speed}’ is out of the range 1..10."
-    end
+    @speed * CARS_PER_HOUR *
+      case @speed
+      when 1..4
+        1.0
+      when 5..8
+        0.9
+      when 9
+        0.8
+      when 10
+        0.77
+      end
   end
 
   def working_items_per_minute
