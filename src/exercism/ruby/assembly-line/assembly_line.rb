@@ -1,3 +1,6 @@
+##
+# Solution 1 using if/else like explained in the page.
+#
 class AssemblyLine
   CARS_PER_HOUR = 221
 
@@ -18,7 +21,6 @@ class AssemblyLine
   end
 
   def working_items_per_minute
-    # (@speed * AssemblyLine::CARS_PER_HOUR) / 60
     (production_rate_per_hour / 60).to_i
   end
 end
