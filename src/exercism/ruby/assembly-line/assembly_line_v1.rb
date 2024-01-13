@@ -1,13 +1,7 @@
-module RANGES
-  FOR_ONE_HUNDRED_PERCENT = proc { |speed| speed <= 4 }
-  FOR_NINETY_PERCENT = proc { |speed| 5 <= speed && speed <= 8 }
-  FOR_EIGHTY_PERCENT = proc { |speed| speed == 9 }
-  FOR_SEVENTY_SEVEN_PERCENT = proc { |speed| speed > 9 }
-end
-
+##
+# Solution 1 using if/else like explained in the page.
+#
 class AssemblyLine
-  include RANGES
-
   CARS_PER_HOUR = 221
 
   def initialize(speed)
@@ -15,14 +9,13 @@ class AssemblyLine
   end
 
   def production_rate_per_hour
-    case @speed
-    when FOR_ONE_HUNDRED_PERCENT
+    if @speed <= 4
       @speed * AssemblyLine::CARS_PER_HOUR * 1.0
-    when FOR_NINETY_PERCENT
+    elsif 5 <= @speed && @speed <= 8
       @speed * AssemblyLine::CARS_PER_HOUR * 0.9
-    when FOR_EIGHTY_PERCENT
+    elsif @speed == 9
       @speed * AssemblyLine::CARS_PER_HOUR * 0.8
-    when FOR_SEVENTY_SEVEN_PERCENT
+    else
       @speed * AssemblyLine::CARS_PER_HOUR * 0.77
     end
   end
