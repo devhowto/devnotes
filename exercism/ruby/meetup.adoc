@@ -1,4 +1,4 @@
-= Lasagna
+= Meetup
 :page-subtitle: Exercism Easy Challenge
 :page-tags: ruby date range
 :icons: font
