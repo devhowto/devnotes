@@ -1,0 +1,10 @@
+= Blackjack
+:page-subtitle: Exercism Learning Exercise :: Ruby
+:page-tags: ruby case when
+:icons: font
+:sectlinks:
+:sectnums!:
+:toclevels: 6
+:toc: left
+
+* link:https://exercism.org/tracks/ruby/exercises/blackjack[Blackjack Exercism Ruby learning exercise^]
