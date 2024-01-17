@@ -26,24 +26,22 @@ module Blackjack
     when (12..16) then 'mid'
     when (17..20) then 'high'
     when 21 then 'blackjack'
-    else 'Sum is below < 4 or > 21'
+    else 'aces'
     end
   end
 
   def self.first_turn(card1, card2, dealer_card)
-    return 'P' if [card1, card2].all? { |c| c == "ace" }
-
-    range = card_range(card1, card2)
-
-    return 'S' if range == 'high'
-    return 'H' if range == 'low'
-
-    if range == 'blackjack'
-      return ['ace'].member?(dealer_card) ? 'S' : 'W'
-    end
-
-    if range == 'mid'
-      CARDS[dealer_card] < 7 ? 'S' : 'H'
+    case card_range(card1, card2)
+    when 'aces'
+      then 'P'
+    when 'blackjack'
+      parse_card(dealer_card) < 10 ? 'W' : 'S'
+    when 'high'
+      'S'
+    when 'mid'
+      parse_card(dealer_card) < 7 ? 'S' : 'H'
+    else
+      'H'
     end
   end
 end
