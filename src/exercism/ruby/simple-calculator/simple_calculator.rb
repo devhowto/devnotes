@@ -1,3 +1,7 @@
+##
+# Improvements made from code review and mentoring from the @kotp.
+##
+
 module SimpleCalculatorExceptions
   class UnsupportedOperation < ArgumentError
     def initialize(msg = 'A valid operation must be provided.')
@@ -9,30 +13,40 @@ end
 class SimpleCalculator
   include SimpleCalculatorExceptions
 
+  ##
+  # The operations currently handled by this class.
+  #
   OPS = ALLOWED_OPERATIONS = ['+', '/', '*'].freeze
 
-  OP = OPERATION = {
-    '+' => ->(a, b) { a + b },
-    '*' => ->(a, b) { a * b },
-    '/' => ->(a, b) { a / b },
+  OP = OPERATE = {
+    '+' => ->(operand1, operand2) { operand1 + operand2 },
+    '*' => ->(operand1, operand2) { operand1 * operand2 },
+    '/' => ->(dividend, divisor) { dividend / divisor },
   }
 
   private_constant :OP
 
-  def self.calculate(left_operand, right_operand, operator)
+  ##
+  # Applies the operator to the operands and returns the result.
+  #
+  # @param [Integer] operand1
+  # @param [Integer] operand2
+  # @param [String] operator One of ‘+’, ‘*’ or ‘/’.
+  #
+  def self.calculate(operand1, operand2, operator)
     raise ArgumentError.new('Operands must be integers.') unless
-      [left_operand, right_operand].all? { |operand| operand.is_a?(Integer) }
+      [operand1, operand2].all? { |operand| operand.is_a?(Integer) }
 
     raise UnsupportedOperation unless ALLOWED_OPERATIONS.member?(operator)
 
     begin
-      '%{left_operand} %{operator} %{right_operand} = %{result}' %
-        {
-          left_operand: left_operand,
-          operator: operator,
-          right_operand: right_operand,
-          result: OP[operator].call(left_operand, right_operand),
-        }
+      '%i %s %i = %i' %
+        [
+          operand1,
+          operator,
+          operand2,
+          OP[operator].call(operand1, operand2),
+        ]
     rescue ZeroDivisionError => err
       'Division by zero is not allowed.'
     end
