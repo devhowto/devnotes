@@ -128,11 +128,9 @@ class SimpleCalculator
   private_constant :OP
 
   ##
-  # Applies the operator to the operands and returns the result.
-  #
-  # @param [Integer] operand1
-  # @param [Integer] operand2
-  # @param [String] operator One of ‘+’, ‘*’ or ‘/’.
+  # @param operand1 [Integer]
+  # @param operand2 [Integer]
+  # @param operator ['+', '*', '/']
   #
   def self.calculate(operand1, operand2, operator)
     raise ArgumentError.new('Operands must be integers.') unless
