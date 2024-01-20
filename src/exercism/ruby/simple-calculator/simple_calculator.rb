@@ -43,7 +43,7 @@ class SimpleCalculator
   def self.calculate(operand1, operand2, operator)
     calculation = new(operand1, operand2, operator)
     calculation.send :validate
-    calculation.send :to_s
+    calculation.to_s
   end
 
   def initialize(operand1, operand2, operator)
@@ -67,7 +67,6 @@ class SimpleCalculator
   rescue ZeroDivisionError
     'Division by zero is not allowed.'
   end
-
 
   def validate
     raise IntegerOperandError unless
