@@ -8,6 +8,12 @@ module SimpleCalculatorExceptions
       super
     end
   end
+
+  class IntegerOperandError < ArgumentError
+    def initialize(message = 'Operands must be integers.')
+      super
+    end
+  end
 end
 
 class SimpleCalculator
@@ -35,37 +41,44 @@ class SimpleCalculator
   # @param operator ['+', '*', '/']
   #
   def self.calculate(operand1, operand2, operator)
-    new(operand1, operand2, operator).to_s
+    calculation = new(operand1, operand2, operator)
+    calculation.send :validate
+    calculation.send :to_s
   end
 
   def initialize(operand1, operand2, operator)
     @operand1, @operand2, @operator = operand1, operand2, operator
+  end
 
-    validate
+  def to_s
     run
   end
 
+  private
+
   def run
-    @result = '%i %s %i = %i' %
+    '%i %s %i = %i' %
       [
         operand1,
         operator,
         operand2,
         OP[operator].call(operand1, operand2),
       ]
-
-  rescue ZeroDivisionError => err
-    @report = 'Division by zero is not allowed.'
+  rescue ZeroDivisionError
+    'Division by zero is not allowed.'
   end
 
+
   def validate
-    raise ArgumentError, 'Operands must be integers.' unless
+    raise IntegerOperandError unless
       [operand1, operand2].all? { |operand| operand.is_a?(Integer) }
 
     raise UnsupportedOperation unless OPS.member?(operator)
   end
+end
 
-  def to_s
-    @report || @result
-  end
+if $PROGRAM_NAME == __FILE__
+  puts SimpleCalculator.calculate(1, 2, '+')
+  puts SimpleCalculator.new(1, 2, '+')
+  p SimpleCalculator.new(1, 2, '+').to_s
 end
