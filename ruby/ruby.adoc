@@ -112,3 +112,30 @@ hey
 ----
 
 We can use keyword arg `gets(chomp: true)`, which is a smidge better then `gets.chomp`, maybe...
+
+== Why long name initialize
+
+link:https://discord.com/channels/518658712081268738/788748516352458752/1198265233161080932[My original question^]:
+
+[quote, Fernando Basso, Ruby Discord Server]
+____
+Also, Ruby has a lot of nice shortened names like to_i and to_s.
+Why then would they name initialize this long instead of simply ini or init?
+I feel languages in general have some inconsistencies in the decisions taken (as a user of those languages).
+I imagine whoever was designing and implementing those things had reasons for doing things the way they did.
+Else, they slipped up here and there, similar to PHP hell of parameter order.
+----
+
+[quote, yes, Ruby Discord]
+____
+I think it's fairly consistent. The X in to_x is a letter representing a data type.
+Does ruby shorten things when it's not data-type dependent?
+Nothing I can remember of the top of my head, but I have terrible memory.
+____
+
+== collect vs map name
+
+* https://en.wikipedia.org/wiki/Map_(higher-order_function)
+
+* link:https://discord.com/channels/518658712081268738/788748516352458752/1198260956749377587[Discord conversation on map vs collect^].
+
