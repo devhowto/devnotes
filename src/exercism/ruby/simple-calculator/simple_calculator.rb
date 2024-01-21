@@ -29,6 +29,8 @@ class SimpleCalculator
 
   OPS = ALLOWED_OPERATIONS = OP.keys
 
+  REPORT = '%<operand1>i %<operator>s %<operand2>i = %<result>i'
+
   private_constant :OP, :OPS
 
   ##
@@ -41,9 +43,14 @@ class SimpleCalculator
   # @param operator ['+', '*', '/']
   #
   def self.calculate(operand1, operand2, operator)
-    calculation = new(operand1, operand2, operator)
-    calculation.send :validate
-    calculation.to_s
+    if operator == '/' and operand2.zero?
+      return 'Division by zero is not allowed.'
+    end
+
+    raise UnsupportedOperation unless OPS.member?(operator) &&
+      [operand1, operand2].all? { |operand| operand.is_a?(Integer) }
+
+    new(operand1, operand2, operator).to_s
   end
 
   def initialize(operand1, operand2, operator)
@@ -51,28 +58,22 @@ class SimpleCalculator
   end
 
   def to_s
-    run
+    report % {
+      operand1:,
+      operator:,
+      operand2:,
+      result: operate
+    }
   end
 
   private
 
-  def run
-    '%i %s %i = %i' %
-      [
-        operand1,
-        operator,
-        operand2,
-        OP[operator].call(operand1, operand2),
-      ]
-  rescue ZeroDivisionError
-    'Division by zero is not allowed.'
+  def report
+    REPORT
   end
 
-  def validate
-    raise IntegerOperandError unless
-      [operand1, operand2].all? { |operand| operand.is_a?(Integer) }
-
-    raise UnsupportedOperation unless OPS.member?(operator)
+  def operate
+    OP[operator].call(operand1, operand2)
   end
 end
 
