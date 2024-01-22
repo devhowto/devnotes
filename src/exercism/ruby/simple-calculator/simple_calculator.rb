@@ -19,8 +19,6 @@ end
 class SimpleCalculator
   include SimpleCalculatorExceptions
 
-  attr_reader :operand1, :operand2, :operator
-
   OP = OPERATE = {
     '+' => ->(operand1, operand2) { operand1 + operand2 },
     '*' => ->(operand1, operand2) { operand1 * operand2 },
@@ -53,9 +51,24 @@ class SimpleCalculator
     new(operand1, operand2, operator).to_s
   end
 
-  def initialize(operand1, operand2, operator)
-    @operand1, @operand2, @operator = operand1, operand2, operator
+  private
+
+  def initialize(operand1, operand2, operator, report: REPORT)
+    @operand1 = operand1
+    @operand2 = operand2
+    @operator = operator
+    @report = report
   end
+
+  attr_reader :report
+
+  def operate
+    OP[operator].call(operand1, operand2)
+  end
+
+  public
+
+  attr_reader :operand1, :operand2, :operator, :report
 
   def to_s
     report % {
@@ -65,20 +78,18 @@ class SimpleCalculator
       result: operate
     }
   end
-
-  private
-
-  def report
-    REPORT
-  end
-
-  def operate
-    OP[operator].call(operand1, operand2)
-  end
 end
 
 if $PROGRAM_NAME == __FILE__
   puts SimpleCalculator.calculate(1, 2, '+')
   puts SimpleCalculator.new(1, 2, '+')
   p SimpleCalculator.new(1, 2, '+').to_s
+
+  my_report = <<~EOS
+  %<operand1>4i
+  ———— = %<result>s
+  %<operand2>4i
+  EOS
+
+  puts SimpleCalculator.new(1024, 4, '/', report: my_report)
 end
