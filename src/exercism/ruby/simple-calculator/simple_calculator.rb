@@ -2,13 +2,17 @@
 # Improvements made from code review and mentoring from the @kotp.
 ##
 
-module SimpleCalculatorExceptions
-  class UnsupportedOperation < ArgumentError
+module CalculatorExceptions
+  class UnsupportedOperationError < ArgumentError
     def initialize(message = 'A valid operation must be provided.')
       super
     end
   end
 
+  UnsupportedOperation = UnsupportedOperationError
+end
+
+module SimpleCalculatorExceptions
   class IntegerOperandError < ArgumentError
     def initialize(message = 'Operands must be integers.')
       super
@@ -17,19 +21,15 @@ module SimpleCalculatorExceptions
 end
 
 class SimpleCalculator
-  include SimpleCalculatorExceptions
+  include CalculatorExceptions, SimpleCalculatorExceptions
 
-  OP = OPERATE = {
+  OPERATE = {
     '+' => ->(operand1, operand2) { operand1 + operand2 },
     '*' => ->(operand1, operand2) { operand1 * operand2 },
     '/' => ->(dividend, divisor) { dividend / divisor },
   }
 
-  OPS = ALLOWED_OPERATIONS = OP.keys
-
   REPORT = '%<operand1>i %<operator>s %<operand2>i = %<result>i'
-
-  private_constant :OP, :OPS
 
   ##
   # Applies the operator to the operands and returns a string
@@ -45,13 +45,19 @@ class SimpleCalculator
       return 'Division by zero is not allowed.'
     end
 
-    raise UnsupportedOperation unless OPS.member?(operator) &&
+    raise UnsupportedOperation unless operation_allowed?(operator) &&
       [operand1, operand2].all? { |operand| operand.is_a?(Integer) }
 
     new(operand1, operand2, operator).to_s
   end
 
   private
+
+  attr_reader :report
+
+  def self.operation_allowed?(operator)
+    OPERATE.keys.member?(operator)
+  end
 
   def initialize(operand1, operand2, operator, report: REPORT)
     @operand1 = operand1
@@ -60,10 +66,8 @@ class SimpleCalculator
     @report = report
   end
 
-  attr_reader :report
-
   def operate
-    OP[operator].call(operand1, operand2)
+    OPERATE[operator].call(operand1, operand2)
   end
 
   public
@@ -85,11 +89,22 @@ if $PROGRAM_NAME == __FILE__
   puts SimpleCalculator.new(1, 2, '+')
   p SimpleCalculator.new(1, 2, '+').to_s
 
-  my_report = <<~EOS
-  %<operand1>4i
-  ———— = %<result>s
-  %<operand2>4i
-  EOS
+  puts
+  my_report = <<~eos
+    %<operand1>4i
+    ———— = %<result>s
+    %<operand2>4i
+  eos
 
   puts SimpleCalculator.new(1024, 4, '/', report: my_report)
+
+  puts
+
+  class CustomSimpleCalculator < SimpleCalculator
+    if OPERATE['**'].nil?
+      OPERATE['**'] = ->(base, power) { base ** power }
+    end
+  end
+
+  puts CustomSimpleCalculator.calculate(2, 8, '**')
 end
