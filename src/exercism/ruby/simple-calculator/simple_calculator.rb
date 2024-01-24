@@ -41,14 +41,13 @@ class SimpleCalculator
   # @param operator ['+', '*', '/']
   #
   def self.calculate(operand1, operand2, operator)
-    if operator == '/' and operand2.zero?
-      return 'Division by zero is not allowed.'
-    end
-
-    raise UnsupportedOperation unless operation_allowed?(operator) &&
+    raise UnsupportedOperation unless operation_allowed?(operator)
+    raise IntegerOperandError unless
       [operand1, operand2].all? { |operand| operand.is_a?(Integer) }
 
     new(operand1, operand2, operator).to_s
+  rescue ZeroDivisionError
+    return 'Division by zero is not allowed.'
   end
 
   private
@@ -84,7 +83,14 @@ class SimpleCalculator
   end
 end
 
+
 if $PROGRAM_NAME == __FILE__
+  SimpleCalculator::OPERATE.merge!({
+    '**' => ->(base, power) { base ** power }
+  })
+
+  puts SimpleCalculator.calculate(2, 8, '**')
+
   puts SimpleCalculator.calculate(1, 2, '+')
   puts SimpleCalculator.new(1, 2, '+')
   p SimpleCalculator.new(1, 2, '+').to_s
@@ -98,13 +104,5 @@ if $PROGRAM_NAME == __FILE__
 
   puts SimpleCalculator.new(1024, 4, '/', report: my_report)
 
-  puts
-
-  class CustomSimpleCalculator < SimpleCalculator
-    if OPERATE['**'].nil?
-      OPERATE['**'] = ->(base, power) { base ** power }
-    end
-  end
-
-  puts CustomSimpleCalculator.calculate(2, 8, '**')
+  SimpleCalculator.calculate(3, 2, '-')
 end
