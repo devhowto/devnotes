@@ -31,6 +31,12 @@ class SimpleCalculator
 
   REPORT = '%<operand1>i %<operator>s %<operand2>i = %<result>i'
 
+  def self.operation_allowed?(operator)
+    OPERATE.keys.member?(operator)
+  end
+
+  private_class_method :operation_allowed?
+
   ##
   # Applies the operator to the operands and returns a string
   # representing the entire expression with the answer or an
@@ -47,16 +53,12 @@ class SimpleCalculator
 
     new(operand1, operand2, operator).to_s
   rescue ZeroDivisionError
-    return 'Division by zero is not allowed.'
+    'Division by zero is not allowed.'
   end
 
   private
 
-  attr_reader :report
-
-  def self.operation_allowed?(operator)
-    OPERATE.keys.member?(operator)
-  end
+  attr_reader :operand1, :operand2, :operator, :report
 
   def initialize(operand1, operand2, operator, report: REPORT)
     @operand1 = operand1
@@ -71,31 +73,35 @@ class SimpleCalculator
 
   public
 
-  attr_reader :operand1, :operand2, :operator, :report
-
   def to_s
-    report % {
-      operand1:,
-      operator:,
-      operand2:,
-      result: operate
-    }
+    report % { operand1:, operator:, operand2:, result: operate }
   end
 end
 
 
 if $PROGRAM_NAME == __FILE__
-  SimpleCalculator::OPERATE.merge!({
-    '**' => ->(base, power) { base ** power }
-  })
+
+  # expected normal use
+  puts SimpleCalculator.calculate(1, 2, '+')
+  puts SimpleCalculator.new(1, 2, '+')
+
+  puts
+
+  # examination as a debugging example
+  p SimpleCalculator.new(1, 2, '+').to_s
+  p SimpleCalculator.new(1, 2, '+')
+
+  puts
+
+  # additions from outside the class as a user of the library!
+  SimpleCalculator::OPERATE.merge!({'**' => ->(base, power) { base ** power }})
 
   puts SimpleCalculator.calculate(2, 8, '**')
 
-  puts SimpleCalculator.calculate(1, 2, '+')
-  puts SimpleCalculator.new(1, 2, '+')
-  p SimpleCalculator.new(1, 2, '+').to_s
-
   puts
+
+  # an example of a custom report string provided by user
+  # an example of "single quote heredoc"
   my_report = <<~eos
     %<operand1>4i
     ———— = %<result>s
@@ -104,5 +110,14 @@ if $PROGRAM_NAME == __FILE__
 
   puts SimpleCalculator.new(1024, 4, '/', report: my_report)
 
-  SimpleCalculator.calculate(3, 2, '-')
+  puts
+
+  # another example of adding operation from outside of the class as
+  # a user of the library
+  SimpleCalculator::OPERATE.merge!(
+    {'-' => ->(operand1, operand2) { operand1 - operand2 }}
+  )
+
+  puts SimpleCalculator.calculate(3, 2, '-')
+
 end
