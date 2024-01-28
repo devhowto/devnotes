@@ -6,7 +6,8 @@
 // import { Parent } from './ch01/02b_global_state';
 // import { Counter } from './ch01/03a_use_state';
 // import { Counter } from './ch01/03b_use_state';
-import { Counter } from './ch01/03c_use_state';
+// import { Counter } from './ch01/03c_use_state';
+import { Counter } from './ch01/03d_use_state';
 
 import './App.css';
 
