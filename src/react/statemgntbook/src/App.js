@@ -8,7 +8,8 @@
 // import { Counter } from './ch01/03b_use_state';
 // import { Counter } from './ch01/03c_use_state';
 // import { Counter } from './ch01/03e_use_state';
-import { Counter } from './ch01/03f_use_state';
+// import { Counter } from './ch01/03f_use_state';
+import { Counter } from './ch01/03g_use_state';
 
 import './App.css';
 
