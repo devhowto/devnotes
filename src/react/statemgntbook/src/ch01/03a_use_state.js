@@ -10,7 +10,7 @@ function Counter() {
   return (
     <section>
       <pre>{JSON.stringify(count, null, 2)}</pre>
-      <button onClick={() => setCount({ c: 1 })}>
+      <button onClick={() => setCount(1)}>
         Set count to 1
       </button>
     </section>
