@@ -5,7 +5,7 @@ const log = console.log.bind(console);
 function Counter() {
   const [count, setCount] = useState(0);
 
-  log('re-render 03c_use_state');
+  log('re-render 03d_use_state');
 
   return (
     <section>
