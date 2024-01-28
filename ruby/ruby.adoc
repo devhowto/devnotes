@@ -124,7 +124,7 @@ Why then would they name initialize this long instead of simply ini or init?
 I feel languages in general have some inconsistencies in the decisions taken (as a user of those languages).
 I imagine whoever was designing and implementing those things had reasons for doing things the way they did.
 Else, they slipped up here and there, similar to PHP hell of parameter order.
-----
+____
 
 [quote, yes, Ruby Discord]
 ____
@@ -139,3 +139,12 @@ ____
 
 * link:https://discord.com/channels/518658712081268738/788748516352458752/1198260956749377587[Discord conversation on map vs collect^].
 
+
+== Object hierarchy
+
+[source,irb]
+----
+$ irb --simple-prompt
+>> Enumerator.produce(Class, &:superclass).take_while(&:itself)
+=> [Class, Module, Object, BasicObject]
+----
