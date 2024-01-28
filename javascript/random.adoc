@@ -1,6 +1,6 @@
 = Random JS Notes
 :page-subtitle: JavaScript
-:page-tags: javascript emacscript tips
+:page-tags: javascript ecmascript tips
 
 == JavaScript Is Fun
 

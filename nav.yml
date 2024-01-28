@@ -80,7 +80,8 @@ Ruby:
  - ruby/rspec.adoc
 
 JavaScript:
-  - ./javascript/arrays.adoc
+  - javascript/index.adoc
+  - javascript/arrays.adoc
 
 Algorithms:
   - algds/other/prime-factors/README.adoc
