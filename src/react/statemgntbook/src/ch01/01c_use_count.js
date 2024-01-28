@@ -2,13 +2,16 @@ import { useState, useEffect } from "react";
 
 const log = console.log.bind(console);
 
-/**
- * We change the implementation of the custom hook without touching
- * the component code.
- */
+//
+// We change the implementation of the custom hook without touching the
+// component code.
+//
 function useCount() {
   const [count, setCount] = useState(0);
 
+  //
+  // New feature added to useCount().
+  //
   useEffect(function performLog() {
     log('count changed to:', count);
   }, [count]);
