@@ -44,3 +44,5 @@ const findByName = compose(find, propEq('name'));
 findByName('Aayla Secura')(users);
 //=> { name: 'Aayla Secura', level: 9 }
 ----
+
+* link:https://github.com/ramda/ramda/issues/2937[Should 'pathEq/propEq' and 'pathSatisfies/propSatisfies' parameters' order be consistent (Ramda issue)^].
