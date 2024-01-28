@@ -1,20 +1,29 @@
 import { useReducer } from "react";
 
 //
-// This is a very typical use of useReducer().
+// It is possible to BAIL OUT and avoid re-renders with useReducer()
+// as well.
 //
-// A reducer is a pure function, easy to test, and decoupled from
-// the code of the hook (useReducer()) itself.
-//
-// Note every return statement returns a new object based off off the
-// previous state. The object returned is always a new reference in
-// memory.
-//
+
 function reducer(state, action) {
   switch (action.type) {
     case 'INCREMENT':
       return { ...state, count: state.count + 1 };
     case 'SET_TEXT':
+      //
+      // If there is no text, simply return the same state reference,
+      // which causes React to understand the state was not changed,
+      // and therefore avoid unnecessary re-render.
+      //
+      // This example will cause the application to prevent the user
+      // from removing the last char in the input 😅. Contrived but
+      // serves to exemplify the bailing out from useReducer().
+      //
+      if (!action.text) return state;
+
+      //
+      // Otherwise, return a new state object reference.
+      //
       return { ...state, text: action.text };
     default:
       throw new TypeError('A valid action type must be provided');
