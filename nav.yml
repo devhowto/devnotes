@@ -82,6 +82,8 @@ Ruby:
 JavaScript:
   - javascript/index.adoc
   - javascript/arrays.adoc
+  - Do It With Ramda:
+    - javascript/do-it-with-ramda-part-1.adoc
 
 Algorithms:
   - algds/other/prime-factors/README.adoc
