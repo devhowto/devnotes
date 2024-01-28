@@ -9,12 +9,13 @@
 // import { Counter } from './ch01/03c_use_state';
 // import { Counter } from './ch01/03e_use_state';
 // import { Counter } from './ch01/03f_use_state';
-import { Counter } from './ch01/03g_use_state';
+// import { Counter } from './ch01/03g_use_state';
+import { Component } from './ch01/04a_use_reducer';
 
 import './App.css';
 
 function App() {
-  return <Counter />;
+  return <Component />;
 }
 
 export default App;
