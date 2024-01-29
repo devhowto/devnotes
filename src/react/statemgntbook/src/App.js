@@ -11,7 +11,9 @@
 // import { Counter } from './ch01/03f_use_state';
 // import { Counter } from './ch01/03g_use_state';
 // import { Component } from './ch01/04a_use_reducer';
-import { Component } from './ch01/04b_use_reducer';
+// import { Component } from './ch01/04b_use_reducer';
+// import { Component } from './ch01/04c_use_reducer';
+import { Component } from './ch01/04d_use_reducer';
 
 import './App.css';
 
