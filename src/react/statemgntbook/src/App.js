@@ -13,12 +13,14 @@
 // import { Component } from './ch01/04a_use_reducer';
 // import { Component } from './ch01/04b_use_reducer';
 // import { Component } from './ch01/04c_use_reducer';
-import { Component } from './ch01/04d_use_reducer';
+// import { Component } from './ch01/04d_use_reducer';
+// import { Counter } from './ch01/05a_use_state_with_use_reducer';
+import { Counter } from './ch01/05b_use_state_with_use_reducer';
 
 import './App.css';
 
 function App() {
-  return <Component />;
+  return <Counter />;
 }
 
 export default App;
