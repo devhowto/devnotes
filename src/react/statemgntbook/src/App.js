@@ -16,12 +16,21 @@
 // import { Component } from './ch01/04d_use_reducer';
 // import { Counter } from './ch01/05a_use_state_with_use_reducer';
 // import { Counter } from './ch01/05b_use_state_with_use_reducer';
-import { Counter } from './ch01/06a_use_reducer_with_use_state';
+// import { Counter } from './ch01/06a_use_reducer_with_use_state';
+import {
+  CounterWithUseState,
+  CounterWithUseReducer,
+} from './ch01/06b_use_reducer_with_use_state';
 
 import './App.css';
 
 function App() {
-  return <Counter />;
+  return (
+    <main>
+      <CounterWithUseState />
+      <CounterWithUseReducer />
+    </main>
+  )
 }
 
 export default App;
