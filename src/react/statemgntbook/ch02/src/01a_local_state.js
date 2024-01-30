@@ -25,8 +25,7 @@ log(addBase(1));
 //
 
 //
-// NOTE: although addBase in a container is not a mathematically pure
-// function, you can get the same result by calling addBase if base is
+// NOTE: although addBase() in a container is not a mathematically pure
+// function, you can get the same result by calling addBase() if base is
 // not changed (this characteristic is sometimes called idempotent).
 //
-
