@@ -20,7 +20,7 @@
 import {
   CounterWithUseState,
   CounterWithUseReducer,
-} from './ch01/06b_use_reducer_with_use_state';
+} from './ch01/07a_use_reducer_init';
 
 import './App.css';
 

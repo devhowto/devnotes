@@ -2,23 +2,49 @@ import { useState, useReducer } from 'react';
 
 const log = console.log.bind(console);
 
-function reducer(state, action) {
-  log({ state, action });
-  switch(action.type) {
-    case 'INCREMENT': return state + 1;
-    default: return state;
-  }
-};
+function initializeState(count) {
+  return count || 0;
+}
 
-function Counter({ initialCount = 0 }) {
-  const [count, dispatch] = useReducer(reducer, initialCount);
+function reducer(previousState, delta) {
+  return previousState + delta;
+}
+
+function CounterWithUseReducer({ initialCount = 0 }) {
+  const [state, dispatch] = useReducer(reducer, initialCount, initializeState);
+  log('<CounterWithUseReducer />', state);
 
   return (
     <section>
-      <pre>{count}</pre>
-      <button onClick={() => dispatch({ type: 'INCREMENT' })}>+1</button>
+      <pre>{state}</pre>
+      <button onClick={() => dispatch(1)}>+1</button>
     </section>
   );
 }
 
-export { Counter };
+function CounterWithUseState({ initialCount = 0 }) {
+  const [count, setState] = useState(() => initializeState(initialCount));
+
+  const dispatch = function dispatcher(delta) {
+    setState(previousState => reducer(previousState, delta))
+  }
+
+  return (
+    <section>
+      <pre>{count}</pre>
+      <button onClick={() => dispatch(1)}>+1</button>
+    </section>
+  );
+}
+
+export {
+  CounterWithUseState,
+  CounterWithUseReducer,
+};
+
+//
+// As you can see in ComponentWithUseState, useState() requires two
+// inline functions, whereas ComponentWithUseReducer has no inline
+// functions.  This is a trivial thing, but some interpreters or
+// compilers can optimize better without inline functions.
+//
