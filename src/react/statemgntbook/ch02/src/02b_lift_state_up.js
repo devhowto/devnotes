@@ -7,6 +7,11 @@
 // up? In this example, <AdditionalInfo /> doesn't need count and
 // setCount(), but it rerenders because the parent rerenders.
 //
+// In this case, <AdditionalInfo /> rerender is unnecessary and should
+// be avoided if possible and if performance is a concern.
+//
+// When a parent rerenders, its entire subtree rerenders.
+//
 
 import { useState } from 'react';
 
