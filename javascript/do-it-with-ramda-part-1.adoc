@@ -1,4 +1,4 @@
-= Ramda
+= Do It With Ramda Part I
 :page-subtitle: JavaScript
 :page-tags: javascript functional-programming ramda
 :icons: font
