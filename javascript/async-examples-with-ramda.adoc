@@ -1,15 +1,21 @@
-//
-// https://github.com/ramda/ramda/issues/3438
-//
+= Async Examples with Ramda
+:page-subtitle: JavaScript
+:page-tags: javascript functional-programming ramda
+:icons: font
+:sectlinks:
+:sectnums!:
+:toclevels: 6
+:toc: left
 
-import {
-  pipe,
-  pick,
-  andThen,
-} from "ramda";
+== Fetch and Pick Keys
 
-var log = console.log.bind(console);
+Imagine a collection of jedi:
 
+.Jedi DB values
+[%collapsible]
+====
+[source,javascript]
+----
 var jediDB = [
   {
     id: 1,
@@ -30,7 +36,13 @@ var jediDB = [
     level: 99,
   },
 ];
+----
+====
 
+And a function that fetches a jedi by their id:
+
+[source,javascript]
+----
 /**
  * Fetches a jedi by the ID.
  *
@@ -45,16 +57,29 @@ function fetchJedi(id, timeMs = 256) {
     }, timeMs);
   });
 }
+----
 
+Then, using `pipe` (or `compose`), fetch the jedi and extract some of its properties:
+
+[source,javascript]
+----
 var fetchJediById = pipe(
   fetchJedi,
   andThen(pick(['name', 'skill'])),
 );
 
-// fetchJediById(3).then(log);
+fetchJediById(3).then(log);
+//=> { name: 'Aayla Secura', skill: 'Mind trick' }
+----
 
+Of we can replace the `fetchJediById(id).then(log)` with yet another `pipe` + `andThen`:
+
+[source,javascript]
+----
 pipe(
   fetchJediById,
   andThen(log),
 )(1);
 //=> { name: 'Yoda', skill: 'The Force' }
+----
+

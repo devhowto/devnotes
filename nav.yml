@@ -83,6 +83,7 @@ JavaScript:
   - javascript/index.adoc
   - javascript/arrays.adoc
   - Do It With Ramda:
+    - javascript/async-examples-with-ramda.adoc
     - javascript/do-it-with-ramda-part-1.adoc
 
 Algorithms:
